@@ -21,7 +21,7 @@
         CGFloat heigt = (frame.size.height - (col - 1) * 10) / col;
         CGFloat width = (frame.size.width - 10) / 2;
         for (int i = 0; i < col; i++) {
-            for (int j = 0; j < 2; j ++) {
+            for (int j = 0; j < (count - 2 * i > 2 ? 2 : count - 2 * i); j ++) {
                 UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(j * (width + 10), i * (heigt + 10), width, heigt)];
                 btn.backgroundColor = RGB(100 + j*200, 135, 50 + i*300);
                 [btn setTitle:[items objectAtIndex:j + i * 2] forState:UIControlStateNormal];

@@ -8,6 +8,7 @@
 
 #import "LSAppDelegate.h"
 #import "LSMainViewController.h"
+#import "UIImage+Utility.h"
 
 @implementation LSAppDelegate
 
@@ -28,6 +29,11 @@
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     }
+    else
+    {
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:RGB(46, 121, 202) size:CGSizeMake(1, 44)] forBarMetrics:UIBarMetricsDefault];
+    }
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     return YES;
