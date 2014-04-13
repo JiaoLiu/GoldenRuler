@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIImage+Utility.h"
+#import <SVProgressHUD.h>
 
 @protocol Marco <NSObject>
 

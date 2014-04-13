@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSLoginViewController : UIViewController
+@interface LSLoginViewController : UIViewController<UITextFieldDelegate>
+
+@property (nonatomic, strong)UITextField *usernameField;
+@property (nonatomic, strong)UITextField *pwdField;
 
 @end

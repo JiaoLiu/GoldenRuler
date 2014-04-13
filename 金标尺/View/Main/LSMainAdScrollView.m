@@ -32,7 +32,8 @@
         // init pageControl
         scrollPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(frame.size.width - 100, frame.size.height - 40, 100, 30)];
         scrollPageControl.numberOfPages = items.count;
-        scrollPageControl.backgroundColor = [UIColor blackColor];
+        scrollPageControl.pageIndicatorTintColor = [UIColor whiteColor];
+        scrollPageControl.currentPageIndicatorTintColor = [UIColor redColor];
         [scrollPageControl addTarget:self action:@selector(scrollPage) forControlEvents:UIControlEventValueChanged];
         [self addSubview:scrollPageControl];
         

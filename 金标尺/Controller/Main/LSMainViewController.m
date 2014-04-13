@@ -14,6 +14,7 @@
 
 @implementation LSMainViewController
 
+@synthesize infoOrhomeBtn;
 @synthesize itemsArray;
 @synthesize iAdArray;
 
@@ -36,7 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"重庆事业单位";
-
+    
     // selectionBtn
     UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, NavigationBar_HEIGHT)];
     [selectBtn setTitle:@"选课" forState:UIControlStateNormal];
@@ -46,10 +47,10 @@
 //    [self.navigationController.view addSubview:selectBtn];
     
     // infoBtn
-    UIButton *infoBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 20, 50, NavigationBar_HEIGHT)];
-    infoBtn.backgroundColor = [UIColor redColor];
-    [infoBtn addTarget:self action:@selector(infoBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.view addSubview:infoBtn];
+    infoOrhomeBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 20, 50, NavigationBar_HEIGHT)];
+    infoOrhomeBtn.backgroundColor = [UIColor redColor];
+    [infoOrhomeBtn addTarget:self action:@selector(infoBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.view addSubview:infoOrhomeBtn];
     
     // incorrectBtn
     UIButton *incorrectBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 1, 50, 125)];
@@ -93,9 +94,8 @@
 {
     if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
         [LSAppDelegate showLoginView:self];
+        return;
     }
-    [USER_DEFAULT setObject:@"Y" forKey:isLoginKey];
-    [USER_DEFAULT synchronize];
     NSLog(@"%d",sender.tag);
 }
 
@@ -103,22 +103,34 @@
 
 - (void)selectBtnClicked
 {
-
+    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+        [LSAppDelegate showLoginView:self];
+        return;
+    }
 }
 
 - (void)infoBtnClicked
 {
-    
+    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+        [LSAppDelegate showLoginView:self];
+        return;
+    }
 }
 
 - (void)incorrectBtnClicked
 {
-    
+    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+        [LSAppDelegate showLoginView:self];
+        return;
+    }
 }
 
 - (void)privateBtnClicked
 {
-
+    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+        [LSAppDelegate showLoginView:self];
+        return;
+    }
 }
 
 @end
