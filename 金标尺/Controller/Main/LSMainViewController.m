@@ -22,7 +22,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.automaticallyAdjustsScrollViewInsets = NO;
+        if (IOS_VERSION >= 7.0) {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
         itemsArray = @[@"1",@"2",@"3",@"4",@"5",@"6"];
         iAdArray = @[@"1",@"2",@"3",@"4",@"5"];
     }
@@ -36,13 +38,13 @@
     self.title = @"重庆事业单位";
 
     // selectionBtn
-    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0 + yOffset, 75, NavigationBar_HEIGHT)];
+    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 75, NavigationBar_HEIGHT)];
     [selectBtn setTitle:@"选课" forState:UIControlStateNormal];
     [selectBtn addTarget:self action:@selector(selectBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.view addSubview:selectBtn];
     
     // infoBtn
-    UIButton *infoBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 0 + yOffset, 50, NavigationBar_HEIGHT)];
+    UIButton *infoBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 20, 50, NavigationBar_HEIGHT)];
     infoBtn.backgroundColor = [UIColor redColor];
     [infoBtn addTarget:self action:@selector(infoBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.view addSubview:infoBtn];
@@ -54,14 +56,14 @@
     [self.view addSubview:incorrectBtn];
     
     // privateBtn
-    UIButton *privateBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 70 - (44 + yOffset), 50, 50)];
+    UIButton *privateBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 70 - 64, 50, 50)];
     privateBtn.backgroundColor = [UIColor greenColor];
     [privateBtn addTarget:self action:@selector(privateBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:privateBtn];
     
     // itmesView
     NSInteger iAdOffset = iAdArray.count != 0 ? 160 : 0;
-    LSMainItemsView *itemsView = [[LSMainItemsView alloc] initWithFrame:CGRectMake(0, iAdOffset, SCREEN_WIDTH - 50, SCREEN_HEIGHT - (44 + yOffset) - iAdOffset) Items:itemsArray];
+    LSMainItemsView *itemsView = [[LSMainItemsView alloc] initWithFrame:CGRectMake(0, iAdOffset, SCREEN_WIDTH - 50, SCREEN_HEIGHT - 64 - iAdOffset) Items:itemsArray];
     itemsView.delegate = self;
     [self.view addSubview:itemsView];
     
