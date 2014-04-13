@@ -9,6 +9,7 @@
 #import "LSAppDelegate.h"
 #import "LSMainViewController.h"
 #import "UIImage+Utility.h"
+#import "LSLoginViewController.h"
 
 @implementation LSAppDelegate
 
@@ -17,9 +18,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     LSMainViewController *mainController = [[LSMainViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainController];
-    nav.navigationBar.translucent = NO;
-    self.window.rootViewController = nav;
+    UINavigationController *mainNav = [[UINavigationController alloc] initWithRootViewController:mainController];
+    mainNav.navigationBar.translucent = NO;
+    self.window.rootViewController = mainNav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
@@ -49,6 +50,8 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [USER_DEFAULT setObject:@"N" forKey:isLoginKey];
+    [USER_DEFAULT synchronize];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -65,5 +68,17 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark - show loginView
+
++ (void)showLoginView:(UIViewController *)viewC
+{
+    LSLoginViewController *loginVC = [[LSLoginViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    [viewC presentViewController:nav animated:YES completion:^{
+    }];
+}
+
+
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LSMainItemsView.h"
 #import "LSMainAdScrollView.h"
+#import "LSAppDelegate.h"
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 

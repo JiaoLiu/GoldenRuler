@@ -282,5 +282,7 @@ static classname *shared##classname = nil; \
 }  
 
 #define yOffset (IOS_VERSION >= 7.0 ? 20:0)
+#define isLoginKey [NSString stringWithFormat:@"%@",@"_IS_LOGIN_"]
+
 
 #endif

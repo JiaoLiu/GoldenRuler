@@ -38,10 +38,12 @@
     self.title = @"重庆事业单位";
 
     // selectionBtn
-    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 75, NavigationBar_HEIGHT)];
+    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, NavigationBar_HEIGHT)];
     [selectBtn setTitle:@"选课" forState:UIControlStateNormal];
     [selectBtn addTarget:self action:@selector(selectBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.view addSubview:selectBtn];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:selectBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+//    [self.navigationController.view addSubview:selectBtn];
     
     // infoBtn
     UIButton *infoBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 20, 50, NavigationBar_HEIGHT)];
@@ -73,6 +75,10 @@
         iAdScrollView.backgroundColor = [UIColor yellowColor];
         [self.view addSubview:iAdScrollView];
     }
+    
+    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+        [LSAppDelegate showLoginView:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,6 +91,11 @@
 
 - (void)clickedOnItem:(UIButton *)sender
 {
+    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+        [LSAppDelegate showLoginView:self];
+    }
+    [USER_DEFAULT setObject:@"Y" forKey:isLoginKey];
+    [USER_DEFAULT synchronize];
     NSLog(@"%d",sender.tag);
 }
 
@@ -92,7 +103,7 @@
 
 - (void)selectBtnClicked
 {
-    
+
 }
 
 - (void)infoBtnClicked
@@ -107,7 +118,7 @@
 
 - (void)privateBtnClicked
 {
-    
+
 }
 
 @end
