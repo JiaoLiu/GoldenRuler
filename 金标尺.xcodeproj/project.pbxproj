@@ -19,6 +19,9 @@
 		CC49FFF318F93AA8007E83F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC49FFDB18F93AA8007E83F4 /* UIKit.framework */; };
 		CC49FFFB18F93AA8007E83F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC49FFF918F93AA8007E83F4 /* InfoPlist.strings */; };
 		CC49FFFD18F93AA8007E83F4 /* ___Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC49FFFC18F93AA8007E83F4 /* ___Tests.m */; };
+		CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72A18F95209009CC532 /* LSMainViewController.m */; };
+		CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72D18F98002009CC532 /* LSMainItemsView.m */; };
+		CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,13 @@
 		CC49FFF818F93AA8007E83F4 /* 金标尺Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "金标尺Tests-Info.plist"; sourceTree = "<group>"; };
 		CC49FFFA18F93AA8007E83F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CC49FFFC18F93AA8007E83F4 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Tests.m"; sourceTree = "<group>"; };
+		CCC3D71C18F94A75009CC532 /* Marco.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marco.h; sourceTree = "<group>"; };
+		CCC3D72918F95209009CC532 /* LSMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainViewController.h; sourceTree = "<group>"; };
+		CCC3D72A18F95209009CC532 /* LSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainViewController.m; sourceTree = "<group>"; };
+		CCC3D72C18F98002009CC532 /* LSMainItemsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainItemsView.h; sourceTree = "<group>"; };
+		CCC3D72D18F98002009CC532 /* LSMainItemsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainItemsView.m; sourceTree = "<group>"; };
+		CCD6AE1418F99D7B004D758F /* LSMainAdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainAdScrollView.h; sourceTree = "<group>"; };
+		CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainAdScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +87,7 @@
 		CC49000618F93B0B007E83F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CCC3D71C18F94A75009CC532 /* Marco.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -84,6 +95,12 @@
 		CC49000818F93B26007E83F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CCC3D72318F9515D009CC532 /* Contest */,
+				CCC3D72418F9515D009CC532 /* Course */,
+				CCC3D72518F9515D009CC532 /* DailyChoice */,
+				CCC3D72618F9515D009CC532 /* Main */,
+				CCC3D72718F9515D009CC532 /* Practice */,
+				CCC3D72818F9515D009CC532 /* Private */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -91,6 +108,12 @@
 		CC49000918F93B3A007E83F4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CCC3D71D18F95153009CC532 /* Contest */,
+				CCC3D71E18F95153009CC532 /* Course */,
+				CCC3D71F18F95153009CC532 /* DailyChoice */,
+				CCC3D72018F95153009CC532 /* Main */,
+				CCC3D72118F95153009CC532 /* Practice */,
+				CCC3D72218F95153009CC532 /* Private */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,6 +197,96 @@
 				CC49FFF918F93AA8007E83F4 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CCC3D71D18F95153009CC532 /* Contest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Contest;
+			sourceTree = "<group>";
+		};
+		CCC3D71E18F95153009CC532 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Course;
+			sourceTree = "<group>";
+		};
+		CCC3D71F18F95153009CC532 /* DailyChoice */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DailyChoice;
+			sourceTree = "<group>";
+		};
+		CCC3D72018F95153009CC532 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				CCC3D72918F95209009CC532 /* LSMainViewController.h */,
+				CCC3D72A18F95209009CC532 /* LSMainViewController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		CCC3D72118F95153009CC532 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Practice;
+			sourceTree = "<group>";
+		};
+		CCC3D72218F95153009CC532 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		CCC3D72318F9515D009CC532 /* Contest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Contest;
+			sourceTree = "<group>";
+		};
+		CCC3D72418F9515D009CC532 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Course;
+			sourceTree = "<group>";
+		};
+		CCC3D72518F9515D009CC532 /* DailyChoice */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DailyChoice;
+			sourceTree = "<group>";
+		};
+		CCC3D72618F9515D009CC532 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				CCC3D72C18F98002009CC532 /* LSMainItemsView.h */,
+				CCC3D72D18F98002009CC532 /* LSMainItemsView.m */,
+				CCD6AE1418F99D7B004D758F /* LSMainAdScrollView.h */,
+				CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		CCC3D72718F9515D009CC532 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Practice;
+			sourceTree = "<group>";
+		};
+		CCC3D72818F9515D009CC532 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +385,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
+				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
+				CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */,
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
 			);

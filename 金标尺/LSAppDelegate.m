@@ -7,6 +7,7 @@
 //
 
 #import "LSAppDelegate.h"
+#import "LSMainViewController.h"
 
 @implementation LSAppDelegate
 
@@ -14,8 +15,21 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    LSMainViewController *mainController = [[LSMainViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainController];
+    nav.navigationBar.translucent = NO;
+    self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    //customize navgationbar
+    if (IOS_VERSION >= 7.0) {
+        [[UINavigationBar appearance] setBarTintColor:RGB(46, 121, 202)];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    }
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     return YES;
 }
 
