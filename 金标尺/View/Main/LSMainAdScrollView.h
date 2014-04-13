@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSMainAdScrollView : UIScrollView
+@interface LSMainAdScrollView : UIScrollView <UIScrollViewDelegate>
 
 @property (nonatomic, strong)UIPageControl *scrollPageControl;
 

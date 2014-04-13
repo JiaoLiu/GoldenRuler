@@ -21,6 +21,12 @@
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i * frame.size.width, 0, frame.size.width, frame.size.height)];
             imgView.backgroundColor = RGBA(100, 30, 41, i/items.count);
             [self addSubview:imgView];
+            
+            UILabel *title = [[UILabel alloc] initWithFrame:imgView.frame];
+            title.backgroundColor = [UIColor clearColor];
+            title.text = [items objectAtIndex:i];
+            title.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:title];
         }
         
         // init pageControl
@@ -30,25 +36,42 @@
         [scrollPageControl addTarget:self action:@selector(scrollPage) forControlEvents:UIControlEventValueChanged];
         [self addSubview:scrollPageControl];
         
-        self.contentSize = CGSizeMake(frame.size.width * (items.count + 1), frame.size.height);
+        self.contentSize = CGSizeMake(frame.size.width * items.count, frame.size.height);
         self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         self.pagingEnabled = YES;
+        self.clipsToBounds = YES;
+        self.delegate = self;
     }
     return self;
 }
 
-/*
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    
 }
-*/
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    if (scrollPageControl.currentPage != page) {
+        scrollPageControl.currentPage = page;
+    }
+    CGRect frame = scrollPageControl.frame;
+    frame.origin.x = scrollView.contentOffset.x + pageWidth - 100;
+    scrollPageControl.frame = frame;
+}
 
 - (void)scrollPage
 {
-    
+    int page  = scrollPageControl.currentPage;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.contentOffset = CGPointMake(page * self.frame.size.width, 0);
+    }];
 }
 
 @end
