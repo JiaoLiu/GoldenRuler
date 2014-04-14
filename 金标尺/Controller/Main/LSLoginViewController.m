@@ -62,6 +62,7 @@
     usernameField.keyboardType = UIKeyboardTypeEmailAddress;
     usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     usernameField.returnKeyType = UIReturnKeyNext;
+    usernameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [inputView addSubview:usernameField];
     
     pwdField = [[UITextField alloc] initWithFrame:CGRectMake(10, 35, SCREEN_WIDTH - 40, 35)];
@@ -70,6 +71,7 @@
     pwdField.returnKeyType = UIReturnKeyJoin;
     pwdField.secureTextEntry = YES;
     pwdField.delegate = self;
+    pwdField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [inputView addSubview:pwdField];
     
     // loginBtn
