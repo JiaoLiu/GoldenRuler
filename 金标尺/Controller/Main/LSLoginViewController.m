@@ -7,6 +7,7 @@
 //
 
 #import "LSLoginViewController.h"
+#import "LSRegisterViewController.h"
 
 @interface LSLoginViewController ()
 
@@ -131,6 +132,8 @@
 {
     [usernameField resignFirstResponder];
     [pwdField resignFirstResponder];
+    LSRegisterViewController *registerVC = [[LSRegisterViewController alloc] init];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 
 - (void)backBtnClicked

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7518FA702000ED443F /* UIImage+Utility.m */; };
 		2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7818FA828900ED443F /* LSLoginViewController.m */; };
+		27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A8F84C18FB771900321F5A /* LSRegisterViewController.m */; };
 		289C35AE8DEC43528B20CCDA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B23067BA7A4A5CAA210325 /* libPods.a */; };
 		CC49FFD818F93AA8007E83F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC49FFD718F93AA8007E83F4 /* Foundation.framework */; };
 		CC49FFDA18F93AA8007E83F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC49FFD918F93AA8007E83F4 /* CoreGraphics.framework */; };
@@ -42,6 +43,8 @@
 		2753ED7518FA702000ED443F /* UIImage+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utility.m"; sourceTree = "<group>"; };
 		2753ED7718FA828900ED443F /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
 		2753ED7818FA828900ED443F /* LSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSLoginViewController.m; sourceTree = "<group>"; };
+		27A8F84B18FB771900321F5A /* LSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSRegisterViewController.h; sourceTree = "<group>"; };
+		27A8F84C18FB771900321F5A /* LSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSRegisterViewController.m; sourceTree = "<group>"; };
 		CBFC92C476324DABBC89C00C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CC49FFD418F93AA8007E83F4 /* 金标尺.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "金标尺.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC49FFD718F93AA8007E83F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -241,6 +244,8 @@
 				CCC3D72A18F95209009CC532 /* LSMainViewController.m */,
 				2753ED7718FA828900ED443F /* LSLoginViewController.h */,
 				2753ED7818FA828900ED443F /* LSLoginViewController.m */,
+				27A8F84B18FB771900321F5A /* LSRegisterViewController.h */,
+				27A8F84C18FB771900321F5A /* LSRegisterViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,

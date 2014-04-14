@@ -29,14 +29,14 @@
         [[UINavigationBar appearance] setBarTintColor:RGB(4, 121, 202)];
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
     else
     {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:RGB(4, 121, 202) size:CGSizeMake(1, 44)] forBarMetrics:UIBarMetricsDefault];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     }
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+
     return YES;
 }
 
