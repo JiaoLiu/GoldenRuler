@@ -116,7 +116,23 @@
 
 - (void)registerBtnClicked
 {
-    
+    if (phoneNumField.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入手机号码"];
+        return;
+    }
+    if (pwdField.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入密码"];
+        return;
+    }
+    if (pwdComfirmField.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请再次输入密码"];
+        return;
+    }
+    if (![pwdComfirmField.text isEqualToString:pwdField.text]) {
+        [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
+        return;
+    }
+    [self backBtnClicked];
 }
 
 #pragma mark - tableView delegate
@@ -241,6 +257,17 @@
     }
     if (textField == emailField) {
         [emailField resignFirstResponder];
+    }
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == phoneNumField) {
+        if ([string  isEqual: @""]) {
+            return YES;
+        }
+        return textField.text.length >= 11 ? NO : YES;
     }
     return YES;
 }
