@@ -59,10 +59,16 @@
     [self.view addSubview:incorrectBtn];
     
     // privateBtn
-    UIButton *privateBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 70 - 64, 50, 50)];
+    UIButton *privateBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 100 - 64, 50, 50)];
     privateBtn.backgroundColor = [UIColor greenColor];
     [privateBtn addTarget:self action:@selector(privateBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:privateBtn];
+    
+    // messageBtn
+    UIButton *msgBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, privateBtn.frame.origin.y + privateBtn.frame.size.height, 50, 50)];
+    msgBtn.backgroundColor = [UIColor grayColor];
+    [msgBtn addTarget:self action:@selector(msgBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:msgBtn];
     
     // itmesView
     NSInteger iAdOffset = iAdArray.count != 0 ? 160 : 0;
@@ -126,6 +132,14 @@
 }
 
 - (void)privateBtnClicked
+{
+    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+        [LSAppDelegate showLoginView:self];
+        return;
+    }
+}
+
+- (void)msgBtnClicked
 {
     if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
         [LSAppDelegate showLoginView:self];

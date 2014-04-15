@@ -10,7 +10,7 @@
 
 @interface LSRegisterViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
-@property (nonatomic, strong)UITextField *phoneNumField;
+@property (nonatomic, strong)UITextField *usernameField;
 @property (nonatomic, strong)UITextField *pwdField;
 @property (nonatomic, strong)UITextField *pwdComfirmField;
 @property (nonatomic, strong)UITextField *nameField;

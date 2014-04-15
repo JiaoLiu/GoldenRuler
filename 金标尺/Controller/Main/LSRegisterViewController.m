@@ -14,7 +14,7 @@
 
 @implementation LSRegisterViewController
 
-@synthesize phoneNumField;
+@synthesize usernameField;
 @synthesize pwdField;
 @synthesize pwdComfirmField;
 @synthesize emailField;
@@ -50,7 +50,7 @@
     self.navigationItem.leftBarButtonItem = backItem;
     
     int height = 35;
-    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 20, height * 5)];
+    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 20, height * 3)];
     table.rowHeight = height;
     table.scrollEnabled = NO;
     table.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -101,11 +101,11 @@
 
 - (void)dismissKeyboard
 {
-    [phoneNumField resignFirstResponder];
+    [usernameField resignFirstResponder];
     [pwdComfirmField resignFirstResponder];
     [pwdField resignFirstResponder];
-    [nameField resignFirstResponder];
-    [emailField resignFirstResponder];
+//    [nameField resignFirstResponder];
+//    [emailField resignFirstResponder];
 }
 
 #pragma mark - handle btn action
@@ -116,8 +116,8 @@
 
 - (void)registerBtnClicked
 {
-    if (phoneNumField.text.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"请输入手机号码"];
+    if (usernameField.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入用户名"];
         return;
     }
     if (pwdField.text.length == 0) {
@@ -143,7 +143,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -154,14 +154,13 @@
         switch (indexPath.row) {
             case 0:
             {
-                phoneNumField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 40, 35)];
-                phoneNumField.placeholder = @"请输入手机号码";
-                phoneNumField.delegate = self;
-                phoneNumField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                phoneNumField.keyboardType = UIKeyboardTypePhonePad;
-                phoneNumField.returnKeyType = UIReturnKeyNext;
-                phoneNumField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                [Cell.contentView addSubview:phoneNumField];
+                usernameField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 40, 35)];
+                usernameField.placeholder = @"请输入用户名";
+                usernameField.delegate = self;
+                usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                usernameField.returnKeyType = UIReturnKeyNext;
+                usernameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+                [Cell.contentView addSubview:usernameField];
             }
                 break;
             case 1:
@@ -182,35 +181,35 @@
                 pwdComfirmField.placeholder = @"密码确认";
                 pwdComfirmField.delegate = self;
                 pwdComfirmField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                pwdComfirmField.returnKeyType = UIReturnKeyNext;
+                pwdComfirmField.returnKeyType = UIReturnKeyDone;
                 pwdComfirmField.secureTextEntry = YES;
                 pwdComfirmField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
                 [Cell.contentView addSubview:pwdComfirmField];
             }
                 break;
-            case 3:
-            {
-                nameField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 40, 35)];
-                nameField.placeholder = @"真实姓名";
-                nameField.delegate = self;
-                nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                nameField.returnKeyType = UIReturnKeyNext;
-                nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                [Cell.contentView addSubview:nameField];
-            }
-                break;
-            case 4:
-            {
-                emailField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 40, 35)];
-                emailField.placeholder = @"请输入邮箱";
-                emailField.delegate = self;
-                emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                emailField.keyboardType = UIKeyboardTypeEmailAddress;
-                emailField.returnKeyType = UIReturnKeyDone;
-                emailField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                [Cell.contentView addSubview:emailField];
-            }
-                break;
+//            case 3:
+//            {
+//                nameField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 40, 35)];
+//                nameField.placeholder = @"真实姓名";
+//                nameField.delegate = self;
+//                nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//                nameField.returnKeyType = UIReturnKeyNext;
+//                nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//                [Cell.contentView addSubview:nameField];
+//            }
+//                break;
+//            case 4:
+//            {
+//                emailField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 40, 35)];
+//                emailField.placeholder = @"请输入邮箱";
+//                emailField.delegate = self;
+//                emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//                emailField.keyboardType = UIKeyboardTypeEmailAddress;
+//                emailField.returnKeyType = UIReturnKeyDone;
+//                emailField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//                [Cell.contentView addSubview:emailField];
+//            }
+//                break;
                 
             default:
                 break;
@@ -224,7 +223,7 @@
 {
     switch (indexPath.row) {
         case 0:
-            [phoneNumField becomeFirstResponder];
+            [usernameField becomeFirstResponder];
             break;
         case 1:
             [pwdField becomeFirstResponder];
@@ -232,12 +231,12 @@
         case 2:
             [pwdComfirmField becomeFirstResponder];
             break;
-        case 3:
-            [nameField becomeFirstResponder];
-            break;
-        case 4:
-            [emailField becomeFirstResponder];
-            break;
+//        case 3:
+//            [nameField becomeFirstResponder];
+//            break;
+//        case 4:
+//            [emailField becomeFirstResponder];
+//            break;
         default:
             break;
     }
@@ -246,30 +245,33 @@
 #pragma mark - textField Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (textField == usernameField) {
+        [pwdField becomeFirstResponder];
+    }
     if (textField == pwdField) {
         [pwdComfirmField becomeFirstResponder];
     }
     if (textField == pwdComfirmField) {
-        [nameField becomeFirstResponder];
+        [pwdComfirmField resignFirstResponder];
     }
-    if (textField == nameField) {
-        [emailField becomeFirstResponder];
-    }
-    if (textField == emailField) {
-        [emailField resignFirstResponder];
-    }
+//    if (textField == nameField) {
+//        [emailField becomeFirstResponder];
+//    }
+//    if (textField == emailField) {
+//        [emailField resignFirstResponder];
+//    }
     return YES;
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    if (textField == phoneNumField) {
-        if ([string  isEqual: @""]) {
-            return YES;
-        }
-        return textField.text.length >= 11 ? NO : YES;
-    }
-    return YES;
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    if (textField == phoneNumField) {
+//        if ([string  isEqual: @""]) {
+//            return YES;
+//        }
+//        return textField.text.length >= 11 ? NO : YES;
+//    }
+//    return YES;
+//}
 
 @end
