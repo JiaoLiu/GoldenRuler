@@ -39,6 +39,7 @@
                 UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, heigt - yOff - 25, width, 25)];
                 titleLabel.textColor = [UIColor whiteColor];
                 titleLabel.textAlignment = NSTextAlignmentCenter;
+                titleLabel.backgroundColor = [UIColor clearColor];
                 titleLabel.text = [[items objectAtIndex:j + i * 2] objectForKey:@"title"];
                 [btn addSubview:titleLabel];
             }

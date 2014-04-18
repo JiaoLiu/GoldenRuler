@@ -76,18 +76,27 @@
     [msgBtn addTarget:self action:@selector(msgBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:msgBtn];
     
-    // itmesView
-    NSInteger iAdOffset = iAdArray.count != 0 ? 160 : 0;
-    LSMainItemsView *itemsView = [[LSMainItemsView alloc] initWithFrame:CGRectMake(0, iAdOffset, SCREEN_WIDTH - 50, SCREEN_HEIGHT - 64 - iAdOffset) Items:itemsArray];
-    itemsView.delegate = self;
-    [self.view addSubview:itemsView];
-    
     // iAdScrollView
-    if (iAdOffset != 0) {
-        LSMainAdScrollView *iAdScrollView = [[LSMainAdScrollView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH - 50, 140) Items:iAdArray];
+    LSMainAdScrollView *iAdScrollView;
+    if (iAdArray.count != 0) {
+        CGRect frame;
+        if (iPhone5) {
+            frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 140);
+        }
+        else
+        {
+            frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 100);
+        }
+        iAdScrollView = [[LSMainAdScrollView alloc] initWithFrame:frame Items:iAdArray];
         iAdScrollView.backgroundColor = [UIColor yellowColor];
         [self.view addSubview:iAdScrollView];
     }
+    
+    // itmesView
+    NSInteger iAdOffset = iAdScrollView.frame.size.height + 20;
+    LSMainItemsView *itemsView = [[LSMainItemsView alloc] initWithFrame:CGRectMake(0, iAdOffset, SCREEN_WIDTH - 50, SCREEN_HEIGHT - 64 - iAdOffset) Items:itemsArray];
+    itemsView.delegate = self;
+    [self.view addSubview:itemsView];
     
     if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
         [LSAppDelegate showLoginView:self];
