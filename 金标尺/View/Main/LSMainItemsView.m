@@ -33,7 +33,7 @@
                 [self addSubview:btn];
                 
                 UIImageView *itemView = [[UIImageView alloc] initWithFrame:CGRectMake(xOff, yOff, 65, 65)];
-                itemView.backgroundColor = [UIColor redColor];
+                itemView.image = [UIImage imageNamed:[[items objectAtIndex:j + i * 2] objectForKey:@"img"]];
                 [btn addSubview:itemView];
                 
                 UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, heigt - yOff - 25, width, 25)];

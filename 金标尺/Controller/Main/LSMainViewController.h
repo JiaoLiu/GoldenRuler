@@ -13,7 +13,6 @@
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 
-@property (nonatomic, strong)UIButton *infoOrhomeBtn;
 @property (nonatomic, strong)NSArray *itemsArray;
 @property (nonatomic, strong)NSArray *iAdArray;
 
