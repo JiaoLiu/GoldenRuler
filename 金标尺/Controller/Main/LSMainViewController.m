@@ -26,8 +26,14 @@
         if (IOS_VERSION >= 7.0) {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        itemsArray = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+        itemsArray = @[@{@"title": @"继续上次练习" ,@"img": @"" ,@"color": RGB(36, 164, 238)},
+                       @{@"title": @"我的收藏" ,@"img": @"" ,@"color": RGB(233, 138, 29)},
+                       @{@"title": @"模块练习" ,@"img": @"" ,@"color": RGB(78, 154, 54)},
+                       @{@"title": @"套卷测试" ,@"img": @"" ,@"color": RGB(39, 175, 202)},
+                       @{@"title": @"每日精选" ,@"img": @"" ,@"color": RGB(233, 138, 29)},
+                       @{@"title": @"课程推荐" ,@"img": @"" ,@"color": RGB(88, 182, 59)}];
         iAdArray = @[@"1",@"2",@"3",@"4",@"5"];
+
     }
     return self;
 }

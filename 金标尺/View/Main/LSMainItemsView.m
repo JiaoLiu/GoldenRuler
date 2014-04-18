@@ -20,14 +20,27 @@
         NSInteger col = (count + 1) / 2;
         CGFloat heigt = (frame.size.height - (col - 1) * 10) / col;
         CGFloat width = (frame.size.width - 10) / 2;
+        CGFloat yOff = (heigt - (65 + 25)) / 2;
+        CGFloat xOff = (width - 65) / 2;
+        
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < (count - 2 * i > 2 ? 2 : count - 2 * i); j ++) {
                 UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(j * (width + 10), i * (heigt + 10), width, heigt)];
-                btn.backgroundColor = RGB(100 + j*200, 135, 50 + i*300);
-                [btn setTitle:[items objectAtIndex:j + i * 2] forState:UIControlStateNormal];
+                btn.backgroundColor = [[items objectAtIndex:j + i * 2] objectForKey:@"color"];
+//                [btn setTitle:[items objectAtIndex:j + i * 2] forState:UIControlStateNormal];
                 btn.tag = j + i * 2;
                 [btn addTarget:self action:@selector(clickedOnItem:) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:btn];
+                
+                UIImageView *itemView = [[UIImageView alloc] initWithFrame:CGRectMake(xOff, yOff, 65, 65)];
+                itemView.backgroundColor = [UIColor redColor];
+                [btn addSubview:itemView];
+                
+                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, heigt - yOff - 25, width, 25)];
+                titleLabel.textColor = [UIColor whiteColor];
+                titleLabel.textAlignment = NSTextAlignmentCenter;
+                titleLabel.text = [[items objectAtIndex:j + i * 2] objectForKey:@"title"];
+                [btn addSubview:titleLabel];
             }
         }
     }
