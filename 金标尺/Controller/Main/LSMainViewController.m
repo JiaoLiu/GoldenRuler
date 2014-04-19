@@ -158,6 +158,8 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    LSPrivateCenterViewController *privateCenterVC = [[LSPrivateCenterViewController alloc] init];
+    [self.navigationController pushViewController:privateCenterVC animated:YES];
 }
 
 - (void)msgBtnClicked

@@ -10,6 +10,7 @@
 #import "LSMainItemsView.h"
 #import "LSMainAdScrollView.h"
 #import "LSAppDelegate.h"
+#import "LSPrivateCenterViewController.h"
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 

@@ -35,6 +35,9 @@
 		CC9A63471901529A00103000 /* index_f@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A633B1901529A00103000 /* index_f@2x.png */; };
 		CC9A63481901529A00103000 /* index_msg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A633C1901529A00103000 /* index_msg@2x.png */; };
 		CC9A63491901529A00103000 /* index_topr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A633D1901529A00103000 /* index_topr@2x.png */; };
+		CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCB3BA671902200C00CC1849 /* LSPrivateCenterViewController.m */; };
+		CCB3BA6C190222F400CC1849 /* chongzhi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCB3BA6A190222F400CC1849 /* chongzhi@2x.png */; };
+		CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCB3BA6B190222F400CC1849 /* default_header@2x.jpg */; };
 		CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72A18F95209009CC532 /* LSMainViewController.m */; };
 		CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72D18F98002009CC532 /* LSMainItemsView.m */; };
 		CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */; };
@@ -86,6 +89,10 @@
 		CC9A633B1901529A00103000 /* index_f@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_f@2x.png"; sourceTree = "<group>"; };
 		CC9A633C1901529A00103000 /* index_msg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_msg@2x.png"; sourceTree = "<group>"; };
 		CC9A633D1901529A00103000 /* index_topr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_topr@2x.png"; sourceTree = "<group>"; };
+		CCB3BA661902200C00CC1849 /* LSPrivateCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCenterViewController.h; sourceTree = "<group>"; };
+		CCB3BA671902200C00CC1849 /* LSPrivateCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCenterViewController.m; sourceTree = "<group>"; };
+		CCB3BA6A190222F400CC1849 /* chongzhi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chongzhi@2x.png"; sourceTree = "<group>"; };
+		CCB3BA6B190222F400CC1849 /* default_header@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "default_header@2x.jpg"; sourceTree = "<group>"; };
 		CCC3D71C18F94A75009CC532 /* Marco.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marco.h; sourceTree = "<group>"; };
 		CCC3D72918F95209009CC532 /* LSMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainViewController.h; sourceTree = "<group>"; };
 		CCC3D72A18F95209009CC532 /* LSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainViewController.m; sourceTree = "<group>"; };
@@ -160,6 +167,7 @@
 		CC49000A18F93B98007E83F4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CCB3BA69190222F400CC1849 /* Private */,
 				CC9A63311901529A00103000 /* Main */,
 			);
 			path = Resources;
@@ -260,6 +268,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		CCB3BA69190222F400CC1849 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				CCB3BA6A190222F400CC1849 /* chongzhi@2x.png */,
+				CCB3BA6B190222F400CC1849 /* default_header@2x.jpg */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 		CCC3D71D18F95153009CC532 /* Contest */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +321,8 @@
 		CCC3D72218F95153009CC532 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				CCB3BA661902200C00CC1849 /* LSPrivateCenterViewController.h */,
+				CCB3BA671902200C00CC1849 /* LSPrivateCenterViewController.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -441,7 +460,9 @@
 				CC9A633E1901529A00103000 /* back_button@2x.png in Resources */,
 				CC9A633F1901529A00103000 /* home_button@2x.png in Resources */,
 				CC9A63491901529A00103000 /* index_topr@2x.png in Resources */,
+				CCB3BA6C190222F400CC1849 /* chongzhi@2x.png in Resources */,
 				CC9A63451901529A00103000 /* index_d@2x.png in Resources */,
+				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
 				CC9A63471901529A00103000 /* index_f@2x.png in Resources */,
 				CC9A63401901529A00103000 /* index_a@2x.png in Resources */,
 				CC9A63421901529A00103000 /* index_b@2x.png in Resources */,
@@ -498,6 +519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */,
+				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
