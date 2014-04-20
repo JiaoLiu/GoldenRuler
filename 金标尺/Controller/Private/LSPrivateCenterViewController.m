@@ -8,6 +8,7 @@
 
 #import "LSPrivateCenterViewController.h"
 #import "LSPrivateChargeViewController.h"
+#import "LSPrivateInfoViewController.h"
 
 @interface LSPrivateCenterViewController ()
 {
@@ -187,6 +188,10 @@
 {
     switch (indexPath.row) {
         case 0:
+        {
+            LSPrivateInfoViewController *privateInfoVC = [[LSPrivateInfoViewController alloc] init];
+            [self.navigationController pushViewController:privateInfoVC animated:YES];
+        }
             break;
         case 1:
             break;

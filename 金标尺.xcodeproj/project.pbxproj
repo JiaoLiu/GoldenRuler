@@ -42,6 +42,9 @@
 		CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72A18F95209009CC532 /* LSMainViewController.m */; };
 		CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72D18F98002009CC532 /* LSMainItemsView.m */; };
 		CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */; };
+		CCE619E5190401D40087B199 /* my_img_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE619E3190401D40087B199 /* my_img_upload@2x.png */; };
+		CCE619E6190401D40087B199 /* my_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE619E4190401D40087B199 /* my_logout@2x.png */; };
+		CCE619E9190402730087B199 /* LSPrivateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE619E8190402730087B199 /* LSPrivateInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +106,10 @@
 		CCC3D72D18F98002009CC532 /* LSMainItemsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainItemsView.m; sourceTree = "<group>"; };
 		CCD6AE1418F99D7B004D758F /* LSMainAdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainAdScrollView.h; sourceTree = "<group>"; };
 		CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainAdScrollView.m; sourceTree = "<group>"; };
+		CCE619E3190401D40087B199 /* my_img_upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_img_upload@2x.png"; sourceTree = "<group>"; };
+		CCE619E4190401D40087B199 /* my_logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_logout@2x.png"; sourceTree = "<group>"; };
+		CCE619E7190402730087B199 /* LSPrivateInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateInfoViewController.h; sourceTree = "<group>"; };
+		CCE619E8190402730087B199 /* LSPrivateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateInfoViewController.m; sourceTree = "<group>"; };
 		E8B23067BA7A4A5CAA210325 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -274,6 +281,8 @@
 		CCB3BA69190222F400CC1849 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				CCE619E3190401D40087B199 /* my_img_upload@2x.png */,
+				CCE619E4190401D40087B199 /* my_logout@2x.png */,
 				CCB3BA6A190222F400CC1849 /* chongzhi@2x.png */,
 				CCB3BA6B190222F400CC1849 /* default_header@2x.jpg */,
 			);
@@ -328,6 +337,8 @@
 				CCB3BA671902200C00CC1849 /* LSPrivateCenterViewController.m */,
 				CC42B55E1902C9E400586176 /* LSPrivateChargeViewController.h */,
 				CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */,
+				CCE619E7190402730087B199 /* LSPrivateInfoViewController.h */,
+				CCE619E8190402730087B199 /* LSPrivateInfoViewController.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -467,10 +478,12 @@
 				CC9A63491901529A00103000 /* index_topr@2x.png in Resources */,
 				CCB3BA6C190222F400CC1849 /* chongzhi@2x.png in Resources */,
 				CC9A63451901529A00103000 /* index_d@2x.png in Resources */,
+				CCE619E5190401D40087B199 /* my_img_upload@2x.png in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
 				CC9A63471901529A00103000 /* index_f@2x.png in Resources */,
 				CC9A63401901529A00103000 /* index_a@2x.png in Resources */,
 				CC9A63421901529A00103000 /* index_b@2x.png in Resources */,
+				CCE619E6190401D40087B199 /* my_logout@2x.png in Resources */,
 				CC9A63431901529A00103000 /* index_bb@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,6 +541,7 @@
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
+				CCE619E9190402730087B199 /* LSPrivateInfoViewController.m in Sources */,
 				CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */,
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
