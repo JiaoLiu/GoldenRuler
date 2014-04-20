@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSPrivateCenterViewController : UIViewController
+@interface LSPrivateCenterViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, assign)BOOL isVip;
+@property (nonatomic, assign)int pushNum;
+
+@property (nonatomic ,strong)NSDate *expireDate;
+@property (nonatomic, strong)UITableView *table;
 
 @end

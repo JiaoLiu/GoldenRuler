@@ -7,14 +7,21 @@
 //
 
 #import "LSPrivateCenterViewController.h"
+#import "LSPrivateChargeViewController.h"
 
 @interface LSPrivateCenterViewController ()
+{
+    NSArray *titleArray;
+}
 
 @end
 
 @implementation LSPrivateCenterViewController
 
 @synthesize isVip;
+@synthesize pushNum;
+@synthesize table;
+@synthesize expireDate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -22,6 +29,8 @@
     if (self) {
         // Custom initialization
         isVip = YES;
+        expireDate = [NSDate date];
+        titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"我的评论",@"我要充值",@"设置",@"退出登陆"];
     }
     return self;
 }
@@ -57,6 +66,7 @@
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImgView.frame.origin.x + headerImgView.frame.size.width + 10, 5, headerBackView.frame.size.width - 80, 30)];
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.text = @"风中玉碟";
+    nameLabel.textColor = [UIColor grayColor];
     [headerBackView addSubview:nameLabel];
     
     UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, 35, nameLabel.frame.size.width, 15)];
@@ -75,7 +85,9 @@
         [headerBackView addSubview:vipLabel];
         
         UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width, vipLabel.frame.origin.y, 110, 15)];
-        timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",@"2014-05-12"];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyy-MM-dd"];
+        timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",[formatter stringFromDate:expireDate]];
         timeLabel.textColor = [UIColor lightGrayColor];
         timeLabel.backgroundColor = [UIColor clearColor];
         timeLabel.font = [UIFont systemFontOfSize:11];
@@ -88,6 +100,20 @@
         [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         addBtn.titleLabel.font = [UIFont systemFontOfSize:11];
         [headerBackView addSubview:addBtn];
+    }
+    
+    NSInteger height = 35;
+    table = [[UITableView alloc] initWithFrame:CGRectMake(10, headerBackView.frame.origin.y + headerBackView.frame.size.height + 7, SCREEN_WIDTH - 20, height * titleArray.count)];
+    table.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    table.layer.borderWidth = 0.5;
+    table.scrollEnabled = NO;
+    table.delegate = self;
+    table.dataSource = self;
+    table.rowHeight = height;
+    [self.view addSubview:table];
+    
+    if (IOS_VERSION >= 7.0) {
+        table.separatorInset = UIEdgeInsetsZero;
     }
 }
 
@@ -111,12 +137,77 @@
 #pragma mark - handleBtnClicked
 - (void)addBtnClicked
 {
-    
+    LSPrivateChargeViewController *ChargeVC = [[LSPrivateChargeViewController alloc] init];
+    ChargeVC.expireDate = expireDate;
+    [self.navigationController pushViewController:ChargeVC animated:YES];
 }
 
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - tableView delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return titleArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (Cell == nil) {
+        Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        Cell.textLabel.text = [titleArray objectAtIndex:indexPath.row];
+        Cell.textLabel.textColor = [UIColor grayColor];
+        if (indexPath.row == 1) {
+            UILabel *pushNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 40, 35)];
+            pushNumLabel.textColor = [UIColor redColor];
+            pushNumLabel.backgroundColor = [UIColor clearColor];
+            pushNumLabel.textAlignment = NSTextAlignmentCenter;
+            pushNumLabel.tag = 100;
+            [Cell.contentView addSubview:pushNumLabel];
+        }
+    }
+    
+    if (indexPath.row == 1) {
+        for (UILabel *label in [Cell.contentView subviews]) {
+            if (label.tag == 100 && pushNum > 0) {
+                label.text = [NSString stringWithFormat:@"(%d)",pushNum];
+            }
+        }
+    }
+    
+    Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    Cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return Cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+        {
+            [self addBtnClicked];
+        }
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        default:
+            break;
+    }
 }
 
 @end
