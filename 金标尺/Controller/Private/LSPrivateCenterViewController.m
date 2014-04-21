@@ -9,6 +9,7 @@
 #import "LSPrivateCenterViewController.h"
 #import "LSPrivateChargeViewController.h"
 #import "LSPrivateInfoViewController.h"
+#import "LSPrivateSettingViewController.h"
 
 @interface LSPrivateCenterViewController ()
 {
@@ -207,6 +208,10 @@
         }
             break;
         case 6:
+        {
+            LSPrivateSettingViewController *settingVC = [[LSPrivateSettingViewController alloc] init];
+            [self.navigationController pushViewController:settingVC animated:YES];
+        }
             break;
         case 7:
             break;
