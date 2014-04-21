@@ -20,9 +20,9 @@ typedef enum {
 @property (nonatomic, strong)UIButton *paymentBtn;
 @property (nonatomic, strong)UIActionSheet *pickerSheet;
 @property (nonatomic, strong)NSDate *expireDate;
+@property (nonatomic, strong)NSString *lastDate;
 
 @property (nonatomic, assign)NSInteger totalNum;
-@property (nonatomic, assign)NSString *lastDate;
 @property (nonatomic, assign)NSInteger kDateSelected;
 @property (nonatomic, assign)NSInteger kPaymentSelected;
 
