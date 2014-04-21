@@ -88,6 +88,58 @@
     
 }
 
+- (void)imgLoadBtnClicked
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"相册", nil];
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark - pick img
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            UIImagePickerController *pickController = [[UIImagePickerController alloc] init];
+            pickController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            pickController.allowsEditing = YES;
+            pickController.delegate = self;
+            [self presentViewController:pickController animated:YES completion:^{
+                
+            }];
+        }
+            break;
+        case 1:
+        {
+            UIImagePickerController *pickController = [[UIImagePickerController alloc] init];
+            pickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            pickController.allowsEditing = YES;
+            pickController.delegate = self;
+            [self presentViewController:pickController animated:YES completion:^{
+                
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *originImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        if (!originImage) {
+            originImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        }
+        UIGraphicsBeginImageContext(CGSizeMake(60, 60));
+        [originImage drawInRect:CGRectMake(0, 0, 60, 60)];
+        imgView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }];
+}
+
 #pragma mark - tableView delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -110,7 +162,20 @@
         switch (indexPath.row) {
             case 0:
             {
+                imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7.5, 60, 60)];
+                imgView.image = [UIImage imageNamed:@"default_header@2x.jpg"];
+                imgView.layer.borderWidth = 1;
+                imgView.layer.borderColor = [UIColor whiteColor].CGColor;
+                imgView.clipsToBounds = YES;
+                [Cell.contentView addSubview:imgView];
                 
+                UIButton *loadImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 100, 26.5, 62.5, 22)];
+                [loadImgBtn setBackgroundImage:[UIImage imageNamed:@"my_img_upload"] forState:UIControlStateNormal];
+                [loadImgBtn setTitle:@"重新上传" forState:UIControlStateNormal];
+                [loadImgBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [loadImgBtn addTarget:self action:@selector(imgLoadBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+                loadImgBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+                [Cell.contentView addSubview:loadImgBtn];
             }
                 break;
             case 1:
