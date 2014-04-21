@@ -10,6 +10,7 @@
 #import "LSPrivateChargeViewController.h"
 #import "LSPrivateInfoViewController.h"
 #import "LSPrivateSettingViewController.h"
+#import "LSMsgPushViewController.h"
 
 @interface LSPrivateCenterViewController ()
 {
@@ -195,6 +196,10 @@
         }
             break;
         case 1:
+        {
+            LSMsgPushViewController *msgPushVC = [[LSMsgPushViewController alloc] init];
+            [self.navigationController pushViewController:msgPushVC animated:YES];
+        }
             break;
         case 2:
             break;

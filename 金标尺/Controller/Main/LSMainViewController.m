@@ -51,10 +51,10 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     
     // infoBtn
-    UIButton *infoOrhomeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
-    [infoOrhomeBtn addTarget:self action:@selector(infoBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [infoOrhomeBtn setBackgroundImage:[UIImage imageNamed:@"index_topr"] forState:UIControlStateNormal];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:infoOrhomeBtn];
+    UIButton *infoBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [infoBtn addTarget:self action:@selector(infoBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [infoBtn setBackgroundImage:[UIImage imageNamed:@"index_topr"] forState:UIControlStateNormal];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:infoBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     // incorrectBtn
@@ -168,6 +168,8 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    LSMsgPushViewController *msgPushVC = [[LSMsgPushViewController alloc] init];
+    [self.navigationController pushViewController:msgPushVC animated:YES];
 }
 
 @end

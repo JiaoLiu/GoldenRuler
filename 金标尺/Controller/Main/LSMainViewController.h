@@ -11,6 +11,7 @@
 #import "LSMainAdScrollView.h"
 #import "LSAppDelegate.h"
 #import "LSPrivateCenterViewController.h"
+#import "LSMsgPushViewController.h"
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 
