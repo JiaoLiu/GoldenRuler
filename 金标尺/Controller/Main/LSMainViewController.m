@@ -150,6 +150,8 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    LSCourseSelectMainViewController *courseVC = [[LSCourseSelectMainViewController alloc] init];
+    [self.navigationController pushViewController:courseVC animated:YES];
 }
 
 - (void)infoBtnClicked

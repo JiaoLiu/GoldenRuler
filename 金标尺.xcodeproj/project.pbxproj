@@ -29,6 +29,7 @@
 		CC49FFF318F93AA8007E83F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC49FFDB18F93AA8007E83F4 /* UIKit.framework */; };
 		CC49FFFB18F93AA8007E83F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC49FFF918F93AA8007E83F4 /* InfoPlist.strings */; };
 		CC49FFFD18F93AA8007E83F4 /* ___Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC49FFFC18F93AA8007E83F4 /* ___Tests.m */; };
+		CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */; };
 		CC9A633E1901529A00103000 /* back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63321901529A00103000 /* back_button@2x.png */; };
 		CC9A633F1901529A00103000 /* home_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63331901529A00103000 /* home_button@2x.png */; };
 		CC9A63401901529A00103000 /* index_a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63341901529A00103000 /* index_a@2x.png */; };
@@ -97,6 +98,8 @@
 		CC49FFF818F93AA8007E83F4 /* 金标尺Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "金标尺Tests-Info.plist"; sourceTree = "<group>"; };
 		CC49FFFA18F93AA8007E83F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CC49FFFC18F93AA8007E83F4 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Tests.m"; sourceTree = "<group>"; };
+		CC641D1A190699640073F8D5 /* LSCourseSelectMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCourseSelectMainViewController.h; sourceTree = "<group>"; };
+		CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCourseSelectMainViewController.m; sourceTree = "<group>"; };
 		CC9A63321901529A00103000 /* back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63331901529A00103000 /* home_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63341901529A00103000 /* index_a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_a@2x.png"; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 		CCC3D71E18F95153009CC532 /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				CC641D1A190699640073F8D5 /* LSCourseSelectMainViewController.h */,
+				CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */,
 			);
 			path = Course;
 			sourceTree = "<group>";
@@ -565,6 +570,7 @@
 				27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */,
 				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
+				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,

@@ -13,6 +13,7 @@
 #import "LSPrivateCenterViewController.h"
 #import "LSMsgPushViewController.h"
 #import "LSPrivateCollectionViewController.h"
+#import "LSCourseSelectMainViewController.h"
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 
