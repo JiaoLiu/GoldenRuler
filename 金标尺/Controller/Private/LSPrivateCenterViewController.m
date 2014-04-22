@@ -11,6 +11,7 @@
 #import "LSPrivateInfoViewController.h"
 #import "LSPrivateSettingViewController.h"
 #import "LSMsgPushViewController.h"
+#import "LSPrivateCommentViewController.h"
 
 @interface LSPrivateCenterViewController ()
 {
@@ -206,6 +207,10 @@
         case 3:
             break;
         case 4:
+        {
+            LSPrivateCommentViewController *commentVC = [[LSPrivateCommentViewController alloc] init];
+            [self.navigationController pushViewController:commentVC animated:YES];
+        }
             break;
         case 5:
         {
