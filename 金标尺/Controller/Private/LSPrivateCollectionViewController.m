@@ -1,21 +1,23 @@
 //
-//  LSPrivateCommentViewController.m
+//  LSPrivateCollectionViewController.m
 //  金标尺
 //
 //  Created by Jiao on 14-4-22.
 //  Copyright (c) 2014年 Jiao Liu. All rights reserved.
 //
 
-#import "LSPrivateCommentViewController.h"
+#import "LSPrivateCollectionViewController.h"
 
-@interface LSPrivateCommentViewController ()
+@interface LSPrivateCollectionViewController ()
 {
     NSMutableArray *dataArray;
 }
 
 @end
 
-@implementation LSPrivateCommentViewController
+@implementation LSPrivateCollectionViewController
+
+@synthesize collectionTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +29,7 @@
         }
         dataArray = [[NSMutableArray alloc] init];
         [self loadData];
+
     }
     return self;
 }
@@ -34,7 +37,7 @@
 - (void)loadData
 {
     for (int i = 0; i < 100; i++) {
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-大家觉得这个有道理么11111111111",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-政治（多选题）第9题",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
         [dataArray insertObject:dic atIndex:i];
     }
 }
@@ -43,7 +46,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"我的评论";
+    self.title = @"我的收藏";
     self.view.backgroundColor = [UIColor whiteColor];
     
     // backBtn
@@ -61,15 +64,16 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     // msgTable
-    UITableView *commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
-    commentTable.delegate = self;
-    commentTable.dataSource = self;
-    commentTable.tableFooterView = [UIView new];
-    [self.view addSubview:commentTable];
+    collectionTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
+    collectionTable.delegate = self;
+    collectionTable.dataSource = self;
+    collectionTable.tableFooterView = [UIView new];
+    [self.view addSubview:collectionTable];
     
     if (IOS_VERSION >= 7.0) {
-        commentTable.separatorInset = UIEdgeInsetsZero;
+        collectionTable.separatorInset = UIEdgeInsetsZero;
     }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,9 +104,16 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)redBtnClicked:(UIButton *)sender
+- (void)checkBtnClicked:(UIButton *)sender
 {
-    NSLog(@"%d",sender.tag);
+    NSLog(@"check-%d",sender.tag);
+}
+
+- (void)deleteBtnClicked:(UIButton *)sender
+{
+    NSLog(@"delete-%d",sender.tag);
+    [dataArray removeObjectAtIndex:sender.tag];
+    [collectionTable reloadData];
 }
 
 #pragma mark - tableView delegate
@@ -116,19 +127,28 @@
     UITableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (Cell == nil) {
         Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 70, 44)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 120, 44)];
         titleLabel.textColor = [UIColor grayColor];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.tag = 100;
         [Cell.contentView addSubview:titleLabel];
         
-        UIButton *redBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 50, 11, 37.5, 22)];
-        [redBtn setBackgroundImage:[UIImage imageNamed:@"btn_red"] forState:UIControlStateNormal];
-        [redBtn setTitle:@"查看" forState:UIControlStateNormal];
-        [redBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [redBtn addTarget:self action:@selector(redBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        redBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-        [Cell.contentView addSubview:redBtn];
+        UIButton *checkBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 100, 11, 37.5, 22)];
+        [checkBtn setBackgroundImage:[UIImage imageNamed:@"btn_red"] forState:UIControlStateNormal];
+        [checkBtn setTitle:@"查看" forState:UIControlStateNormal];
+        [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [checkBtn addTarget:self action:@selector(checkBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        checkBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [Cell.contentView addSubview:checkBtn];
+
+        
+        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 50, 11, 37.5, 22)];
+        [deleteBtn setBackgroundImage:[UIImage imageNamed:@"btn_red"] forState:UIControlStateNormal];
+        [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [deleteBtn addTarget:self action:@selector(deleteBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        deleteBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [Cell.contentView addSubview:deleteBtn];
     }
     
     for (UIView *view in [Cell.contentView subviews]) {

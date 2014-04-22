@@ -12,6 +12,7 @@
 		2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */; };
 		277300191905FDA600D7C22C /* LSPrivateCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */; };
 		2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2773001A1906009C00D7C22C /* btn_red@2x.png */; };
+		2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */; };
 		27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A8F84C18FB771900321F5A /* LSRegisterViewController.m */; };
 		289C35AE8DEC43528B20CCDA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B23067BA7A4A5CAA210325 /* libPods.a */; };
 		CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */; };
@@ -71,6 +72,8 @@
 		277300171905FDA600D7C22C /* LSPrivateCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCommentViewController.h; sourceTree = "<group>"; };
 		277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCommentViewController.m; sourceTree = "<group>"; };
 		2773001A1906009C00D7C22C /* btn_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_red@2x.png"; sourceTree = "<group>"; };
+		2773001C19060FFF00D7C22C /* LSPrivateCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCollectionViewController.h; sourceTree = "<group>"; };
+		2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCollectionViewController.m; sourceTree = "<group>"; };
 		27A8F84B18FB771900321F5A /* LSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSRegisterViewController.h; sourceTree = "<group>"; };
 		27A8F84C18FB771900321F5A /* LSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSRegisterViewController.m; sourceTree = "<group>"; };
 		CBFC92C476324DABBC89C00C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -357,6 +360,8 @@
 				2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */,
 				277300171905FDA600D7C22C /* LSPrivateCommentViewController.h */,
 				277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */,
+				2773001C19060FFF00D7C22C /* LSPrivateCollectionViewController.h */,
+				2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -567,6 +572,7 @@
 				CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */,
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
+				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
 			);

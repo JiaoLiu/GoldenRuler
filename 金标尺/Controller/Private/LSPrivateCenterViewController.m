@@ -12,6 +12,7 @@
 #import "LSPrivateSettingViewController.h"
 #import "LSMsgPushViewController.h"
 #import "LSPrivateCommentViewController.h"
+#import "LSPrivateCollectionViewController.h"
 
 @interface LSPrivateCenterViewController ()
 {
@@ -203,6 +204,10 @@
         }
             break;
         case 2:
+        {
+            LSPrivateCollectionViewController *collectionVC = [[LSPrivateCollectionViewController alloc] init];
+            [self.navigationController pushViewController:collectionVC animated:YES];
+        }
             break;
         case 3:
             break;

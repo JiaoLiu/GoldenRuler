@@ -12,6 +12,7 @@
 #import "LSAppDelegate.h"
 #import "LSPrivateCenterViewController.h"
 #import "LSMsgPushViewController.h"
+#import "LSPrivateCollectionViewController.h"
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 

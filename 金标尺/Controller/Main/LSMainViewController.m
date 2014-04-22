@@ -123,6 +123,22 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    switch (sender.tag) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            LSPrivateCollectionViewController *collectionVC = [[LSPrivateCollectionViewController alloc] init];
+            [self.navigationController pushViewController:collectionVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
     NSLog(@"%d",sender.tag);
 }
 
