@@ -233,6 +233,7 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
             [USER_DEFAULT setObject:@"N" forKey:isLoginKey];
             [USER_DEFAULT synchronize];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
         }
             break;
         default:

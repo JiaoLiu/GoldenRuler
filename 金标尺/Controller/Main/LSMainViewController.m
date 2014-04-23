@@ -32,6 +32,8 @@
                        @{@"title": @"每日精选" ,@"img": @"index_e" ,@"color": RGB(239, 156, 36)},
                        @{@"title": @"课程推荐" ,@"img": @"index_f" ,@"color": RGB(104, 191, 76)}];
         iAdArray = @[@"1",@"2",@"3",@"4",@"5"];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CheckLogin) name:@"CheckLogin" object:nil];
     }
     return self;
 }
@@ -103,15 +105,32 @@
     LSMainItemsView *itemsView = [[LSMainItemsView alloc] initWithFrame:CGRectMake(0, iAdOffset, SCREEN_WIDTH - 50, SCREEN_HEIGHT - 64 - iAdOffset) Items:itemsArray];
     itemsView.delegate = self;
     [self.view addSubview:itemsView];
+    
+    [self CheckLogin];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)CheckLogin
 {
-    [super viewDidAppear:YES];
-    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
-        [LSAppDelegate showLoginView:self];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [super viewDidAppear:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+                [LSAppDelegate showLoginView:self];
+            }
+        });
+    });
+//    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+//        [LSAppDelegate showLoginView:self];
+//    }
 }
+
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:YES];
+//    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+//        [LSAppDelegate showLoginView:self];
+//    }
+//}
 
 - (void)didReceiveMemoryWarning
 {
