@@ -45,6 +45,7 @@
 		CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCB3BA671902200C00CC1849 /* LSPrivateCenterViewController.m */; };
 		CCB3BA6C190222F400CC1849 /* chongzhi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCB3BA6A190222F400CC1849 /* chongzhi@2x.png */; };
 		CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCB3BA6B190222F400CC1849 /* default_header@2x.jpg */; };
+		CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC0897D1907EBB900C9B9ED /* LSChoiceListViewController.m */; };
 		CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72A18F95209009CC532 /* LSMainViewController.m */; };
 		CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72D18F98002009CC532 /* LSMainItemsView.m */; };
 		CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */; };
@@ -116,6 +117,8 @@
 		CCB3BA671902200C00CC1849 /* LSPrivateCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCenterViewController.m; sourceTree = "<group>"; };
 		CCB3BA6A190222F400CC1849 /* chongzhi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chongzhi@2x.png"; sourceTree = "<group>"; };
 		CCB3BA6B190222F400CC1849 /* default_header@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "default_header@2x.jpg"; sourceTree = "<group>"; };
+		CCC0897C1907EBB900C9B9ED /* LSChoiceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSChoiceListViewController.h; sourceTree = "<group>"; };
+		CCC0897D1907EBB900C9B9ED /* LSChoiceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSChoiceListViewController.m; sourceTree = "<group>"; };
 		CCC3D71C18F94A75009CC532 /* Marco.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marco.h; sourceTree = "<group>"; };
 		CCC3D72918F95209009CC532 /* LSMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainViewController.h; sourceTree = "<group>"; };
 		CCC3D72A18F95209009CC532 /* LSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainViewController.m; sourceTree = "<group>"; };
@@ -326,6 +329,8 @@
 		CCC3D71F18F95153009CC532 /* DailyChoice */ = {
 			isa = PBXGroup;
 			children = (
+				CCC0897C1907EBB900C9B9ED /* LSChoiceListViewController.h */,
+				CCC0897D1907EBB900C9B9ED /* LSChoiceListViewController.m */,
 			);
 			path = DailyChoice;
 			sourceTree = "<group>";
@@ -571,6 +576,7 @@
 				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
 				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
+				CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,

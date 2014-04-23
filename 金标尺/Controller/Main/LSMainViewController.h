@@ -14,6 +14,7 @@
 #import "LSMsgPushViewController.h"
 #import "LSPrivateCollectionViewController.h"
 #import "LSCourseSelectMainViewController.h"
+#import "LSChoiceListViewController.h"
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 

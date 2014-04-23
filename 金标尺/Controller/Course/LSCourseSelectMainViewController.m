@@ -27,7 +27,7 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         titleArray = @[@"综合基础知识",@"综合基础知识",@"综合基础知识",@"综合基础知识"];
-        selectedRow = titleArray.count;
+        selectedRow = -1;
     }
     return self;
 }
@@ -132,7 +132,7 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (selectedRow == indexPath.row) {
-        selectedRow = titleArray.count;
+        selectedRow = -1;
     }
 }
 

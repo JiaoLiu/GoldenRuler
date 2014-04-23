@@ -163,7 +163,27 @@
             [self.navigationController pushViewController:collectionVC animated:YES];
         }
             break;
+        case 2:
+        {
             
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            LSChoiceListViewController *choiceVC = [[LSChoiceListViewController alloc] init];
+            [self.navigationController pushViewController:choiceVC animated:YES];
+        }
+            break;
+        case 5:
+        {
+            
+        }
+            break;
         default:
             break;
     }
