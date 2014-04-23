@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSCourseSelectMainViewController : UIViewController
+@interface LSCourseSelectMainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end
