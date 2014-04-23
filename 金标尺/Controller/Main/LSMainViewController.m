@@ -138,6 +138,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CheckLogin" object:nil];
+}
+
 #pragma mark - itemsViewDelegate
 
 - (void)clickedOnItem:(UIButton *)sender
