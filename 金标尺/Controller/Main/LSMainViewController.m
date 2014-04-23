@@ -103,7 +103,11 @@
     LSMainItemsView *itemsView = [[LSMainItemsView alloc] initWithFrame:CGRectMake(0, iAdOffset, SCREEN_WIDTH - 50, SCREEN_HEIGHT - 64 - iAdOffset) Items:itemsArray];
     itemsView.delegate = self;
     [self.view addSubview:itemsView];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
     if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
         [LSAppDelegate showLoginView:self];
     }

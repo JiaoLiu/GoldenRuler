@@ -229,6 +229,11 @@
         }
             break;
         case 7:
+        {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [USER_DEFAULT setObject:@"N" forKey:isLoginKey];
+            [USER_DEFAULT synchronize];
+        }
             break;
         default:
             break;

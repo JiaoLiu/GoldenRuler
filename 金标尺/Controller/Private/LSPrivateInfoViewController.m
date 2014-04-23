@@ -85,7 +85,9 @@
 
 - (void)logoutBtnClicked
 {
-    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [USER_DEFAULT setObject:@"N" forKey:isLoginKey];
+    [USER_DEFAULT synchronize];
 }
 
 - (void)imgLoadBtnClicked
