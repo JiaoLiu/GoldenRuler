@@ -212,6 +212,9 @@
     UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(pickerSheet.frame.size.width - 70, 0, 50, 40)];
     [doneBtn setTitle:@"确定" forState:UIControlStateNormal];
     [doneBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
+    if (IOS_VERSION < 7.0) {
+        [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
     [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [doneBtn addTarget:self action:@selector(doneBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [pickerSheet addSubview:doneBtn];
@@ -232,6 +235,9 @@
     UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(pickerSheet.frame.size.width - 70, 0, 50, 40)];
     [doneBtn setTitle:@"确定" forState:UIControlStateNormal];
     [doneBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
+    if (IOS_VERSION < 7.0) {
+        [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
     [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [doneBtn addTarget:self action:@selector(doneBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [pickerSheet addSubview:doneBtn];
