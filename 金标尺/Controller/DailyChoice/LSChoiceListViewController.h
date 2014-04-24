@@ -10,4 +10,7 @@
 
 @interface LSChoiceListViewController : UIViewController
 
+@property (nonatomic, strong)UIButton *dateSelectBtn;
+@property (nonatomic, strong)UIActionSheet *pickerSheet;
+
 @end
