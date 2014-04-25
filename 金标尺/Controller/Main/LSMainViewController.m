@@ -49,6 +49,7 @@
     [selectBtn setTitle:@"选课" forState:UIControlStateNormal];
     [selectBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [selectBtn addTarget:self action:@selector(selectBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    selectBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:selectBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
     

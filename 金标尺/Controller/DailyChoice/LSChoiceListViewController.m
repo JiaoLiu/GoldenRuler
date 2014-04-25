@@ -7,6 +7,7 @@
 //
 
 #import "LSChoiceListViewController.h"
+#import "LSChoiceDetailViewController.h"
 
 @interface LSChoiceListViewController ()
 {
@@ -123,14 +124,6 @@
 {
     [pickerSheet showInView:self.view];
     
-//    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 100)];
-//    pickerView.delegate = self;
-//    pickerView.showsSelectionIndicator = YES;
-//    pickerView.dataSource = self;
-//    pickerView.tag = kPaymentPickerTag;
-//    [pickerView selectRow:kPaymentSelected inComponent:0 animated:YES];
-//    [pickerSheet addSubview:pickerView];
-    
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 100)];
     datePicker.datePickerMode = UIDatePickerModeDate;
     datePicker.date = selectedDate;
@@ -176,8 +169,14 @@
     }
     Cell.textLabel.text = @"2014重庆。。。。。";
     Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    Cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    Cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return Cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    LSChoiceDetailViewController *detailVC = [[LSChoiceDetailViewController alloc] init];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 @end

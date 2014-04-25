@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		271A7119190A3A5B00E055BD /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A7118190A3A5B00E055BD /* NSString+Utility.m */; };
+		271A711C190A648700E055BD /* LSChoiceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A711B190A648700E055BD /* LSChoiceDetailViewController.m */; };
 		2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7518FA702000ED443F /* UIImage+Utility.m */; };
 		2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7818FA828900ED443F /* LSLoginViewController.m */; };
 		2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */; };
@@ -70,6 +71,8 @@
 /* Begin PBXFileReference section */
 		271A7117190A3A5B00E055BD /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
 		271A7118190A3A5B00E055BD /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
+		271A711A190A648700E055BD /* LSChoiceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSChoiceDetailViewController.h; sourceTree = "<group>"; };
+		271A711B190A648700E055BD /* LSChoiceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSChoiceDetailViewController.m; sourceTree = "<group>"; };
 		2753ED7418FA702000ED443F /* UIImage+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utility.h"; sourceTree = "<group>"; };
 		2753ED7518FA702000ED443F /* UIImage+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utility.m"; sourceTree = "<group>"; };
 		2753ED7718FA828900ED443F /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 			children = (
 				CCC0897C1907EBB900C9B9ED /* LSChoiceListViewController.h */,
 				CCC0897D1907EBB900C9B9ED /* LSChoiceListViewController.m */,
+				271A711A190A648700E055BD /* LSChoiceDetailViewController.h */,
+				271A711B190A648700E055BD /* LSChoiceDetailViewController.m */,
 			);
 			path = DailyChoice;
 			sourceTree = "<group>";
@@ -595,6 +600,7 @@
 				2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */,
 				27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */,
 				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
+				271A711C190A648700E055BD /* LSChoiceDetailViewController.m in Sources */,
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
 				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
 				CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */,
