@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSChoiceListViewController : UIViewController
+@interface LSChoiceListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong)UIButton *dateSelectBtn;
 @property (nonatomic, strong)UIActionSheet *pickerSheet;
+@property (nonatomic, strong)UITableView *choiceTable;
 
 @end

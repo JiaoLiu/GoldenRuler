@@ -9,6 +9,9 @@
 #import "LSChoiceListViewController.h"
 
 @interface LSChoiceListViewController ()
+{
+    NSDate *selectedDate;
+}
 
 @end
 
@@ -16,12 +19,14 @@
 
 @synthesize dateSelectBtn;
 @synthesize pickerSheet;
+@synthesize choiceTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        selectedDate = [NSDate date];
     }
     return self;
 }
@@ -63,16 +68,23 @@
     dateSelectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 24.5)];
     [dateSelectBtn setBackgroundImage:[UIImage imageNamed:@"mj"] forState:UIControlStateNormal];
     dateSelectBtn.center = CGPointMake(topBar.frame.size.width / 2.0, topBar.frame.size.height / 2.0);
-    NSDate *curDate = [NSDate date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    [dateSelectBtn setTitle:[formatter stringFromDate:curDate] forState:UIControlStateNormal];
+    [dateSelectBtn setTitle:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
     [dateSelectBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     dateSelectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     dateSelectBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     dateSelectBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [dateSelectBtn addTarget:self action:@selector(dateSelectBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [topBar addSubview:dateSelectBtn];
+    
+    // choiceTabel
+    choiceTable = [[UITableView alloc] initWithFrame:CGRectMake(0, topBar.frame.origin.y + topBar.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - (64 + topBar.frame.size.height))];
+    choiceTable.tableFooterView = [UIView new];
+    choiceTable.delegate = self;
+    choiceTable.dataSource = self;
+    if (IOS_VERSION >= 7.0) {
+        choiceTable.separatorInset = UIEdgeInsetsZero;
+    }
+    [self.view addSubview:choiceTable];
     
     // actionSheet
     pickerSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
@@ -121,6 +133,7 @@
     
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 100)];
     datePicker.datePickerMode = UIDatePickerModeDate;
+    datePicker.date = selectedDate;
     [pickerSheet addSubview:datePicker];
     
     
@@ -139,8 +152,32 @@
 {
     [pickerSheet dismissWithClickedButtonIndex:0 animated:YES];
     for (id view in [pickerSheet subviews]) {
+        if ([view isKindOfClass:[UIDatePicker class]]) {
+            UIDatePicker *picker = (UIDatePicker *)view;
+            NSDate *date = picker.date;
+            selectedDate = date;
+            [dateSelectBtn setTitle:[NSString stringFromDate:date Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
+        }
         [view removeFromSuperview];
     }
+}
+
+#pragma mark - tableView delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 20;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (Cell == nil) {
+        Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    }
+    Cell.textLabel.text = @"2014重庆。。。。。";
+    Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    Cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    return Cell;
 }
 
 @end

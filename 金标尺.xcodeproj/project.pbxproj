@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271A7119190A3A5B00E055BD /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A7118190A3A5B00E055BD /* NSString+Utility.m */; };
 		2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7518FA702000ED443F /* UIImage+Utility.m */; };
 		2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7818FA828900ED443F /* LSLoginViewController.m */; };
 		2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */; };
@@ -67,6 +68,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		271A7117190A3A5B00E055BD /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
+		271A7118190A3A5B00E055BD /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
 		2753ED7418FA702000ED443F /* UIImage+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utility.h"; sourceTree = "<group>"; };
 		2753ED7518FA702000ED443F /* UIImage+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utility.m"; sourceTree = "<group>"; };
 		2753ED7718FA828900ED443F /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
@@ -177,6 +180,8 @@
 				CCC3D71C18F94A75009CC532 /* Marco.h */,
 				2753ED7418FA702000ED443F /* UIImage+Utility.h */,
 				2753ED7518FA702000ED443F /* UIImage+Utility.m */,
+				271A7117190A3A5B00E055BD /* NSString+Utility.h */,
+				271A7118190A3A5B00E055BD /* NSString+Utility.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -596,6 +601,7 @@
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
+				271A7119190A3A5B00E055BD /* NSString+Utility.m in Sources */,
 				CCE619E9190402730087B199 /* LSPrivateInfoViewController.m in Sources */,
 				CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */,
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
