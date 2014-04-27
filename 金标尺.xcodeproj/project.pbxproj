@@ -52,6 +52,10 @@
 		CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC0897D1907EBB900C9B9ED /* LSChoiceListViewController.m */; };
 		CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72A18F95209009CC532 /* LSMainViewController.m */; };
 		CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3D72D18F98002009CC532 /* LSMainItemsView.m */; };
+		CCCE5A41190D33D10057FBFC /* LSCourseRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCCE5A40190D33D10057FBFC /* LSCourseRecommendViewController.m */; };
+		CCCE5A45190D35A00057FBFC /* tabbg_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE5A43190D35A00057FBFC /* tabbg_off@2x.png */; };
+		CCCE5A46190D35A00057FBFC /* tabbg_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE5A44190D35A00057FBFC /* tabbg_on@2x.png */; };
+		CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CCCE5A4B190D47C40057FBFC /* LSTabBar.m */; };
 		CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */; };
 		CCE619E5190401D40087B199 /* my_img_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE619E3190401D40087B199 /* my_img_upload@2x.png */; };
 		CCE619E6190401D40087B199 /* my_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE619E4190401D40087B199 /* my_logout@2x.png */; };
@@ -134,6 +138,12 @@
 		CCC3D72A18F95209009CC532 /* LSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainViewController.m; sourceTree = "<group>"; };
 		CCC3D72C18F98002009CC532 /* LSMainItemsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainItemsView.h; sourceTree = "<group>"; };
 		CCC3D72D18F98002009CC532 /* LSMainItemsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainItemsView.m; sourceTree = "<group>"; };
+		CCCE5A3F190D33D10057FBFC /* LSCourseRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCourseRecommendViewController.h; sourceTree = "<group>"; };
+		CCCE5A40190D33D10057FBFC /* LSCourseRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCourseRecommendViewController.m; sourceTree = "<group>"; };
+		CCCE5A43190D35A00057FBFC /* tabbg_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbg_off@2x.png"; sourceTree = "<group>"; };
+		CCCE5A44190D35A00057FBFC /* tabbg_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbg_on@2x.png"; sourceTree = "<group>"; };
+		CCCE5A4A190D47C40057FBFC /* LSTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
+		CCCE5A4B190D47C40057FBFC /* LSTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBar.m; sourceTree = "<group>"; };
 		CCD6AE1418F99D7B004D758F /* LSMainAdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainAdScrollView.h; sourceTree = "<group>"; };
 		CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainAdScrollView.m; sourceTree = "<group>"; };
 		CCE619E3190401D40087B199 /* my_img_upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_img_upload@2x.png"; sourceTree = "<group>"; };
@@ -218,6 +228,7 @@
 		CC49000A18F93B98007E83F4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CCCE5A42190D35A00057FBFC /* Course */,
 				278F1FBD1908E78A003C0725 /* DailyChoice */,
 				CCB3BA69190222F400CC1849 /* Private */,
 				CC9A63311901529A00103000 /* Main */,
@@ -344,6 +355,8 @@
 			children = (
 				CC641D1A190699640073F8D5 /* LSCourseSelectMainViewController.h */,
 				CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */,
+				CCCE5A3F190D33D10057FBFC /* LSCourseRecommendViewController.h */,
+				CCCE5A40190D33D10057FBFC /* LSCourseRecommendViewController.m */,
 			);
 			path = Course;
 			sourceTree = "<group>";
@@ -410,6 +423,8 @@
 		CCC3D72418F9515D009CC532 /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				CCCE5A4A190D47C40057FBFC /* LSTabBar.h */,
+				CCCE5A4B190D47C40057FBFC /* LSTabBar.m */,
 			);
 			path = Course;
 			sourceTree = "<group>";
@@ -444,6 +459,15 @@
 			children = (
 			);
 			path = Private;
+			sourceTree = "<group>";
+		};
+		CCCE5A42190D35A00057FBFC /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				CCCE5A43190D35A00057FBFC /* tabbg_off@2x.png */,
+				CCCE5A44190D35A00057FBFC /* tabbg_on@2x.png */,
+			);
+			path = Course;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -529,6 +553,7 @@
 				CC9A63461901529A00103000 /* index_e@2x.png in Resources */,
 				CC9A63411901529A00103000 /* index_aa@2x.png in Resources */,
 				CC9A63481901529A00103000 /* index_msg@2x.png in Resources */,
+				CCCE5A45190D35A00057FBFC /* tabbg_off@2x.png in Resources */,
 				CC49FFEA18F93AA8007E83F4 /* Images.xcassets in Resources */,
 				CC9A633E1901529A00103000 /* back_button@2x.png in Resources */,
 				CC9A633F1901529A00103000 /* home_button@2x.png in Resources */,
@@ -537,6 +562,7 @@
 				CCB3BA6C190222F400CC1849 /* chongzhi@2x.png in Resources */,
 				CC9A63451901529A00103000 /* index_d@2x.png in Resources */,
 				CCE619E5190401D40087B199 /* my_img_upload@2x.png in Resources */,
+				CCCE5A46190D35A00057FBFC /* tabbg_on@2x.png in Resources */,
 				278F1FC01908E78A003C0725 /* mj@2x.png in Resources */,
 				278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
@@ -607,6 +633,7 @@
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
+				CCCE5A41190D33D10057FBFC /* LSCourseRecommendViewController.m in Sources */,
 				271A7119190A3A5B00E055BD /* NSString+Utility.m in Sources */,
 				CCE619E9190402730087B199 /* LSPrivateInfoViewController.m in Sources */,
 				CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */,
@@ -614,6 +641,7 @@
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
+				CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

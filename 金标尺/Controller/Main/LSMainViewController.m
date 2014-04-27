@@ -182,7 +182,8 @@
             break;
         case 5:
         {
-            
+            LSCourseRecommendViewController *recommendVC = [[LSCourseRecommendViewController alloc] init];
+            [self.navigationController pushViewController:recommendVC animated:YES];
         }
             break;
         default:

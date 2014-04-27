@@ -15,6 +15,7 @@
 #import "LSPrivateCollectionViewController.h"
 #import "LSCourseSelectMainViewController.h"
 #import "LSChoiceListViewController.h"
+#import "LSCourseRecommendViewController.h"
 
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 
