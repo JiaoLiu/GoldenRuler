@@ -46,7 +46,7 @@
 
     //tabBar
     LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
-    tabBar.items = @[@"1",@"2"];
+    tabBar.items = @[@"推荐课程",@"热门课程"];
     tabBar.selectedItem = 1;
     tabBar.delegate = self;
     [self.view addSubview:tabBar];
