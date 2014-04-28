@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "LSTabBar.h"
 
-@interface LSCourseRecommendViewController : UIViewController<LSTabBarDelegate>
+@interface LSCourseRecommendViewController : UIViewController<LSTabBarDelegate,UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, strong)UITableView *courseTable;
 
 @end

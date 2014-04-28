@@ -14,6 +14,8 @@
 
 @implementation LSCourseRecommendViewController
 
+@synthesize courseTable;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,9 +49,20 @@
     //tabBar
     LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
     tabBar.items = @[@"推荐课程",@"热门课程"];
-    tabBar.selectedItem = 1;
+    tabBar.selectedItem = 0;
     tabBar.delegate = self;
     [self.view addSubview:tabBar];
+    
+    //courseTable
+    courseTable = [[UITableView alloc] initWithFrame:CGRectMake(0, tabBar.frame.origin.y + tabBar.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 36)];
+    courseTable.delegate = self;
+    courseTable.dataSource =self;
+    courseTable.rowHeight = 50;
+    courseTable.tableFooterView = [UIView new];
+    if (IOS_VERSION >= 7.0) {
+        courseTable.separatorInset = UIEdgeInsetsZero;
+    }
+    [self.view addSubview:courseTable];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,6 +97,25 @@
 - (void)SelectItemAtIndex:(NSNumber *)index
 {
     NSLog(@"%d",[index integerValue]);
+}
+
+#pragma mark - tableView Delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (Cell == nil) {
+        Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+    }
+    Cell.textLabel.text = @"2014重庆公共基础模拟题";
+    Cell.detailTextLabel.text = @"授课时间。。。。 招生人数：200人";
+    Cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+    Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    return Cell;
 }
 
 @end
