@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LSImageButton.h"
 
-@interface LSChoiceDetailViewController : UIViewController
+@interface LSChoiceDetailViewController : UIViewController<UIWebViewDelegate>
+
+@property (nonatomic, strong) UIWebView *choiceWebView;
 
 @end
