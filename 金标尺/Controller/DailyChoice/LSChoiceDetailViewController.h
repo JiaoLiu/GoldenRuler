@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "LSImageButton.h"
 
+typedef enum : NSUInteger {
+    kCollectBtnTag,
+    kCommentBtnTag,
+    kShareBtnTag,
+    kWeiboBtnTag,
+    kSinaBtnTag,
+    kWeixinBtnTag
+} kFooterViewTags;
+
 @interface LSChoiceDetailViewController : UIViewController<UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *choiceWebView;
