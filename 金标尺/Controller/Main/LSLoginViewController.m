@@ -132,6 +132,15 @@
         [SVProgressHUD showErrorWithStatus:@"请输入用密码"];
         return;
     }
+    NSURLRequest *requrest = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogin stringByAppendingString:[NSString stringWithFormat:@"?name=%@?pwd=%@",usernameField.text,pwdField.text]]]];
+    NSLog(@"%@",requrest);
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:requrest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSLog(@"%@",data);
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"%@",str);
+    }];
     [USER_DEFAULT setObject:@"Y" forKey:isLoginKey];
     [USER_DEFAULT synchronize];
     [self backBtnClicked];

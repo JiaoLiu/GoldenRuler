@@ -10,6 +10,7 @@
 #import "UIImage+Utility.h"
 #import "NSString+Utility.h"
 #import <SVProgressHUD.h>
+#import <JSONKit.h>
 
 @protocol Marco <NSObject>
 
@@ -224,9 +225,9 @@ do {                                                                      \
 
 
 //定义一个API
-#define APIURL                @"http://xxxxx/"
+#define APIURL                @"http://demo.deepinfo.cn/jbc2/index.php/"
 //登陆API
-#define APILogin              [APIURL stringByAppendingString:@"Login"]
+#define APILogin              [APIURL stringByAppendingString:@"login"]
 
 //设置View的tag属性
 #define VIEWWITHTAG(_OBJECT, _TAG)    [_OBJECT viewWithTag : _TAG]
