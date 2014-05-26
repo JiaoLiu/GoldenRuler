@@ -133,17 +133,20 @@
         return;
     }
     NSURLRequest *requrest = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogin stringByAppendingString:[NSString stringWithFormat:@"?name=%@?pwd=%@",usernameField.text,pwdField.text]]]];
-    NSLog(@"%@",requrest);
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:requrest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSLog(@"%@",data);
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        NSLog(@"%@",str);
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            [USER_DEFAULT setObject:@"Y" forKey:isLoginKey];
+            [USER_DEFAULT synchronize];
+            [self backBtnClicked];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
     }];
-    [USER_DEFAULT setObject:@"Y" forKey:isLoginKey];
-    [USER_DEFAULT synchronize];
-    [self backBtnClicked];
 }
 
 - (void)registerBtnClicked
