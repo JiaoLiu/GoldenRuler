@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UIImage+Utility.h"
 #import "NSString+Utility.h"
+#import "LSUserManager.h"
 #import <SVProgressHUD.h>
 #import <JSONKit.h>
 

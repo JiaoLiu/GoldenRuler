@@ -115,7 +115,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [super viewDidAppear:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+            if (![LSUserManager getIsLogin]) {
                 [LSAppDelegate showLoginView:self];
             }
         });
@@ -148,7 +148,7 @@
 
 - (void)clickedOnItem:(UIButton *)sender
 {
-    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+    if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
     }
@@ -196,7 +196,7 @@
 
 - (void)selectBtnClicked
 {
-    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+    if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
     }
@@ -206,7 +206,7 @@
 
 - (void)infoBtnClicked
 {
-    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+    if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
     }
@@ -214,7 +214,7 @@
 
 - (void)incorrectBtnClicked
 {
-    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+    if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
     }
@@ -222,7 +222,7 @@
 
 - (void)privateBtnClicked
 {
-    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+    if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
     }
@@ -232,7 +232,7 @@
 
 - (void)msgBtnClicked
 {
-    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
+    if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
     }

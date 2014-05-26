@@ -16,6 +16,7 @@
 		271D2051191B843800B51CF2 /* m_s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271D204B191B843800B51CF2 /* m_s@2x.png */; };
 		271D2052191B843800B51CF2 /* m_w@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271D204C191B843800B51CF2 /* m_w@2x.png */; };
 		271D2053191B843800B51CF2 /* m_ww@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271D204D191B843800B51CF2 /* m_ww@2x.png */; };
+		274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 274B14BE1933365000F5EE0D /* LSUserManager.m */; };
 		2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7518FA702000ED443F /* UIImage+Utility.m */; };
 		2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7818FA828900ED443F /* LSLoginViewController.m */; };
 		2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */; };
@@ -92,6 +93,8 @@
 		271D204B191B843800B51CF2 /* m_s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "m_s@2x.png"; sourceTree = "<group>"; };
 		271D204C191B843800B51CF2 /* m_w@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "m_w@2x.png"; sourceTree = "<group>"; };
 		271D204D191B843800B51CF2 /* m_ww@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "m_ww@2x.png"; sourceTree = "<group>"; };
+		274B14BD1933365000F5EE0D /* LSUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSUserManager.h; sourceTree = "<group>"; };
+		274B14BE1933365000F5EE0D /* LSUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSUserManager.m; sourceTree = "<group>"; };
 		2753ED7418FA702000ED443F /* UIImage+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utility.h"; sourceTree = "<group>"; };
 		2753ED7518FA702000ED443F /* UIImage+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utility.m"; sourceTree = "<group>"; };
 		2753ED7718FA828900ED443F /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				CCC3D71C18F94A75009CC532 /* Marco.h */,
+				274B14BD1933365000F5EE0D /* LSUserManager.h */,
+				274B14BE1933365000F5EE0D /* LSUserManager.m */,
 				2753ED7418FA702000ED443F /* UIImage+Utility.h */,
 				2753ED7518FA702000ED443F /* UIImage+Utility.m */,
 				271A7117190A3A5B00E055BD /* NSString+Utility.h */,
@@ -670,6 +675,7 @@
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
+				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
 				CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,

@@ -138,8 +138,14 @@
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         if (ret == 1) {
-            [USER_DEFAULT setObject:@"Y" forKey:isLoginKey];
-            [USER_DEFAULT synchronize];
+            [LSUserManager setIsLogin:YES];
+            [LSUserManager setIsVip:[[dic objectForKey:@"is_vip"] integerValue]];
+            [LSUserManager setKey:[[dic objectForKey:@"key"] integerValue]];
+            [LSUserManager setUid:[[dic objectForKey:@"uid"] integerValue]];
+            [LSUserManager setTid:[[dic objectForKey:@"tid"] integerValue]];
+            [LSUserManager setTk:[[dic objectForKey:@"tk"] integerValue]];
+            [LSUserManager setCid:[[dic objectForKey:@"cid"] integerValue]];
+            [LSUserManager setLastqid:[[dic objectForKey:@"lastqid"] integerValue]];
             [self backBtnClicked];
         }
         else
@@ -171,6 +177,14 @@
     }
     if (textField == pwdField) {
         [self loginBtnClicked];
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    if (textField == usernameField) {
+        pwdField.text = @"";
     }
     return YES;
 }
