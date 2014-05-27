@@ -147,11 +147,80 @@
         if (!originImage) {
             originImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         }
-        UIGraphicsBeginImageContext(CGSizeMake(60, 60));
-        [originImage drawInRect:CGRectMake(0, 0, 60, 60)];
-        imgView.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+//        UIGraphicsBeginImageContext(CGSizeMake(60, 60));
+//        [originImage drawInRect:CGRectMake(0, 0, 60, 60)];
+//        imgView.image = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
+        imgView.image = originImage;
+        
+        //upload header;
+        [self uploadImg:originImage];
     }];
+}
+
+- (void)uploadImg:(UIImage *)img
+{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/uploadImg"]]]];
+    NSData *data = UIImageJPEGRepresentation(img, 1);
+    
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"POST"];
+    
+    //Create boundary, it can be anything
+    NSString *boundary = @"------VohpleBoundary4QuqLuM1cE5lMwCy";
+    
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // post body
+    NSMutableData *body = [NSMutableData data];
+    
+    //Populate a dictionary with all the regular values you would like to send.
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters setValue:[NSNumber numberWithInt:[LSUserManager getUid]] forKey:@"uid"];
+    
+    [parameters setValue:[NSNumber numberWithInt:[LSUserManager getKey]] forKey:@"key"];
+
+    
+    // add params (all params are strings)
+    for (NSString *param in parameters) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"%@\r\n", [parameters objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    NSString *FileParamConstant = @"imageParamName";
+    
+    // add image data
+    if (data) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:data];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         NSDictionary *dic = [data mutableObjectFromJSONData];
+         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+         if (ret == 1) {
+             NSLog(@"succeed upload header");
+         }
+         else
+         {
+             [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+         }
+     }];
 }
 
 #pragma mark - tableView delegate
