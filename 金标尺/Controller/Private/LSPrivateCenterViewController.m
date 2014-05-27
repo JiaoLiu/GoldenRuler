@@ -235,9 +235,9 @@
             break;
         case 7:
         {
-            NSURLRequest *requrest = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogout stringByAppendingString:[NSString stringWithFormat:@"?key=%d&uid=%d",[LSUserManager getKey],[LSUserManager getUid]]]]];
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogout stringByAppendingString:[NSString stringWithFormat:@"?key=%d&uid=%d",[LSUserManager getKey],[LSUserManager getUid]]]]];
             NSOperationQueue *queue = [NSOperationQueue currentQueue];
-            [NSURLConnection sendAsynchronousRequest:requrest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                 NSDictionary *dic = [data mutableObjectFromJSONData];
                 NSInteger ret = [[dic objectForKey:@"status"] integerValue];
                 if (ret == 1) {
