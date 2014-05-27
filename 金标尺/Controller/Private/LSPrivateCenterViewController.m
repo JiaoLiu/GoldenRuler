@@ -33,7 +33,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        isVip = YES;
+        isVip = [LSUserManager getIsVip];
         expireDate = [NSDate date];
         titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"我的评论",@"我要充值",@"设置",@"退出登陆"];
     }
@@ -230,10 +230,21 @@
             break;
         case 7:
         {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            [USER_DEFAULT setObject:@"N" forKey:isLoginKey];
-            [USER_DEFAULT synchronize];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
+            NSURLRequest *requrest = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogout stringByAppendingString:[NSString stringWithFormat:@"?key=%d&uid=%d",[LSUserManager getKey],[LSUserManager getUid]]]]];
+            NSOperationQueue *queue = [NSOperationQueue currentQueue];
+            [NSURLConnection sendAsynchronousRequest:requrest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                NSDictionary *dic = [data mutableObjectFromJSONData];
+                NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+                if (ret == 1) {
+                    [LSUserManager setIsLogin:NO];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
+                }
+                else
+                {
+                    [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+                }
+            }];
         }
             break;
         default:

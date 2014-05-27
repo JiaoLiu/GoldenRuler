@@ -132,7 +132,26 @@
         [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
         return;
     }
-    [self backBtnClicked];
+    NSURLRequest *requrest = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:requrest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSDictionary *data = [dic objectForKey:@"data"];
+            [LSUserManager setIsLogin:YES];
+            [LSUserManager setIsVip:[[data objectForKey:@"is_vip"] integerValue]];
+            [LSUserManager setKey:[[data objectForKey:@"key"] integerValue]];
+            [LSUserManager setUid:[[data objectForKey:@"uid"] integerValue]];
+            [LSUserManager setLastqid:[[data objectForKey:@"lastqid"] integerValue]];
+            [self dismissViewControllerAnimated:YES completion:^{
+            }];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 #pragma mark - tableView delegate

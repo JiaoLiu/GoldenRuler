@@ -25,5 +25,6 @@ typedef enum {
 @property (nonatomic, assign)NSInteger totalNum;
 @property (nonatomic, assign)NSInteger kDateSelected;
 @property (nonatomic, assign)NSInteger kPaymentSelected;
+@property (nonatomic, assign)BOOL isVip;
 
 @end

@@ -228,11 +228,11 @@ do {                                                                      \
 //定义一个API
 #define APIURL                @"http://demo.deepinfo.cn/jbc2/index.php/"
 //登陆API
-#define APILogin              [APIURL stringByAppendingString:@"/Index/login"]
+#define APILogin              [APIURL stringByAppendingString:@"Index/login"]
 //注册API
-#define APIRegister           [APIURL stringByAppendingString:@"/Index/register"]
+#define APIRegister           [APIURL stringByAppendingString:@"Index/register"]
 //登出API
-#define APILogout             [APIURL stringByAppendingString:@"/Demand/logout"]
+#define APILogout             [APIURL stringByAppendingString:@"Demand/logout"]
 
 //设置View的tag属性
 #define VIEWWITHTAG(_OBJECT, _TAG)    [_OBJECT viewWithTag : _TAG]

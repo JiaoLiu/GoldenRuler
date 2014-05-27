@@ -132,20 +132,21 @@
         [SVProgressHUD showErrorWithStatus:@"请输入用密码"];
         return;
     }
-    NSURLRequest *requrest = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogin stringByAppendingString:[NSString stringWithFormat:@"?name=%@?pwd=%@",usernameField.text,pwdField.text]]]];
+    NSURLRequest *requrest = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogin stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:requrest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         if (ret == 1) {
+            NSDictionary *data = [dic objectForKey:@"data"];
             [LSUserManager setIsLogin:YES];
-            [LSUserManager setIsVip:[[dic objectForKey:@"is_vip"] integerValue]];
-            [LSUserManager setKey:[[dic objectForKey:@"key"] integerValue]];
-            [LSUserManager setUid:[[dic objectForKey:@"uid"] integerValue]];
-            [LSUserManager setTid:[[dic objectForKey:@"tid"] integerValue]];
-            [LSUserManager setTk:[[dic objectForKey:@"tk"] integerValue]];
-            [LSUserManager setCid:[[dic objectForKey:@"cid"] integerValue]];
-            [LSUserManager setLastqid:[[dic objectForKey:@"lastqid"] integerValue]];
+            [LSUserManager setIsVip:[[data objectForKey:@"is_vip"] integerValue]];
+            [LSUserManager setKey:[[data objectForKey:@"key"] integerValue]];
+            [LSUserManager setUid:[[data objectForKey:@"uid"] integerValue]];
+            [LSUserManager setTid:[[data objectForKey:@"tid"] integerValue]];
+            [LSUserManager setTk:[[data objectForKey:@"tk"] integerValue]];
+            [LSUserManager setCid:[[data objectForKey:@"cid"] integerValue]];
+            [LSUserManager setLastqid:[[data objectForKey:@"lastqid"] integerValue]];
             [self backBtnClicked];
         }
         else
