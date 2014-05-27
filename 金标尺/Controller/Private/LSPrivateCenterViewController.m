@@ -24,7 +24,7 @@
 @implementation LSPrivateCenterViewController
 
 @synthesize isVip;
-@synthesize pushNum;
+@synthesize hasNotice;
 @synthesize table;
 @synthesize expireDate;
 
@@ -166,19 +166,24 @@
         Cell.textLabel.text = [titleArray objectAtIndex:indexPath.row];
         Cell.textLabel.textColor = [UIColor grayColor];
         if (indexPath.row == 1) {
-            UILabel *pushNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 40, 35)];
-            pushNumLabel.textColor = [UIColor redColor];
-            pushNumLabel.backgroundColor = [UIColor clearColor];
-            pushNumLabel.textAlignment = NSTextAlignmentCenter;
-            pushNumLabel.tag = 100;
-            [Cell.contentView addSubview:pushNumLabel];
+//            UILabel *pushNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 40, 35)];
+//            pushNumLabel.textColor = [UIColor redColor];
+//            pushNumLabel.backgroundColor = [UIColor clearColor];
+//            pushNumLabel.textAlignment = NSTextAlignmentCenter;
+//            pushNumLabel.tag = 100;
+//            [Cell.contentView addSubview:pushNumLabel];
+            UIImageView *notice = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, 11, 49 / 2.0, 13)];
+            notice.tag = 100;
+            notice.image = [UIImage imageNamed:@"message_new"];
+            notice.hidden = YES;
+            [Cell.contentView addSubview:notice];
         }
     }
     
     if (indexPath.row == 1) {
-        for (UILabel *label in [Cell.contentView subviews]) {
-            if (label.tag == 100 && pushNum > 0) {
-                label.text = [NSString stringWithFormat:@"(%d)",pushNum];
+        for (UIInputView *view in [Cell.contentView subviews]) {
+            if (view.tag == 100 && hasNotice) {
+                view.hidden = NO;
             }
         }
     }

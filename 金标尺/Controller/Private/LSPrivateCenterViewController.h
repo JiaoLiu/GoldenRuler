@@ -11,7 +11,7 @@
 @interface LSPrivateCenterViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, assign)BOOL isVip;
-@property (nonatomic, assign)int pushNum;
+@property (nonatomic, assign)BOOL hasNotice;
 
 @property (nonatomic ,strong)NSDate *expireDate;
 @property (nonatomic, strong)UITableView *table;
