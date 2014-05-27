@@ -65,6 +65,19 @@
     [USER_DEFAULT synchronize];
 }
 
++ (void)setUserImg:(NSString *)url
+{
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%d",[LSUserManager getUid]]];
+    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+//    NSLog(@"%@",path);
+    NSString *filePath = [path stringByAppendingPathComponent:@"header.jpg"];
+    [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
+    
+    [USER_DEFAULT setObject:filePath forKey:@"_USER_IMG_"];
+    [USER_DEFAULT synchronize];
+}
+
 #pragma mark - get User Info
 + (BOOL)getIsLogin
 {
@@ -110,6 +123,13 @@
 + (NSInteger)getTk
 {
     return [[USER_DEFAULT objectForKey:@"_USER_TK_"] integerValue];
+}
+
++ (UIImage *)getUserImg
+{
+    NSString *filePath = [USER_DEFAULT objectForKey:@"_USER_IMG_"];
+    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+    return image;
 }
 
 @end

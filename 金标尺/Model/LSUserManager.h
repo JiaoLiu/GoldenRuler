@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSString+Utility.h"
+#import "UIImage+Utility.h"
 
 @interface LSUserManager : NSObject
 
@@ -19,6 +21,7 @@
 + (void)setLastqid:(int)qid;
 + (void)setTid:(int)tid;
 + (void)setTk:(int)tk;
++ (void)setUserImg:(NSString *)url;
 
 // get user data
 + (BOOL)getIsLogin;
@@ -29,5 +32,6 @@
 + (NSInteger)getLastqid;
 + (NSInteger)getTid;
 + (NSInteger)getTk;
++ (UIImage *)getUserImg;
 
 @end

@@ -147,14 +147,14 @@
         if (!originImage) {
             originImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         }
-//        UIGraphicsBeginImageContext(CGSizeMake(60, 60));
-//        [originImage drawInRect:CGRectMake(0, 0, 60, 60)];
-//        imgView.image = UIGraphicsGetImageFromCurrentImageContext();
-//        UIGraphicsEndImageContext();
-        imgView.image = originImage;
+        UIGraphicsBeginImageContext(CGSizeMake(120, 120));
+        [originImage drawInRect:CGRectMake(0, 0, 120, 120)];
+        imgView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+//        imgView.image = originImage;
         
         //upload header;
-        [self uploadImg:originImage];
+        [self uploadImg:imgView.image];
     }];
 }
 
@@ -214,7 +214,8 @@
          NSDictionary *dic = [data mutableObjectFromJSONData];
          NSInteger ret = [[dic objectForKey:@"status"] integerValue];
          if (ret == 1) {
-             NSLog(@"succeed upload header");
+//             NSLog(@"succeed upload header");
+             [LSUserManager setUserImg:[dic objectForKey:@"data"]];
          }
          else
          {
@@ -246,7 +247,7 @@
             case 0:
             {
                 imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7.5, 60, 60)];
-                imgView.image = [UIImage imageNamed:@"default_header@2x.jpg"];
+                imgView.image = [LSUserManager getUserImg];
                 imgView.layer.borderWidth = 1;
                 imgView.layer.borderColor = [UIColor whiteColor].CGColor;
                 imgView.clipsToBounds = YES;

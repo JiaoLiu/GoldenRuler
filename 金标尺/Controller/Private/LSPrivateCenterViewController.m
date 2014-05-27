@@ -62,7 +62,7 @@
     [self.view addSubview:headerBackView];
     
     UIImageView *headerImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
-    headerImgView.image = [UIImage imageNamed:@"default_header@2x.jpg"];
+    headerImgView.image = [LSUserManager getUserImg];
     headerImgView.layer.borderWidth = 1;
     headerImgView.layer.borderColor = [UIColor whiteColor].CGColor;
     headerImgView.clipsToBounds = YES;
