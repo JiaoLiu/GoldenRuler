@@ -110,29 +110,6 @@
     [self CheckLogin];
 }
 
-- (void)CheckLogin
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [super viewDidAppear:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (![LSUserManager getIsLogin]) {
-                [LSAppDelegate showLoginView:self];
-            }
-        });
-    });
-//    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
-//        [LSAppDelegate showLoginView:self];
-//    }
-}
-
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:YES];
-//    if (![[USER_DEFAULT objectForKey:isLoginKey] isEqualToString:@"Y"]) {
-//        [LSAppDelegate showLoginView:self];
-//    }
-//}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -142,6 +119,65 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CheckLogin" object:nil];
+}
+
+#pragma mark - CheckLogin / getUserInfo
+- (void)CheckLogin
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [super viewDidAppear:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (![LSUserManager getIsLogin]) {
+                [LSAppDelegate showLoginView:self];
+            }
+            else
+            {
+                [self queryUserCenterInfo];
+                [self queryUserInfo];
+            }
+        });
+    });
+}
+
+- (void)queryUserCenterInfo
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/mycenter?key=%d&uid=%d",[LSUserManager getKey],[LSUserManager getUid]]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSDictionary *data = [dic objectForKey:@"data"];
+            [LSUserManager setUserName:[data objectForKey:@"name"]];
+            [LSUserManager setUserImg:[data objectForKey:@"avatar"]];
+            [LSUserManager setUserEmail:[data objectForKey:@"email"]];
+            [LSUserManager setPush:[[data objectForKey:@"push"] integerValue]];
+            [LSUserManager setEndTime:[data objectForKey:@"endtime"]];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+}
+
+- (void)queryUserInfo
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myInfo?key=%d&uid=%d",[LSUserManager getKey],[LSUserManager getUid]]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSDictionary *data = [dic objectForKey:@"data"];
+            [LSUserManager setUserTel:[data objectForKey:@"tel"]];
+            [LSUserManager setUserQQ:[data objectForKey:@"qq"]];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 #pragma mark - itemsViewDelegate

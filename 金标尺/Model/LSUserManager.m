@@ -102,6 +102,21 @@
     [USER_DEFAULT synchronize];
 }
 
++ (void)setEndTime:(NSString *)endTime
+{
+    [USER_DEFAULT setObject:endTime forKey:@"_USER_ENDTIME_"];
+    [USER_DEFAULT synchronize];
+}
+
++ (void)setPush:(int)push
+{
+    if (push == 1) {
+        [USER_DEFAULT setObject:@"Y" forKey:@"_USER_PUSH_"];
+    }
+    else [USER_DEFAULT setObject:@"N" forKey:@"_USER_PUSH_"];
+    [USER_DEFAULT synchronize];
+}
+
 #pragma mark - get User Info
 + (BOOL)getIsLogin
 {
@@ -174,6 +189,19 @@
 + (NSString *)getUserTel
 {
     return [USER_DEFAULT objectForKey:@"_USER_TEL_"];
+}
+
++ (NSString *)getEndTime
+{
+    return [USER_DEFAULT objectForKey:@"_USER_ENDTIME_"];
+}
+
++ (BOOL)getPush
+{
+    if ([[USER_DEFAULT objectForKey:@"_USER_PUSH_"] isEqualToString:@"Y"]) {
+        return TRUE;
+    }
+    else return FALSE;
 }
 
 @end

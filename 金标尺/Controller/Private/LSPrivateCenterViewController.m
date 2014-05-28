@@ -36,6 +36,7 @@
         isVip = [LSUserManager getIsVip];
         expireDate = [NSDate date];
         titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"我的评论",@"我要充值",@"设置",@"退出登陆"];
+        hasNotice = [LSUserManager getPush];
     }
     return self;
 }

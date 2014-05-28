@@ -148,6 +148,7 @@
             [LSUserManager setCid:[[data objectForKey:@"cid"] integerValue]];
             [LSUserManager setLastqid:[[data objectForKey:@"lastqid"] integerValue]];
             [self backBtnClicked];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
         }
         else
         {

@@ -56,23 +56,24 @@
         textFD.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         textFD.returnKeyType = UIReturnKeyDone;
         textFD.clearButtonMode = UITextFieldViewModeWhileEditing;
+        [textFD becomeFirstResponder];
         textFD.delegate = self;
         [self.view addSubview:textFD];
     }
-    
-    
     
     switch (type) {
         case kEditName:
         {
             self.title = @"修改用户名";
             textFD.placeholder = @"请输入用户名";
+            textFD.keyboardType = UIKeyboardTypeDefault;
         }
             break;
         case kEditPhone:
         {
             self.title = @"修改手机号码";
             textFD.placeholder = @"请输入手机号码";
+            textFD.keyboardType = UIKeyboardTypePhonePad;
         }
             break;
         case kEditPwd:
@@ -84,12 +85,14 @@
         {
             self.title = @"修改QQ号";
             textFD.placeholder = @"请输入QQ号";
+            textFD.keyboardType = UIKeyboardTypeNumberPad;
         }
             break;
         case kEditEmail:
         {
             self.title = @"修改电子邮箱";
             textFD.placeholder = @"请输入电子邮箱";
+            textFD.keyboardType = UIKeyboardTypeEmailAddress;
         }
             break;
         default:
@@ -122,7 +125,78 @@
 
 - (void)saveBtnClicked
 {
-    
+    NSString *urlStr = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/editInfo?uid=%d&key=%d&value=%@",[LSUserManager getUid],[LSUserManager getKey],textFD.text]];
+    switch (type) {
+        case kEditName:
+        {// can't edit
+//            urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&name=name&t=0"]];
+        }
+            break;
+        case kEditPhone:
+        {
+            urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&name=tel&t=0"]];
+        }
+            break;
+        case kEditPwd:
+        {
+
+        }
+            break;
+        case kEditQQ:
+        {
+            urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&name=qq&t=0"]];
+        }
+            break;
+        case kEditEmail:
+        {
+            urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&name=email&t=0"]];
+        }
+            break;
+        default:
+            break;
+    }
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            switch (type) {
+                case kEditName:
+                {
+                    [LSUserManager setUserName:textFD.text];
+                }
+                    break;
+                case kEditPhone:
+                {
+                    [LSUserManager setUserTel:textFD.text];
+                }
+                    break;
+                case kEditPwd:
+                {
+                    
+                }
+                    break;
+                case kEditQQ:
+                {
+                    [LSUserManager setUserQQ:textFD.text];
+                }
+                    break;
+                case kEditEmail:
+                {
+                    [LSUserManager setUserEmail:textFD.text];
+                }
+                    break;
+                default:
+                    break;
+            }
+            [self backBtnClicked];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 #pragma mark - textFD delegate

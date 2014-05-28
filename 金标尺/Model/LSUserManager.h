@@ -26,6 +26,8 @@
 + (void)setUserTel:(NSString *)tel;
 + (void)setUserQQ:(NSString *)qq;
 + (void)setUserEmail:(NSString *)email;
++ (void)setEndTime:(NSString *)endTime;
++ (void)setPush:(int)push;
 
 // get user data
 + (BOOL)getIsLogin;
@@ -41,5 +43,7 @@
 + (NSString *)getUserTel;
 + (NSString *)getUserEmail;
 + (NSString *)getuserQQ;
++ (NSString *)getEndTime;
++ (BOOL)getPush;
 
 @end

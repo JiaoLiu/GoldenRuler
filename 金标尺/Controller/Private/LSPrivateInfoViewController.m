@@ -61,6 +61,12 @@
     [self.view addSubview:logoutBtn];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [table reloadData];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -244,87 +250,91 @@
     UITableViewCell *Cell = [table dequeueReusableCellWithIdentifier:@"Cell"];
     if (Cell == nil) {
         Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
-        switch (indexPath.row) {
-            case 0:
-            {
-                imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7.5, 60, 60)];
-                imgView.image = [LSUserManager getUserImg];
-                imgView.layer.borderWidth = 1;
-                imgView.layer.borderColor = [UIColor whiteColor].CGColor;
-                imgView.clipsToBounds = YES;
-                [Cell.contentView addSubview:imgView];
-                
-                UIButton *loadImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 100, 26.5, 62.5, 22)];
-                [loadImgBtn setBackgroundImage:[UIImage imageNamed:@"my_img_upload"] forState:UIControlStateNormal];
-                [loadImgBtn setTitle:@"重新上传" forState:UIControlStateNormal];
-                [loadImgBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [loadImgBtn addTarget:self action:@selector(imgLoadBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-                loadImgBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-                [Cell.contentView addSubview:loadImgBtn];
-            }
-                break;
-            case 1:
-            {
-                Cell.textLabel.text = @"用户名";
-                Cell.textLabel.textColor = [UIColor lightGrayColor];
-                
-                Cell.detailTextLabel.text = [LSUserManager getUserName];
-                Cell.detailTextLabel.textColor = RGB(69, 111, 158);
-            }
-                break;
-            case 2:
-            {
-                Cell.textLabel.text = @"手机号码";
-                Cell.textLabel.textColor = [UIColor lightGrayColor];
-                
-                NSString *phone = [LSUserManager getUserTel];
-                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",phone]];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, phone.length)];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(phone.length, 5)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, phone.length)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(phone.length, 5)];
-                Cell.detailTextLabel.attributedText = attrStr;
-            }
-                break;
-            case 3:
-            {
-                Cell.textLabel.text = @"电子邮箱";
-                Cell.textLabel.textColor = [UIColor lightGrayColor];
-                
-                NSString *email = [LSUserManager getUserEmail];
-                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",email]];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, email.length)];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(email.length, 5)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, email.length)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(email.length, 5)];
-                Cell.detailTextLabel.attributedText = attrStr;
-            }
-                break;
-            case 4:
-            {
-                Cell.textLabel.text = @"QQ号";
-                Cell.textLabel.textColor = [UIColor lightGrayColor];
-                
-                Cell.detailTextLabel.text = [LSUserManager getuserQQ];
-                Cell.detailTextLabel.textColor = RGB(69, 111, 158);
-            }
-                break;
-            case 5:
-            {
-                Cell.textLabel.text = @"登陆密码修改";
-                Cell.textLabel.textColor = [UIColor lightGrayColor];
-                Cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-                
-                UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, 34.5, SCREEN_WIDTH - 20, 0.5)];
-                separator.backgroundColor = [UIColor lightGrayColor];
-                [Cell.contentView addSubview:separator];
-            }
-                break;
-                
-            default:
-                break;
+        if (indexPath.row == 0) {
+            imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7.5, 60, 60)];
+            imgView.image = [LSUserManager getUserImg];
+            imgView.layer.borderWidth = 1;
+            imgView.layer.borderColor = [UIColor whiteColor].CGColor;
+            imgView.clipsToBounds = YES;
+            [Cell.contentView addSubview:imgView];
+            
+            UIButton *loadImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 100, 26.5, 62.5, 22)];
+            [loadImgBtn setBackgroundImage:[UIImage imageNamed:@"my_img_upload"] forState:UIControlStateNormal];
+            [loadImgBtn setTitle:@"重新上传" forState:UIControlStateNormal];
+            [loadImgBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [loadImgBtn addTarget:self action:@selector(imgLoadBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+            loadImgBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+            [Cell.contentView addSubview:loadImgBtn];
         }
     }
+    
+    switch (indexPath.row) {
+        case 0:
+        {
+        }
+            break;
+        case 1:
+        {
+            Cell.textLabel.text = @"用户名";
+            Cell.textLabel.textColor = [UIColor lightGrayColor];
+            
+            Cell.detailTextLabel.text = [LSUserManager getUserName];
+            Cell.detailTextLabel.textColor = RGB(69, 111, 158);
+        }
+            break;
+        case 2:
+        {
+            Cell.textLabel.text = @"手机号码";
+            Cell.textLabel.textColor = [UIColor lightGrayColor];
+            
+            NSString *phone = [LSUserManager getUserTel];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",phone]];
+            [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, phone.length)];
+            [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(phone.length, 5)];
+            [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, phone.length)];
+            [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(phone.length, 5)];
+            Cell.detailTextLabel.attributedText = attrStr;
+        }
+            break;
+        case 3:
+        {
+            Cell.textLabel.text = @"电子邮箱";
+            Cell.textLabel.textColor = [UIColor lightGrayColor];
+            
+            NSString *email = [LSUserManager getUserEmail];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",email]];
+            [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, email.length)];
+            [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(email.length, 5)];
+            [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, email.length)];
+            [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(email.length, 5)];
+            Cell.detailTextLabel.attributedText = attrStr;
+        }
+            break;
+        case 4:
+        {
+            Cell.textLabel.text = @"QQ号";
+            Cell.textLabel.textColor = [UIColor lightGrayColor];
+            
+            Cell.detailTextLabel.text = [LSUserManager getuserQQ];
+            Cell.detailTextLabel.textColor = RGB(69, 111, 158);
+        }
+            break;
+        case 5:
+        {
+            Cell.textLabel.text = @"登陆密码修改";
+            Cell.textLabel.textColor = [UIColor lightGrayColor];
+            Cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+            
+            UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, 34.5, SCREEN_WIDTH - 20, 0.5)];
+            separator.backgroundColor = [UIColor lightGrayColor];
+            [Cell.contentView addSubview:separator];
+        }
+            break;
+            
+        default:
+            break;
+    }
+
     
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return Cell;
@@ -356,9 +366,9 @@
             break;
         case 1:
         {
-            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
-            privateEditVC.type = kEditName;
-            [self.navigationController pushViewController:privateEditVC animated:YES];
+//            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
+//            privateEditVC.type = kEditName;
+//            [self.navigationController pushViewController:privateEditVC animated:YES];
         }
             break;
         case 2:
