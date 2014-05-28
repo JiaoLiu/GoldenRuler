@@ -196,7 +196,7 @@
                 [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
                 return;
             }
-            urlStr = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/editPwd?uid=%d&key=%d@&oldpwd=%@&newpwd=%@",[LSUserManager getUid],[LSUserManager getKey],textOldPwd.text,textNewPwdAgain.text]];
+            urlStr = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/editPwd?uid=%d&key=%d&oldpwd=%@&newpwd=%@",[LSUserManager getUid],[LSUserManager getKey],textOldPwd.text,textNewPwdAgain.text]];
         }
             break;
         case kEditQQ:
