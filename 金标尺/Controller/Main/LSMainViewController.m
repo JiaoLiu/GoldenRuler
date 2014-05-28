@@ -157,7 +157,9 @@
         else
         {
             [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
-            [LSAppDelegate showLoginView:self];
+            if (ret == 0) {
+                [LSAppDelegate showLoginView:self];
+            }
         }
     }];
 }

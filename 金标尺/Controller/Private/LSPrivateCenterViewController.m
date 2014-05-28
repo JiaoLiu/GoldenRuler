@@ -273,7 +273,7 @@
             [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                 NSDictionary *dic = [data mutableObjectFromJSONData];
                 NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-                if (ret == 1) {
+                if (ret == 1 || ret == 0) {
                     [LSUserManager setIsLogin:NO];
                     [self.navigationController popToRootViewControllerAnimated:YES];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];

@@ -11,6 +11,10 @@
 @interface LSPrivateEditViewController ()
 {
     UITextField *textFD;
+    
+    UITextField *textOldPwd;
+    UITextField *textNewPwd;
+    UITextField *textNewPwdAgain;
 }
 
 @end
@@ -60,7 +64,44 @@
         textFD.delegate = self;
         [self.view addSubview:textFD];
     }
-    
+    else
+    {
+        textOldPwd = [[UITextField alloc] initWithFrame:CGRectMake(10, 15, SCREEN_WIDTH - 20, 35)];
+        textOldPwd.placeholder = @"请输入旧密码";
+        textOldPwd.layer.borderWidth = 0.5;
+        textOldPwd.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        textOldPwd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        textOldPwd.returnKeyType = UIReturnKeyDone;
+        textOldPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textOldPwd.returnKeyType = UIReturnKeyNext;
+        textOldPwd.secureTextEntry = YES;
+        textOldPwd.delegate = self;
+        [self.view addSubview:textOldPwd];
+        
+        textNewPwd = [[UITextField alloc] initWithFrame:CGRectMake(10, textOldPwd.frame.origin.y + textOldPwd.frame.size.height - 0.5, SCREEN_WIDTH - 20, 35)];
+        textNewPwd.placeholder = @"请输入新密码";
+        textNewPwd.layer.borderWidth = 0.5;
+        textNewPwd.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        textNewPwd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        textNewPwd.returnKeyType = UIReturnKeyDone;
+        textNewPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textNewPwd.returnKeyType = UIReturnKeyNext;
+        textNewPwd.secureTextEntry = YES;
+        textNewPwd.delegate = self;
+        [self.view addSubview:textNewPwd];
+        
+        textNewPwdAgain = [[UITextField alloc] initWithFrame:CGRectMake(10, textNewPwd.frame.origin.y + textNewPwd.frame.size.height - 0.5, SCREEN_WIDTH - 20, 35)];
+        textNewPwdAgain.placeholder = @"请再次输入新密码";
+        textNewPwdAgain.layer.borderWidth = 0.5;
+        textNewPwdAgain.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        textNewPwdAgain.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        textNewPwdAgain.returnKeyType = UIReturnKeyDone;
+        textNewPwdAgain.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textNewPwdAgain.returnKeyType = UIReturnKeyDone;
+        textNewPwdAgain.secureTextEntry = YES;
+        textNewPwdAgain.delegate = self;
+        [self.view addSubview:textNewPwdAgain];
+    }
     switch (type) {
         case kEditName:
         {
@@ -139,7 +180,23 @@
             break;
         case kEditPwd:
         {
-
+            if (textOldPwd.text.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请输入旧密码"];
+                return;
+            }
+            if (textNewPwd.text.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请输入新密码"];
+                return;
+            }
+            if (textNewPwdAgain.text.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请再次输入新密码"];
+                return;
+            }
+            if (![textNewPwdAgain.text isEqualToString:textNewPwd.text]) {
+                [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
+                return;
+            }
+            urlStr = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/editPwd?uid=%d&key=%d@&oldpwd=%@&newpwd=%@",[LSUserManager getUid],[LSUserManager getKey],textOldPwd.text,textNewPwdAgain.text]];
         }
             break;
         case kEditQQ:
@@ -202,7 +259,15 @@
 #pragma mark - textFD delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self saveBtnClicked];
+    if (textField == textNewPwdAgain || textField == textFD) {
+        [self saveBtnClicked];
+    }
+    if (textField == textOldPwd) {
+        [textNewPwd becomeFirstResponder];
+    }
+    if (textField == textNewPwd) {
+        [textNewPwdAgain becomeFirstResponder];
+    }
     return YES;
 }
 
