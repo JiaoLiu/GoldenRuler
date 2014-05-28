@@ -288,11 +288,16 @@
             Cell.textLabel.textColor = [UIColor lightGrayColor];
             
             NSString *phone = [LSUserManager getUserTel];
+            if (phone.length == 0) {
+                Cell.detailTextLabel.text = @"";
+                break;
+            }
             NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",phone]];
             [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, phone.length)];
             [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(phone.length, 5)];
             [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, phone.length)];
             [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(phone.length, 5)];
+            Cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
             Cell.detailTextLabel.attributedText = attrStr;
         }
             break;
@@ -302,11 +307,16 @@
             Cell.textLabel.textColor = [UIColor lightGrayColor];
             
             NSString *email = [LSUserManager getUserEmail];
+            if (email.length == 0) {
+                Cell.detailTextLabel.text = @"";
+                break;
+            }
             NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",email]];
             [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, email.length)];
             [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(email.length, 5)];
             [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, email.length)];
             [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(email.length, 5)];
+            Cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
             Cell.detailTextLabel.attributedText = attrStr;
         }
             break;

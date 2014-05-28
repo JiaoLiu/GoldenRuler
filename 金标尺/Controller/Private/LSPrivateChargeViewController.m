@@ -13,6 +13,9 @@
     NSArray *titleArray;
     NSArray *dateArray;
     NSArray *paymentArray;
+    UILabel *vipLabel;
+    UILabel *timeLabel;
+    UIButton *addBtn;
 }
 
 @end
@@ -107,7 +110,7 @@
     [self.view addSubview:headerBackView];
     
     UIImageView *headerImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
-    headerImgView.image = [UIImage imageNamed:@"default_header@2x.jpg"];
+    headerImgView.image = [LSUserManager getUserImg];
     headerImgView.layer.borderWidth = 1;
     headerImgView.layer.borderColor = [UIColor whiteColor].CGColor;
     headerImgView.clipsToBounds = YES;
@@ -115,42 +118,48 @@
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImgView.frame.origin.x + headerImgView.frame.size.width + 10, 5, headerBackView.frame.size.width - 80, 30)];
     nameLabel.backgroundColor = [UIColor clearColor];
-    nameLabel.text = @"风中玉碟";
+    nameLabel.text = [LSUserManager getUserName];
     nameLabel.textColor = [UIColor grayColor];
     [headerBackView addSubview:nameLabel];
     
     UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, 35, nameLabel.frame.size.width, 15)];
     emailLabel.backgroundColor = [UIColor clearColor];
-    emailLabel.text = @"电子邮箱：341312414@qq.com";
+    emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
     emailLabel.textColor = [UIColor lightGrayColor];
     emailLabel.font = [UIFont systemFontOfSize:11];
+    emailLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [headerBackView addSubview:emailLabel];
     
-    if (isVip) {
-        UILabel *vipLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, 55, 65, 15)];
-        vipLabel.textColor = [UIColor redColor];
-        vipLabel.text = @"VIP贵宾会员";
-        vipLabel.backgroundColor = [UIColor clearColor];
-        vipLabel.font = [UIFont systemFontOfSize:11];
-        [headerBackView addSubview:vipLabel];
-        
-        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width, vipLabel.frame.origin.y, 110, 15)];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyy-MM-dd"];
-        timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",[formatter stringFromDate:expireDate]];
-        timeLabel.textColor = [UIColor lightGrayColor];
-        timeLabel.backgroundColor = [UIColor clearColor];
-        timeLabel.font = [UIFont systemFontOfSize:11];
-        [headerBackView addSubview:timeLabel];
-        
-        UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y, 50, 15)];
-        [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
-        [addBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
-        [addBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        addBtn.titleLabel.font = [UIFont systemFontOfSize:11];
-        [headerBackView addSubview:addBtn];
+    // vip area
+    vipLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, 55, 65, 15)];
+    vipLabel.textColor = [UIColor redColor];
+    vipLabel.text = @"VIP贵宾会员";
+    vipLabel.backgroundColor = [UIColor clearColor];
+    vipLabel.font = [UIFont systemFontOfSize:11];
+    [headerBackView addSubview:vipLabel];
+    
+    timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width, vipLabel.frame.origin.y, 110, 15)];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyy-MM-dd"];
+    timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",[formatter stringFromDate:expireDate]];
+    timeLabel.textColor = [UIColor lightGrayColor];
+    timeLabel.backgroundColor = [UIColor clearColor];
+    timeLabel.font = [UIFont systemFontOfSize:11];
+    [headerBackView addSubview:timeLabel];
+    
+    addBtn = [[UIButton alloc] initWithFrame:CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y, 50, 15)];
+    [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
+    [addBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
+    [addBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    addBtn.titleLabel.font = [UIFont systemFontOfSize:11];
+    [headerBackView addSubview:addBtn];
+    
+    if (!isVip) {
+        vipLabel.hidden = YES;
+        timeLabel.hidden = YES;
+        addBtn.hidden = YES;
     }
+    
     // tableList
     NSInteger height = 35;
     table = [[UITableView alloc] initWithFrame:CGRectMake(10, headerBackView.frame.origin.y + headerBackView.frame.size.height + 7, SCREEN_WIDTH - 20, height * titleArray.count)];
