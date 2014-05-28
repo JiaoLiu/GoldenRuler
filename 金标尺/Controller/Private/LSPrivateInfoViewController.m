@@ -7,6 +7,7 @@
 //
 
 #import "LSPrivateInfoViewController.h"
+#import "LSPrivateEditViewController.h"
 
 @interface LSPrivateInfoViewController ()
 
@@ -267,7 +268,7 @@
                 Cell.textLabel.text = @"用户名";
                 Cell.textLabel.textColor = [UIColor lightGrayColor];
                 
-                Cell.detailTextLabel.text = @"Formin";
+                Cell.detailTextLabel.text = [LSUserManager getUserName];
                 Cell.detailTextLabel.textColor = RGB(69, 111, 158);
             }
                 break;
@@ -276,11 +277,12 @@
                 Cell.textLabel.text = @"手机号码";
                 Cell.textLabel.textColor = [UIColor lightGrayColor];
                 
-                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:@"12647811251(未验证)"];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, 11)];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(11, 5)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 11)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(11, 5)];
+                NSString *phone = [LSUserManager getUserTel];
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",phone]];
+                [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, phone.length)];
+                [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(phone.length, 5)];
+                [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, phone.length)];
+                [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(phone.length, 5)];
                 Cell.detailTextLabel.attributedText = attrStr;
             }
                 break;
@@ -289,11 +291,12 @@
                 Cell.textLabel.text = @"电子邮箱";
                 Cell.textLabel.textColor = [UIColor lightGrayColor];
                 
-                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:@"6976543219@QQ.COM(未验证)"];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, 17)];
-                [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(17, 5)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 17)];
-                [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(17, 5)];
+                NSString *email = [LSUserManager getUserEmail];
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(未验证)",email]];
+                [attrStr addAttribute:NSForegroundColorAttributeName value:RGB(69, 111, 158) range:NSMakeRange(0, email.length)];
+                [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(email.length, 5)];
+                [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, email.length)];
+                [attrStr addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:11] range:NSMakeRange(email.length, 5)];
                 Cell.detailTextLabel.attributedText = attrStr;
             }
                 break;
@@ -302,7 +305,7 @@
                 Cell.textLabel.text = @"QQ号";
                 Cell.textLabel.textColor = [UIColor lightGrayColor];
                 
-                Cell.detailTextLabel.text = @"34143143";
+                Cell.detailTextLabel.text = [LSUserManager getuserQQ];
                 Cell.detailTextLabel.textColor = RGB(69, 111, 158);
             }
                 break;
@@ -341,6 +344,55 @@
     [label addSubview:separator];
     
     return label;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+        {
+            [self imgLoadBtnClicked];
+        }
+            break;
+        case 1:
+        {
+            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
+            privateEditVC.type = kEditName;
+            [self.navigationController pushViewController:privateEditVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
+            privateEditVC.type = kEditPhone;
+            [self.navigationController pushViewController:privateEditVC animated:YES];
+        }
+            break;
+        case 3:
+        {
+            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
+            privateEditVC.type = kEditEmail;
+            [self.navigationController pushViewController:privateEditVC animated:YES];
+        }
+            break;
+        case 4:
+        {
+            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
+            privateEditVC.type = kEditQQ;
+            [self.navigationController pushViewController:privateEditVC animated:YES];
+        }
+            break;
+        case 5:
+        {
+            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
+            privateEditVC.type = kEditPwd;
+            [self.navigationController pushViewController:privateEditVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

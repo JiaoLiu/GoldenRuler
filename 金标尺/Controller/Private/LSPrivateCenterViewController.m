@@ -70,13 +70,13 @@
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImgView.frame.origin.x + headerImgView.frame.size.width + 10, 5, headerBackView.frame.size.width - 80, 30)];
     nameLabel.backgroundColor = [UIColor clearColor];
-    nameLabel.text = @"风中玉碟";
+    nameLabel.text = [LSUserManager getUserName];
     nameLabel.textColor = [UIColor grayColor];
     [headerBackView addSubview:nameLabel];
     
     UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, 35, nameLabel.frame.size.width, 15)];
     emailLabel.backgroundColor = [UIColor clearColor];
-    emailLabel.text = @"电子邮箱：341312414@qq.com";
+    emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
     emailLabel.textColor = [UIColor lightGrayColor];
     emailLabel.font = [UIFont systemFontOfSize:11];
     [headerBackView addSubview:emailLabel];

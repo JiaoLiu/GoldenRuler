@@ -22,6 +22,10 @@
 + (void)setTid:(int)tid;
 + (void)setTk:(int)tk;
 + (void)setUserImg:(NSString *)url;
++ (void)setUserName:(NSString *)name;
++ (void)setUserTel:(NSString *)tel;
++ (void)setUserQQ:(NSString *)qq;
++ (void)setUserEmail:(NSString *)email;
 
 // get user data
 + (BOOL)getIsLogin;
@@ -33,5 +37,9 @@
 + (NSInteger)getTid;
 + (NSInteger)getTk;
 + (UIImage *)getUserImg;
++ (NSString *)getUserName;
++ (NSString *)getUserTel;
++ (NSString *)getUserEmail;
++ (NSString *)getuserQQ;
 
 @end

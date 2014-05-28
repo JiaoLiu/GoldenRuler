@@ -24,6 +24,7 @@
 		277300191905FDA600D7C22C /* LSPrivateCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */; };
 		2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2773001A1906009C00D7C22C /* btn_red@2x.png */; };
 		2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */; };
+		27810EC41935830E004F796B /* LSPrivateEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27810EC31935830E004F796B /* LSPrivateEditViewController.m */; };
 		278F1FC01908E78A003C0725 /* mj@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 278F1FBE1908E78A003C0725 /* mj@2x.png */; };
 		278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 278F1FBF1908E78A003C0725 /* topBar@2x.png */; };
 		27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A8F84C18FB771900321F5A /* LSRegisterViewController.m */; };
@@ -108,6 +109,8 @@
 		2773001A1906009C00D7C22C /* btn_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_red@2x.png"; sourceTree = "<group>"; };
 		2773001C19060FFF00D7C22C /* LSPrivateCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCollectionViewController.h; sourceTree = "<group>"; };
 		2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCollectionViewController.m; sourceTree = "<group>"; };
+		27810EC21935830E004F796B /* LSPrivateEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateEditViewController.h; sourceTree = "<group>"; };
+		27810EC31935830E004F796B /* LSPrivateEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateEditViewController.m; sourceTree = "<group>"; };
 		278F1FBE1908E78A003C0725 /* mj@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mj@2x.png"; sourceTree = "<group>"; };
 		278F1FBF1908E78A003C0725 /* topBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topBar@2x.png"; sourceTree = "<group>"; };
 		27A8F84B18FB771900321F5A /* LSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSRegisterViewController.h; sourceTree = "<group>"; };
@@ -432,6 +435,8 @@
 				CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */,
 				CCE619E7190402730087B199 /* LSPrivateInfoViewController.h */,
 				CCE619E8190402730087B199 /* LSPrivateInfoViewController.m */,
+				27810EC21935830E004F796B /* LSPrivateEditViewController.h */,
+				27810EC31935830E004F796B /* LSPrivateEditViewController.m */,
 				2760E2471904F1F1001F5205 /* LSPrivateSettingViewController.h */,
 				2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */,
 				277300171905FDA600D7C22C /* LSPrivateCommentViewController.h */,
@@ -667,6 +672,7 @@
 				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
 				271A711C190A648700E055BD /* LSChoiceDetailViewController.m in Sources */,
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
+				27810EC41935830E004F796B /* LSPrivateEditViewController.m in Sources */,
 				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
 				CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,

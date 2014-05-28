@@ -78,6 +78,30 @@
     [USER_DEFAULT synchronize];
 }
 
++ (void)setUserTel:(NSString *)tel
+{
+    [USER_DEFAULT setObject:tel forKey:@"_USER_TEL_"];
+    [USER_DEFAULT synchronize];
+}
+
++ (void)setUserQQ:(NSString *)qq
+{
+    [USER_DEFAULT setObject:qq forKey:@"_USER_QQ_"];
+    [USER_DEFAULT synchronize];
+}
+
++ (void)setUserEmail:(NSString *)email
+{
+    [USER_DEFAULT setObject:email forKey:@"_USER_EMAIL_"];
+    [USER_DEFAULT synchronize];
+}
+
++ (void)setUserName:(NSString *)name
+{
+    [USER_DEFAULT setObject:name forKey:@"_USER_NAME_"];
+    [USER_DEFAULT synchronize];
+}
+
 #pragma mark - get User Info
 + (BOOL)getIsLogin
 {
@@ -130,6 +154,26 @@
     NSString *filePath = [USER_DEFAULT objectForKey:@"_USER_IMG_"];
     UIImage *image = [UIImage imageWithContentsOfFile:filePath];
     return image;
+}
+
++ (NSString *)getUserEmail
+{
+    return [USER_DEFAULT objectForKey:@"_USER_EMAIL_"];
+}
+
++ (NSString *)getUserName
+{
+    return [USER_DEFAULT objectForKey:@"_USER_NAME_"];
+}
+
++ (NSString *)getuserQQ
+{
+    return [USER_DEFAULT objectForKey:@"_USER_QQ_"];
+}
+
++ (NSString *)getUserTel
+{
+    return [USER_DEFAULT objectForKey:@"_USER_TEL_"];
 }
 
 @end
