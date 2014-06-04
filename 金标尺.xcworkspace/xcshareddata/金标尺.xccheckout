@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>C14F6A8F-14BD-4C52-8C1B-802E25D073B0</string>
+	<string>6E4F0A04-6BB7-49D8-822D-9F0F3BD7372A</string>
 	<key>IDESourceControlProjectName</key>
 	<string>金标尺</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>8A96C892-3FD6-49B0-9049-E988B5A2156C</key>
-		<string>https://github.com/JiaoLiu/GoldenRuler.git</string>
+		<key>9CF7AC79-245B-436F-951A-7272CBE63BC4</key>
+		<string>https://github.com/JiaoLiu/GoldenRuler</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>金标尺.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>8A96C892-3FD6-49B0-9049-E988B5A2156C</key>
+		<key>9CF7AC79-245B-436F-951A-7272CBE63BC4</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/JiaoLiu/GoldenRuler.git</string>
+	<string>https://github.com/JiaoLiu/GoldenRuler</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>8A96C892-3FD6-49B0-9049-E988B5A2156C</string>
+	<string>9CF7AC79-245B-436F-951A-7272CBE63BC4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>8A96C892-3FD6-49B0-9049-E988B5A2156C</string>
+			<string>9CF7AC79-245B-436F-951A-7272CBE63BC4</string>
 			<key>IDESourceControlWCCName</key>
 			<string>GoldenRuler</string>
 		</dict>
