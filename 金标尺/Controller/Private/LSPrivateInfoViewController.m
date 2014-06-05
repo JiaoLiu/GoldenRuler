@@ -286,6 +286,7 @@
         {
             Cell.textLabel.text = @"手机号码";
             Cell.textLabel.textColor = [UIColor lightGrayColor];
+            Cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
             
             NSString *phone = [LSUserManager getUserTel];
             if (phone.length == 0) {
@@ -305,6 +306,7 @@
         {
             Cell.textLabel.text = @"电子邮箱";
             Cell.textLabel.textColor = [UIColor lightGrayColor];
+            Cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
             
             NSString *email = [LSUserManager getUserEmail];
             if (email.length == 0) {
@@ -324,6 +326,7 @@
         {
             Cell.textLabel.text = @"QQ号";
             Cell.textLabel.textColor = [UIColor lightGrayColor];
+            Cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
             
             Cell.detailTextLabel.text = [LSUserManager getuserQQ];
             Cell.detailTextLabel.textColor = RGB(69, 111, 158);

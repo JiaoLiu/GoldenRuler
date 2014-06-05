@@ -10,4 +10,6 @@
 
 @interface LSMsgPushViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong)UITableView *msgTable;
+
 @end

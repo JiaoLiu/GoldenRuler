@@ -17,6 +17,8 @@
 
 @implementation LSMsgPushViewController
 
+@synthesize msgTable;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,17 +28,38 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         dataArray = [[NSMutableArray alloc] init];
-        [self loadData];
+        [self loadDataWithPage:1 size:10];
+        [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
 }
 
-- (void)loadData
+- (void)loadDataWithPage:(int)page size:(int)pageSize
 {
-    for (int i = 0; i < 100; i++) {
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"2014-%d年第一季度公务员考试开始拉",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
-        [dataArray insertObject:dic atIndex:i];
-    }
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/pushMsg?key=%d&uid=%d&page=%d&pagesize=%d",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSArray *tempArray = [dic objectForKey:@"data"];
+            NSInteger num = tempArray.count;
+            for (int i = 0; i < num; i++) {
+                NSDictionary *dic = [tempArray objectAtIndex:i];
+                [dataArray addObject:dic];
+                [msgTable reloadData];
+                [SVProgressHUD dismiss];
+            }
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+//    for (int i = 0; i < 100; i++) {
+//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"2014-%d年第一季度公务员考试开始拉",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
+//        [dataArray insertObject:dic atIndex:i];
+//    }
 }
 
 - (void)viewDidLoad
@@ -61,7 +84,7 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     // msgTable
-    UITableView *msgTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
+    msgTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
     msgTable.delegate = self;
     msgTable.dataSource = self;
     msgTable.tableFooterView = [UIView new];
@@ -120,6 +143,11 @@
     
     Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return Cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
