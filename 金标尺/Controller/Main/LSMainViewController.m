@@ -7,6 +7,7 @@
 //
 
 #import "LSMainViewController.h"
+#import "LSWrapPracticeViewController.h"
 
 @interface LSMainViewController ()
 
@@ -210,6 +211,8 @@
             break;
         case 3:
         {
+            LSWrapPracticeViewController *wrapVC = [[LSWrapPracticeViewController alloc]init];
+            [self.navigationController pushViewController:wrapVC animated:YES];
             
         }
             break;

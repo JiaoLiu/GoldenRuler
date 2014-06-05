@@ -15,3 +15,10 @@
     #import <Foundation/Foundation.h>
     #import "Marco.h"
 #endif
+
+
+/*模拟题类型*/
+typedef enum {
+    LSWrapTypeReal = 0,     //真题
+    LSWrapTypeSimulation    //模拟题
+} LSWrapType;

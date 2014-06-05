@@ -234,6 +234,10 @@ do {                                                                      \
 //登出API
 #define APILogout             [APIURL stringByAppendingString:@"Demand/logout"]
 
+//获取城市API
+#define APIGETCITY             [APIURL stringByAppendingString:@"Demand/getCity"]
+
+
 //设置View的tag属性
 #define VIEWWITHTAG(_OBJECT, _TAG)    [_OBJECT viewWithTag : _TAG]
 //程序的本地化,引用国际化的文件
