@@ -7,10 +7,12 @@
 //
 
 #import "LSMsgPushViewController.h"
+#import "LSMsgDetailViewController.h"
 
 @interface LSMsgPushViewController ()
 {
     NSMutableArray *dataArray;
+    NSInteger msgPage;
 }
 
 @end
@@ -28,7 +30,8 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         dataArray = [[NSMutableArray alloc] init];
-        [self loadDataWithPage:1 size:10];
+        msgPage = 1;
+        [self loadDataWithPage:msgPage size:10];
         [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
@@ -44,9 +47,14 @@
         if (ret == 1) {
             NSArray *tempArray = [dic objectForKey:@"data"];
             NSInteger num = tempArray.count;
+            if (num == pageSize) {
+                msgPage += 1;
+            }
             for (int i = 0; i < num; i++) {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
-                [dataArray addObject:dic];
+                if (![dataArray containsObject:dic]) {
+                    [dataArray addObject:dic];
+                }
                 [msgTable reloadData];
                 [SVProgressHUD dismiss];
             }
@@ -148,6 +156,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    LSMsgDetailViewController *detailVC = [[LSMsgDetailViewController alloc] init];
+    detailVC.msgTitle = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+    detailVC.msgUrl = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView.contentOffset.y > 50) {
+        [SVProgressHUD showWithStatus:@"加载更多"];
+        [self loadDataWithPage:msgPage size:10];
+    }
 }
 
 @end
