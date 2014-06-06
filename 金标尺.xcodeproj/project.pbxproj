@@ -49,6 +49,7 @@
 		CC49FFFB18F93AA8007E83F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC49FFF918F93AA8007E83F4 /* InfoPlist.strings */; };
 		CC49FFFD18F93AA8007E83F4 /* ___Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC49FFFC18F93AA8007E83F4 /* ___Tests.m */; };
 		CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */; };
+		CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */; };
 		CC9A633E1901529A00103000 /* back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63321901529A00103000 /* back_button@2x.png */; };
 		CC9A633F1901529A00103000 /* home_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63331901529A00103000 /* home_button@2x.png */; };
 		CC9A63401901529A00103000 /* index_a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63341901529A00103000 /* index_a@2x.png */; };
@@ -153,6 +154,8 @@
 		CC49FFFC18F93AA8007E83F4 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Tests.m"; sourceTree = "<group>"; };
 		CC641D1A190699640073F8D5 /* LSCourseSelectMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCourseSelectMainViewController.h; sourceTree = "<group>"; };
 		CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCourseSelectMainViewController.m; sourceTree = "<group>"; };
+		CC8A46661940AA2B00B05E09 /* LSMsgDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMsgDetailViewController.h; sourceTree = "<group>"; };
+		CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMsgDetailViewController.m; sourceTree = "<group>"; };
 		CC9A63321901529A00103000 /* back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63331901529A00103000 /* home_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63341901529A00103000 /* index_a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_a@2x.png"; sourceTree = "<group>"; };
@@ -430,6 +433,8 @@
 				27A8F84C18FB771900321F5A /* LSRegisterViewController.m */,
 				CC4614B91905511D0082D96A /* LSMsgPushViewController.h */,
 				CC4614BA1905511D0082D96A /* LSMsgPushViewController.m */,
+				CC8A46661940AA2B00B05E09 /* LSMsgDetailViewController.h */,
+				CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -714,6 +719,7 @@
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
+				CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */,
 				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
 				C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */,

@@ -169,12 +169,12 @@
     }
     Cell.textLabel.text = @"2014重庆。。。。。";
     Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    Cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return Cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LSChoiceDetailViewController *detailVC = [[LSChoiceDetailViewController alloc] init];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
