@@ -62,6 +62,7 @@
     table.scrollEnabled = NO;
     table.delegate = self;
     table.dataSource = self;
+    table.tableFooterView = [UIView new];
 
     [self.view addSubview:table];
     

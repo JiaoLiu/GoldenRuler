@@ -7,6 +7,7 @@
 //
 
 #import "LSCityViewController.h"
+#import "LSWrapInfoViewController.h"
 
 @interface LSCityViewController ()
 {
@@ -29,6 +30,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"套卷测试";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    // backBtn
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [backBtn setBackgroundImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = backItem;
 
     // filterBtn
     UIButton *filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 24)];
@@ -80,6 +91,8 @@
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setTitle:name forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(cityBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = cid.intValue;
         btn.layer.borderColor = [UIColor grayColor].CGColor;
         btn.layer.borderWidth = 1;
         [btn.layer setCornerRadius:5];
@@ -97,11 +110,30 @@
 
 }
 
+- (void)cityBtnClick:(UIButton *)sender
+{
+    UIButton *btn = sender;
+    NSString *city = btn.titleLabel.text;
+    
+    LSWrapInfoViewController *vc = [[LSWrapInfoViewController alloc]init];
+    vc.city = city;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+}
+
+- (void)backBtnClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

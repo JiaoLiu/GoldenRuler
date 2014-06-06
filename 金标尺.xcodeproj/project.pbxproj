@@ -32,6 +32,7 @@
 		C62F1CDB193FFF140060A807 /* LSWrapPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */; };
 		C62F1CDE194013C60060A807 /* LSWrapInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */; };
 		C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE019403AFF0060A807 /* LSCityViewController.m */; };
+		C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE319404D3D0060A807 /* LSFilterViewController.m */; };
 		C699B58B193F2901005C79B1 /* LSPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C699B58A193F2901005C79B1 /* LSPracticeViewController.m */; };
 		CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */; };
 		CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4614BA1905511D0082D96A /* LSMsgPushViewController.m */; };
@@ -125,6 +126,8 @@
 		C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWrapInfoViewController.m; sourceTree = "<group>"; };
 		C62F1CDF19403AFF0060A807 /* LSCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCityViewController.h; sourceTree = "<group>"; };
 		C62F1CE019403AFF0060A807 /* LSCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCityViewController.m; sourceTree = "<group>"; };
+		C62F1CE219404D3D0060A807 /* LSFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSFilterViewController.h; sourceTree = "<group>"; };
+		C62F1CE319404D3D0060A807 /* LSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSFilterViewController.m; sourceTree = "<group>"; };
 		C699B589193F2901005C79B1 /* LSPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPracticeViewController.h; sourceTree = "<group>"; };
 		C699B58A193F2901005C79B1 /* LSPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPracticeViewController.m; sourceTree = "<group>"; };
 		CBFC92C476324DABBC89C00C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -442,6 +445,8 @@
 				C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */,
 				C62F1CDF19403AFF0060A807 /* LSCityViewController.h */,
 				C62F1CE019403AFF0060A807 /* LSCityViewController.m */,
+				C62F1CE219404D3D0060A807 /* LSFilterViewController.h */,
+				C62F1CE319404D3D0060A807 /* LSFilterViewController.m */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -711,6 +716,7 @@
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
 				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
+				C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */,
 				CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
 			);

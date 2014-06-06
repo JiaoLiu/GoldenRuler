@@ -81,7 +81,7 @@
     if (_wrapType == LSWrapTypeReal) {
         UILabel *subLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 34, SCREEN_WIDTH, 44)];
         subLabel.textAlignment = NSTextAlignmentCenter;
-        subLabel.text = [[NSString alloc]initWithFormat:@"%@--%@",[info objectForKey:@"area"],[info objectForKey:@"course"]];
+        subLabel.text = [[NSString alloc]initWithFormat:@"%@--%@",_city,[info objectForKey:@"course"]];
         [tv addSubview:subLabel];
     }
     

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LSWrapInfoViewController : UIViewController
-@property (nonatomic,assign)  LSWrapType wrapType;
+@property (nonatomic,assign)  LSWrapType    wrapType;
+@property (nonatomic,strong)  NSString      *city;
 @end
