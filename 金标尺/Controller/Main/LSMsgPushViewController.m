@@ -13,6 +13,7 @@
 {
     NSMutableArray *dataArray;
     NSInteger msgPage;
+    BOOL hasMore;
 }
 
 @end
@@ -31,7 +32,7 @@
         }
         dataArray = [[NSMutableArray alloc] init];
         msgPage = 1;
-        [self loadDataWithPage:msgPage size:10];
+        [self loadDataWithPage:msgPage size:0];
         [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
@@ -40,6 +41,9 @@
 - (void)loadDataWithPage:(int)page size:(int)pageSize
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/pushMsg?key=%d&uid=%d&page=%d&pagesize=%d",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
+    if (pageSize == 0) {
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/pushMsg?key=%d&uid=%d&page=%d",[LSUserManager getKey],[LSUserManager getUid],page]]]];
+    }
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
@@ -47,17 +51,22 @@
         if (ret == 1) {
             NSArray *tempArray = [dic objectForKey:@"data"];
             NSInteger num = tempArray.count;
-            if (num == pageSize) {
+            if (num >= pageSize) {
                 msgPage += 1;
+                hasMore = YES;
+            }
+            else
+            {
+                hasMore = NO;
             }
             for (int i = 0; i < num; i++) {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
                 if (![dataArray containsObject:dic]) {
                     [dataArray addObject:dic];
                 }
-                [msgTable reloadData];
-                [SVProgressHUD dismiss];
             }
+            [msgTable reloadData];
+            [SVProgressHUD dismiss];
         }
         else
         {
@@ -166,7 +175,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (scrollView.contentOffset.y > 50) {
+    if (scrollView.contentOffset.y > 50 && hasMore) {
         [SVProgressHUD showWithStatus:@"加载更多"];
         [self loadDataWithPage:msgPage size:10];
     }
