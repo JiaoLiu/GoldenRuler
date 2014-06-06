@@ -125,11 +125,13 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
 }
 
 - (void)homeBtnClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
 }
 
 #pragma mark - tableView delegate

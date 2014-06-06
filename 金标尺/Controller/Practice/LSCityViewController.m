@@ -125,6 +125,7 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
 }
 
 - (void)didReceiveMemoryWarning
