@@ -112,6 +112,7 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
 }
 
 - (void)registerBtnClicked
@@ -132,6 +133,7 @@
         [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
         return;
     }
+    [SVProgressHUD showWithStatus:@"注册中"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -145,6 +147,7 @@
             [LSUserManager setUid:[[data objectForKey:@"uid"] integerValue]];
             [LSUserManager setLastqid:[[data objectForKey:@"lastqid"] integerValue]];
             [self dismissViewControllerAnimated:YES completion:^{
+                [SVProgressHUD dismiss];
             }];
         }
         else
