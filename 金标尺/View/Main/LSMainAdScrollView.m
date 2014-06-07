@@ -16,17 +16,20 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _items = items;
         // subViews
         for (int i = 0; i < items.count; i++) {
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i * frame.size.width, 0, frame.size.width, frame.size.height)];
-            imgView.backgroundColor = RGBA(100, 30, 41, i/items.count);
-            [self addSubview:imgView];
+            UIButton *imgView = [[UIButton alloc] initWithFrame:CGRectMake(i * frame.size.width, 0, frame.size.width, frame.size.height)];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[items objectAtIndex:i] objectForKey:@"path"]]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [imgView setImage:img forState:UIControlStateNormal];
+                });
+            });
+            imgView.tag = i;
+            [imgView addTarget:self action:@selector(clickOnAd:) forControlEvents:UIControlEventTouchUpInside];
             
-            UILabel *title = [[UILabel alloc] initWithFrame:imgView.frame];
-            title.backgroundColor = [UIColor clearColor];
-            title.text = [items objectAtIndex:i];
-            title.textAlignment = NSTextAlignmentCenter;
-            [self addSubview:title];
+            [self addSubview:imgView];
         }
         
         // init pageControl
@@ -73,6 +76,11 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.contentOffset = CGPointMake(page * self.frame.size.width, 0);
     }];
+}
+
+- (void)clickOnAd:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[[_items objectAtIndex:sender.tag] objectForKey:@"url"]]];
 }
 
 @end

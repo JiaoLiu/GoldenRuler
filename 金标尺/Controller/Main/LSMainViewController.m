@@ -32,7 +32,6 @@
                        @{@"title": @"套卷测试" ,@"img": @"index_d" ,@"color": RGB(37, 189, 212)},
                        @{@"title": @"每日精选" ,@"img": @"index_e" ,@"color": RGB(239, 156, 36)},
                        @{@"title": @"课程推荐" ,@"img": @"index_f" ,@"color": RGB(104, 191, 76)}];
-        iAdArray = @[@"1",@"2",@"3",@"4",@"5"];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CheckLogin) name:@"CheckLogin" object:nil];
     }

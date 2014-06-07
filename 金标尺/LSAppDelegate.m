@@ -18,6 +18,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     LSMainViewController *mainController = [[LSMainViewController alloc] init];
+    mainController.iAdArray = [self loadADdata];
     UINavigationController *mainNav = [[UINavigationController alloc] initWithRootViewController:mainController];
     mainNav.navigationBar.translucent = NO;
     self.window.rootViewController = mainNav;
@@ -77,7 +78,6 @@
 }
 
 #pragma mark - show loginView
-
 + (void)showLoginView:(UIViewController *)viewC
 {
     LSLoginViewController *loginVC = [[LSLoginViewController alloc] init];
@@ -86,6 +86,23 @@
     }];
 }
 
-
+#pragma mark - load AD Img
+- (NSArray *)loadADdata
+{
+    NSArray *dataArr = [[NSArray alloc] init];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/Adv"]]]];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary *dic = [data mutableObjectFromJSONData];
+    NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+    if (ret == 1) {
+        dataArr = [dic objectForKey:@"data"];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+    }
+    
+    return dataArr;
+}
 
 @end
