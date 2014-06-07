@@ -56,7 +56,7 @@
             }
             else
             {
-                [LSSheetNotify showOnce:@"暂无更多消息"];
+                [LSSheetNotify showOnce:@"暂无更多收藏"];
             }
             for (int i = 0; i < num; i++) {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
