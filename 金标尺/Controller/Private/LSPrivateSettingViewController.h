@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSPrivateSettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface LSPrivateSettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+
+@property (nonatomic,strong)NSString *updateUrl;
 
 @end
