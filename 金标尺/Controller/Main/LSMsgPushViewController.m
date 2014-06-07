@@ -8,12 +8,12 @@
 
 #import "LSMsgPushViewController.h"
 #import "LSMsgDetailViewController.h"
+#import "LSSheetNotify.h"
 
 @interface LSMsgPushViewController ()
 {
     NSMutableArray *dataArray;
     NSInteger msgPage;
-    BOOL hasMore;
 }
 
 @end
@@ -53,11 +53,11 @@
             NSInteger num = tempArray.count;
             if (num >= pageSize) {
                 msgPage += 1;
-                hasMore = YES;
+                [LSSheetNotify dismiss];
             }
             else
             {
-                hasMore = NO;
+                [LSSheetNotify showOnce:@"暂无更多消息"];
             }
             for (int i = 0; i < num; i++) {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
@@ -175,9 +175,9 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (scrollView.contentOffset.y > 50 && hasMore) {
-        [SVProgressHUD showWithStatus:@"加载更多"];
+    if (scrollView.contentOffset.y > 50) {
         [self loadDataWithPage:msgPage size:10];
+        [LSSheetNotify showProgress:@"加载更多"];
     }
 }
 
