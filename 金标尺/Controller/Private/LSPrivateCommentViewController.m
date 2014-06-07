@@ -7,15 +7,19 @@
 //
 
 #import "LSPrivateCommentViewController.h"
+#import "LSSheetNotify.h"
 
 @interface LSPrivateCommentViewController ()
 {
     NSMutableArray *dataArray;
+    NSInteger msgPage;
 }
 
 @end
 
 @implementation LSPrivateCommentViewController
+
+@synthesize commentTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,17 +30,53 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         dataArray = [[NSMutableArray alloc] init];
-        [self loadData];
+        msgPage = 1;
+        [self loadDataWithPage:msgPage size:0];
+        [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
 }
 
-- (void)loadData
+- (void)loadDataWithPage:(int)page size:(int)pageSize
 {
-    for (int i = 0; i < 100; i++) {
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-大家觉得这个有道理么11111111111",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
-        [dataArray insertObject:dic atIndex:i];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myComment?key=%d&uid=%d&page=%d&pagesize=%d&type=1",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
+    if (pageSize == 0) {
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myComment?key=%d&uid=%d&page=%d&type=1",[LSUserManager getKey],[LSUserManager getUid],page]]]];
     }
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSArray *tempArray = [[dic objectForKey:@"data"] objectForKey:@"list"];
+            NSInteger num = tempArray.count;
+            if (num >= pageSize) {
+                msgPage += 1;
+                [LSSheetNotify dismiss];
+            }
+            else
+            {
+                [LSSheetNotify showOnce:@"暂无更多评论"];
+            }
+            for (int i = 0; i < num; i++) {
+                NSDictionary *dic = [tempArray objectAtIndex:i];
+                if (![dataArray containsObject:dic]) {
+                    [dataArray addObject:dic];
+                }
+            }
+            [commentTable reloadData];
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+
+//    for (int i = 0; i < 100; i++) {
+//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-大家觉得这个有道理么11111111111",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
+//        [dataArray insertObject:dic atIndex:i];
+//    }
 }
 
 - (void)viewDidLoad
@@ -61,7 +101,7 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     // msgTable
-    UITableView *commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
+    commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
     commentTable.delegate = self;
     commentTable.dataSource = self;
     commentTable.tableFooterView = [UIView new];
@@ -93,16 +133,21 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)homeBtnClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)redBtnClicked:(UIButton *)sender
 {
     NSLog(@"%d",sender.tag);
+    [LSSheetNotify dismiss];
 }
 
 #pragma mark - tableView delegate
@@ -134,7 +179,7 @@
     for (UIView *view in [Cell.contentView subviews]) {
         if (view.tag == 100 && [view isKindOfClass:[UILabel class]]) {
             UILabel *title = (UILabel *)view;
-            title.text = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+            title.text = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"content"];
         }
         if ([view isKindOfClass:[UIButton class]]) {
             UIButton *btn = (UIButton *)view;
@@ -144,6 +189,14 @@
     
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return Cell;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView.contentOffset.y > 50) {
+        [self loadDataWithPage:msgPage size:10];
+        [LSSheetNotify showProgress:@"加载更多"];
+    }
 }
 
 @end
