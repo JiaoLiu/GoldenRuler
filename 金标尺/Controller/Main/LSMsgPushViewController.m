@@ -135,12 +135,14 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)homeBtnClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
     [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 #pragma mark - tableView delegate
@@ -166,6 +168,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [LSSheetNotify dismiss];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LSMsgDetailViewController *detailVC = [[LSMsgDetailViewController alloc] init];
     detailVC.msgTitle = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
