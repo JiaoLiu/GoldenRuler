@@ -171,7 +171,6 @@
     [LSSheetNotify dismiss];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LSMsgDetailViewController *detailVC = [[LSMsgDetailViewController alloc] init];
-    detailVC.msgTitle = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     detailVC.msgUrl = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
     [self.navigationController pushViewController:detailVC animated:YES];
 }

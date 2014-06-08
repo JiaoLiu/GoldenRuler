@@ -17,7 +17,6 @@
 
 @implementation LSMsgDetailViewController
 
-@synthesize msgTitle;
 @synthesize msgUrl;
 @synthesize msgWebView;
 
@@ -34,7 +33,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = msgTitle;
+    self.title = @"消息详情";
     self.view.backgroundColor = [UIColor whiteColor];
     
     // backBtn
