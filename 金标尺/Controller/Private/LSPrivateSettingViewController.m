@@ -7,6 +7,7 @@
 //
 
 #import "LSPrivateSettingViewController.h"
+#import "LSPrivateFeedbackViewController.h"
 
 @interface LSPrivateSettingViewController ()
 {
@@ -190,7 +191,8 @@
             break;
         case 1:
         {
-            
+            LSPrivateFeedbackViewController *feedbackVC = [[LSPrivateFeedbackViewController alloc] init];
+            [self.navigationController pushViewController:feedbackVC animated:YES];
         }
             break;
         case 2:
@@ -201,7 +203,7 @@
         case 3:
         {
             [self checkVersion];
-            [SVProgressHUD showWithStatus:@"检测中"];
+            [SVProgressHUD showWithStatus:@"检测中" maskType:SVProgressHUDMaskTypeBlack];
         }
             break;
         default:
