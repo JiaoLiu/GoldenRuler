@@ -8,7 +8,6 @@
 
 #import "LSMsgPushViewController.h"
 #import "LSMsgDetailViewController.h"
-#import "LSSheetNotify.h"
 
 @interface LSMsgPushViewController ()
 {

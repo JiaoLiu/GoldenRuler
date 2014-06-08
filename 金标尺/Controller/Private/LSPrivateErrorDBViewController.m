@@ -1,14 +1,14 @@
 //
-//  LSPrivateCollectionViewController.m
+//  LSPrivateErrorDBViewController.m
 //  金标尺
 //
-//  Created by Jiao on 14-4-22.
+//  Created by Jiao Liu on 14-6-8.
 //  Copyright (c) 2014年 Jiao Liu. All rights reserved.
 //
 
-#import "LSPrivateCollectionViewController.h"
+#import "LSPrivateErrorDBViewController.h"
 
-@interface LSPrivateCollectionViewController ()
+@interface LSPrivateErrorDBViewController ()
 {
     NSMutableArray *dataArray;
     NSInteger msgPage;
@@ -16,9 +16,9 @@
 
 @end
 
-@implementation LSPrivateCollectionViewController
+@implementation LSPrivateErrorDBViewController
 
-@synthesize collectionTable;
+@synthesize errorTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,9 +38,9 @@
 
 - (void)loadDataWithPage:(int)page size:(int)pageSize
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myError?key=%d&uid=%d&page=%d&pagesize=%d",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myCollect?key=%d&uid=%d&page=%d&pagesize=%d",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
     if (pageSize == 0) {
-        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myError?key=%d&uid=%d&page=%d",[LSUserManager getKey],[LSUserManager getUid],page]]]];
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myCollect?key=%d&uid=%d&page=%d",[LSUserManager getKey],[LSUserManager getUid],page]]]];
     }
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -55,7 +55,7 @@
             }
             else
             {
-                [LSSheetNotify showOnce:@"暂无更多收藏"];
+                [LSSheetNotify showOnce:@"暂无更多错题"];
             }
             for (int i = 0; i < num; i++) {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
@@ -63,7 +63,7 @@
                     [dataArray addObject:dic];
                 }
             }
-            [collectionTable reloadData];
+            [errorTable reloadData];
             [SVProgressHUD dismiss];
         }
         else
@@ -71,18 +71,18 @@
             [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
         }
     }];
-
-//    for (int i = 0; i < 100; i++) {
-//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-政治（多选题）第9题",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
-//        [dataArray insertObject:dic atIndex:i];
-//    }
+    
+    //    for (int i = 0; i < 100; i++) {
+    //        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-政治（多选题）第9题",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
+    //        [dataArray insertObject:dic atIndex:i];
+    //    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"我的收藏";
+    self.title = @"我的错题库";
     self.view.backgroundColor = [UIColor whiteColor];
     
     // backBtn
@@ -100,16 +100,16 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     // msgTable
-    collectionTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
-    collectionTable.delegate = self;
-    collectionTable.dataSource = self;
-    collectionTable.tableFooterView = [UIView new];
-    [self.view addSubview:collectionTable];
+    errorTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
+    errorTable.delegate = self;
+    errorTable.dataSource = self;
+    errorTable.tableFooterView = [UIView new];
+    [self.view addSubview:errorTable];
     
     if (IOS_VERSION >= 7.0) {
-        collectionTable.separatorInset = UIEdgeInsetsZero;
+        errorTable.separatorInset = UIEdgeInsetsZero;
     }
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,15 +119,15 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 #pragma mark - handleBtnClicked
 - (void)backBtnClicked
@@ -154,14 +154,14 @@
 {
     NSLog(@"delete-%d",sender.tag);
     [SVProgressHUD showWithStatus:@"删除中"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?key=%d&uid=%d&qid=%d&act=del&type=2",[LSUserManager getKey],[LSUserManager getUid],[[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue]]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?key=%d&uid=%d&qid=%d&act=del&type=1",[LSUserManager getKey],[LSUserManager getUid],[[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue]]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         if (ret == 1) {
             [dataArray removeObjectAtIndex:sender.tag];
-            [collectionTable reloadData];
+            [errorTable reloadData];
             [SVProgressHUD dismiss];
             msgPage = dataArray.count % 10 + 1;
         }
@@ -196,7 +196,7 @@
         [checkBtn addTarget:self action:@selector(checkBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         checkBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
         [Cell.contentView addSubview:checkBtn];
-
+        
         
         UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 50, 11, 37.5, 22)];
         [deleteBtn setBackgroundImage:[UIImage imageNamed:@"btn_red"] forState:UIControlStateNormal];

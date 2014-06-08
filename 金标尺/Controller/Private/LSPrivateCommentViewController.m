@@ -7,7 +7,6 @@
 //
 
 #import "LSPrivateCommentViewController.h"
-#import "LSSheetNotify.h"
 
 @interface LSPrivateCommentViewController ()
 {

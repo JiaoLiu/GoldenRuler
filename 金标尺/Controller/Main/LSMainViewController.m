@@ -8,6 +8,7 @@
 
 #import "LSMainViewController.h"
 #import "LSWrapPracticeViewController.h"
+#import "LSPrivateErrorDBViewController.h"
 
 @interface LSMainViewController ()
 
@@ -251,6 +252,8 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    LSPrivateErrorDBViewController *errorVC = [[LSPrivateErrorDBViewController alloc] init];
+    [self.navigationController pushViewController:errorVC animated:YES];
 }
 
 - (void)incorrectBtnClicked
@@ -259,6 +262,8 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    LSPrivateErrorDBViewController *errorVC = [[LSPrivateErrorDBViewController alloc] init];
+    [self.navigationController pushViewController:errorVC animated:YES];
 }
 
 - (void)privateBtnClicked

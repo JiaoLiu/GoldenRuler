@@ -10,6 +10,7 @@
 #import "UIImage+Utility.h"
 #import "NSString+Utility.h"
 #import "LSUserManager.h"
+#import "LSSheetNotify.h"
 #import <SVProgressHUD.h>
 #import <JSONKit.h>
 

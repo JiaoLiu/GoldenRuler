@@ -13,6 +13,7 @@
 #import "LSMsgPushViewController.h"
 #import "LSPrivateCommentViewController.h"
 #import "LSPrivateCollectionViewController.h"
+#import "LSPrivateErrorDBViewController.h"
 
 @interface LSPrivateCenterViewController ()
 {
@@ -248,6 +249,10 @@
         }
             break;
         case 3:
+        {
+            LSPrivateErrorDBViewController *errorVC = [[LSPrivateErrorDBViewController alloc] init];
+            [self.navigationController pushViewController:errorVC animated:YES];
+        }
             break;
         case 4:
         {

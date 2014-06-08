@@ -8,7 +8,6 @@
 
 #import "LSChoiceListViewController.h"
 #import "LSChoiceDetailViewController.h"
-#import "LSSheetNotify.h"
 
 @interface LSChoiceListViewController ()
 {
