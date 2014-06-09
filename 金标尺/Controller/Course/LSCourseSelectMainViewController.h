@@ -10,4 +10,6 @@
 
 @interface LSCourseSelectMainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic, strong)UITableView *courseTable;
+
 @end

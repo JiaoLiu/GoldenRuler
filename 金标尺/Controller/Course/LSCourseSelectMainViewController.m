@@ -10,13 +10,15 @@
 
 @interface LSCourseSelectMainViewController ()
 {
-    NSArray *titleArray;
+    NSMutableArray *titleArray;
     NSInteger selectedRow;
 }
 
 @end
 
 @implementation LSCourseSelectMainViewController
+
+@synthesize courseTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,10 +28,41 @@
         if (IOS_VERSION >= 7.0) {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        titleArray = @[@"综合基础知识",@"综合基础知识",@"综合基础知识",@"综合基础知识"];
+//        titleArray = @[@"综合基础知识",@"综合基础知识",@"综合基础知识",@"综合基础知识"];
         selectedRow = -1;
+        [SVProgressHUD showWithStatus:@"加载中"];
+        titleArray = [[NSMutableArray alloc] init];
+        [self loadData];
     }
     return self;
+}
+
+- (void)loadData
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=1&cid=0",[LSUserManager getKey],[LSUserManager getUid]]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSArray *tempArray = [dic objectForKey:@"data"];
+            NSInteger num = tempArray.count;
+            for (int i = 0; i < num; i++) {
+                NSDictionary *dic = [tempArray objectAtIndex:i];
+                if (![titleArray containsObject:dic]) {
+                    [titleArray addObject:dic];
+                }
+            }
+            [courseTable reloadData];
+            [courseTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:[LSUserManager getCid] - 1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            selectedRow = [LSUserManager getCid] - 1;
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 - (void)viewDidLoad
@@ -53,18 +86,18 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
 
-    NSInteger height = 35;
-    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, titleArray.count * height + 30)];
-    table.rowHeight = height;
-    table.scrollEnabled = NO;
-    table.delegate = self;
-    table.dataSource = self;
-    table.editing = YES;
-    [table setEditing:YES animated:YES];
-    [self.view addSubview:table];
+    courseTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    courseTable.rowHeight = 35;
+    courseTable.scrollEnabled = NO;
+    courseTable.delegate = self;
+    courseTable.dataSource = self;
+    courseTable.editing = YES;
+    courseTable.tableFooterView = [UIView new];
+    [courseTable setEditing:YES animated:YES];
+    [self.view addSubview:courseTable];
     
     if (IOS_VERSION >= 7.0) {
-        table.separatorInset = UIEdgeInsetsZero;
+        courseTable.separatorInset = UIEdgeInsetsZero;
     }
 }
 
@@ -89,11 +122,27 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    if (selectedRow != -1) {
+        [LSUserManager setCid:[[[titleArray objectAtIndex:selectedRow] objectForKey:@"cid"] intValue]];
+    }
+    else
+    {
+        [LSUserManager setCid:0];
+    }
 }
 
 - (void)homeBtnClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    if (selectedRow != -1) {
+        [LSUserManager setCid:[[[titleArray objectAtIndex:selectedRow] objectForKey:@"cid"] intValue]];
+    }
+    else
+    {
+        [LSUserManager setCid:0];
+    }
 }
 
 #pragma mark - tableView delegate
@@ -109,7 +158,7 @@
         Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
-    Cell.textLabel.text = [titleArray objectAtIndex:indexPath.row];
+    Cell.textLabel.text = [[titleArray objectAtIndex:indexPath.row] objectForKey:@"name"];
     return Cell;
 }
 
@@ -140,7 +189,6 @@
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 20, 20)];
     label.text = @"  请开启您要练习的课程";
-    label.backgroundColor = [UIColor redColor];
     label.textColor = [UIColor lightGrayColor];
     label.font = [UIFont systemFontOfSize:13.0];
     label.backgroundColor = [UIColor clearColor];
