@@ -65,7 +65,7 @@
     // loginBtn
     UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, table.frame.origin.y + table.frame.size.height + 15, SCREEN_WIDTH - 20, 40)];
     [registerBtn setBackgroundImage:[UIImage imageWithColor:RGB(86, 167, 221) size:registerBtn.frame.size] forState:UIControlStateNormal];
-    [registerBtn setTitle:@"用户注册" forState:UIControlStateNormal];
+    [registerBtn setTitle:@"快速注册" forState:UIControlStateNormal];
     [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(registerBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerBtn];
