@@ -192,6 +192,10 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    if ([LSUserManager getCid] == 0) {
+        [self selectBtnClicked];
+        return;
+    }
     switch (sender.tag) {
         case 0:
         {
