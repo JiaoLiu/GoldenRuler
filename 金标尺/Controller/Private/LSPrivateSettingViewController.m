@@ -168,6 +168,7 @@
 //                Cell.detailTextLabel.text = [NSString stringWithFormat:@"最新版本号V%@",@"4.2.4"];
 //                Cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
 //                Cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+                Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
                 break;
                 
