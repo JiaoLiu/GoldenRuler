@@ -12,6 +12,8 @@
 @interface LSChoiceListViewController ()
 {
     NSDate *selectedDate;
+    NSMutableArray *dataArray;
+    NSInteger msgPage;
 }
 
 @end
@@ -28,8 +30,48 @@
     if (self) {
         // Custom initialization
         selectedDate = [NSDate date];
+        msgPage = 1;
+        [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+        [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
+}
+
+- (void)loadDataWithPage:(int)page size:(int)pageSize time:(NSString *)time
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/newList?key=%d&uid=%d&page=%d&pagesize=%d&cid=%d&time=%@",[LSUserManager getKey],[LSUserManager getUid],page,pageSize,[LSUserManager getCid],time]]]];
+    if (pageSize == 0) {
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/newList?key=%d&uid=%d&page=%d&cid=%d&time=%@",[LSUserManager getKey],[LSUserManager getUid],page,[LSUserManager getCid],time]]]];
+    }
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSArray *tempArray = [dic objectForKey:@"data"];
+            NSInteger num = tempArray.count;
+            if (num >= pageSize) {
+                msgPage += 1;
+                [LSSheetNotify dismiss];
+            }
+            else
+            {
+                [LSSheetNotify showOnce:@"暂无更多精选"];
+            }
+            for (int i = 0; i < num; i++) {
+                NSDictionary *dic = [tempArray objectAtIndex:i];
+                if (![dataArray containsObject:dic]) {
+                    [dataArray addObject:dic];
+                }
+            }
+            [choiceTable reloadData];
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 - (void)viewDidLoad
@@ -113,11 +155,15 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)homeBtnClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)dateSelectBtnClicked
@@ -150,6 +196,9 @@
             NSDate *date = picker.date;
             selectedDate = date;
             [dateSelectBtn setTitle:[NSString stringFromDate:date Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
+            msgPage = 1;
+            [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+            [SVProgressHUD showWithStatus:@"加载中"];
         }
         [view removeFromSuperview];
     }
@@ -158,7 +207,7 @@
 #pragma mark - tableView delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -167,16 +216,26 @@
     if (Cell == nil) {
         Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
-    Cell.textLabel.text = @"2014重庆。。。。。";
+    Cell.textLabel.text = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return Cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [LSSheetNotify dismiss];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LSChoiceDetailViewController *detailVC = [[LSChoiceDetailViewController alloc] init];
+    detailVC.urlStr = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView.contentOffset.y > 50) {
+        [self loadDataWithPage:msgPage size:10 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+        [LSSheetNotify showProgress:@"加载更多"];
+    }
 }
 
 @end

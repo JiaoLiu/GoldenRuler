@@ -11,7 +11,6 @@
 @interface LSMsgDetailViewController : UIViewController<UIWebViewDelegate>
 
 @property (nonatomic,strong)UIWebView *msgWebView;
-@property (nonatomic,assign)NSString *msgTitle;
 @property (nonatomic,assign)NSString *msgUrl;
 
 @end

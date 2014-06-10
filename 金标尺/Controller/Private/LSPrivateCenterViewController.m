@@ -13,6 +13,7 @@
 #import "LSMsgPushViewController.h"
 #import "LSPrivateCommentViewController.h"
 #import "LSPrivateCollectionViewController.h"
+#import "LSPrivateErrorDBViewController.h"
 
 @interface LSPrivateCenterViewController ()
 {
@@ -248,6 +249,10 @@
         }
             break;
         case 3:
+        {
+            LSPrivateErrorDBViewController *errorVC = [[LSPrivateErrorDBViewController alloc] init];
+            [self.navigationController pushViewController:errorVC animated:YES];
+        }
             break;
         case 4:
         {
@@ -272,16 +277,20 @@
             NSOperationQueue *queue = [NSOperationQueue currentQueue];
             [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                 NSDictionary *dic = [data mutableObjectFromJSONData];
-                NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-                if (ret == 1 || ret == 0) {
-                    [LSUserManager setIsLogin:NO];
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
-                }
-                else
-                {
-                    [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
-                }
+                NSLog(@"%@",[dic objectForKey:@"msg"]);
+                [LSUserManager setIsLogin:NO];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
+//                NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+//                if (ret == 1 || ret == 0) {
+//                    [LSUserManager setIsLogin:NO];
+//                    [self.navigationController popToRootViewControllerAnimated:YES];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
+//                }
+//                else
+//                {
+//                    [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+//                }
             }];
         }
             break;

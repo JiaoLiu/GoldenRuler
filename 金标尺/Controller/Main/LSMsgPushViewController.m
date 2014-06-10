@@ -31,7 +31,7 @@
         }
         dataArray = [[NSMutableArray alloc] init];
         msgPage = 1;
-        [self loadDataWithPage:msgPage size:10];
+        [self loadDataWithPage:msgPage size:0];
         [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
@@ -40,6 +40,9 @@
 - (void)loadDataWithPage:(int)page size:(int)pageSize
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/pushMsg?key=%d&uid=%d&page=%d&pagesize=%d",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
+    if (pageSize == 0) {
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/pushMsg?key=%d&uid=%d&page=%d",[LSUserManager getKey],[LSUserManager getUid],page]]]];
+    }
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
@@ -47,17 +50,22 @@
         if (ret == 1) {
             NSArray *tempArray = [dic objectForKey:@"data"];
             NSInteger num = tempArray.count;
-            if (num == pageSize) {
+            if (num >= pageSize) {
                 msgPage += 1;
+                [LSSheetNotify dismiss];
+            }
+            else
+            {
+                [LSSheetNotify showOnce:@"暂无更多消息"];
             }
             for (int i = 0; i < num; i++) {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
                 if (![dataArray containsObject:dic]) {
                     [dataArray addObject:dic];
                 }
-                [msgTable reloadData];
-                [SVProgressHUD dismiss];
             }
+            [msgTable reloadData];
+            [SVProgressHUD dismiss];
         }
         else
         {
@@ -125,11 +133,15 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)homeBtnClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 #pragma mark - tableView delegate
@@ -155,9 +167,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [LSSheetNotify dismiss];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LSMsgDetailViewController *detailVC = [[LSMsgDetailViewController alloc] init];
-    detailVC.msgTitle = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     detailVC.msgUrl = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
@@ -165,8 +177,8 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     if (scrollView.contentOffset.y > 50) {
-        [SVProgressHUD showWithStatus:@"加载更多"];
         [self loadDataWithPage:msgPage size:10];
+        [LSSheetNotify showProgress:@"加载更多"];
     }
 }
 

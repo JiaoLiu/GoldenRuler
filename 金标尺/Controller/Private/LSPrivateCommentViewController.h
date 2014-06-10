@@ -10,4 +10,6 @@
 
 @interface LSPrivateCommentViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic, strong)UITableView *commentTable;
+
 @end

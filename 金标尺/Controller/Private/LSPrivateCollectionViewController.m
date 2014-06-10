@@ -11,6 +11,7 @@
 @interface LSPrivateCollectionViewController ()
 {
     NSMutableArray *dataArray;
+    NSInteger msgPage;
 }
 
 @end
@@ -28,18 +29,53 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         dataArray = [[NSMutableArray alloc] init];
-        [self loadData];
-
+        msgPage = 1;
+        [self loadDataWithPage:msgPage size:0];
+        [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
 }
 
-- (void)loadData
+- (void)loadDataWithPage:(int)page size:(int)pageSize
 {
-    for (int i = 0; i < 100; i++) {
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-政治（多选题）第9题",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
-        [dataArray insertObject:dic atIndex:i];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myCollect?key=%d&uid=%d&page=%d&pagesize=%d",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
+    if (pageSize == 0) {
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/myCollect?key=%d&uid=%d&page=%d",[LSUserManager getKey],[LSUserManager getUid],page]]]];
     }
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSArray *tempArray = [dic objectForKey:@"data"];
+            NSInteger num = tempArray.count;
+            if (num >= pageSize) {
+                msgPage += 1;
+                [LSSheetNotify dismiss];
+            }
+            else
+            {
+                [LSSheetNotify showOnce:@"暂无更多收藏"];
+            }
+            for (int i = 0; i < num; i++) {
+                NSDictionary *dic = [tempArray objectAtIndex:i];
+                if (![dataArray containsObject:dic]) {
+                    [dataArray addObject:dic];
+                }
+            }
+            [collectionTable reloadData];
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+
+//    for (int i = 0; i < 100; i++) {
+//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"-%d-政治（多选题）第9题",i],@"title",@"2014年4月24 10:21:34",@"time", nil];
+//        [dataArray insertObject:dic atIndex:i];
+//    }
 }
 
 - (void)viewDidLoad
@@ -97,23 +133,43 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)homeBtnClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
 }
 
 - (void)checkBtnClicked:(UIButton *)sender
 {
+    [LSSheetNotify dismiss];
     NSLog(@"check-%d",sender.tag);
 }
 
 - (void)deleteBtnClicked:(UIButton *)sender
 {
     NSLog(@"delete-%d",sender.tag);
-    [dataArray removeObjectAtIndex:sender.tag];
-    [collectionTable reloadData];
+    [SVProgressHUD showWithStatus:@"删除中"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?key=%d&uid=%d&qid=%d&act=del&type=1",[LSUserManager getKey],[LSUserManager getUid],[[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue]]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            [dataArray removeObjectAtIndex:sender.tag];
+            [collectionTable reloadData];
+            [SVProgressHUD dismiss];
+            msgPage = dataArray.count % 10 + 1;
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 #pragma mark - tableView delegate
@@ -164,6 +220,14 @@
     
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return Cell;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView.contentOffset.y > 50) {
+        [self loadDataWithPage:msgPage size:10];
+        [LSSheetNotify showProgress:@"加载更多"];
+    }
 }
 
 @end

@@ -61,6 +61,8 @@
 		CC49FFFB18F93AA8007E83F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC49FFF918F93AA8007E83F4 /* InfoPlist.strings */; };
 		CC49FFFD18F93AA8007E83F4 /* ___Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC49FFFC18F93AA8007E83F4 /* ___Tests.m */; };
 		CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */; };
+		CC844E781944409B0018DD69 /* LSPrivateFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC844E771944409B0018DD69 /* LSPrivateFeedbackViewController.m */; };
+		CC844E7B194496140018DD69 /* LSPrivateErrorDBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */; };
 		CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */; };
 		CC9A633E1901529A00103000 /* back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63321901529A00103000 /* back_button@2x.png */; };
 		CC9A633F1901529A00103000 /* home_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63331901529A00103000 /* home_button@2x.png */; };
@@ -84,6 +86,7 @@
 		CCCE5A45190D35A00057FBFC /* tabbg_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE5A43190D35A00057FBFC /* tabbg_off@2x.png */; };
 		CCCE5A46190D35A00057FBFC /* tabbg_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE5A44190D35A00057FBFC /* tabbg_on@2x.png */; };
 		CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CCCE5A4B190D47C40057FBFC /* LSTabBar.m */; };
+		CCD00D0E1941FD990033637D /* LSSheetNotify.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD00D0D1941FD990033637D /* LSSheetNotify.m */; };
 		CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */; };
 		CCE619E5190401D40087B199 /* my_img_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE619E3190401D40087B199 /* my_img_upload@2x.png */; };
 		CCE619E6190401D40087B199 /* my_logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE619E4190401D40087B199 /* my_logout@2x.png */; };
@@ -181,6 +184,10 @@
 		CC49FFFC18F93AA8007E83F4 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Tests.m"; sourceTree = "<group>"; };
 		CC641D1A190699640073F8D5 /* LSCourseSelectMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCourseSelectMainViewController.h; sourceTree = "<group>"; };
 		CC641D1B190699640073F8D5 /* LSCourseSelectMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCourseSelectMainViewController.m; sourceTree = "<group>"; };
+		CC844E761944409B0018DD69 /* LSPrivateFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateFeedbackViewController.h; sourceTree = "<group>"; };
+		CC844E771944409B0018DD69 /* LSPrivateFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateFeedbackViewController.m; sourceTree = "<group>"; };
+		CC844E79194496140018DD69 /* LSPrivateErrorDBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateErrorDBViewController.h; sourceTree = "<group>"; };
+		CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateErrorDBViewController.m; sourceTree = "<group>"; };
 		CC8A46661940AA2B00B05E09 /* LSMsgDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMsgDetailViewController.h; sourceTree = "<group>"; };
 		CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMsgDetailViewController.m; sourceTree = "<group>"; };
 		CC9A63321901529A00103000 /* back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_button@2x.png"; sourceTree = "<group>"; };
@@ -212,6 +219,8 @@
 		CCCE5A44190D35A00057FBFC /* tabbg_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbg_on@2x.png"; sourceTree = "<group>"; };
 		CCCE5A4A190D47C40057FBFC /* LSTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
 		CCCE5A4B190D47C40057FBFC /* LSTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBar.m; sourceTree = "<group>"; };
+		CCD00D0C1941FD990033637D /* LSSheetNotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSSheetNotify.h; sourceTree = "<group>"; };
+		CCD00D0D1941FD990033637D /* LSSheetNotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSSheetNotify.m; sourceTree = "<group>"; };
 		CCD6AE1418F99D7B004D758F /* LSMainAdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMainAdScrollView.h; sourceTree = "<group>"; };
 		CCD6AE1518F99D7B004D758F /* LSMainAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMainAdScrollView.m; sourceTree = "<group>"; };
 		CCE619E3190401D40087B199 /* my_img_upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_img_upload@2x.png"; sourceTree = "<group>"; };
@@ -505,6 +514,10 @@
 				277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */,
 				2773001C19060FFF00D7C22C /* LSPrivateCollectionViewController.h */,
 				2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */,
+				CC844E79194496140018DD69 /* LSPrivateErrorDBViewController.h */,
+				CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */,
+				CC844E761944409B0018DD69 /* LSPrivateFeedbackViewController.h */,
+				CC844E771944409B0018DD69 /* LSPrivateFeedbackViewController.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -557,6 +570,8 @@
 		CCC3D72818F9515D009CC532 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				CCD00D0C1941FD990033637D /* LSSheetNotify.h */,
+				CCD00D0D1941FD990033637D /* LSSheetNotify.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -753,9 +768,11 @@
 				C62F1CDB193FFF140060A807 /* LSWrapPracticeViewController.m in Sources */,
 				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
 				271A711C190A648700E055BD /* LSChoiceDetailViewController.m in Sources */,
+				CC844E7B194496140018DD69 /* LSPrivateErrorDBViewController.m in Sources */,
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
 				27810EC41935830E004F796B /* LSPrivateEditViewController.m in Sources */,
 				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
+				CCD00D0E1941FD990033637D /* LSSheetNotify.m in Sources */,
 				CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */,
 				C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,

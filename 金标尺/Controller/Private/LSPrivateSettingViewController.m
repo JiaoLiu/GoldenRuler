@@ -7,6 +7,7 @@
 //
 
 #import "LSPrivateSettingViewController.h"
+#import "LSPrivateFeedbackViewController.h"
 
 @interface LSPrivateSettingViewController ()
 {
@@ -16,6 +17,8 @@
 @end
 
 @implementation LSPrivateSettingViewController
+
+@synthesize updateUrl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -92,6 +95,39 @@
     NSLog(@"%@",sender.isOn ? @"On" : @"Off");
 }
 
+- (void)checkVersion
+{
+    NSString *curVer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/updateApp?client=apple&version=%@",curVer]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        [SVProgressHUD dismiss];
+        if (ret == 1) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"已是最新版本" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
+        }
+        else
+        {
+            if (ret == 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[dic objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                [alert show];
+                updateUrl = [dic objectForKey:@"data"];
+            }
+            else [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+}
+
+#pragma mark - alertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:updateUrl]];
+    }
+}
+
 #pragma mark - tableView delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -129,9 +165,10 @@
                 break;
             case 3:
             {
-                Cell.detailTextLabel.text = [NSString stringWithFormat:@"最新版本号V%@",@"4.2.4"];
-                Cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
-                Cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+//                Cell.detailTextLabel.text = [NSString stringWithFormat:@"最新版本号V%@",@"4.2.4"];
+//                Cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
+//                Cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+                Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
                 break;
                 
@@ -142,6 +179,37 @@
     
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return Cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+        {
+        
+        }
+            break;
+        case 1:
+        {
+            LSPrivateFeedbackViewController *feedbackVC = [[LSPrivateFeedbackViewController alloc] init];
+            [self.navigationController pushViewController:feedbackVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            [self checkVersion];
+            [SVProgressHUD showWithStatus:@"检测中" maskType:SVProgressHUDMaskTypeBlack];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

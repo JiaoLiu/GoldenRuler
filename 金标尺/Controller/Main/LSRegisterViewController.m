@@ -65,7 +65,7 @@
     // loginBtn
     UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, table.frame.origin.y + table.frame.size.height + 15, SCREEN_WIDTH - 20, 40)];
     [registerBtn setBackgroundImage:[UIImage imageWithColor:RGB(86, 167, 221) size:registerBtn.frame.size] forState:UIControlStateNormal];
-    [registerBtn setTitle:@"用户注册" forState:UIControlStateNormal];
+    [registerBtn setTitle:@"快速注册" forState:UIControlStateNormal];
     [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(registerBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerBtn];
@@ -112,6 +112,7 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
 }
 
 - (void)registerBtnClicked
@@ -132,6 +133,7 @@
         [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
         return;
     }
+    [SVProgressHUD showWithStatus:@"注册中"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -145,6 +147,7 @@
             [LSUserManager setUid:[[data objectForKey:@"uid"] integerValue]];
             [LSUserManager setLastqid:[[data objectForKey:@"lastqid"] integerValue]];
             [self dismissViewControllerAnimated:YES completion:^{
+                [SVProgressHUD dismiss];
             }];
         }
         else

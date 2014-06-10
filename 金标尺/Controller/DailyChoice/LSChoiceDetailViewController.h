@@ -20,6 +20,7 @@ typedef enum : NSUInteger {
 
 @interface LSChoiceDetailViewController : UIViewController<UIWebViewDelegate>
 
-@property (nonatomic, strong) UIWebView *choiceWebView;
+@property (nonatomic, strong)UIWebView *choiceWebView;
+@property (nonatomic, assign)NSString *urlStr;
 
 @end

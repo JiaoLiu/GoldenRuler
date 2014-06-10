@@ -18,6 +18,7 @@
 @implementation LSChoiceDetailViewController
 
 @synthesize choiceWebView;
+@synthesize urlStr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,7 +53,7 @@
     // webView & activityView
     choiceWebView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
     choiceWebView.dataDetectorTypes = UIDataDetectorTypeAll;
-    [choiceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+    [choiceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
     choiceWebView.delegate = self;
     [self.view addSubview:choiceWebView];
     

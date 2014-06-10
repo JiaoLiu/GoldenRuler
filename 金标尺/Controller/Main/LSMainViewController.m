@@ -8,6 +8,7 @@
 
 #import "LSMainViewController.h"
 #import "LSWrapPracticeViewController.h"
+#import "LSPrivateErrorDBViewController.h"
 
 @interface LSMainViewController ()
 
@@ -32,7 +33,6 @@
                        @{@"title": @"套卷测试" ,@"img": @"index_d" ,@"color": RGB(37, 189, 212)},
                        @{@"title": @"每日精选" ,@"img": @"index_e" ,@"color": RGB(239, 156, 36)},
                        @{@"title": @"课程推荐" ,@"img": @"index_f" ,@"color": RGB(104, 191, 76)}];
-        iAdArray = @[@"1",@"2",@"3",@"4",@"5"];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CheckLogin) name:@"CheckLogin" object:nil];
     }
@@ -192,6 +192,10 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    if ([LSUserManager getCid] == 0) {
+        [self selectBtnClicked];
+        return;
+    }
     switch (sender.tag) {
         case 0:
         {
@@ -252,6 +256,8 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    LSPrivateErrorDBViewController *errorVC = [[LSPrivateErrorDBViewController alloc] init];
+    [self.navigationController pushViewController:errorVC animated:YES];
 }
 
 - (void)incorrectBtnClicked
@@ -260,6 +266,8 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
+    LSPrivateErrorDBViewController *errorVC = [[LSPrivateErrorDBViewController alloc] init];
+    [self.navigationController pushViewController:errorVC animated:YES];
 }
 
 - (void)privateBtnClicked
