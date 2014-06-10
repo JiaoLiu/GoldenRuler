@@ -148,8 +148,8 @@
 		C699B58A193F2901005C79B1 /* LSPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPracticeViewController.m; sourceTree = "<group>"; };
 		C6E0EBD01942DB76001A49B5 /* LSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestion.h; sourceTree = "<group>"; };
 		C6E0EBD11942DB76001A49B5 /* LSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestion.m; sourceTree = "<group>"; };
-		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestionView.h; sourceTree = SOURCE_ROOT; };
-		C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestionView.m; sourceTree = SOURCE_ROOT; };
+		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSQuestionView.h; path = "金标尺/View/Contest/LSQuestionView.h"; sourceTree = SOURCE_ROOT; };
+		C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSQuestionView.m; path = "金标尺/View/Contest/LSQuestionView.m"; sourceTree = SOURCE_ROOT; };
 		C6E0EBD61942E1EF001A49B5 /* LSExam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSExam.h; sourceTree = "<group>"; };
 		C6E0EBD71942E1EF001A49B5 /* LSExam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSExam.m; sourceTree = "<group>"; };
 		C6E0EBDB1942E66C001A49B5 /* nx.9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nx.9@2x.png"; sourceTree = "<group>"; };
