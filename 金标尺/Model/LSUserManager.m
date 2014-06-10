@@ -26,6 +26,12 @@
     [USER_DEFAULT synchronize];
 }
 
++ (void)setTCid:(int)Tcid
+{
+    [USER_DEFAULT setObject:[NSNumber numberWithInt:Tcid] forKey:@"_USER_TCID_"];
+    [USER_DEFAULT synchronize];
+}
+
 + (void)setKey:(int)key
 {
     [USER_DEFAULT setObject:[NSNumber numberWithInt:key] forKey:@"_USER_KEY_"];
@@ -147,6 +153,11 @@
 + (NSInteger)getCid
 {
     return [[USER_DEFAULT objectForKey:@"_USER_CID_"] integerValue];
+}
+
++ (NSInteger)getTCid
+{
+    return [[USER_DEFAULT objectForKey:@"_USER_TCID_"] integerValue];
 }
 
 + (NSInteger)getLastqid

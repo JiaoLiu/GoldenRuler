@@ -71,6 +71,7 @@
 		CC844E781944409B0018DD69 /* LSPrivateFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC844E771944409B0018DD69 /* LSPrivateFeedbackViewController.m */; };
 		CC844E7B194496140018DD69 /* LSPrivateErrorDBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */; };
 		CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */; };
+		CC8B7BE319472D0F00D96044 /* LSPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC8B7BE219472D0F00D96044 /* LSPracticeViewController.xib */; };
 		CC9A633E1901529A00103000 /* back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63321901529A00103000 /* back_button@2x.png */; };
 		CC9A633F1901529A00103000 /* home_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63331901529A00103000 /* home_button@2x.png */; };
 		CC9A63401901529A00103000 /* index_a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63341901529A00103000 /* index_a@2x.png */; };
@@ -160,8 +161,8 @@
 		C699B58A193F2901005C79B1 /* LSPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPracticeViewController.m; sourceTree = "<group>"; };
 		C6E0EBD01942DB76001A49B5 /* LSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestion.h; sourceTree = "<group>"; };
 		C6E0EBD11942DB76001A49B5 /* LSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestion.m; sourceTree = "<group>"; };
-		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestionView.h; sourceTree = SOURCE_ROOT; };
-		C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestionView.m; sourceTree = SOURCE_ROOT; };
+		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSQuestionView.h; path = "金标尺/View/Contest/LSQuestionView.h"; sourceTree = SOURCE_ROOT; };
+		C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSQuestionView.m; path = "金标尺/View/Contest/LSQuestionView.m"; sourceTree = SOURCE_ROOT; };
 		C6E0EBD61942E1EF001A49B5 /* LSExam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSExam.h; sourceTree = "<group>"; };
 		C6E0EBD71942E1EF001A49B5 /* LSExam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSExam.m; sourceTree = "<group>"; };
 		C6E0EBDB1942E66C001A49B5 /* nx.9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nx.9@2x.png"; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 		CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateErrorDBViewController.m; sourceTree = "<group>"; };
 		CC8A46661940AA2B00B05E09 /* LSMsgDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMsgDetailViewController.h; sourceTree = "<group>"; };
 		CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMsgDetailViewController.m; sourceTree = "<group>"; };
+		CC8B7BE219472D0F00D96044 /* LSPracticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPracticeViewController.xib; sourceTree = "<group>"; };
 		CC9A63321901529A00103000 /* back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63331901529A00103000 /* home_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63341901529A00103000 /* index_a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_a@2x.png"; sourceTree = "<group>"; };
@@ -508,7 +510,7 @@
 			children = (
 				C699B589193F2901005C79B1 /* LSPracticeViewController.h */,
 				C699B58A193F2901005C79B1 /* LSPracticeViewController.m */,
-				C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */,
+				CC8B7BE219472D0F00D96044 /* LSPracticeViewController.xib */,
 				C62F1CD9193FFF140060A807 /* LSWrapPracticeViewController.h */,
 				C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */,
 				C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */,
@@ -715,6 +717,7 @@
 				2749DFF31934811300FE7A59 /* message_new@2x.png in Resources */,
 				C6E0EBE41942EC4D001A49B5 /* nx_a.png in Resources */,
 				CC9A633E1901529A00103000 /* back_button@2x.png in Resources */,
+				CC8B7BE319472D0F00D96044 /* LSPracticeViewController.xib in Resources */,
 				CC9A633F1901529A00103000 /* home_button@2x.png in Resources */,
 				CC9A63491901529A00103000 /* index_topr@2x.png in Resources */,
 				2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */,
@@ -724,7 +727,6 @@
 				CCCE5A46190D35A00057FBFC /* tabbg_on@2x.png in Resources */,
 				278F1FC01908E78A003C0725 /* mj@2x.png in Resources */,
 				278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */,
-				C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
 				C629D3191947463D003E8691 /* LSContestViewController.xib in Resources */,
 				271D2050191B843800B51CF2 /* m_ping@2x.png in Resources */,

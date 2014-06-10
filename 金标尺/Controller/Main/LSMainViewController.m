@@ -192,7 +192,7 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
-    if ([LSUserManager getCid] == 0) {
+    if ([LSUserManager getTCid] == 0) {
         [self selectBtnClicked];
         return;
     }

@@ -18,6 +18,7 @@
 + (void)setKey:(int)key;
 + (void)setIsVip:(int)is_vip;
 + (void)setCid:(int)cid;
++ (void)setTCid:(int)Tcid;
 + (void)setLastqid:(int)qid;
 + (void)setTid:(int)tid;
 + (void)setTk:(int)tk;
@@ -35,6 +36,7 @@
 + (NSInteger)getKey;
 + (BOOL)getIsVip;
 + (NSInteger)getCid;
++ (NSInteger)getTCid;
 + (NSInteger)getLastqid;
 + (NSInteger)getTid;
 + (NSInteger)getTk;
