@@ -7,6 +7,7 @@
 //
 
 #import "LSWrapInfoViewController.h"
+#import "LSPracticeViewController.h"
 
 
 @interface LSWrapInfoViewController ()
@@ -134,6 +135,10 @@
 
 - (void) startTest{
     NSLog(@"开始考试");
+    LSPracticeViewController *vc = [[LSPracticeViewController alloc]initWithNibName:@"LSPracticeViewController" bundle:nil];
+
+    [self.navigationController pushViewController:vc animated:YES];
+    
 
 }
 

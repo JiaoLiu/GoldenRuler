@@ -34,6 +34,18 @@
 		C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE019403AFF0060A807 /* LSCityViewController.m */; };
 		C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE319404D3D0060A807 /* LSFilterViewController.m */; };
 		C699B58B193F2901005C79B1 /* LSPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C699B58A193F2901005C79B1 /* LSPracticeViewController.m */; };
+		C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD11942DB76001A49B5 /* LSQuestion.m */; };
+		C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */; };
+		C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD71942E1EF001A49B5 /* LSExam.m */; };
+		C6E0EBDC1942E66C001A49B5 /* nx.9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBDB1942E66C001A49B5 /* nx.9@2x.png */; };
+		C6E0EBE41942EC4D001A49B5 /* nx_a.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBDD1942EC4C001A49B5 /* nx_a.png */; };
+		C6E0EBE51942EC4D001A49B5 /* nx_b.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBDE1942EC4C001A49B5 /* nx_b.png */; };
+		C6E0EBE61942EC4D001A49B5 /* nx_bg.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBDF1942EC4C001A49B5 /* nx_bg.9.png */; };
+		C6E0EBE71942EC4D001A49B5 /* nx_btna.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE01942EC4C001A49B5 /* nx_btna.9.png */; };
+		C6E0EBE81942EC4D001A49B5 /* nx_btnb.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE11942EC4C001A49B5 /* nx_btnb.9.png */; };
+		C6E0EBE91942EC4D001A49B5 /* nx_c.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE21942EC4C001A49B5 /* nx_c.png */; };
+		C6E0EBEA1942EC4D001A49B5 /* nx_go.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE31942EC4C001A49B5 /* nx_go.png */; };
+		C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */; };
 		CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */; };
 		CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4614BA1905511D0082D96A /* LSMsgPushViewController.m */; };
 		CC49FFD818F93AA8007E83F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC49FFD718F93AA8007E83F4 /* Foundation.framework */; };
@@ -131,6 +143,21 @@
 		C62F1CE319404D3D0060A807 /* LSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSFilterViewController.m; sourceTree = "<group>"; };
 		C699B589193F2901005C79B1 /* LSPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPracticeViewController.h; sourceTree = "<group>"; };
 		C699B58A193F2901005C79B1 /* LSPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPracticeViewController.m; sourceTree = "<group>"; };
+		C6E0EBD01942DB76001A49B5 /* LSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestion.h; sourceTree = "<group>"; };
+		C6E0EBD11942DB76001A49B5 /* LSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestion.m; sourceTree = "<group>"; };
+		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestionView.h; sourceTree = SOURCE_ROOT; };
+		C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestionView.m; sourceTree = SOURCE_ROOT; };
+		C6E0EBD61942E1EF001A49B5 /* LSExam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSExam.h; sourceTree = "<group>"; };
+		C6E0EBD71942E1EF001A49B5 /* LSExam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSExam.m; sourceTree = "<group>"; };
+		C6E0EBDB1942E66C001A49B5 /* nx.9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nx.9@2x.png"; sourceTree = "<group>"; };
+		C6E0EBDD1942EC4C001A49B5 /* nx_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_a.png; sourceTree = "<group>"; };
+		C6E0EBDE1942EC4C001A49B5 /* nx_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_b.png; sourceTree = "<group>"; };
+		C6E0EBDF1942EC4C001A49B5 /* nx_bg.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_bg.9.png; sourceTree = "<group>"; };
+		C6E0EBE01942EC4C001A49B5 /* nx_btna.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_btna.9.png; sourceTree = "<group>"; };
+		C6E0EBE11942EC4C001A49B5 /* nx_btnb.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_btnb.9.png; sourceTree = "<group>"; };
+		C6E0EBE21942EC4C001A49B5 /* nx_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_c.png; sourceTree = "<group>"; };
+		C6E0EBE31942EC4C001A49B5 /* nx_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_go.png; sourceTree = "<group>"; };
+		C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPracticeViewController.xib; sourceTree = "<group>"; };
 		CBFC92C476324DABBC89C00C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CC42B55E1902C9E400586176 /* LSPrivateChargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateChargeViewController.h; sourceTree = "<group>"; };
 		CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateChargeViewController.m; sourceTree = "<group>"; };
@@ -244,6 +271,10 @@
 				2753ED7518FA702000ED443F /* UIImage+Utility.m */,
 				271A7117190A3A5B00E055BD /* NSString+Utility.h */,
 				271A7118190A3A5B00E055BD /* NSString+Utility.m */,
+				C6E0EBD01942DB76001A49B5 /* LSQuestion.h */,
+				C6E0EBD11942DB76001A49B5 /* LSQuestion.m */,
+				C6E0EBD61942E1EF001A49B5 /* LSExam.h */,
+				C6E0EBD71942E1EF001A49B5 /* LSExam.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -444,6 +475,7 @@
 			children = (
 				C699B589193F2901005C79B1 /* LSPracticeViewController.h */,
 				C699B58A193F2901005C79B1 /* LSPracticeViewController.m */,
+				C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */,
 				C62F1CD9193FFF140060A807 /* LSWrapPracticeViewController.h */,
 				C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */,
 				C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */,
@@ -480,6 +512,8 @@
 		CCC3D72318F9515D009CC532 /* Contest */ = {
 			isa = PBXGroup;
 			children = (
+				C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */,
+				C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -530,6 +564,14 @@
 		CCCE5A42190D35A00057FBFC /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				C6E0EBDD1942EC4C001A49B5 /* nx_a.png */,
+				C6E0EBDE1942EC4C001A49B5 /* nx_b.png */,
+				C6E0EBDF1942EC4C001A49B5 /* nx_bg.9.png */,
+				C6E0EBE01942EC4C001A49B5 /* nx_btna.9.png */,
+				C6E0EBE11942EC4C001A49B5 /* nx_btnb.9.png */,
+				C6E0EBE21942EC4C001A49B5 /* nx_c.png */,
+				C6E0EBE31942EC4C001A49B5 /* nx_go.png */,
+				C6E0EBDB1942E66C001A49B5 /* nx.9@2x.png */,
 				CCCE5A43190D35A00057FBFC /* tabbg_off@2x.png */,
 				CCCE5A44190D35A00057FBFC /* tabbg_on@2x.png */,
 			);
@@ -614,16 +656,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6E0EBE61942EC4D001A49B5 /* nx_bg.9.png in Resources */,
 				CC9A63441901529A00103000 /* index_c@2x.png in Resources */,
 				CC49FFE218F93AA8007E83F4 /* InfoPlist.strings in Resources */,
 				CC9A63461901529A00103000 /* index_e@2x.png in Resources */,
 				271D204F191B843800B51CF2 /* m_fenxiang@2x.png in Resources */,
+				C6E0EBE71942EC4D001A49B5 /* nx_btna.9.png in Resources */,
 				CC9A63411901529A00103000 /* index_aa@2x.png in Resources */,
 				CC9A63481901529A00103000 /* index_msg@2x.png in Resources */,
 				CCCE5A45190D35A00057FBFC /* tabbg_off@2x.png in Resources */,
 				271D204E191B843800B51CF2 /* m_add@2x.png in Resources */,
+				C6E0EBDC1942E66C001A49B5 /* nx.9@2x.png in Resources */,
 				CC49FFEA18F93AA8007E83F4 /* Images.xcassets in Resources */,
 				2749DFF31934811300FE7A59 /* message_new@2x.png in Resources */,
+				C6E0EBE41942EC4D001A49B5 /* nx_a.png in Resources */,
 				CC9A633E1901529A00103000 /* back_button@2x.png in Resources */,
 				CC9A633F1901529A00103000 /* home_button@2x.png in Resources */,
 				CC9A63491901529A00103000 /* index_topr@2x.png in Resources */,
@@ -634,15 +680,20 @@
 				CCCE5A46190D35A00057FBFC /* tabbg_on@2x.png in Resources */,
 				278F1FC01908E78A003C0725 /* mj@2x.png in Resources */,
 				278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */,
+				C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
 				271D2050191B843800B51CF2 /* m_ping@2x.png in Resources */,
 				CC9A63471901529A00103000 /* index_f@2x.png in Resources */,
 				271D2051191B843800B51CF2 /* m_s@2x.png in Resources */,
 				CC9A63401901529A00103000 /* index_a@2x.png in Resources */,
+				C6E0EBE81942EC4D001A49B5 /* nx_btnb.9.png in Resources */,
+				C6E0EBE91942EC4D001A49B5 /* nx_c.png in Resources */,
 				CC9A63421901529A00103000 /* index_b@2x.png in Resources */,
+				C6E0EBEA1942EC4D001A49B5 /* nx_go.png in Resources */,
 				CCE619E6190401D40087B199 /* my_logout@2x.png in Resources */,
 				271D2052191B843800B51CF2 /* m_w@2x.png in Resources */,
 				CC9A63431901529A00103000 /* index_bb@2x.png in Resources */,
+				C6E0EBE51942EC4D001A49B5 /* nx_b.png in Resources */,
 				271D2053191B843800B51CF2 /* m_ww@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -706,8 +757,10 @@
 				27810EC41935830E004F796B /* LSPrivateEditViewController.m in Sources */,
 				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
 				CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */,
+				C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */,
+				C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
 				CCCE5A41190D33D10057FBFC /* LSCourseRecommendViewController.m in Sources */,
@@ -723,6 +776,7 @@
 				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
 				C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */,
+				C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */,
 				CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
 			);

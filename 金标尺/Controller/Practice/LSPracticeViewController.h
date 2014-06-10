@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LSQuestionView.h"
 
-@interface LSPracticeViewController : UIViewController
+
+@interface LSPracticeViewController : UIViewController<UITabBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *testType;
+@property (weak, nonatomic) IBOutlet UILabel *usedTime;
+@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
+@property (weak, nonatomic) IBOutlet UIButton *preQuestion;
+@property (weak, nonatomic) IBOutlet UIButton *nextQuestion;
+@property (weak, nonatomic) IBOutlet UIButton *currBtn;
+//@property (weak,nonatomic) IBOutlet UIView *uiview;
+@property (weak, nonatomic) IBOutlet UITableView *questionView;
+
+
+
+
+
 
 @end

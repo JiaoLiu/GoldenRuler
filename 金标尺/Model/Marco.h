@@ -237,6 +237,10 @@ do {                                                                      \
 //获取城市API
 #define APIGETCITY             [APIURL stringByAppendingString:@"Demand/getCity"]
 
+//获取考卷API
+#define APIGETEXAM             [APIURL stringByAppendingString:@"Demand/exam"]
+//获取试题详情
+#define APIGETQUESTION           [APIURL stringByAppendingString:@"Demand/question"]
 
 //设置View的tag属性
 #define VIEWWITHTAG(_OBJECT, _TAG)    [_OBJECT viewWithTag : _TAG]
