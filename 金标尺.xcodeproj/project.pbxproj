@@ -29,6 +29,9 @@
 		278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 278F1FBF1908E78A003C0725 /* topBar@2x.png */; };
 		27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A8F84C18FB771900321F5A /* LSRegisterViewController.m */; };
 		289C35AE8DEC43528B20CCDA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B23067BA7A4A5CAA210325 /* libPods.a */; };
+		C60F5B711946BA9200778BDA /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */; };
+		C60F5B741946CEBC00778BDA /* LSComments.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B731946CEBC00778BDA /* LSComments.m */; };
+		C629D3191947463D003E8691 /* LSContestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C629D3181947463D003E8691 /* LSContestViewController.xib */; };
 		C62F1CDB193FFF140060A807 /* LSWrapPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */; };
 		C62F1CDE194013C60060A807 /* LSWrapInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */; };
 		C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE019403AFF0060A807 /* LSCityViewController.m */; };
@@ -46,6 +49,10 @@
 		C6E0EBE91942EC4D001A49B5 /* nx_c.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE21942EC4C001A49B5 /* nx_c.png */; };
 		C6E0EBEA1942EC4D001A49B5 /* nx_go.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE31942EC4C001A49B5 /* nx_go.png */; };
 		C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */; };
+		C6EB26BF194745C200A81108 /* LSContestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EB26BD194745C200A81108 /* LSContestViewController.m */; };
+		C6EB26C41947483B00A81108 /* module_topic_midlebx.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6EB26C11947483B00A81108 /* module_topic_midlebx.9.png */; };
+		C6EB26C51947483B00A81108 /* module_topic_nextbx.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6EB26C21947483B00A81108 /* module_topic_nextbx.9.png */; };
+		C6EB26C61947483B00A81108 /* topic_up_btnzbx..9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6EB26C31947483B00A81108 /* topic_up_btnzbx..9.png */; };
 		CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */; };
 		CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4614BA1905511D0082D96A /* LSMsgPushViewController.m */; };
 		CC49FFD818F93AA8007E83F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC49FFD718F93AA8007E83F4 /* Foundation.framework */; };
@@ -136,6 +143,11 @@
 		278F1FBF1908E78A003C0725 /* topBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topBar@2x.png"; sourceTree = "<group>"; };
 		27A8F84B18FB771900321F5A /* LSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSRegisterViewController.h; sourceTree = "<group>"; };
 		27A8F84C18FB771900321F5A /* LSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSRegisterViewController.m; sourceTree = "<group>"; };
+		C60F5B6F1946BA9200778BDA /* UITextViewWithPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextViewWithPlaceholder.h; sourceTree = "<group>"; };
+		C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
+		C60F5B721946CEBC00778BDA /* LSComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSComments.h; sourceTree = "<group>"; };
+		C60F5B731946CEBC00778BDA /* LSComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSComments.m; sourceTree = "<group>"; };
+		C629D3181947463D003E8691 /* LSContestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSContestViewController.xib; sourceTree = "<group>"; };
 		C62F1CD9193FFF140060A807 /* LSWrapPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWrapPracticeViewController.h; sourceTree = "<group>"; };
 		C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWrapPracticeViewController.m; sourceTree = "<group>"; };
 		C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWrapInfoViewController.h; sourceTree = "<group>"; };
@@ -161,6 +173,11 @@
 		C6E0EBE21942EC4C001A49B5 /* nx_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_c.png; sourceTree = "<group>"; };
 		C6E0EBE31942EC4C001A49B5 /* nx_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_go.png; sourceTree = "<group>"; };
 		C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPracticeViewController.xib; sourceTree = "<group>"; };
+		C6EB26BC194745C200A81108 /* LSContestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSContestViewController.h; sourceTree = "<group>"; };
+		C6EB26BD194745C200A81108 /* LSContestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSContestViewController.m; sourceTree = "<group>"; };
+		C6EB26C11947483B00A81108 /* module_topic_midlebx.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = module_topic_midlebx.9.png; sourceTree = "<group>"; };
+		C6EB26C21947483B00A81108 /* module_topic_nextbx.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = module_topic_nextbx.9.png; sourceTree = "<group>"; };
+		C6EB26C31947483B00A81108 /* topic_up_btnzbx..9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_up_btnzbx..9.png; sourceTree = "<group>"; };
 		CBFC92C476324DABBC89C00C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CC42B55E1902C9E400586176 /* LSPrivateChargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateChargeViewController.h; sourceTree = "<group>"; };
 		CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateChargeViewController.m; sourceTree = "<group>"; };
@@ -273,6 +290,8 @@
 		CC49000618F93B0B007E83F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C60F5B6F1946BA9200778BDA /* UITextViewWithPlaceholder.h */,
+				C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */,
 				CCC3D71C18F94A75009CC532 /* Marco.h */,
 				274B14BD1933365000F5EE0D /* LSUserManager.h */,
 				274B14BE1933365000F5EE0D /* LSUserManager.m */,
@@ -284,6 +303,8 @@
 				C6E0EBD11942DB76001A49B5 /* LSQuestion.m */,
 				C6E0EBD61942E1EF001A49B5 /* LSExam.h */,
 				C6E0EBD71942E1EF001A49B5 /* LSExam.m */,
+				C60F5B721946CEBC00778BDA /* LSComments.h */,
+				C60F5B731946CEBC00778BDA /* LSComments.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -436,6 +457,9 @@
 		CCC3D71D18F95153009CC532 /* Contest */ = {
 			isa = PBXGroup;
 			children = (
+				C6EB26BC194745C200A81108 /* LSContestViewController.h */,
+				C6EB26BD194745C200A81108 /* LSContestViewController.m */,
+				C629D3181947463D003E8691 /* LSContestViewController.xib */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -579,6 +603,9 @@
 		CCCE5A42190D35A00057FBFC /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				C6EB26C11947483B00A81108 /* module_topic_midlebx.9.png */,
+				C6EB26C21947483B00A81108 /* module_topic_nextbx.9.png */,
+				C6EB26C31947483B00A81108 /* topic_up_btnzbx..9.png */,
 				C6E0EBDD1942EC4C001A49B5 /* nx_a.png */,
 				C6E0EBDE1942EC4C001A49B5 /* nx_b.png */,
 				C6E0EBDF1942EC4C001A49B5 /* nx_bg.9.png */,
@@ -673,8 +700,10 @@
 			files = (
 				C6E0EBE61942EC4D001A49B5 /* nx_bg.9.png in Resources */,
 				CC9A63441901529A00103000 /* index_c@2x.png in Resources */,
+				C6EB26C61947483B00A81108 /* topic_up_btnzbx..9.png in Resources */,
 				CC49FFE218F93AA8007E83F4 /* InfoPlist.strings in Resources */,
 				CC9A63461901529A00103000 /* index_e@2x.png in Resources */,
+				C6EB26C41947483B00A81108 /* module_topic_midlebx.9.png in Resources */,
 				271D204F191B843800B51CF2 /* m_fenxiang@2x.png in Resources */,
 				C6E0EBE71942EC4D001A49B5 /* nx_btna.9.png in Resources */,
 				CC9A63411901529A00103000 /* index_aa@2x.png in Resources */,
@@ -697,6 +726,7 @@
 				278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */,
 				C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
+				C629D3191947463D003E8691 /* LSContestViewController.xib in Resources */,
 				271D2050191B843800B51CF2 /* m_ping@2x.png in Resources */,
 				CC9A63471901529A00103000 /* index_f@2x.png in Resources */,
 				271D2051191B843800B51CF2 /* m_s@2x.png in Resources */,
@@ -708,6 +738,7 @@
 				CCE619E6190401D40087B199 /* my_logout@2x.png in Resources */,
 				271D2052191B843800B51CF2 /* m_w@2x.png in Resources */,
 				CC9A63431901529A00103000 /* index_bb@2x.png in Resources */,
+				C6EB26C51947483B00A81108 /* module_topic_nextbx.9.png in Resources */,
 				C6E0EBE51942EC4D001A49B5 /* nx_b.png in Resources */,
 				271D2053191B843800B51CF2 /* m_ww@2x.png in Resources */,
 			);
@@ -766,6 +797,7 @@
 				271D2047191B6FFA00B51CF2 /* LSImageButton.m in Sources */,
 				27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */,
 				C62F1CDB193FFF140060A807 /* LSWrapPracticeViewController.m in Sources */,
+				C60F5B711946BA9200778BDA /* UITextViewWithPlaceholder.m in Sources */,
 				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
 				271A711C190A648700E055BD /* LSChoiceDetailViewController.m in Sources */,
 				CC844E7B194496140018DD69 /* LSPrivateErrorDBViewController.m in Sources */,
@@ -786,12 +818,14 @@
 				C699B58B193F2901005C79B1 /* LSPracticeViewController.m in Sources */,
 				271A7119190A3A5B00E055BD /* NSString+Utility.m in Sources */,
 				CCE619E9190402730087B199 /* LSPrivateInfoViewController.m in Sources */,
+				C60F5B741946CEBC00778BDA /* LSComments.m in Sources */,
 				CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */,
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
 				CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */,
 				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
+				C6EB26BF194745C200A81108 /* LSContestViewController.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
 				C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */,
 				C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */,
