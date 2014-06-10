@@ -45,7 +45,6 @@
 		C6E0EBE81942EC4D001A49B5 /* nx_btnb.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE11942EC4C001A49B5 /* nx_btnb.9.png */; };
 		C6E0EBE91942EC4D001A49B5 /* nx_c.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE21942EC4C001A49B5 /* nx_c.png */; };
 		C6E0EBEA1942EC4D001A49B5 /* nx_go.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE31942EC4C001A49B5 /* nx_go.png */; };
-		C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */; };
 		CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */; };
 		CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4614BA1905511D0082D96A /* LSMsgPushViewController.m */; };
 		CC49FFD818F93AA8007E83F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC49FFD718F93AA8007E83F4 /* Foundation.framework */; };
@@ -160,7 +159,6 @@
 		C6E0EBE11942EC4C001A49B5 /* nx_btnb.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_btnb.9.png; sourceTree = "<group>"; };
 		C6E0EBE21942EC4C001A49B5 /* nx_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_c.png; sourceTree = "<group>"; };
 		C6E0EBE31942EC4C001A49B5 /* nx_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_go.png; sourceTree = "<group>"; };
-		C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPracticeViewController.xib; sourceTree = "<group>"; };
 		CBFC92C476324DABBC89C00C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CC42B55E1902C9E400586176 /* LSPrivateChargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateChargeViewController.h; sourceTree = "<group>"; };
 		CC42B55F1902C9E400586176 /* LSPrivateChargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateChargeViewController.m; sourceTree = "<group>"; };
@@ -484,7 +482,6 @@
 			children = (
 				C699B589193F2901005C79B1 /* LSPracticeViewController.h */,
 				C699B58A193F2901005C79B1 /* LSPracticeViewController.m */,
-				C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */,
 				C62F1CD9193FFF140060A807 /* LSWrapPracticeViewController.h */,
 				C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */,
 				C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */,
@@ -695,7 +692,6 @@
 				CCCE5A46190D35A00057FBFC /* tabbg_on@2x.png in Resources */,
 				278F1FC01908E78A003C0725 /* mj@2x.png in Resources */,
 				278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */,
-				C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
 				271D2050191B843800B51CF2 /* m_ping@2x.png in Resources */,
 				CC9A63471901529A00103000 /* index_f@2x.png in Resources */,

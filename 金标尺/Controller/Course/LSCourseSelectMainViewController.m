@@ -54,8 +54,8 @@
                 }
             }
             [courseTable reloadData];
-            [courseTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:[LSUserManager getCid] - 1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-            selectedRow = [LSUserManager getCid] - 1;
+            [courseTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:[LSUserManager getTCid] - 1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            selectedRow = [LSUserManager getTCid] - 1;
             [SVProgressHUD dismiss];
         }
         else
@@ -124,11 +124,11 @@
     [self.navigationController popViewControllerAnimated:YES];
     [SVProgressHUD dismiss];
     if (selectedRow != -1) {
-        [LSUserManager setCid:[[[titleArray objectAtIndex:selectedRow] objectForKey:@"cid"] intValue]];
+        [LSUserManager setTCid:[[[titleArray objectAtIndex:selectedRow] objectForKey:@"cid"] intValue]];
     }
     else
     {
-        [LSUserManager setCid:0];
+        [LSUserManager setTCid:0];
     }
 }
 
@@ -137,11 +137,11 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
     [SVProgressHUD dismiss];
     if (selectedRow != -1) {
-        [LSUserManager setCid:[[[titleArray objectAtIndex:selectedRow] objectForKey:@"cid"] intValue]];
+        [LSUserManager setTCid:[[[titleArray objectAtIndex:selectedRow] objectForKey:@"cid"] intValue]];
     }
     else
     {
-        [LSUserManager setCid:0];
+        [LSUserManager setTCid:0];
     }
 }
 
