@@ -48,7 +48,7 @@
     _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _questionView.editing = YES;
 //    _questionView.allowsSelectionDuringEditing = YES;
-    _questionView.allowsMultipleSelectionDuringEditing = YES;
+//    _questionView.allowsMultipleSelectionDuringEditing = YES;
     _questionView.scrollEnabled = YES;
 //    _questionView.tableFooterView = [UIView new];
     _questionView.frame = [_questionView superview].frame;
@@ -287,6 +287,10 @@
     return 35;
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleInsert|UITableViewCellEditingStyleDelete;
+}
 
 
 - (void)didReceiveMemoryWarning

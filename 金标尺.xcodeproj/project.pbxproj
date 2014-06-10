@@ -777,6 +777,7 @@
 				C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */,
+				CC844E781944409B0018DD69 /* LSPrivateFeedbackViewController.m in Sources */,
 				C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
