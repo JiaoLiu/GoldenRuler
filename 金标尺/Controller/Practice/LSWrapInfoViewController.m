@@ -8,6 +8,7 @@
 
 #import "LSWrapInfoViewController.h"
 #import "LSPracticeViewController.h"
+#import "LSContestViewController.h"
 
 
 @interface LSWrapInfoViewController ()
@@ -135,8 +136,14 @@
 
 - (void) startTest{
     NSLog(@"开始考试");
-    LSPracticeViewController *vc = [[LSPracticeViewController alloc]initWithNibName:@"LSPracticeViewController" bundle:nil];
-
+    UIViewController *vc = [[UIViewController alloc]init];
+    if (self.wrapType == LSWrapTypeSimulation)
+    {
+        vc = [[LSPracticeViewController alloc]initWithNibName:@"LSPracticeViewController" bundle:nil];
+    } else {
+        vc = [[LSContestViewController alloc]initWithNibName:@"LSContestViewController" bundle:nil];
+    }
+   
     [self.navigationController pushViewController:vc animated:YES];
     
 

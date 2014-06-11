@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
+        <development version="5100" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LSContestViewController">
             <connections>
+                <outlet property="operView" destination="nbm-99-joD" id="uhx-wi-RVP"/>
+                <outlet property="questionView" destination="8Lr-wu-40H" id="UM2-SU-x2J"/>
+                <outlet property="scrollView" destination="ZMb-cw-SnY" id="iGn-M8-esI"/>
+                <outlet property="selectBtn" destination="tQb-lp-uBq" id="okQ-V1-doy"/>
+                <outlet property="testType" destination="oVX-3i-8h2" id="ffQ-Av-3R9"/>
+                <outlet property="usedTime" destination="qo0-eh-3XE" id="pq1-Gw-A8Q"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Wxd-N2-6iQ"/>
             </connections>
         </placeholder>
@@ -20,7 +27,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8Lr-wu-40H">
-                            <rect key="frame" x="0.0" y="33" width="320" height="170"/>
+                            <rect key="frame" x="0.0" y="30" width="320" height="170"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </tableView>
@@ -43,8 +50,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tQb-lp-uBq">
-                                    <rect key="frame" x="241" y="0.0" width="103" height="47"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <rect key="frame" x="241" y="0.0" width="79" height="31"/>
                                     <state key="normal" title="2/100" backgroundImage="nx.9.png">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,7 +64,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view appearanceType="aqua" contentMode="scaleToFill" id="rmz-jh-Fbf">
-                                    <rect key="frame" x="0.0" y="10" width="320" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nx_go.png" id="gDY-md-sqa">
@@ -92,6 +98,9 @@
                                     <state key="normal" title="上一题" backgroundImage="module_topic_nextbx.9.png">
                                         <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </state>
+                                    <connections>
+                                        <action selector="prevQuestion:" destination="-1" eventType="touchUpInside" id="nUd-65-mXi"/>
+                                    </connections>
                                 </button>
                                 <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2F2-n0-4YP">
                                     <rect key="frame" x="224" y="48" width="76" height="27"/>
@@ -101,6 +110,9 @@
                                         <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="nextQuestion:" destination="-1" eventType="touchUpInside" id="dXh-OQ-JCh"/>
+                                    </connections>
                                 </button>
                                 <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PWD-ZN-f0S">
                                     <rect key="frame" x="122" y="48" width="76" height="27"/>
@@ -109,7 +121,10 @@
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <state key="disabled" backgroundImage="EEC2CDC4-8115-44FC-A244-19505B332EC8"/>
+                                    <state key="disabled" backgroundImage="0A3C6711-8346-4E12-A48A-3D408C554DDD"/>
+                                    <connections>
+                                        <action selector="smtExam:" destination="-1" eventType="touchUpInside" id="JoA-ka-Tfw"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -124,7 +139,7 @@
         </view>
     </objects>
     <resources>
-        <image name="EEC2CDC4-8115-44FC-A244-19505B332EC8" width="156" height="59">
+        <image name="0A3C6711-8346-4E12-A48A-3D408C554DDD" width="156" height="59">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
