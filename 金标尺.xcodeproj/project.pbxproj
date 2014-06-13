@@ -48,7 +48,6 @@
 		C6E0EBE81942EC4D001A49B5 /* nx_btnb.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE11942EC4C001A49B5 /* nx_btnb.9.png */; };
 		C6E0EBE91942EC4D001A49B5 /* nx_c.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE21942EC4C001A49B5 /* nx_c.png */; };
 		C6E0EBEA1942EC4D001A49B5 /* nx_go.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBE31942EC4C001A49B5 /* nx_go.png */; };
-		C6E0EBEC1942F662001A49B5 /* LSPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */; };
 		C6EB26BF194745C200A81108 /* LSContestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EB26BD194745C200A81108 /* LSContestViewController.m */; };
 		C6EB26C41947483B00A81108 /* module_topic_midlebx.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6EB26C11947483B00A81108 /* module_topic_midlebx.9.png */; };
 		C6EB26C51947483B00A81108 /* module_topic_nextbx.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6EB26C21947483B00A81108 /* module_topic_nextbx.9.png */; };
@@ -173,7 +172,6 @@
 		C6E0EBE11942EC4C001A49B5 /* nx_btnb.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_btnb.9.png; sourceTree = "<group>"; };
 		C6E0EBE21942EC4C001A49B5 /* nx_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_c.png; sourceTree = "<group>"; };
 		C6E0EBE31942EC4C001A49B5 /* nx_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nx_go.png; sourceTree = "<group>"; };
-		C6E0EBEB1942F662001A49B5 /* LSPracticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPracticeViewController.xib; sourceTree = "<group>"; };
 		C6EB26BC194745C200A81108 /* LSContestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSContestViewController.h; sourceTree = "<group>"; };
 		C6EB26BD194745C200A81108 /* LSContestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSContestViewController.m; sourceTree = "<group>"; };
 		C6EB26C11947483B00A81108 /* module_topic_midlebx.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = module_topic_midlebx.9.png; sourceTree = "<group>"; };
@@ -880,11 +878,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Feng (LRA9TTXR26)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "金标尺/金标尺-Prefix.pch";
 				INFOPLIST_FILE = "金标尺/金标尺-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "EF4EA4EC-D3F0-4316-BEF3-52747865FF82";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -895,11 +895,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Feng (LRA9TTXR26)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "金标尺/金标尺-Prefix.pch";
 				INFOPLIST_FILE = "金标尺/金标尺-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "EF4EA4EC-D3F0-4316-BEF3-52747865FF82";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -960,7 +962,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Feng (LRA9TTXR26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wei Feng (LRA9TTXR26)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -978,6 +981,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "EF4EA4EC-D3F0-4316-BEF3-52747865FF82";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -998,7 +1002,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Feng (LRA9TTXR26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wei Feng (LRA9TTXR26)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1009,6 +1014,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "EF4EA4EC-D3F0-4316-BEF3-52747865FF82";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
