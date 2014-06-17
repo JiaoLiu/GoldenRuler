@@ -133,7 +133,7 @@
         [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
         return;
     }
-    [SVProgressHUD showWithStatus:@"注册中"];
+    [SVProgressHUD showWithStatus:@"注册中" maskType:SVProgressHUDMaskTypeBlack];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {

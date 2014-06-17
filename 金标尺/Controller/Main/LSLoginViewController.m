@@ -132,7 +132,7 @@
         [SVProgressHUD showErrorWithStatus:@"请输入用密码"];
         return;
     }
-    [SVProgressHUD showWithStatus:@"登录中"];
+    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogin stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
