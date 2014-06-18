@@ -11,7 +11,7 @@
 @interface LSMainAdScrollView : UIScrollView <UIScrollViewDelegate>
 
 @property (nonatomic, strong)UIPageControl *scrollPageControl;
-@property (nonatomic, strong)NSArray *items;
+@property (nonatomic, strong)NSDictionary *items;
 
 - (id)initWithFrame:(CGRect)frame Items:(NSArray *)items;
 
