@@ -697,6 +697,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Jiao Liu";
 				TargetAttributes = {
+					CC49FFD318F93AA8007E83F4 = {
+						DevelopmentTeam = 8RDH8AEPS5;
+					};
 					CC49FFEE18F93AA8007E83F4 = {
 						TestTargetID = CC49FFD318F93AA8007E83F4;
 					};
@@ -910,13 +913,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Feng (LRA9TTXR26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "金标尺/金标尺-Prefix.pch";
 				INFOPLIST_FILE = "金标尺/金标尺-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EF4EA4EC-D3F0-4316-BEF3-52747865FF82";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -927,13 +931,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Feng (LRA9TTXR26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "金标尺/金标尺-Prefix.pch";
 				INFOPLIST_FILE = "金标尺/金标尺-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EF4EA4EC-D3F0-4316-BEF3-52747865FF82";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
