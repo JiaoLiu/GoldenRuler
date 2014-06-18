@@ -68,8 +68,19 @@
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         if (ret == 1) {
             cityInfo = dic;
-            [self buildView];
-            [SVProgressHUD dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self buildView];
+                [SVProgressHUD dismiss];
+            });
+            
+        }
+        
+        if (ret == 0) {
+            [SVProgressHUD showWithStatus:@"获取失败" maskType:SVProgressHUDMaskTypeNone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+
         }
         
     }];

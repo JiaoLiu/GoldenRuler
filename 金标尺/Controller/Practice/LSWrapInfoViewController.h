@@ -10,5 +10,5 @@
 
 @interface LSWrapInfoViewController : UIViewController
 @property (nonatomic,assign)  LSWrapType    wrapType;
-@property (nonatomic,strong)  NSString      *city;
+@property (nonatomic,strong)  NSString      *city; //城市名
 @end

@@ -235,6 +235,7 @@
         
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        NSString *msg = [dic objectForKey:@"msg"];
         if (ret == 1) {
             NSDictionary *dt = [dic objectForKey:@"data"];
             
@@ -271,6 +272,13 @@
             [self getQuestionsWithId:[questionList objectAtIndex:0]];
             currIndex = 0;
             [SVProgressHUD dismiss];
+        }
+        if (ret == 0) {
+            [SVProgressHUD showWithStatus:@"获取失败" maskType:SVProgressHUDMaskTypeNone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+          
         }
         
     }];
