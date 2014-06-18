@@ -31,7 +31,6 @@
 		289C35AE8DEC43528B20CCDA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B23067BA7A4A5CAA210325 /* libPods.a */; };
 		C60F5B711946BA9200778BDA /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */; };
 		C60F5B741946CEBC00778BDA /* LSComments.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B731946CEBC00778BDA /* LSComments.m */; };
-		C629D3191947463D003E8691 /* LSContestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C629D3181947463D003E8691 /* LSContestViewController.xib */; };
 		C62F1CDB193FFF140060A807 /* LSWrapPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */; };
 		C62F1CDE194013C60060A807 /* LSWrapInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */; };
 		C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE019403AFF0060A807 /* LSCityViewController.m */; };
@@ -75,7 +74,6 @@
 		CC844E781944409B0018DD69 /* LSPrivateFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC844E771944409B0018DD69 /* LSPrivateFeedbackViewController.m */; };
 		CC844E7B194496140018DD69 /* LSPrivateErrorDBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */; };
 		CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */; };
-		CC8B7BE319472D0F00D96044 /* LSPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC8B7BE219472D0F00D96044 /* LSPracticeViewController.xib */; };
 		CC9A633E1901529A00103000 /* back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63321901529A00103000 /* back_button@2x.png */; };
 		CC9A633F1901529A00103000 /* home_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63331901529A00103000 /* home_button@2x.png */; };
 		CC9A63401901529A00103000 /* index_a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC9A63341901529A00103000 /* index_a@2x.png */; };
@@ -152,7 +150,6 @@
 		C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
 		C60F5B721946CEBC00778BDA /* LSComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSComments.h; sourceTree = "<group>"; };
 		C60F5B731946CEBC00778BDA /* LSComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSComments.m; sourceTree = "<group>"; };
-		C629D3181947463D003E8691 /* LSContestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSContestViewController.xib; sourceTree = "<group>"; };
 		C62F1CD9193FFF140060A807 /* LSWrapPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWrapPracticeViewController.h; sourceTree = "<group>"; };
 		C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWrapPracticeViewController.m; sourceTree = "<group>"; };
 		C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWrapInfoViewController.h; sourceTree = "<group>"; };
@@ -222,7 +219,6 @@
 		CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateErrorDBViewController.m; sourceTree = "<group>"; };
 		CC8A46661940AA2B00B05E09 /* LSMsgDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMsgDetailViewController.h; sourceTree = "<group>"; };
 		CC8A46671940AA2B00B05E09 /* LSMsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMsgDetailViewController.m; sourceTree = "<group>"; };
-		CC8B7BE219472D0F00D96044 /* LSPracticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPracticeViewController.xib; sourceTree = "<group>"; };
 		CC9A63321901529A00103000 /* back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63331901529A00103000 /* home_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_button@2x.png"; sourceTree = "<group>"; };
 		CC9A63341901529A00103000 /* index_a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_a@2x.png"; sourceTree = "<group>"; };
@@ -475,7 +471,6 @@
 			children = (
 				C6EB26BC194745C200A81108 /* LSContestViewController.h */,
 				C6EB26BD194745C200A81108 /* LSContestViewController.m */,
-				C629D3181947463D003E8691 /* LSContestViewController.xib */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -526,7 +521,6 @@
 				C69C469F195135510066431D /* LSTestViewController.m */,
 				C699B589193F2901005C79B1 /* LSPracticeViewController.h */,
 				C699B58A193F2901005C79B1 /* LSPracticeViewController.m */,
-				CC8B7BE219472D0F00D96044 /* LSPracticeViewController.xib */,
 				C62F1CD9193FFF140060A807 /* LSWrapPracticeViewController.h */,
 				C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */,
 				C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */,
@@ -745,7 +739,6 @@
 				2749DFF31934811300FE7A59 /* message_new@2x.png in Resources */,
 				C6E0EBE41942EC4D001A49B5 /* nx_a.png in Resources */,
 				CC9A633E1901529A00103000 /* back_button@2x.png in Resources */,
-				CC8B7BE319472D0F00D96044 /* LSPracticeViewController.xib in Resources */,
 				CC9A633F1901529A00103000 /* home_button@2x.png in Resources */,
 				CC9A63491901529A00103000 /* index_topr@2x.png in Resources */,
 				2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */,
@@ -756,7 +749,6 @@
 				278F1FC01908E78A003C0725 /* mj@2x.png in Resources */,
 				278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
-				C629D3191947463D003E8691 /* LSContestViewController.xib in Resources */,
 				271D2050191B843800B51CF2 /* m_ping@2x.png in Resources */,
 				CC9A63471901529A00103000 /* index_f@2x.png in Resources */,
 				271D2051191B843800B51CF2 /* m_s@2x.png in Resources */,
