@@ -42,6 +42,11 @@
 		C69C46991951348B0066431D /* LSExamView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46961951348B0066431D /* LSExamView.m */; };
 		C69C469D195135030066431D /* LSContestView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C469C195135030066431D /* LSContestView.m */; };
 		C69C46A0195135510066431D /* LSTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C469F195135510066431D /* LSTestViewController.m */; };
+		C69C46A6195139250066431D /* f_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A1195139250066431D /* f_1@2x.png */; };
+		C69C46A7195139250066431D /* f_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A2195139250066431D /* f_2@2x.png */; };
+		C69C46A8195139250066431D /* f_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A3195139250066431D /* f_3@2x.png */; };
+		C69C46A9195139250066431D /* f_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A4195139250066431D /* f_4@2x.png */; };
+		C69C46AA195139250066431D /* f_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A5195139250066431D /* f_bg@2x.png */; };
 		C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD11942DB76001A49B5 /* LSQuestion.m */; };
 		C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */; };
 		C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD71942E1EF001A49B5 /* LSExam.m */; };
@@ -174,6 +179,11 @@
 		C69C469C195135030066431D /* LSContestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSContestView.m; sourceTree = "<group>"; };
 		C69C469E195135510066431D /* LSTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTestViewController.h; sourceTree = "<group>"; };
 		C69C469F195135510066431D /* LSTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTestViewController.m; sourceTree = "<group>"; };
+		C69C46A1195139250066431D /* f_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_1@2x.png"; sourceTree = "<group>"; };
+		C69C46A2195139250066431D /* f_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_2@2x.png"; sourceTree = "<group>"; };
+		C69C46A3195139250066431D /* f_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_3@2x.png"; sourceTree = "<group>"; };
+		C69C46A4195139250066431D /* f_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_4@2x.png"; sourceTree = "<group>"; };
+		C69C46A5195139250066431D /* f_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_bg@2x.png"; sourceTree = "<group>"; };
 		C6E0EBD01942DB76001A49B5 /* LSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestion.h; sourceTree = "<group>"; };
 		C6E0EBD11942DB76001A49B5 /* LSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestion.m; sourceTree = "<group>"; };
 		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSQuestionView.h; path = "金标尺/View/Contest/LSQuestionView.h"; sourceTree = SOURCE_ROOT; };
@@ -630,6 +640,11 @@
 		CCCE5A42190D35A00057FBFC /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				C69C46A1195139250066431D /* f_1@2x.png */,
+				C69C46A2195139250066431D /* f_2@2x.png */,
+				C69C46A3195139250066431D /* f_3@2x.png */,
+				C69C46A4195139250066431D /* f_4@2x.png */,
+				C69C46A5195139250066431D /* f_bg@2x.png */,
 				C6EB26C11947483B00A81108 /* module_topic_midlebx.9.png */,
 				C6EB26C21947483B00A81108 /* module_topic_nextbx.9.png */,
 				C6EB26C31947483B00A81108 /* topic_up_btnzbx..9.png */,
@@ -729,6 +744,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6E0EBE61942EC4D001A49B5 /* nx_bg.9.png in Resources */,
+				C69C46A6195139250066431D /* f_1@2x.png in Resources */,
 				CC9A63441901529A00103000 /* index_c@2x.png in Resources */,
 				C6EB26C61947483B00A81108 /* topic_up_btnzbx..9.png in Resources */,
 				CC49FFE218F93AA8007E83F4 /* InfoPlist.strings in Resources */,
@@ -736,6 +752,7 @@
 				C6EB26C41947483B00A81108 /* module_topic_midlebx.9.png in Resources */,
 				271D204F191B843800B51CF2 /* m_fenxiang@2x.png in Resources */,
 				C6E0EBE71942EC4D001A49B5 /* nx_btna.9.png in Resources */,
+				C69C46A7195139250066431D /* f_2@2x.png in Resources */,
 				CC9A63411901529A00103000 /* index_aa@2x.png in Resources */,
 				CC9A63481901529A00103000 /* index_msg@2x.png in Resources */,
 				CCCE5A45190D35A00057FBFC /* tabbg_off@2x.png in Resources */,
@@ -749,12 +766,14 @@
 				CC9A633F1901529A00103000 /* home_button@2x.png in Resources */,
 				CC9A63491901529A00103000 /* index_topr@2x.png in Resources */,
 				2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */,
+				C69C46A8195139250066431D /* f_3@2x.png in Resources */,
 				CCB3BA6C190222F400CC1849 /* chongzhi@2x.png in Resources */,
 				CC9A63451901529A00103000 /* index_d@2x.png in Resources */,
 				CCE619E5190401D40087B199 /* my_img_upload@2x.png in Resources */,
 				CCCE5A46190D35A00057FBFC /* tabbg_on@2x.png in Resources */,
 				278F1FC01908E78A003C0725 /* mj@2x.png in Resources */,
 				278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */,
+				C69C46A9195139250066431D /* f_4@2x.png in Resources */,
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
 				C629D3191947463D003E8691 /* LSContestViewController.xib in Resources */,
 				271D2050191B843800B51CF2 /* m_ping@2x.png in Resources */,
@@ -762,6 +781,7 @@
 				271D2051191B843800B51CF2 /* m_s@2x.png in Resources */,
 				CC9A63401901529A00103000 /* index_a@2x.png in Resources */,
 				C6E0EBE81942EC4D001A49B5 /* nx_btnb.9.png in Resources */,
+				C69C46AA195139250066431D /* f_bg@2x.png in Resources */,
 				C6E0EBE91942EC4D001A49B5 /* nx_c.png in Resources */,
 				CC9A63421901529A00103000 /* index_b@2x.png in Resources */,
 				C6E0EBEA1942EC4D001A49B5 /* nx_go.png in Resources */,
