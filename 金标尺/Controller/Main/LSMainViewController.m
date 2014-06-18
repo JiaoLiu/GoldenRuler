@@ -11,6 +11,9 @@
 #import "LSPrivateErrorDBViewController.h"
 
 @interface LSMainViewController ()
+{
+    UIImageView *newMsg;
+}
 
 @end
 
@@ -81,10 +84,16 @@
     [self.view addSubview:privateBtn];
     
     // messageBtn
-    UIButton *msgBtn = [[UIButton alloc] initWithFrame:CGRectMake(privateBtn.frame.origin.x, privateBtn.frame.origin.y + privateBtn.frame.size.height, 30.5, 30.5)];
+    UIButton *msgBtn = [[UIButton alloc] initWithFrame:CGRectMake(privateBtn.frame.origin.x, privateBtn.frame.origin.y + privateBtn.frame.size.height + 10, 30.5, 30.5 * 33 / 48.0)];
     [msgBtn setBackgroundImage:[UIImage imageNamed:@"index_bb"] forState:UIControlStateNormal];
     [msgBtn addTarget:self action:@selector(msgBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:msgBtn];
+    
+    //pushNotice
+    newMsg = [[UIImageView alloc] initWithFrame:CGRectMake(10, -5, 49 / 2.0, 26 / 2.0)];
+    newMsg.image = [UIImage imageNamed:@"message_new"];
+    newMsg.hidden = YES;
+    [msgBtn addSubview:newMsg];
     
     // iAdScrollView
     LSMainAdScrollView *iAdScrollView;
@@ -154,6 +163,7 @@
             [LSUserManager setUserEmail:[data objectForKey:@"email"]];
             [LSUserManager setPush:[[data objectForKey:@"push"] integerValue]];
             [LSUserManager setEndTime:[data objectForKey:@"endtime"]];
+            newMsg.hidden = [LSUserManager getPush] == 0 ? YES : NO;
         }
         else
         {
