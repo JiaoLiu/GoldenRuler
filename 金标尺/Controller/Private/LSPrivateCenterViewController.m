@@ -15,6 +15,8 @@
 #import "LSPrivateCollectionViewController.h"
 #import "LSPrivateErrorDBViewController.h"
 
+#define LOGOUT_TAG 100
+
 @interface LSPrivateCenterViewController ()
 {
     NSArray *titleArray;
@@ -273,27 +275,45 @@
             break;
         case 7:
         {
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogout stringByAppendingString:[NSString stringWithFormat:@"?key=%d&uid=%d",[LSUserManager getKey],[LSUserManager getUid]]]]];
-            NSOperationQueue *queue = [NSOperationQueue currentQueue];
-            [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                NSDictionary *dic = [data mutableObjectFromJSONData];
-                NSLog(@"%@",[dic objectForKey:@"msg"]);
-                [LSUserManager setIsLogin:NO];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
-//                NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-//                if (ret == 1 || ret == 0) {
-//                    [LSUserManager setIsLogin:NO];
-//                    [self.navigationController popToRootViewControllerAnimated:YES];
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
-//                }
-//                else
-//                {
-//                    [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
-//                }
-            }];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"退出登录" message:@"确定退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = LOGOUT_TAG;
+            [alert show];
         }
             break;
+        default:
+            break;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (alertView.tag) {
+        case LOGOUT_TAG:
+        {
+            if (buttonIndex == 1) {
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APILogout stringByAppendingString:[NSString stringWithFormat:@"?key=%d&uid=%d",[LSUserManager getKey],[LSUserManager getUid]]]]];
+                NSOperationQueue *queue = [NSOperationQueue currentQueue];
+                [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                    NSDictionary *dic = [data mutableObjectFromJSONData];
+                    NSLog(@"%@",[dic objectForKey:@"msg"]);
+                    [LSUserManager setIsLogin:NO];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
+                    //                NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+                    //                if (ret == 1 || ret == 0) {
+                    //                    [LSUserManager setIsLogin:NO];
+                    //                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    //                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
+                    //                }
+                    //                else
+                    //                {
+                    //                    [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+                    //                }
+                }];
+            }
+        }
+            break;
+            
         default:
             break;
     }
