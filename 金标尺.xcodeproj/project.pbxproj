@@ -37,6 +37,11 @@
 		C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE019403AFF0060A807 /* LSCityViewController.m */; };
 		C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE319404D3D0060A807 /* LSFilterViewController.m */; };
 		C699B58B193F2901005C79B1 /* LSPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C699B58A193F2901005C79B1 /* LSPracticeViewController.m */; };
+		C69C46971951348B0066431D /* LSCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46911951348B0066431D /* LSCommentsView.m */; };
+		C69C46981951348B0066431D /* LSCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46931951348B0066431D /* LSCorrectionView.m */; };
+		C69C46991951348B0066431D /* LSExamView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46961951348B0066431D /* LSExamView.m */; };
+		C69C469D195135030066431D /* LSContestView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C469C195135030066431D /* LSContestView.m */; };
+		C69C46A0195135510066431D /* LSTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C469F195135510066431D /* LSTestViewController.m */; };
 		C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD11942DB76001A49B5 /* LSQuestion.m */; };
 		C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */; };
 		C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD71942E1EF001A49B5 /* LSExam.m */; };
@@ -158,6 +163,17 @@
 		C62F1CE319404D3D0060A807 /* LSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSFilterViewController.m; sourceTree = "<group>"; };
 		C699B589193F2901005C79B1 /* LSPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPracticeViewController.h; sourceTree = "<group>"; };
 		C699B58A193F2901005C79B1 /* LSPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPracticeViewController.m; sourceTree = "<group>"; };
+		C69C46901951348B0066431D /* LSCommentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCommentsView.h; sourceTree = "<group>"; };
+		C69C46911951348B0066431D /* LSCommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCommentsView.m; sourceTree = "<group>"; };
+		C69C46921951348B0066431D /* LSCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCorrectionView.h; sourceTree = "<group>"; };
+		C69C46931951348B0066431D /* LSCorrectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCorrectionView.m; sourceTree = "<group>"; };
+		C69C46941951348B0066431D /* LSExamDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSExamDelegate.h; sourceTree = "<group>"; };
+		C69C46951951348B0066431D /* LSExamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSExamView.h; sourceTree = "<group>"; };
+		C69C46961951348B0066431D /* LSExamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSExamView.m; sourceTree = "<group>"; };
+		C69C469B195135030066431D /* LSContestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSContestView.h; sourceTree = "<group>"; };
+		C69C469C195135030066431D /* LSContestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSContestView.m; sourceTree = "<group>"; };
+		C69C469E195135510066431D /* LSTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTestViewController.h; sourceTree = "<group>"; };
+		C69C469F195135510066431D /* LSTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTestViewController.m; sourceTree = "<group>"; };
 		C6E0EBD01942DB76001A49B5 /* LSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestion.h; sourceTree = "<group>"; };
 		C6E0EBD11942DB76001A49B5 /* LSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestion.m; sourceTree = "<group>"; };
 		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSQuestionView.h; path = "金标尺/View/Contest/LSQuestionView.h"; sourceTree = SOURCE_ROOT; };
@@ -506,6 +522,8 @@
 		CCC3D72118F95153009CC532 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
+				C69C469E195135510066431D /* LSTestViewController.h */,
+				C69C469F195135510066431D /* LSTestViewController.m */,
 				C699B589193F2901005C79B1 /* LSPracticeViewController.h */,
 				C699B58A193F2901005C79B1 /* LSPracticeViewController.m */,
 				CC8B7BE219472D0F00D96044 /* LSPracticeViewController.xib */,
@@ -549,6 +567,8 @@
 		CCC3D72318F9515D009CC532 /* Contest */ = {
 			isa = PBXGroup;
 			children = (
+				C69C469B195135030066431D /* LSContestView.h */,
+				C69C469C195135030066431D /* LSContestView.m */,
 				C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */,
 				C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */,
 			);
@@ -587,6 +607,13 @@
 		CCC3D72718F9515D009CC532 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
+				C69C46901951348B0066431D /* LSCommentsView.h */,
+				C69C46911951348B0066431D /* LSCommentsView.m */,
+				C69C46921951348B0066431D /* LSCorrectionView.h */,
+				C69C46931951348B0066431D /* LSCorrectionView.m */,
+				C69C46941951348B0066431D /* LSExamDelegate.h */,
+				C69C46951951348B0066431D /* LSExamView.h */,
+				C69C46961951348B0066431D /* LSExamView.m */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -803,16 +830,19 @@
 				CC844E7B194496140018DD69 /* LSPrivateErrorDBViewController.m in Sources */,
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
 				27810EC41935830E004F796B /* LSPrivateEditViewController.m in Sources */,
+				C69C46971951348B0066431D /* LSCommentsView.m in Sources */,
 				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
 				CCD00D0E1941FD990033637D /* LSSheetNotify.m in Sources */,
 				CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */,
 				C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */,
+				C69C46991951348B0066431D /* LSExamView.m in Sources */,
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */,
 				CC844E781944409B0018DD69 /* LSPrivateFeedbackViewController.m in Sources */,
 				C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
+				C69C46981951348B0066431D /* LSCorrectionView.m in Sources */,
 				CCCE5A41190D33D10057FBFC /* LSCourseRecommendViewController.m in Sources */,
 				C62F1CDE194013C60060A807 /* LSWrapInfoViewController.m in Sources */,
 				C699B58B193F2901005C79B1 /* LSPracticeViewController.m in Sources */,
@@ -824,6 +854,7 @@
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
 				CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */,
+				C69C46A0195135510066431D /* LSTestViewController.m in Sources */,
 				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
 				C6EB26BF194745C200A81108 /* LSContestViewController.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
@@ -831,6 +862,7 @@
 				C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */,
 				CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
+				C69C469D195135030066431D /* LSContestView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
