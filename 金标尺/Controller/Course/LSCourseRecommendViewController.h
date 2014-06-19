@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "LSTabBar.h"
 
-@interface LSCourseRecommendViewController : UIViewController<LSTabBarDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface LSCourseRecommendViewController : UIViewController<LSTabBarDelegate,UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource,UIPickerViewDelegate>
 
+@property (nonatomic, strong)UIButton *dateSelectBtn;
+@property (nonatomic, strong)UIButton *catSelectBtn;
+@property (nonatomic, strong)UIActionSheet *pickerSheet;
 @property (nonatomic, strong)UITableView *courseTable;
 
 @end

@@ -331,6 +331,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LSChoiceDetailViewController *detailVC = [[LSChoiceDetailViewController alloc] init];
     detailVC.urlStr = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
+    detailVC.detailType = kDailyChoice;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
