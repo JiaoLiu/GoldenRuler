@@ -11,6 +11,7 @@
 #import "LSQuestion.h"
 #import "UITextViewWithPlaceholder.h"
 
+
 #define QTABLE_TAG 0
 #define CTABLE_TAG 1
 
@@ -22,6 +23,8 @@
     LSQuestion *currQuestion;
     NSArray *currAnswers;
     NSMutableArray *currComments;
+    
+    int currIndex;
 }
 @end
 
@@ -32,6 +35,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self getPaper];
+        });
     }
     return self;
 }
@@ -40,14 +46,35 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self getPaper];
+    self.title = @"练习板块";
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [backBtn setBackgroundImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = backItem;
     
-    [self getQuestionsWithId:@"10"];
+    // homeBtn
+    UIButton *homeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [homeBtn addTarget:self action:@selector(homeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
+    self.navigationItem.rightBarButtonItem = rightItem;
+   
+   
+    
+//    [self getQuestionsWithId:@"10"];
     
     
-    [self initExamView];
+//    [self initExamView];
     [self initTabBarView];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 - (void)initTabBarView
 {
     
@@ -70,14 +97,31 @@
 //考试界面
 - (void)initExamView
 {
+    LSExamView *view = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
+    [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    [view.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    view.questionView.delegate = self;
+    view.questionView.dataSource = self;
+    view.questionView.tag = QTABLE_TAG;
+    view.delegate = self;
     
+    [self.view addSubview:view];
+    [self.view bringSubviewToFront:tabBar];
     
 }
 
 //评论界面
 - (void)initCommentsView
 {
-    
+    [self clearAllView];
+    self.title = @"考友评论";
+    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:_currQuestion.title];
+    cview.cTableView.delegate = self;
+    cview.cTableView.dataSource =self;
+    cview.cTableView.tag = CTABLE_TAG;
+    cview.delegate = self;
+    [self.view addSubview:cview];
+    [self.view bringSubviewToFront:tabBar];
 }
 
 //查看答案界面
@@ -91,13 +135,23 @@
 - (void)initCorrectionView
 {
     [self clearAllView];
+    self.title = @"我要纠错";
+    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:_currQuestion.title];
+    crView.userInteractionEnabled = YES;
+    crView.delegate = self;
     
+    [self.view addSubview:crView];
+    [self.view bringSubviewToFront:tabBar];
+
 }
 
 //加入收藏
 - (void)addToFav
 {
-    
+    self.title = self.testType == LSWrapTypeReal ? @"模拟考试" : @" 练习模块";
+    [self clearAllView];
+    [self initExamView];
+
     
 }
 
@@ -132,7 +186,7 @@
     [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
     int uid = [LSUserManager getUid];
     int key = [LSUserManager getKey];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIGETEXAM stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&tk=%@&cid=%@&tid=%@",uid,key,_testType==LSWrapTypeSimulation ? @"1":@"2",_cid,_tid]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/testQuestionList?uid=%d&key=%d&tk=%@&cid=%@&tid=%@",uid,key,_testType==LSWrapTypeSimulation ? @"1":@"2",_cid,_tid]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -144,11 +198,21 @@
             NSDictionary *dt = [dic objectForKey:@"data"];
             NSString *qids = [dt objectForKey:@"qid"];
             
-            
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
+            if (![qids isEqualToString:@""] && [qids respondsToSelector:@selector(rangeOfString:)])
+            {
+                
+                if ([qids rangeOfString:@","].location != NSNotFound) {
+                    NSArray *qidList = [qids componentsSeparatedByString:@","];
+                    [questionList addObjectsFromArray:qidList];
+                } else {
+                    [questionList addObject:qids];
+                }
+                
+            }
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self getQuestionsWithId:[questionList objectAtIndex:0]];
+             currIndex = 0;
+             [SVProgressHUD dismiss];
                 
             });
             
@@ -183,6 +247,8 @@
         if (ret == 1) {
             NSDictionary *d = [dict objectForKey:@"data"];
             LSQuestion *q = [LSQuestion initWithDictionary:d];
+            _currQuestion = q;
+             [self initExamView];
         }
         
         
@@ -326,5 +392,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark -| nav btn click
+- (void)homeBtnClicked
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
+}
 
+- (void)backBtnClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

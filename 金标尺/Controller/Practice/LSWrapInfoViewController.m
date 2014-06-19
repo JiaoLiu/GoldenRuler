@@ -7,7 +7,7 @@
 //
 
 #import "LSWrapInfoViewController.h"
-#import "LSPracticeViewController.h"
+#import "LSPractiseController.h"
 #import "LSTestViewController.h"
 #import "LSExam.h"
 

@@ -35,7 +35,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.title = @"课程选择";
+    self.title = @"题型选择";
     
     // backBtn
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
@@ -58,6 +58,11 @@
     [self getQuestionType];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 
 - (void)getQuestionType
 {
@@ -195,5 +200,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark -| nav btn click
+- (void)homeBtnClicked
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
+}
 
+- (void)backBtnClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end
