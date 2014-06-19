@@ -7,6 +7,7 @@
 //
 
 #import "LSQuestionTypeTableViewController.h"
+#import "LSPractiseController.h"
 
 @interface LSQuestionTypeTableViewController ()
 {
@@ -34,6 +35,25 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.title = @"课程选择";
+    
+    // backBtn
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [backBtn setBackgroundImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
+    // homeBtn
+    UIButton *homeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [homeBtn addTarget:self action:@selector(homeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
+    
+    self.tableView.tableFooterView = [UIView new];
+    
     qTypeArray = [NSMutableArray arrayWithCapacity:0];
     [self getQuestionType];
 }
@@ -43,7 +63,7 @@
 {
     [SVProgressHUD showWithStatus:@"题型加载中..."];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/qtype?key=%d&uid=%d&cid=%@",[LSUserManager getKey],[LSUserManager getUid],_cid]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/qtype?key=%d&uid=%d&tk=%@&cid=%@",[LSUserManager getKey],[LSUserManager getUid],_testType == LSWrapTypeSimulation ? @"1":@"2",_cid]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
@@ -108,9 +128,22 @@
     cell.tag = [[[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"id"] intValue];
     cell.textLabel.text = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"题目数%@ 我的答题数%@ 正确率%@",count,mycount,percent];
+    cell.detailTextLabel.textColor = [UIColor grayColor];
 
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    LSPractiseController *vc = [[LSPractiseController alloc]init];
+    vc.cid = _cid;
+    vc.tid = [NSString stringWithFormat:@"%d",cell.tag];
+    vc.testType = _testType;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 

@@ -51,6 +51,7 @@
     LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
     tabBar.items = @[@"模拟试题",@"历年真题"];
     tabBar.selectedItem = 0;
+    testType = LSWrapTypeSimulation;
     tabBar.delegate = self;
     [self.view addSubview:tabBar];
     
@@ -154,6 +155,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LSQuestionTypeTableViewController *typeVC = [[LSQuestionTypeTableViewController alloc]initWithStyle:UITableViewStylePlain];
+    typeVC.testType = testType;
     typeVC.cid = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"cid"];
     [self.navigationController pushViewController:typeVC animated:YES];
 }
