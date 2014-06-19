@@ -18,9 +18,15 @@ typedef enum : NSUInteger {
     kWeixinBtnTag
 } kFooterViewTags;
 
+typedef enum : NSUInteger {
+    kDailyChoice,
+    kCourseRecommend
+} kDetailType;
+
 @interface LSChoiceDetailViewController : UIViewController<UIWebViewDelegate>
 
 @property (nonatomic, strong)UIWebView *choiceWebView;
 @property (nonatomic, assign)NSString *urlStr;
+@property (nonatomic, assign)kDetailType detailType;
 
 @end

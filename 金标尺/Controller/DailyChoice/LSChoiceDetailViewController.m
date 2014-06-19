@@ -19,6 +19,7 @@
 
 @synthesize choiceWebView;
 @synthesize urlStr;
+@synthesize detailType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +34,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"每日精选";
+    switch (detailType) {
+        case kCourseRecommend:
+            self.title = @"课程推荐";
+            break;
+        case kDailyChoice:
+            self.title = @"每日精选";
+            break;
+            
+        default:
+            break;
+    }
     self.view.backgroundColor = [UIColor whiteColor];
     
     // backBtn
