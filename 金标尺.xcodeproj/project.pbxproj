@@ -35,6 +35,7 @@
 		C62F1CDE194013C60060A807 /* LSWrapInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */; };
 		C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE019403AFF0060A807 /* LSCityViewController.m */; };
 		C62F1CE419404D3D0060A807 /* LSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62F1CE319404D3D0060A807 /* LSFilterViewController.m */; };
+		C63C01CE1952C16200CB3167 /* LSCourseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C63C01CD1952C16200CB3167 /* LSCourseTableViewController.m */; };
 		C699B58B193F2901005C79B1 /* LSPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C699B58A193F2901005C79B1 /* LSPracticeViewController.m */; };
 		C69C46971951348B0066431D /* LSCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46911951348B0066431D /* LSCommentsView.m */; };
 		C69C46981951348B0066431D /* LSCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46931951348B0066431D /* LSCorrectionView.m */; };
@@ -163,6 +164,8 @@
 		C62F1CE019403AFF0060A807 /* LSCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCityViewController.m; sourceTree = "<group>"; };
 		C62F1CE219404D3D0060A807 /* LSFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSFilterViewController.h; sourceTree = "<group>"; };
 		C62F1CE319404D3D0060A807 /* LSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSFilterViewController.m; sourceTree = "<group>"; };
+		C63C01CC1952C16200CB3167 /* LSCourseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCourseTableViewController.h; sourceTree = "<group>"; };
+		C63C01CD1952C16200CB3167 /* LSCourseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCourseTableViewController.m; sourceTree = "<group>"; };
 		C699B589193F2901005C79B1 /* LSPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPracticeViewController.h; sourceTree = "<group>"; };
 		C699B58A193F2901005C79B1 /* LSPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPracticeViewController.m; sourceTree = "<group>"; };
 		C69C46901951348B0066431D /* LSCommentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCommentsView.h; sourceTree = "<group>"; };
@@ -539,6 +542,8 @@
 				C62F1CE019403AFF0060A807 /* LSCityViewController.m */,
 				C62F1CE219404D3D0060A807 /* LSFilterViewController.h */,
 				C62F1CE319404D3D0060A807 /* LSFilterViewController.m */,
+				C63C01CC1952C16200CB3167 /* LSCourseTableViewController.h */,
+				C63C01CD1952C16200CB3167 /* LSCourseTableViewController.m */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -855,6 +860,7 @@
 				C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */,
 				CC844E781944409B0018DD69 /* LSPrivateFeedbackViewController.m in Sources */,
 				C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */,
+				C63C01CE1952C16200CB3167 /* LSCourseTableViewController.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,
 				2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */,
 				C69C46981951348B0066431D /* LSCorrectionView.m in Sources */,

@@ -10,12 +10,18 @@
 #import "LSCommentsView.h"
 #import "LSCorrectionView.h"
 #import "LSExamDelegate.h"
+#import "LSExam.h"
+#import "LSQuestion.h"
+#import "UITextViewWithPlaceholder.h"
+#import "LSExamView.h"
+#import "LSComments.h"
+#import "LSContestView.h"
 
-@interface LSTestViewController : UIViewController<UITabBarDelegate,
-                                                UITableViewDataSource,
-                                                UITableViewDelegate,
-                                                LSCorrectionDelegate,
-                                                LSCommentsDelegate,
-                                                LSExamDelegate>
+@interface LSTestViewController : UIViewController<UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, LSCorrectionDelegate, LSCommentsDelegate, LSExamDelegate>
+
+@property (nonatomic,strong) LSExam *exam;
+@property (nonatomic,strong) NSMutableArray *questionList;
+
+@property (nonatomic,strong) LSQuestion *currQuestion;
 @property (nonatomic) LSWrapType examType;
 @end

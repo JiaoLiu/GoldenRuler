@@ -7,12 +7,7 @@
 //
 
 #import "LSTestViewController.h"
-#import "LSExam.h"
-#import "LSQuestion.h"
-#import "UITextViewWithPlaceholder.h"
-#import "LSExamView.h"
-#import "LSComments.h"
-#import "LSContestView.h"
+
 
 
 
@@ -25,10 +20,7 @@
     int uid;
     int key;
     
-    LSExam *exam;
-    NSMutableArray *questionList;
     UITabBar *tabBar;
-    LSQuestion *currQuestion;
     NSArray *currAnswers;
     
     NSMutableArray *currComments;
@@ -46,7 +38,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-         [self getPaper];
+
 
     }
     return self;
@@ -72,12 +64,7 @@
     
     uid = [LSUserManager getUid];
     key = [LSUserManager getKey];
-//    
-//    currQuestion = [[LSQuestion alloc]init];
-//    currQuestion.title = @"题目：题目内容是什么东西？恩阳古镇 ；雨中的恩阳古镇更显古朴宁静，到了恩阳古镇不可错过的当然就是“恩阳十大碗”，每一碗都是肉劲十足";
-//    currQuestion.answer = @"A:恩阳古镇|B:恩阳古镇|C:恩阳古镇|D:f恩阳古镇f|E:f恩阳古镇f|F:恩阳古镇f";
-//    currQuestion.right = @"A";
-//    currAnswers = [currQuestion.answer componentsSeparatedByString:@"|"];
+
     
     //添加评论列表
     LSComments *cms = [[LSComments alloc]init];
@@ -96,6 +83,10 @@
     [currComments addObjectsFromArray:@[cms,cms2,cms3]];
     
     historyQst = [NSMutableArray arrayWithCapacity:0];
+    
+    [self getQuestionsWithId:[_questionList objectAtIndex:0]];
+    currIndex = 0;
+    
     [self initTabBarView];
 }
 
@@ -128,8 +119,8 @@
     switch (self.examType) {
         case LSWrapTypeReal:
         {
-            LSContestView *view = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
-            [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+            LSContestView *view = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
+            [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
             
             view.questionView.delegate = self;
             view.questionView.dataSource = self;
@@ -142,9 +133,9 @@
             break;
         case LSWrapTypeSimulation:
         {
-            LSExamView *view = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
-            [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
-            [view.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+            LSExamView *view = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
+            [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+            [view.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
             view.questionView.delegate = self;
             view.questionView.dataSource = self;
             view.questionView.tag = QTABLE_TAG;
@@ -165,7 +156,7 @@
 {
     [self clearAllView];
     self.title = @"考友评论";
-    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:currQuestion.title];
+    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:_currQuestion.title];
     cview.cTableView.delegate = self;
     cview.cTableView.dataSource =self;
     cview.cTableView.tag = CTABLE_TAG;
@@ -187,7 +178,7 @@
 {
     [self clearAllView];
     self.title = @"我要纠错";
-    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:currQuestion.title];
+    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:_currQuestion.title];
     crView.userInteractionEnabled = YES;
     crView.delegate = self;
     
@@ -221,70 +212,6 @@
 }
 
 
-- (void)getPaper{
-
-    exam = [[LSExam alloc]init];
-    questionList = [NSMutableArray arrayWithCapacity:0];
-    
-    [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
-
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIGETEXAM stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&tk=1&cid=1",uid,key]]]];
-    
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        
-        NSDictionary *dic = [data mutableObjectFromJSONData];
-        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-        NSString *msg = [dic objectForKey:@"msg"];
-        if (ret == 1) {
-            NSDictionary *dt = [dic objectForKey:@"data"];
-            
-            NSArray *list = [dt objectForKey:@"list"];
-            NSString *totalScore = [dt objectForKey:@"score"];
-            NSString *time = [dt objectForKey:@"time"];
-            NSString *num  = [dt objectForKey:@"num"];
-            NSString *mid = [dt objectForKey:@"mid"];
-            
-            exam.score = [totalScore intValue];
-            exam.num = [num intValue];
-            exam.mid = mid;
-            exam.time = [time intValue];
-            
-            for (NSDictionary *qs in list) {
-                
-                NSString *tid = [qs objectForKey:@"tid"];
-                NSString *score = [qs objectForKey:@"score"];
-                NSString *qids = [qs objectForKey:@"qid"];
-                if ( [qids respondsToSelector:@selector(rangeOfString:)]) {
-                    
-                    if ([qids rangeOfString:@","].location != NSNotFound) {
-                        NSArray *qidList = [[qs objectForKey:@"qid"] componentsSeparatedByString:@","];
-                        [questionList addObjectsFromArray:qidList];
-                    } else {
-                        [questionList addObject:qids];
-                    }
-                    
-                }
-                
-            }
-            
-
-            [self getQuestionsWithId:[questionList objectAtIndex:0]];
-            currIndex = 0;
-            [SVProgressHUD dismiss];
-        }
-        if (ret == 0) {
-            [SVProgressHUD showWithStatus:@"获取失败" maskType:SVProgressHUDMaskTypeNone];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-            });
-          
-        }
-        
-    }];
-    
-    
-}
 
 - (void)getQuestionsWithId:(NSString *)qid
 {
@@ -297,7 +224,7 @@
         NSInteger ret = [[dict objectForKey:@"status"] integerValue];
         if (ret == 1) {
             NSDictionary *d = [dict objectForKey:@"data"];
-            currQuestion = [LSQuestion initWithDictionary:d];
+            _currQuestion = [LSQuestion initWithDictionary:d];
             [self initExamView];
         }
         
@@ -312,7 +239,7 @@
 {
     NSLog(@"%@",content);
     [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDQERROR stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&content=%@",uid,key,currQuestion.qid,content]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDQERROR stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&content=%@",uid,key,_currQuestion.qid,content]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -340,7 +267,7 @@
 {
     NSLog(@"%@",content);
     [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",uid,key,currQuestion.qid,content]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",uid,key,_currQuestion.qid,content]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -369,7 +296,7 @@
     currIndex = currIndex < 0 ? 0:currIndex;
     if (currIndex > 0) {
         
-         currQuestion = [historyQst objectAtIndex:--currIndex];
+         _currQuestion = [historyQst objectAtIndex:--currIndex];
         [self initExamView];
     }
     
@@ -381,22 +308,22 @@
     NSLog(@"下一题");
     
     currIndex += 1;
-    currIndex = currIndex > questionList.count ? questionList.count : currIndex;
+    currIndex = currIndex > _questionList.count ? _questionList.count : currIndex;
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
-    if (currIndex >= questionList.count && historyQst.count == questionList.count) {
+    if (currIndex >= _questionList.count && historyQst.count == _questionList.count) {
         return;
     }
     
     if (currIndex >= historyQst.count) {
-        [historyQst addObject:currQuestion];
-        if (currIndex < questionList.count) {
-            NSString *qid = [questionList objectAtIndex:currIndex];
+        [historyQst addObject:_currQuestion];
+        if (currIndex < _questionList.count) {
+            NSString *qid = [_questionList objectAtIndex:currIndex];
             [self getQuestionsWithId:qid];
         }
     }
     
     if (currIndex < historyQst.count) {
-        currQuestion = [historyQst objectAtIndex:currIndex];
+        _currQuestion = [historyQst objectAtIndex:currIndex];
         [self initExamView];
     }
     
@@ -456,7 +383,7 @@
     switch (tableView.tag) {
         case QTABLE_TAG:
         {
-            NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
+            NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
             return answers.count;
         }
             break;
@@ -475,7 +402,7 @@
         case QTABLE_TAG:
         {
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-            NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
+            NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
             cell.textLabel.text = [answers objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             return cell;

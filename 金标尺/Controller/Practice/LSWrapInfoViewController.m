@@ -91,6 +91,10 @@
     NSLog(@"开始考试");
     LSTestViewController *vc = [[LSTestViewController alloc]init];
     vc.examType = self.wrapType;
+    vc.exam = exam;
+    vc.questionList = questionList;
+
+    
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -98,7 +102,7 @@
 
 - (void)getPaper
 {
-    cid = [LSUserManager getCid];
+    cid = [LSUserManager getTCid];
     key = [LSUserManager getKey];
     uid = [LSUserManager getUid];
     
@@ -109,7 +113,7 @@
     
     NSString *url = @"";
     if (_wrapType == LSWrapTypeReal) {
-        url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d&city=%@",uid,key,2,cid,_city];
+        url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d&city=%d",uid,key,2,cid,1];
     } else if(_wrapType == LSWrapTypeSimulation) {
         url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d",uid,key,1,cid];
     }
@@ -157,8 +161,11 @@
             }
             
             exam.list = questionList;
-            [self initStartView];
-            [SVProgressHUD dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self initStartView];
+                [SVProgressHUD dismiss];
+            });
+            
         }
         if (ret == 0) {
             [SVProgressHUD showWithStatus:@"获取失败" maskType:SVProgressHUDMaskTypeNone];

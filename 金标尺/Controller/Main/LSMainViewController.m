@@ -219,12 +219,12 @@
         }
             break;
         case 2:
-        {
+        {//练习模块
             
         }
             break;
         case 3:
-        {
+        {//套卷模块
             LSWrapPracticeViewController *wrapVC = [[LSWrapPracticeViewController alloc]init];
             [self.navigationController pushViewController:wrapVC animated:YES];
             
