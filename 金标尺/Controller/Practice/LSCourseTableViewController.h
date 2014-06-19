@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LSTabBar.h"
 
-@interface LSCourseTableViewController : UITableViewController
+@interface LSCourseTableViewController : UIViewController<LSTabBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong) UITableView *tableView;
 
 @end

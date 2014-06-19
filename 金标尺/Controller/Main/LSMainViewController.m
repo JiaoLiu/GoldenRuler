@@ -9,6 +9,7 @@
 #import "LSMainViewController.h"
 #import "LSWrapPracticeViewController.h"
 #import "LSPrivateErrorDBViewController.h"
+#import "LSCourseTableViewController.h"
 
 @interface LSMainViewController ()
 {
@@ -220,7 +221,8 @@
             break;
         case 2:
         {//练习模块
-            
+            LSCourseTableViewController *courseVC = [[LSCourseTableViewController alloc]init];
+            [self.navigationController pushViewController:courseVC animated:YES];
         }
             break;
         case 3:

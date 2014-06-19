@@ -1,26 +1,29 @@
 //
-//  LSCourseTableViewController.m
+//  LSQuestionTypeTableViewController.m
 //  金标尺
 //
 //  Created by wzq on 14/6/19.
 //  Copyright (c) 2014年 Jiao Liu. All rights reserved.
 //
 
-#import "LSCourseTableViewController.h"
 #import "LSQuestionTypeTableViewController.h"
 
-
-@interface LSCourseTableViewController ()
+@interface LSQuestionTypeTableViewController ()
 {
-    NSMutableArray *courseArray;
-    LSWrapType testType;
+    NSMutableArray *qTypeArray;
 }
 @end
 
-#define APIGETCOURSE @"http://demo.deepinfo.cn/jbc2/index.php/"
+@implementation LSQuestionTypeTableViewController
 
-@implementation LSCourseTableViewController
-
+- (instancetype)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -31,47 +34,16 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.title = @"课程选择";
-    
-    // backBtn
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    self.navigationItem.leftBarButtonItem = backItem;
-    
-    // homeBtn
-    UIButton *homeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
-    [homeBtn addTarget:self action:@selector(homeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    
-    //tabBar
-    LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
-    tabBar.items = @[@"模拟试题",@"历年真题"];
-    tabBar.selectedItem = 0;
-    tabBar.delegate = self;
-    [self.view addSubview:tabBar];
-    
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y + tabBar.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
-    
-    courseArray = [NSMutableArray arrayWithCapacity:0];
-    self.tableView.tableFooterView = [UIView new];
-    [self getCourses];
+    qTypeArray = [NSMutableArray arrayWithCapacity:0];
+    [self getQuestionType];
 }
 
 
-
-
-- (void)getCourses
+- (void)getQuestionType
 {
-    [SVProgressHUD showWithStatus:@"科目加载中..."];
+    [SVProgressHUD showWithStatus:@"题型加载中..."];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=1&cid=0",[LSUserManager getKey],[LSUserManager getUid]]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/qtype?key=%d&uid=%d&cid=%@",[LSUserManager getKey],[LSUserManager getUid],_cid]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
@@ -82,10 +54,10 @@
             for (int i = 0; i < num; i++)
             {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
-                if (![courseArray containsObject:dic]) {
-                    [courseArray addObject:dic];
+                if (![qTypeArray containsObject:dic]) {
+                    [qTypeArray addObject:dic];
                 }
-
+                
             }
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
@@ -95,25 +67,7 @@
             [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
         }
     }];
-
-}
-
-
-
-
-
-#pragma mark -tabbar delegate
-- (void)SelectItemAtIndex:(NSNumber *)index{
-    switch (index.intValue) {
-        case 0:
-            testType = LSWrapTypeSimulation;
-            break;
-        case 1:
-            testType = LSWrapTypeReal;
-            break;
-        default:
-            break;
-    }
+    
 }
 
 
@@ -135,7 +89,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return courseArray.count;
+
+    return qTypeArray.count;
 }
 
 
@@ -143,20 +98,22 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.tag = [[[courseArray objectAtIndex:indexPath.row] objectForKey:@"cid"] intValue];
-    cell.textLabel.text = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    NSString *count = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"count"];
+    NSString *mycount = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"mycount"];
+    NSString *percent = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"percent"];
+    
+    cell.tag = [[[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"id"] intValue];
+    cell.textLabel.text = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"题目数%@ 我的答题数%@ 正确率%@",count,mycount,percent];
+
+    
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    LSQuestionTypeTableViewController *typeVC = [[LSQuestionTypeTableViewController alloc]initWithStyle:UITableViewStylePlain];
-    typeVC.cid = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"cid"];
-    [self.navigationController pushViewController:typeVC animated:YES];
-}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,18 +162,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-#pragma mark -| nav btn click
-- (void)homeBtnClicked
-{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [SVProgressHUD dismiss];
-    [LSSheetNotify dismiss];
-}
-
-- (void)backBtnClicked
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 @end
