@@ -9,11 +9,15 @@
 #import "LSChoiceListViewController.h"
 #import "LSChoiceDetailViewController.h"
 
+#define kCatePicker_TAG 100
+
 @interface LSChoiceListViewController ()
 {
     NSDate *selectedDate;
     NSMutableArray *dataArray;
+    NSMutableArray *cateArray;
     NSInteger msgPage;
+    NSInteger selectedCate;
 }
 
 @end
@@ -21,6 +25,7 @@
 @implementation LSChoiceListViewController
 
 @synthesize dateSelectBtn;
+@synthesize catSelectBtn;
 @synthesize pickerSheet;
 @synthesize choiceTable;
 
@@ -30,18 +35,51 @@
     if (self) {
         // Custom initialization
         selectedDate = [NSDate date];
+        dataArray = [[NSMutableArray alloc] init];
+        cateArray = [[NSMutableArray alloc] init];
         msgPage = 1;
-        [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
-        [SVProgressHUD showWithStatus:@"加载中"];
+//        [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+        [self loadCategory];
+        [SVProgressHUD showWithStatus:@"加载中" maskType:SVProgressHUDMaskTypeBlack];
     }
     return self;
 }
 
+- (void)loadCategory
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=2&cid=2",[LSUserManager getKey],[LSUserManager getUid]]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSArray *tempArray = [dic objectForKey:@"data"];
+            NSInteger num;
+            if ([tempArray isKindOfClass:[NSNull class]]) {
+                num = 0;
+                catSelectBtn.enabled = NO;
+            }
+            else num = tempArray.count;
+            for (int i = 0; i < num; i++) {
+                NSDictionary *dic = [tempArray objectAtIndex:i];
+                if (![cateArray containsObject:dic]) {
+                    [cateArray addObject:dic];
+                }
+            }
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+}
+
 - (void)loadDataWithPage:(int)page size:(int)pageSize time:(NSString *)time
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/newList?key=%d&uid=%d&page=%d&pagesize=%d&cid=%d&time=%@",[LSUserManager getKey],[LSUserManager getUid],page,pageSize,[LSUserManager getCid],time]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/newList?key=%d&uid=%d&page=%d&pagesize=%d&cid=%d&time=%@",[LSUserManager getKey],[LSUserManager getUid],page,pageSize,selectedCate,time]]]];
     if (pageSize == 0) {
-        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/newList?key=%d&uid=%d&page=%d&cid=%d&time=%@",[LSUserManager getKey],[LSUserManager getUid],page,[LSUserManager getCid],time]]]];
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/newList?key=%d&uid=%d&page=%d&cid=%d&time=%@",[LSUserManager getKey],[LSUserManager getUid],page,selectedCate,time]]]];
     }
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -100,18 +138,29 @@
     [topBar setBackgroundImage:[[UIImage imageNamed:@"topBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.view addSubview:topBar];
     
-    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 45)];
-    topLabel.text = @"请选择时间";
-    topLabel.textColor = [UIColor whiteColor];
-    topLabel.backgroundColor = [UIColor clearColor];
-    topLabel.textAlignment = NSTextAlignmentCenter;
-    topLabel.font = [UIFont systemFontOfSize:15.0];
-    [topBar addSubview:topLabel];
+//    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 45)];
+//    topLabel.text = @"请选择时间";
+//    topLabel.textColor = [UIColor whiteColor];
+//    topLabel.backgroundColor = [UIColor clearColor];
+//    topLabel.textAlignment = NSTextAlignmentCenter;
+//    topLabel.font = [UIFont systemFontOfSize:15.0];
+//    [topBar addSubview:topLabel];
+    
+    catSelectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 24.5)];
+    [catSelectBtn setBackgroundImage:[UIImage imageNamed:@"mj"] forState:UIControlStateNormal];
+    catSelectBtn.center = CGPointMake(topBar.frame.size.width / 2.0 - 80, topBar.frame.size.height / 2.0);
+    [catSelectBtn setTitle:@"请选择分类" forState:UIControlStateNormal];
+    [catSelectBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    catSelectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    catSelectBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    catSelectBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [catSelectBtn addTarget:self action:@selector(catSelectBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [topBar addSubview:catSelectBtn];
     
     dateSelectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 24.5)];
     [dateSelectBtn setBackgroundImage:[UIImage imageNamed:@"mj"] forState:UIControlStateNormal];
-    dateSelectBtn.center = CGPointMake(topBar.frame.size.width / 2.0, topBar.frame.size.height / 2.0);
-    [dateSelectBtn setTitle:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
+    dateSelectBtn.center = CGPointMake(topBar.frame.size.width / 2.0 + 80, topBar.frame.size.height / 2.0);
+    [dateSelectBtn setTitle:@"请选择时间" forState:UIControlStateNormal];
     [dateSelectBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     dateSelectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     dateSelectBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -187,6 +236,29 @@
     [pickerSheet addSubview:doneBtn];
 }
 
+-(void)catSelectBtnClicked
+{
+    [pickerSheet showInView:self.view];
+    
+    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 100)];
+    pickerView.delegate = self;
+    pickerView.showsSelectionIndicator = YES;
+    pickerView.dataSource = self;
+    pickerView.tag = kCatePicker_TAG;
+    [pickerSheet addSubview:pickerView];
+    
+    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(pickerSheet.frame.size.width - 70, 0, 50, 40)];
+    [doneBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [doneBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
+    if (IOS_VERSION < 7.0) {
+        [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+    [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [doneBtn addTarget:self action:@selector(doneBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [pickerSheet addSubview:doneBtn];
+
+}
+
 - (void)doneBtnClicked
 {
     [pickerSheet dismissWithClickedButtonIndex:0 animated:YES];
@@ -200,8 +272,40 @@
             [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
             [SVProgressHUD showWithStatus:@"加载中"];
         }
+        if ([view isKindOfClass:[UIPickerView class]] && [view tag] == kCatePicker_TAG) {
+            [catSelectBtn setTitle:[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"name"] forState:UIControlStateNormal];
+            [dateSelectBtn setTitle:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
+            selectedCate = [[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"cid"] integerValue];
+            [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+            [SVProgressHUD showWithStatus:@"加载中"];
+        }
         [view removeFromSuperview];
     }
+}
+
+#pragma mark - pickerView delegate
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    if (pickerView.tag == kCatePicker_TAG) {
+        return 1;
+    }
+    return 0;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (pickerView.tag == kCatePicker_TAG) {
+        return cateArray.count;
+    }
+    return 0;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (pickerView.tag == kCatePicker_TAG) {
+        return [[cateArray objectAtIndex:row] objectForKey:@"name"];
+    }
+    return nil;
 }
 
 #pragma mark - tableView delegate
