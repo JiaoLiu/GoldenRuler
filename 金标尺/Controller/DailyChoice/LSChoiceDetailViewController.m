@@ -19,6 +19,7 @@
 
 @synthesize choiceWebView;
 @synthesize urlStr;
+@synthesize detailType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +34,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"每日精选";
+    switch (detailType) {
+        case kCourseRecommend:
+            self.title = @"课程推荐";
+            break;
+        case kDailyChoice:
+            self.title = @"每日精选";
+            break;
+            
+        default:
+            break;
+    }
     self.view.backgroundColor = [UIColor whiteColor];
     
     // backBtn
@@ -111,17 +122,23 @@
             break;
         case kWeiboBtnTag:
         {
-            
+            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=tqq&url=%@&title=金标尺",urlStr];
+            openUrl = [openUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
         }
             break;
         case kSinaBtnTag:
         {
-            
+            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=tsina&url=%@&title=金标尺",urlStr];
+            openUrl = [openUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
         }
             break;
         case kWeixinBtnTag:
         {
-            
+            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=weixin&url=%@&title=金标尺",urlStr];
+            openUrl = [openUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
         }
             break;
         default:
@@ -141,45 +158,45 @@
     CGFloat contentHeight = webView.scrollView.contentSize.height;
     CGFloat widthOffset = (SCREEN_WIDTH - 90 * 3) / 4.0;
     dispatch_async(dispatch_get_main_queue(), ^{ // add footerView for web
-        webView.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, contentHeight + 170);
-        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, contentHeight, SCREEN_WIDTH, 170)];
+        webView.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, contentHeight + 70);
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, contentHeight, SCREEN_WIDTH, 70)];
         footView.backgroundColor = [UIColor whiteColor];
         [webView.scrollView addSubview:footView];
         
-        LSImageButton *collectBtn = [[LSImageButton alloc] initWithFrame:CGRectMake(widthOffset, 20, 90, 70)];
-        collectBtn.image = [UIImage imageNamed:@"m_add"];
-        collectBtn.title = @"加入收藏";
-        collectBtn.tag = kCollectBtnTag;
-        collectBtn.titleFont = [UIFont systemFontOfSize:13.0];
-        collectBtn.layer.borderColor = [UIColor grayColor].CGColor;
-        collectBtn.layer.borderWidth = 1;
-        collectBtn.layer.cornerRadius = 3;
-        [collectBtn addTarget:self action:@selector(footViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [footView addSubview:collectBtn];
+//        LSImageButton *collectBtn = [[LSImageButton alloc] initWithFrame:CGRectMake(widthOffset, 20, 90, 70)];
+//        collectBtn.image = [UIImage imageNamed:@"m_add"];
+//        collectBtn.title = @"加入收藏";
+//        collectBtn.tag = kCollectBtnTag;
+//        collectBtn.titleFont = [UIFont systemFontOfSize:13.0];
+//        collectBtn.layer.borderColor = [UIColor grayColor].CGColor;
+//        collectBtn.layer.borderWidth = 1;
+//        collectBtn.layer.cornerRadius = 3;
+//        [collectBtn addTarget:self action:@selector(footViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        [footView addSubview:collectBtn];
+//        
+//        LSImageButton *commentBtn = [[LSImageButton alloc] initWithFrame:CGRectMake(collectBtn.frame.size.width + collectBtn.frame.origin.x + widthOffset, 20, 90, 70)];
+//        commentBtn.image = [UIImage imageNamed:@"m_ping"];
+//        commentBtn.title = @"网友评论";
+//        commentBtn.tag = kCommentBtnTag;
+//        commentBtn.titleFont = [UIFont systemFontOfSize:13.0];
+//        commentBtn.layer.borderColor = [UIColor grayColor].CGColor;
+//        commentBtn.layer.borderWidth = 1;
+//        commentBtn.layer.cornerRadius = 3;
+//        [commentBtn addTarget:self action:@selector(footViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        [footView addSubview:commentBtn];
+//        
+//        LSImageButton *shareBtn = [[LSImageButton alloc] initWithFrame:CGRectMake(commentBtn.frame.size.width + commentBtn.frame.origin.x + widthOffset, 20, 90, 70)];
+//        shareBtn.image = [UIImage imageNamed:@"m_fenxiang"];
+//        shareBtn.title = @"分享好友";
+//        shareBtn.tag = kShareBtnTag;
+//        shareBtn.titleFont = [UIFont systemFontOfSize:13.0];
+//        shareBtn.layer.borderColor = [UIColor grayColor].CGColor;
+//        shareBtn.layer.borderWidth = 1;
+//        shareBtn.layer.cornerRadius = 3;
+//        [shareBtn addTarget:self action:@selector(footViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        [footView addSubview:shareBtn];
         
-        LSImageButton *commentBtn = [[LSImageButton alloc] initWithFrame:CGRectMake(collectBtn.frame.size.width + collectBtn.frame.origin.x + widthOffset, 20, 90, 70)];
-        commentBtn.image = [UIImage imageNamed:@"m_ping"];
-        commentBtn.title = @"网友评论";
-        commentBtn.tag = kCommentBtnTag;
-        commentBtn.titleFont = [UIFont systemFontOfSize:13.0];
-        commentBtn.layer.borderColor = [UIColor grayColor].CGColor;
-        commentBtn.layer.borderWidth = 1;
-        commentBtn.layer.cornerRadius = 3;
-        [commentBtn addTarget:self action:@selector(footViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [footView addSubview:commentBtn];
-        
-        LSImageButton *shareBtn = [[LSImageButton alloc] initWithFrame:CGRectMake(commentBtn.frame.size.width + commentBtn.frame.origin.x + widthOffset, 20, 90, 70)];
-        shareBtn.image = [UIImage imageNamed:@"m_fenxiang"];
-        shareBtn.title = @"分享好友";
-        shareBtn.tag = kShareBtnTag;
-        shareBtn.titleFont = [UIFont systemFontOfSize:13.0];
-        shareBtn.layer.borderColor = [UIColor grayColor].CGColor;
-        shareBtn.layer.borderWidth = 1;
-        shareBtn.layer.cornerRadius = 3;
-        [shareBtn addTarget:self action:@selector(footViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [footView addSubview:shareBtn];
-        
-        UIView *shareCenterView = [[UIView alloc] initWithFrame:CGRectMake(commentBtn.frame.origin.x + widthOffset * 3, commentBtn.frame.origin.y + commentBtn.frame.size.height + 10, commentBtn.frame.size.width * 2 - widthOffset * 2, 30)];
+        UIView *shareCenterView = [[UIView alloc] initWithFrame:CGRectMake(90 + widthOffset * 5, 20, 90 * 2 - widthOffset * 2, 30)];
         shareCenterView.layer.borderColor = [UIColor grayColor].CGColor;
         shareCenterView.layer.borderWidth = 0.5;
         shareCenterView.layer.cornerRadius = 5;

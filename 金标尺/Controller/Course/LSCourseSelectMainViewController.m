@@ -176,6 +176,7 @@
 {
     [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
     selectedRow = indexPath.row;
+    [self backBtnClicked];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath

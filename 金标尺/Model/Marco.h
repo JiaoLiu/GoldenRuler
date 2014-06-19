@@ -242,6 +242,10 @@ do {                                                                      \
 #define APIGETEXAM             [APIURL stringByAppendingString:@"Demand/exam"]
 //获取试题详情
 #define APIGETQUESTION           [APIURL stringByAppendingString:@"Demand/question"]
+//答案纠错
+#define APIADDQERROR          [APIURL stringByAppendingString:@"Demand/addqerror"]
+//评论提交
+#define APIADDCOMMENT          [APIURL stringByAppendingString:@"Demand/addComment"]
 
 //设置View的tag属性
 #define VIEWWITHTAG(_OBJECT, _TAG)    [_OBJECT viewWithTag : _TAG]

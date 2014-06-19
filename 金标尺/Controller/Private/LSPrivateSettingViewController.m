@@ -110,7 +110,7 @@
         }
         else
         {
-            if (ret == 0) {
+            if (ret == 2) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[dic objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 [alert show];
                 updateUrl = [dic objectForKey:@"data"];

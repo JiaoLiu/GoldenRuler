@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSPrivateInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface LSPrivateInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong)UITableView *table;
 @property (nonatomic, strong)UIImageView *imgView;

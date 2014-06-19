@@ -12,7 +12,7 @@
 
 @synthesize scrollPageControl;
 
-- (id)initWithFrame:(CGRect)frame Items:(NSArray *)items
+- (id)initWithFrame:(CGRect)frame Items:(NSDictionary *)items
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -21,7 +21,7 @@
         for (int i = 0; i < items.count; i++) {
             UIButton *imgView = [[UIButton alloc] initWithFrame:CGRectMake(i * frame.size.width, 0, frame.size.width, frame.size.height)];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[items objectAtIndex:i] objectForKey:@"path"]]]];
+                UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[[items objectForKey:@"list"] objectAtIndex:i] objectForKey:@"path"]]]];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [imgView setImage:img forState:UIControlStateNormal];
                 });
@@ -80,7 +80,7 @@
 
 - (void)clickOnAd:(UIButton *)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[[_items objectAtIndex:sender.tag] objectForKey:@"url"]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[[[_items objectForKey:@"list"] objectAtIndex:sender.tag] objectForKey:@"url"]]];
 }
 
 @end

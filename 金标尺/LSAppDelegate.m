@@ -87,15 +87,16 @@
 }
 
 #pragma mark - load AD Img
-- (NSArray *)loadADdata
+- (NSDictionary *)loadADdata
 {
-    NSArray *dataArr = [[NSArray alloc] init];
+    NSDictionary *dataArr = [[NSDictionary alloc] init];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/Adv"]]]];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *dic = [data mutableObjectFromJSONData];
     NSInteger ret = [[dic objectForKey:@"status"] integerValue];
     if (ret == 1) {
         dataArr = [dic objectForKey:@"data"];
+        [LSUserManager setPush:[[dataArr objectForKey:@"push"] integerValue]];
     }
     else
     {

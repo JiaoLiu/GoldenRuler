@@ -210,18 +210,34 @@
 
 - (void)dismiss
 {
-    [UIView animateKeyframesWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [UIView animateWithDuration:0.15 animations:^{ // available for ios 6.x
         self.alpha = 0;
         self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 0.8, 0.8);
     } completion:^(BOOL finished) {
-        [sheetView removeFromSuperview];
-        sheetView = nil;
-        
-        [overlayWindow removeFromSuperview];
-        overlayWindow = nil;
-        
-        [spinnerView stopAnimating];
+        if (self.alpha == 0) {
+            [sheetView removeFromSuperview];
+            sheetView = nil;
+            
+            [overlayWindow removeFromSuperview];
+            overlayWindow = nil;
+            
+            [spinnerView stopAnimating];
+        }
     }];
+//    [UIView animateKeyframesWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
+//        self.alpha = 0;
+//        self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 0.8, 0.8);
+//    } completion:^(BOOL finished) {
+//        if (self.alpha == 0) {
+//            [sheetView removeFromSuperview];
+//            sheetView = nil;
+//            
+//            [overlayWindow removeFromSuperview];
+//            overlayWindow = nil;
+//            
+//            [spinnerView stopAnimating];
+//        }
+//    }];
 }
 
 @end

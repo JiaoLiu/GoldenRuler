@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSPrivateCenterViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface LSPrivateCenterViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 
 @property (nonatomic, assign)BOOL isVip;
 @property (nonatomic, assign)BOOL hasNotice;

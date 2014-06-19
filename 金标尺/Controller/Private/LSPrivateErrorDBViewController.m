@@ -154,7 +154,7 @@
 {
     NSLog(@"delete-%d",sender.tag);
     [SVProgressHUD showWithStatus:@"删除中"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?key=%d&uid=%d&qid=%d&act=del&type=2",[LSUserManager getKey],[LSUserManager getUid],[[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue]]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?uid=%d&key=%d&qid=%d&act=del&tpye=2",[LSUserManager getUid],[LSUserManager getKey],[[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue]]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
