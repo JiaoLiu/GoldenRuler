@@ -40,7 +40,7 @@
         msgPage = 1;
 //        [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
         [self loadCategory];
-        [SVProgressHUD showWithStatus:@"加载中"];
+        [SVProgressHUD showWithStatus:@"加载中" maskType:SVProgressHUDMaskTypeBlack];
     }
     return self;
 }
