@@ -504,7 +504,7 @@
 #pragma mark -exam delegate
 - (void)prevQuestion
 {
-    
+    selectedRow = -1;
     NSLog(@"上一题");
     
     currIndex = currIndex < 0 ? 0:currIndex;
@@ -519,6 +519,7 @@
 
 - (void)nextQuestion
 {
+    selectedRow = -1;
     NSLog(@"下一题");
     [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeGradient];
     currIndex += 1;
