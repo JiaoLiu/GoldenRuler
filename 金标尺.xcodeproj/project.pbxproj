@@ -165,8 +165,8 @@
 		C60F5B731946CEBC00778BDA /* LSComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSComments.m; sourceTree = "<group>"; };
 		C62F1CD9193FFF140060A807 /* LSWrapPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSWrapPracticeViewController.h; path = ../Practice/LSWrapPracticeViewController.h; sourceTree = "<group>"; };
 		C62F1CDA193FFF140060A807 /* LSWrapPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSWrapPracticeViewController.m; path = ../Practice/LSWrapPracticeViewController.m; sourceTree = "<group>"; };
-		C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWrapInfoViewController.h; sourceTree = "<group>"; };
-		C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWrapInfoViewController.m; sourceTree = "<group>"; };
+		C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSWrapInfoViewController.h; path = ../Practice/LSWrapInfoViewController.h; sourceTree = "<group>"; };
+		C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSWrapInfoViewController.m; path = ../Practice/LSWrapInfoViewController.m; sourceTree = "<group>"; };
 		C62F1CDF19403AFF0060A807 /* LSCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSCityViewController.h; path = ../Practice/LSCityViewController.h; sourceTree = "<group>"; };
 		C62F1CE019403AFF0060A807 /* LSCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSCityViewController.m; path = ../Practice/LSCityViewController.m; sourceTree = "<group>"; };
 		C62F1CE219404D3D0060A807 /* LSFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSFilterViewController.h; sourceTree = "<group>"; };
@@ -511,6 +511,8 @@
 				C6EB26BD194745C200A81108 /* LSContestViewController.m */,
 				C62F1CDF19403AFF0060A807 /* LSCityViewController.h */,
 				C62F1CE019403AFF0060A807 /* LSCityViewController.m */,
+				C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */,
+				C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -561,8 +563,6 @@
 				C69C469F195135510066431D /* LSTestViewController.m */,
 				C63C01D21952E31B00CB3167 /* LSPractiseController.h */,
 				C63C01D31952E31B00CB3167 /* LSPractiseController.m */,
-				C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */,
-				C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */,
 				C62F1CE219404D3D0060A807 /* LSFilterViewController.h */,
 				C62F1CE319404D3D0060A807 /* LSFilterViewController.m */,
 				C63C01CC1952C16200CB3167 /* LSCourseTableViewController.h */,

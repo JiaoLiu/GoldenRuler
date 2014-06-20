@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "LSTabBar.h"
 
-@interface LSWrapPracticeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,LSTabBarDelegate>
+@interface LSWrapPracticeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,LSTabBarDelegate,LSTabBarDelegate>
 
 @end

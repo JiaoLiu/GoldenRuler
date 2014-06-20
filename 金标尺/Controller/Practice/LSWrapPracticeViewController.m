@@ -47,13 +47,20 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = backItem;
     
-    // filterBtn
-    UIButton *filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 24)];
-    [filterBtn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [filterBtn setTitle:@"筛选"forState:UIControlStateNormal];
-
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:filterBtn];
+//    // filterBtn
+//    UIButton *filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 24)];
+//    [filterBtn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//    [filterBtn setTitle:@"筛选"forState:UIControlStateNormal];
+    
+    
+    // homeBtn
+    UIButton *homeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [homeBtn addTarget:self action:@selector(homeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
+
+
     
     
     //tabBar
@@ -153,18 +160,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0:
+    switch (testType) {
+        case LSWrapTypeSimulation:
         {
             LSWrapInfoViewController *vc = [[LSWrapInfoViewController alloc]init];
             vc.wrapType = LSWrapTypeSimulation;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case 1:
+        case LSWrapTypeReal:
         {
-//            LSWrapInfoViewController *vc = [[LSWrapInfoViewController alloc]init];
-//            vc.wrapType = LSWrapTypeReal;
+
             LSCityViewController *vc = [[LSCityViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
             
@@ -178,7 +184,15 @@
 
 
 
--(void)backBtnClicked
+#pragma mark -| nav btn click
+- (void)homeBtnClicked
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
+}
+
+- (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -201,6 +215,8 @@
             break;
     }
 }
+
+
 
 /*
 #pragma mark - Navigation
