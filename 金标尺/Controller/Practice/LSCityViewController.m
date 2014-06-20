@@ -68,8 +68,9 @@
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         if (ret == 1) {
             cityInfo = dic;
+            [SVProgressHUD dismiss];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
+             
                 [self buildView];
                 
             });

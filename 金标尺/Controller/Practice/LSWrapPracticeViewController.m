@@ -12,8 +12,9 @@
 
 @interface LSWrapPracticeViewController ()
 {
-    NSArray *dataArray;
+    NSMutableArray *courseArray;
     LSWrapType testType;
+    UITableView *table;
 }
 @end
 
@@ -27,10 +28,7 @@
         if (IOS_VERSION >= 7.0) {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        dataArray = @[
-                        @{@"name":@"模拟套卷测试",@"subName":@"正确率23%"},
-                        @{@"name":@"真题套卷测试",@"subName":@"正确率23%"}
-                    ];
+        courseArray = [NSMutableArray arrayWithCapacity:0];
     }
     return self;
 }
@@ -70,20 +68,54 @@
     
     
     NSInteger height = 44;
-    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH,SCREEN_HEIGHT)];
+    table = [[UITableView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH,SCREEN_HEIGHT)];
     table.rowHeight = height;
     table.scrollEnabled = NO;
     table.delegate = self;
     table.dataSource = self;
     table.tableFooterView = [UIView new];
-
     [self.view addSubview:table];
-    
     if (IOS_VERSION >= 7.0) {
-        table.separatorInset = UIEdgeInsetsZero;
+       
     }
+    
+    [self getCourses];
 
 }
+
+- (void)getCourses
+{
+    [SVProgressHUD showWithStatus:@"科目加载中..."];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=1&cid=%d",[LSUserManager getKey],[LSUserManager getUid],[LSUserManager getTCid]]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSLog(@"dic:%@",dic);
+            
+            NSArray *tempArray = [dic objectForKey:@"data"];
+            NSInteger num = tempArray.count;
+            for (int i = 0; i < num; i++)
+            {
+                NSDictionary *dic = [tempArray objectAtIndex:i];
+                if (![courseArray containsObject:dic]) {
+                    [courseArray addObject:dic];
+                }
+                
+            }
+            [table reloadData];
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -105,8 +137,8 @@
         cell.detailTextLabel.textColor = [UIColor grayColor];
     }
     
-    NSString *name = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    NSString *subName = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"subName"];
+    NSString *name = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    NSString *subName = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"subName"];
     cell.textLabel.text = name;
     cell.detailTextLabel.text = subName;
     
@@ -116,7 +148,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return dataArray.count;
+    return courseArray.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

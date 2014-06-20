@@ -100,10 +100,10 @@
     UITabBarItem *item1 = [[UITabBarItem alloc]initWithTitle:@"加入收藏" image:[UIImage imageNamed:@"f_1.png"] tag:0];
     UITabBarItem *item2 = [[UITabBarItem alloc]initWithTitle:@"考友评论" image:[UIImage imageNamed:@"f_2.png"] tag:1];
     UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"我要纠错" image:[UIImage imageNamed:@"f_3.png"] tag:2];
-    UITabBarItem *item4 = [[UITabBarItem alloc]initWithTitle:@"查看答案" image:[UIImage imageNamed:@"f_4.png"] tag:3];
+   
     
     
-    tabBar.items= @[item1,item2,item3,item4];
+    tabBar.items= @[item1,item2,item3];
     tabBar.backgroundImage = [UIImage imageNamed:@"f_bg.png"];
     tabBar.selectedImageTintColor = [UIColor whiteColor];
     

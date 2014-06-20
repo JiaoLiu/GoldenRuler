@@ -26,6 +26,7 @@
         _testType.font = [UIFont systemFontOfSize:14];
         _testType.textColor = [UIColor darkGrayColor];
         _testType.text = @"[单选题]";
+        _testType.backgroundColor = [UIColor clearColor];
         
         _usedTime = [[UILabel alloc]initWithFrame:CGRectMake(108, 0, 100, 31)];
         _usedTime.textAlignment = NSTextAlignmentCenter;
@@ -38,7 +39,7 @@
         [_selectBtn setTitle:@"0/0" forState:UIControlStateNormal];
         [_selectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [ttView addSubview:_testType];
-        [ttView addSubview:_usedTime];
+//        [ttView addSubview:_usedTime];
         [ttView addSubview:_selectBtn];
         
         
