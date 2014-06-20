@@ -17,7 +17,7 @@
 }
 @end
 
-#define APIGETCOURSE @"http://demo.deepinfo.cn/jbc2/index.php/"
+
 
 @implementation LSCourseTableViewController
 
@@ -76,12 +76,14 @@
 {
     [SVProgressHUD showWithStatus:@"科目加载中..."];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=1&cid=0",[LSUserManager getKey],[LSUserManager getUid]]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=1&cid=%d",[LSUserManager getKey],[LSUserManager getUid],[LSUserManager getTCid]]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         if (ret == 1) {
+            NSLog(@"dic:%@",dic);
+            
             NSArray *tempArray = [dic objectForKey:@"data"];
             NSInteger num = tempArray.count;
             for (int i = 0; i < num; i++)
@@ -150,6 +152,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.tag = [[[courseArray objectAtIndex:indexPath.row] objectForKey:@"cid"] intValue];
     cell.textLabel.text = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"name"];

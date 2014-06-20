@@ -68,7 +68,7 @@
 {
     [SVProgressHUD showWithStatus:@"题型加载中..."];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/qtype?key=%d&uid=%d&tk=%@&cid=%@",[LSUserManager getKey],[LSUserManager getUid],_testType == LSWrapTypeSimulation ? @"1":@"2",_cid]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/qtype?key=%d&uid=%d&tk=%@&cid=%@",[LSUserManager getKey],[LSUserManager getUid],_testType == LSWrapTypeSimulation ? @"1":@"2",_cid]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
@@ -132,7 +132,7 @@
     
     cell.tag = [[[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"id"] intValue];
     cell.textLabel.text = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"题目数%@ 我的答题数%@ 正确率%@",count,mycount,percent];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"题目数%@ 我的答题数%@ 正确率%@%%",count,mycount,percent];
     cell.detailTextLabel.textColor = [UIColor grayColor];
 
     

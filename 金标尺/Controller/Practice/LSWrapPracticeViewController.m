@@ -13,6 +13,7 @@
 @interface LSWrapPracticeViewController ()
 {
     NSArray *dataArray;
+    LSWrapType testType;
 }
 @end
 
@@ -56,8 +57,20 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:filterBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
+    
+    //tabBar
+    LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
+    tabBar.items = @[@"模拟试题",@"历年真题"];
+    tabBar.selectedItem = 0;
+    testType = LSWrapTypeSimulation;
+    tabBar.delegate = self;
+    [self.view addSubview:tabBar];
+    
+    
+    
+    
     NSInteger height = 44;
-    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
+    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH,SCREEN_HEIGHT)];
     table.rowHeight = height;
     table.scrollEnabled = NO;
     table.delegate = self;
@@ -141,6 +154,20 @@
 -(void)filterBtnClicked
 {
     NSLog(@"filterBtnClicked");
+}
+
+#pragma mark -tabbar delegate
+- (void)SelectItemAtIndex:(NSNumber *)index{
+    switch (index.intValue) {
+        case 0:
+            testType = LSWrapTypeSimulation;
+            break;
+        case 1:
+            testType = LSWrapTypeReal;
+            break;
+        default:
+            break;
+    }
 }
 
 /*

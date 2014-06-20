@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LSTabBar.h"
 
-@interface LSWrapPracticeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface LSWrapPracticeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,LSTabBarDelegate>
 
 @end
