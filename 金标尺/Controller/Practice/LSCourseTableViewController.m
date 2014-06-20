@@ -66,11 +66,7 @@
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
-}
+
 
 - (void)getCourses
 {

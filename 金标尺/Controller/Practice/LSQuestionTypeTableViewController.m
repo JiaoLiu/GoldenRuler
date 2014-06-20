@@ -58,11 +58,7 @@
     [self getQuestionType];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
-}
+
 
 - (void)getQuestionType
 {
@@ -146,6 +142,7 @@
     vc.cid = _cid;
     vc.tid = [NSString stringWithFormat:@"%d",cell.tag];
     vc.testType = _testType;
+    vc.qTypeString = cell.textLabel.text;
     
     [self.navigationController pushViewController:vc animated:YES];
 

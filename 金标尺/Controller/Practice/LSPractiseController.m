@@ -23,6 +23,7 @@
     LSQuestion *currQuestion;
     NSArray *currAnswers;
     NSMutableArray *currComments;
+    NSMutableArray *historyQst;
     
     int currIndex;
 }
@@ -35,9 +36,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self getPaper];
-        });
+
+        
     }
     return self;
 }
@@ -60,8 +60,11 @@
     [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
-   
-   
+    
+    historyQst = [NSMutableArray arrayWithCapacity:0];
+    questionList = [NSMutableArray arrayWithCapacity:0];
+    [self getPaper];
+
     
 //    [self getQuestionsWithId:@"10"];
     
@@ -70,11 +73,7 @@
     [self initTabBarView];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
-}
+
 
 - (void)initTabBarView
 {
@@ -98,9 +97,10 @@
 //考试界面
 - (void)initExamView
 {
-    LSExamView *view = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
-    [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-    [view.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    LSExamView *view = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
+    view.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
+    [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+    [view.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     view.questionView.delegate = self;
     view.questionView.dataSource = self;
     view.questionView.tag = QTABLE_TAG;
@@ -116,7 +116,7 @@
 {
     [self clearAllView];
     self.title = @"考友评论";
-    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:_currQuestion.title];
+    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:currQuestion.title];
     cview.cTableView.delegate = self;
     cview.cTableView.dataSource =self;
     cview.cTableView.tag = CTABLE_TAG;
@@ -137,7 +137,7 @@
 {
     [self clearAllView];
     self.title = @"我要纠错";
-    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:_currQuestion.title];
+    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:currQuestion.title];
     crView.userInteractionEnabled = YES;
     crView.delegate = self;
     
@@ -182,7 +182,7 @@
 - (void)getPaper{
     
     exam = [[LSExam alloc]init];
-    questionList = [NSMutableArray arrayWithCapacity:0];
+   
     
     [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
     int uid = [LSUserManager getUid];
@@ -248,8 +248,8 @@
         if (ret == 1) {
             NSDictionary *d = [dict objectForKey:@"data"];
             LSQuestion *q = [LSQuestion initWithDictionary:d];
-            _currQuestion = q;
-             [self initExamView];
+            currQuestion = q;
+            [self initExamView];
         }
         
         
@@ -383,16 +383,51 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+#pragma mark -exam delegate
+- (void)prevQuestion
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSLog(@"上一题");
+    
+    currIndex = currIndex < 0 ? 0:currIndex;
+    if (currIndex > 0) {
+        
+        currQuestion = [historyQst objectAtIndex:--currIndex];
+        [self initExamView];
+    }
+    
+    NSLog(@"历史考题个数：%d",historyQst.count);
 }
-*/
+
+- (void)nextQuestion
+{
+    NSLog(@"下一题");
+    
+    currIndex += 1;
+    currIndex = currIndex > questionList.count ? questionList.count : currIndex;
+    // 当前index大于题目总数 并且历史考题的数量等于题目总数
+    if (currIndex >= questionList.count && historyQst.count == questionList.count) {
+        return;
+    }
+    
+    if (currIndex >= historyQst.count) {
+        [historyQst addObject:currQuestion];
+        if (currIndex < questionList.count) {
+            NSString *qid = [questionList objectAtIndex:currIndex];
+            [self getQuestionsWithId:qid];
+        }
+    }
+    
+    if (currIndex < historyQst.count) {
+        currQuestion = [historyQst objectAtIndex:currIndex];
+        [self initExamView];
+    }
+    
+    
+    NSLog(@"历史考题个数：%d",historyQst.count);
+    
+}
+
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
 {

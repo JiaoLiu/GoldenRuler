@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSString *cid;
 @property (nonatomic,strong) NSString *tid;
 @property (nonatomic,assign) LSWrapType testType;
-@property (nonatomic,strong) LSQuestion *currQuestion;
-@property (nonatomic,strong) NSMutableArray *questionList;
+@property (nonatomic,strong) NSString *qTypeString;
+
+
 @end
