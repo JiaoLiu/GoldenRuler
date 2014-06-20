@@ -116,38 +116,16 @@
 - (void)initExamView
 {
     [self clearAllView];
-    switch (self.examType) {
-        case LSWrapTypeReal:
-        {
-            LSContestView *view = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
-            [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-            
-            view.questionView.delegate = self;
-            view.questionView.dataSource = self;
-            view.delegate = self;
-            view.questionView.tag = QTABLE_TAG;
-            [self.view addSubview:view];
 
-
-        }
-            break;
-        case LSWrapTypeSimulation:
-        {
-            LSExamView *view = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
-            [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-            [view.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-            view.questionView.delegate = self;
-            view.questionView.dataSource = self;
-            view.questionView.tag = QTABLE_TAG;
-            view.delegate = self;
-            [self.view addSubview:view];
+    LSContestView *view = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
+    [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
             
-        }
-            break;
-        default:
-            break;
-    }
-   [self.view bringSubviewToFront:tabBar];
+    view.questionView.delegate = self;
+    view.questionView.dataSource = self;
+    view.delegate = self;
+    view.questionView.tag = QTABLE_TAG;
+    [self.view addSubview:view];
+    [self.view bringSubviewToFront:tabBar];
     
 }
 

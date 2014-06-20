@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface LSCityViewController : UIViewController
-
+@property (nonatomic,assign) int cid;
 @end

@@ -145,9 +145,10 @@
     }
     
     NSString *name = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    NSString *subName = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"subName"];
+    int cid = [[[courseArray objectAtIndex:indexPath.row] objectForKey:@"cid"] intValue];
     cell.textLabel.text = name;
-    cell.detailTextLabel.text = subName;
+    cell.tag = cid;
+
     
     return cell;
 
@@ -160,11 +161,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    int cid = [tableView cellForRowAtIndexPath:indexPath].tag;
+    
     switch (testType) {
         case LSWrapTypeSimulation:
         {
             LSWrapInfoViewController *vc = [[LSWrapInfoViewController alloc]init];
             vc.wrapType = LSWrapTypeSimulation;
+            vc.cid = cid;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -172,6 +176,7 @@
         {
 
             LSCityViewController *vc = [[LSCityViewController alloc]init];
+            vc.cid = cid;
             [self.navigationController pushViewController:vc animated:NO];
             
         }

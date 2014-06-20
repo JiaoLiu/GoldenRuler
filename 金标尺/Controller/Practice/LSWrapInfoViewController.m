@@ -102,7 +102,7 @@
 
 - (void)getPaper
 {
-    cid = [LSUserManager getTCid];
+//    cid = [LSUserManager getTCid];
     key = [LSUserManager getKey];
     uid = [LSUserManager getUid];
     
@@ -113,9 +113,9 @@
     
     NSString *url = @"";
     if (_wrapType == LSWrapTypeReal) {
-        url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d&city=%d",uid,key,2,cid,1];
+        url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d&city=%@",uid,key,2,_cid,_city];
     } else if(_wrapType == LSWrapTypeSimulation) {
-        url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d",uid,key,1,cid];
+        url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d",uid,key,1,_cid];
     }
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIGETEXAM stringByAppendingString:url]]];

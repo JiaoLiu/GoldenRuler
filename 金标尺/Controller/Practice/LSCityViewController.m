@@ -129,6 +129,7 @@
     
     LSWrapInfoViewController *vc = [[LSWrapInfoViewController alloc]init];
     vc.city = city;
+    vc.cid = self.cid;
     vc.wrapType = LSWrapTypeReal;
     [self.navigationController pushViewController:vc animated:YES];
     
