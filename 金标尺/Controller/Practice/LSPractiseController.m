@@ -25,7 +25,10 @@
     NSMutableArray *currComments;
     NSMutableArray *historyQst;
     
+    LSExamView *eview;
+    
     int currIndex;
+    int selectedRow;
 }
 @end
 
@@ -36,7 +39,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-
+        selectedRow = -1;
         
     }
     return self;
@@ -97,16 +100,20 @@
 //考试界面
 - (void)initExamView
 {
-    LSExamView *view = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
-    view.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
-    [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
-    [view.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
-    view.questionView.delegate = self;
-    view.questionView.dataSource = self;
-    view.questionView.tag = QTABLE_TAG;
-    view.delegate = self;
+    [self clearAllView];
+    eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
+    eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
+    [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"]){
+        [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+    }
     
-    [self.view addSubview:view];
+    eview.questionView.delegate = self;
+    eview.questionView.dataSource = self;
+    eview.questionView.tag = QTABLE_TAG;
+    eview.delegate = self;
+    
+    [self.view addSubview:eview];
     [self.view bringSubviewToFront:tabBar];
     
 }
@@ -120,6 +127,8 @@
     cview.cTableView.delegate = self;
     cview.cTableView.dataSource =self;
     cview.cTableView.tag = CTABLE_TAG;
+    
+    
     cview.delegate = self;
     [self.view addSubview:cview];
     [self.view bringSubviewToFront:tabBar];
@@ -213,8 +222,8 @@
          dispatch_async(dispatch_get_main_queue(), ^{
              [self getQuestionsWithId:[questionList objectAtIndex:0]];
              currIndex = 0;
-             [SVProgressHUD dismiss];
-                
+//             [SVProgressHUD dismiss];
+             
             });
             
             
@@ -250,6 +259,7 @@
             LSQuestion *q = [LSQuestion initWithDictionary:d];
             currQuestion = q;
             [self initExamView];
+            [SVProgressHUD dismiss];
         }
         
         
@@ -321,6 +331,7 @@
             NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
             cell.textLabel.text = [answers objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             return cell;
         }
             break;
@@ -376,6 +387,42 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == selectedRow) {
+        selectedRow = -1;
+    }
+//    [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if ([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"])
+    {
+        
+        [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
+        selectedRow = indexPath.row;
+        
+        [eview.operTop setHidden:NO];
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
+        if ([cell.textLabel.text hasPrefix:currQuestion.right]) {
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        }else {
+            [eview.wrongImage setHidden:NO];
+            [eview.rightImage setHidden:YES];
+        }
+        
+    } else {//多选
+        
+    }
+    
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -387,6 +434,7 @@
 #pragma mark -exam delegate
 - (void)prevQuestion
 {
+    
     NSLog(@"上一题");
     
     currIndex = currIndex < 0 ? 0:currIndex;
@@ -425,6 +473,42 @@
     
     
     NSLog(@"历史考题个数：%d",historyQst.count);
+    
+}
+
+- (void)smtAnswer
+{
+    NSString *myAnswer = @"";
+    if ([_qTypeString isEqualToString:@"多选"]) {
+        NSArray *array = [eview.questionView indexPathsForSelectedRows];
+        array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+           NSIndexPath *o1 = (NSIndexPath *)obj1;
+           NSIndexPath *o2 = (NSIndexPath *)obj2;
+           
+           return o1.row > o2.row ? NSOrderedDescending:NSOrderedAscending;
+           
+       }];
+        
+        NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
+        for (NSIndexPath *path in array) {
+            NSString *s = [answers objectAtIndex:path.row];
+            myAnswer = [myAnswer stringByAppendingString:[s substringToIndex:1]];
+        }
+        NSLog(@"我的答案：%@",myAnswer);
+        [eview.operTop setHidden:NO];
+        eview.myAnswer.text = myAnswer;
+        if ([myAnswer isEqualToString:currQuestion.right]) {
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        } else
+        {
+            [eview.rightImage setHidden:YES];
+            [eview.wrongImage setHidden:NO];
+        }
+        
+        
+    }
+    
     
 }
 

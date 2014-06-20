@@ -35,7 +35,7 @@
         
         _selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(241, 0, 79, 31)];
         [_selectBtn setBackgroundImage:[UIImage imageNamed:@"nx.9.png"] forState:UIControlStateNormal];
-        [_selectBtn setTitle:@"2/100" forState:UIControlStateNormal];
+        [_selectBtn setTitle:@"0/0" forState:UIControlStateNormal];
         [_selectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [ttView addSubview:_testType];
         [ttView addSubview:_usedTime];
@@ -62,6 +62,7 @@
 //        _questionView.dataSource = self;
         _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _questionView.editing = YES;
+
         _questionView.tableHeaderView = hv;
         _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
         [_scrollView addSubview:_questionView];
@@ -70,27 +71,29 @@
         _operView = [[UIView alloc]initWithFrame:CGRectMake(0, _questionView.frame.size.height + _questionView.frame.origin.y, SCREEN_WIDTH, 100)];
         _operView.backgroundColor = RGB(220, 220, 220);
         
-        UIView *operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
+        _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
 //        operTop.backgroundColor = RGB(210, 210, 210);
         
-        [_operView addSubview:operTop];
-        UIImageView *rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
-        rightImage.frame = CGRectMake(30, 6, 19, 18);
-        UIImageView *wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
-        wrongImage.frame = CGRectMake(10, 6, 19, 18);
-        [operTop addSubview:rightImage];
-        [operTop addSubview:wrongImage];
-        UILabel *myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
-        myAnswer.textColor = [UIColor darkGrayColor];
-        myAnswer.font = [UIFont systemFontOfSize:14];
-        myAnswer.text = @"你的答案:A";
-        [operTop addSubview:myAnswer];
+        [_operView addSubview:_operTop];
+        _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
+        _rightImage.frame = CGRectMake(30, 6, 19, 18);
+        _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
+        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
         
-        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(198, 4, 97, 21)];
+        [_operTop addSubview:_rightImage];
+        [_operTop addSubview:_wrongImage];
+        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
+        _myAnswer.textColor = [UIColor darkGrayColor];
+        _myAnswer.font = [UIFont systemFontOfSize:14];
+        _myAnswer.text = @"你的答案:A";
+        [_operTop addSubview:_myAnswer];
+        [_operTop setHidden:YES];
+        
+        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(198, 4, 110, 21)];
         rtAnswer.textColor = [UIColor darkGrayColor];
         rtAnswer.font = [UIFont systemFontOfSize:14];
-        rtAnswer.text = @"正确答案:B";
-        [operTop addSubview:rtAnswer];
+        rtAnswer.text = [NSString stringWithFormat:@"正确答案:%@",question.right];
+        [_operTop addSubview:rtAnswer];
         
         
         //操作按钮
@@ -114,7 +117,15 @@
         
         _currBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 48, 76, 27)];
         [_currBtn setBackgroundImage:[UIImage imageNamed:@"nx_btnb.9.png"] forState:UIControlStateNormal];
-        [_currBtn setTitle:@"2/100" forState:UIControlStateNormal];
+        
+        if ([_testType.text isEqualToString:@"单选"] || [_testType.text isEqualToString:@"判断"]) {
+            [_currBtn setTitle:@"0/0" forState:UIControlStateNormal];
+        }
+        else {
+            [_currBtn setTitle:@"提交" forState:UIControlStateNormal];
+            [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
         [_currBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _currBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
@@ -157,6 +168,15 @@
     }
     return self;
 }
+
+- (void)smtAnswer
+{
+    if ([_delegate respondsToSelector:@selector(smtAnswer)]) {
+        [_delegate smtAnswer];
+    }
+
+}
+
 
 - (void)prev
 {

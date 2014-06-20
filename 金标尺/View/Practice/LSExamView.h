@@ -28,5 +28,10 @@
 
 @property (strong, nonatomic)  UIButton *yellowBtn;
 @property (strong, nonatomic)  UITextView *textView;
+
+@property (strong, nonatomic)  UIView *operTop;
+@property (strong, nonatomic)  UILabel *myAnswer;
+@property (strong, nonatomic)  UIImageView *rightImage;
+@property (strong, nonatomic)  UIImageView *wrongImage;
 - (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question;
 @end
