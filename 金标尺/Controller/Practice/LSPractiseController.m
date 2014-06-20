@@ -26,7 +26,7 @@
     NSMutableArray *historyQst;
     
     LSExamView *eview;
-    
+    LSCommentsView *cview;
     int currIndex;
     int selectedRow;
 }
@@ -87,10 +87,10 @@
     UITabBarItem *item1 = [[UITabBarItem alloc]initWithTitle:@"加入收藏" image:[UIImage imageNamed:@"f_1.png"] tag:0];
     UITabBarItem *item2 = [[UITabBarItem alloc]initWithTitle:@"考友评论" image:[UIImage imageNamed:@"f_2.png"] tag:1];
     UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"我要纠错" image:[UIImage imageNamed:@"f_3.png"] tag:2];
-    UITabBarItem *item4 = [[UITabBarItem alloc]initWithTitle:@"查看答案" image:[UIImage imageNamed:@"f_4.png"] tag:3];
+
     
     
-    tabBar.items= @[item1,item2,item3,item4];
+    tabBar.items= @[item1,item2,item3];
     tabBar.backgroundImage = [UIImage imageNamed:@"f_bg.png"];
     tabBar.selectedImageTintColor = [UIColor whiteColor];
     
@@ -123,7 +123,8 @@
 {
     [self clearAllView];
     self.title = @"考友评论";
-    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:currQuestion.title];
+//    [self getComments];
+    cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:currQuestion.title];
     cview.cTableView.delegate = self;
     cview.cTableView.dataSource =self;
     cview.cTableView.tag = CTABLE_TAG;
@@ -187,6 +188,51 @@
     }
     
 }
+
+
+- (void)getComments
+{
+    [SVProgressHUD showWithStatus:@"正在加载评论"];
+    currComments = [NSMutableArray arrayWithCapacity:0];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],1,50,1,currQuestion.qid]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+         NSDictionary *dic = [data mutableObjectFromJSONData];
+         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+         NSString *msg = [dic objectForKey:@"msg"];
+         if (ret == 1) {
+             NSDictionary *dt = [dic objectForKey:@"data"];
+             int count = [[dt objectForKey:@"count"] intValue];
+             NSArray *list = [dt objectForKey:@"list"];
+             for (NSDictionary *cmt in list) {
+                 LSComments *comments = [[LSComments alloc]init];
+                 comments.username = [cmt objectForKey:@"name"];
+                 comments.dateStr = [cmt objectForKey:@"addtime"];
+                 comments.content = [cmt objectForKey:@"content"];
+                 [currComments addObject:comments];
+             }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [SVProgressHUD dismiss];
+//                 [cview.cTableView reloadData];
+                 [self initCommentsView];
+             });
+
+             
+         } else
+         {
+             [SVProgressHUD dismiss];
+             [SVProgressHUD showWithStatus:msg];
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                 [SVProgressHUD dismiss];
+             });
+
+         }
+         
+     }];
+}
+
 
 - (void)getPaper{
     
@@ -278,7 +324,7 @@
         {
             
             //现实评论view
-            [self initCommentsView];
+            [self getComments];
             
         }
             NSLog(@"click item2");
@@ -287,10 +333,7 @@
             [self initCorrectionView];
             NSLog(@"click item3");
             break;
-        case 3:
-            [self initAnswerView];
-            NSLog(@"click item4");
-            break;
+
             
         default:
             break;
@@ -329,20 +372,33 @@
         {
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
             NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
-            cell.textLabel.text = [answers objectAtIndex:indexPath.row];
+            NSString *asContent = [answers objectAtIndex:indexPath.row];
+            cell.textLabel.text = asContent;
+            cell.textLabel.numberOfLines = 0;
+            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
+            
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             return cell;
         }
             break;
         case CTABLE_TAG:
         {
-            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell1"];
             LSComments *cms = [currComments objectAtIndex:indexPath.row];
             cell.textLabel.text =  [NSString stringWithFormat:@"%@发表于：%@",cms.username,cms.dateStr];
             cell.textLabel.font = [UIFont systemFontOfSize:10];
+            cell.detailTextLabel.numberOfLines = 0;
+            cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
             
             cell.detailTextLabel.text = cms.content;
+             CGSize rect = [cms.content sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            cell.detailTextLabel.frame = CGRectMake(cell.detailTextLabel.frame.origin.x, cell.detailTextLabel.frame.origin.x, rect.width, rect.height);
+            
+            
             cell.detailTextLabel.textColor = [UIColor grayColor];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
             
@@ -361,10 +417,23 @@
 {
     switch (tableView.tag) {
         case QTABLE_TAG:
-            return 35;
+        {
+            
+            NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
+            NSString *asContent = [answers objectAtIndex:indexPath.row];
+            CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            
+            return rect.height+20;
+        }
+            
             break;
         case CTABLE_TAG:
-            return 50;
+        {
+            LSComments *cms = [currComments objectAtIndex:indexPath.row];
+            CGSize rect = [cms.content sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            return 30+rect.height;
+        }
+
             break;
         default:
             return 44;
@@ -406,6 +475,7 @@
         selectedRow = indexPath.row;
         
         [eview.operTop setHidden:NO];
+        [eview.textLabel setHidden:NO];
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
         if ([cell.textLabel.text hasPrefix:currQuestion.right]) {
             [eview.rightImage setHidden:NO];
@@ -450,7 +520,7 @@
 - (void)nextQuestion
 {
     NSLog(@"下一题");
-    
+    [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeGradient];
     currIndex += 1;
     currIndex = currIndex > questionList.count ? questionList.count : currIndex;
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
@@ -505,10 +575,45 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
-        
+        [eview.textLabel setHidden:NO];
         
     }
     
+    
+}
+
+#pragma mark - comments delegate
+//评论
+- (void)commentsBtnClick:(NSString *)content
+{
+    NSLog(@"%@",content);
+    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dict = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+        
+        if (ret == 1)
+        {
+            [SVProgressHUD setStatus:@"提交成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+        } else
+        {
+            [SVProgressHUD setStatus:@"提交失败"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+
+        
+        }
+        
+        
+        
+    }];
     
 }
 

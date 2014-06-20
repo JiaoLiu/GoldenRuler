@@ -51,13 +51,14 @@
         UILabel *uc = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 30)];
         uc.text = @"用户评论";
         uc.font = [UIFont systemFontOfSize:14];
+        uc.backgroundColor = [UIColor clearColor];
         [view addSubview:uc];
         
         UILabel *uc2 = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-80, 0, 70, 30)];
         uc2.text = [NSString stringWithFormat:@"共%d条评论",comments.count];
         uc2.textColor = [UIColor grayColor];
         uc2.font = [UIFont systemFontOfSize:14];
-        
+        uc2.backgroundColor = [UIColor clearColor];
         [view addSubview:uc2];
         view.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:view];

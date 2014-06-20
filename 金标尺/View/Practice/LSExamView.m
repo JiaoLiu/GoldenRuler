@@ -86,6 +86,7 @@
         _myAnswer.textColor = [UIColor darkGrayColor];
         _myAnswer.font = [UIFont systemFontOfSize:14];
         _myAnswer.text = @"你的答案:A";
+        _myAnswer.backgroundColor = [UIColor clearColor];
         [_operTop addSubview:_myAnswer];
         [_operTop setHidden:YES];
         
@@ -93,6 +94,7 @@
         rtAnswer.textColor = [UIColor darkGrayColor];
         rtAnswer.font = [UIFont systemFontOfSize:14];
         rtAnswer.text = [NSString stringWithFormat:@"正确答案:%@",question.right];
+        rtAnswer.backgroundColor = [UIColor clearColor];
         [_operTop addSubview:rtAnswer];
         
         
@@ -149,17 +151,18 @@
         CGSize tsize = [question.analysis sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(290, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         CGRect tframe = CGRectMake(13, _yellowBtn.frame.origin.y + _yellowBtn.frame.size.height, 0, 0);
         tframe.size = tsize;
-        UILabel *textLabel = [[UILabel alloc]initWithFrame:tframe];
-        textLabel.numberOfLines = 0;
-        textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        textLabel.text = question.analysis;
-        textLabel.font = [UIFont systemFontOfSize:13];
+        _textLabel = [[UILabel alloc]initWithFrame:tframe];
+        _textLabel.numberOfLines = 0;
+        _textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _textLabel.text = question.analysis;
+        _textLabel.font = [UIFont systemFontOfSize:13];
+        [_textLabel setHidden:YES];
         
         
-        [_scrollView addSubview:textLabel];
+        [_scrollView addSubview:_textLabel];
         
         CGRect rect = _scrollView.frame;
-        rect.size.height = textLabel.frame.origin.y + textLabel.frame.size.height + 150;
+        rect.size.height = _textLabel.frame.origin.y + _textLabel.frame.size.height + 150;
         _scrollView.contentSize = rect.size;
         
         [self addSubview:_scrollView];

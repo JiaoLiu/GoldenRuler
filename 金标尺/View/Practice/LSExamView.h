@@ -33,5 +33,6 @@
 @property (strong, nonatomic)  UILabel *myAnswer;
 @property (strong, nonatomic)  UIImageView *rightImage;
 @property (strong, nonatomic)  UIImageView *wrongImage;
+@property (strong, nonatomic)  UILabel *textLabel;
 - (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question;
 @end
