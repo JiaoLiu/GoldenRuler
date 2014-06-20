@@ -73,17 +73,20 @@
         operTop.backgroundColor = RGB(210, 210, 210);
         
         [_operView addSubview:operTop];
-        UIImageView *rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
-        rightImage.frame = CGRectMake(30, 6, 19, 18);
-        UIImageView *wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
-        wrongImage.frame = CGRectMake(10, 6, 19, 18);
-        [operTop addSubview:rightImage];
-        [operTop addSubview:wrongImage];
-        UILabel *myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
-        myAnswer.textColor = [UIColor darkGrayColor];
-        myAnswer.font = [UIFont systemFontOfSize:14];
-        myAnswer.text = @"你的答案:A";
-        [operTop addSubview:myAnswer];
+        _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
+        _rightImage.frame = CGRectMake(30, 6, 19, 18);
+        _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
+        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
+        [_rightImage setHidden:YES];
+        [_wrongImage setHidden:YES];
+        
+        [operTop addSubview:_rightImage];
+        [operTop addSubview:_wrongImage];
+        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
+        _myAnswer.textColor = [UIColor darkGrayColor];
+        _myAnswer.font = [UIFont systemFontOfSize:14];
+
+        [operTop addSubview:_myAnswer];
     
         
         

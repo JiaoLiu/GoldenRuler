@@ -27,6 +27,10 @@
     NSMutableArray *historyQst;
     int currIndex;
     
+    LSContestView *eview;//考题view
+    NSString *qTypeString;
+    
+    int selectedRow;
     
 }
 @end
@@ -58,10 +62,11 @@
     self.navigationItem.leftBarButtonItem = backItem;
 
     // homeBtn
-    UIButton *homeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
-    [homeBtn addTarget:self action:@selector(homeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
+    UIButton *smtExmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 24)];
+    [smtExmBtn addTarget:self action:@selector(smtExam) forControlEvents:UIControlEventTouchUpInside];
+    [smtExmBtn setTitle:@"交卷" forState:UIControlStateNormal];
+    smtExmBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:smtExmBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     uid = [LSUserManager getUid];
@@ -119,15 +124,54 @@
 {
     [self clearAllView];
 
-    LSContestView *view = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
-    [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-    [view.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-            
-    view.questionView.delegate = self;
-    view.questionView.dataSource = self;
-    view.delegate = self;
-    view.questionView.tag = QTABLE_TAG;
-    [self.view addSubview:view];
+    eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
+    [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    
+    if (_currQuestion.myAser != nil && ![_currQuestion.myAser isEqualToString:@""]) {
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",_currQuestion.myAser];
+        if (_currQuestion.rightOrWrong) {
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        } else {
+            [eview.rightImage setHidden:YES];
+            [eview.wrongImage setHidden:NO];
+        }
+    }
+    
+    switch (_currQuestion.tid.intValue) {
+        case 1:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
+            qTypeString =@"单选";
+            break;
+        case 2:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
+            qTypeString =@"多选";
+            break;
+        case 3:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
+            qTypeString =@"判断";
+            break;
+        case 4:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
+            qTypeString =@"填空";
+            break;
+        case 5:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
+            qTypeString =@"简答";
+            break;
+        case 6:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
+            qTypeString =@"论述";
+            break;
+        default:
+            break;
+    }
+    eview.questionView.delegate = self;
+    eview.questionView.dataSource = self;
+    eview.delegate = self;
+    eview.questionView.tag = QTABLE_TAG;
+    [self.view addSubview:eview];
     [self.view bringSubviewToFront:tabBar];
     
 }
@@ -207,6 +251,7 @@
             NSDictionary *d = [dict objectForKey:@"data"];
             _currQuestion = [LSQuestion initWithDictionary:d];
             [self initExamView];
+            [SVProgressHUD dismiss];
         }
         
         
@@ -273,7 +318,7 @@
 - (void)prevQuestion
 {
     NSLog(@"上一题");
-
+    selectedRow = -1;
     currIndex = currIndex < 0 ? 0:currIndex;
     if (currIndex > 0) {
         
@@ -287,11 +332,13 @@
 - (void)nextQuestion
 {
     NSLog(@"下一题");
-    
+    [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeGradient];
+    selectedRow = -1;
     currIndex += 1;
     currIndex = currIndex > _questionList.count ? _questionList.count : currIndex;
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= _questionList.count && historyQst.count == _questionList.count) {
+        [SVProgressHUD dismiss];
         return;
     }
     
@@ -300,6 +347,8 @@
         if (currIndex < _questionList.count) {
             NSString *qid = [_questionList objectAtIndex:currIndex];
             [self getQuestionsWithId:qid];
+        }else{
+        [SVProgressHUD dismiss];
         }
     }
     
@@ -315,9 +364,42 @@
 
 - (void)smtExam
 {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定交卷吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    
+    [alert show];
+    
     NSLog(@"交卷");
 }
 
+#pragma mark -alertview delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            NSLog(@"取消交卷");
+        }
+            break;
+        case 1:
+        {
+            [self computeScore];
+            NSLog(@"确定交卷");
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)computeScore
+{
+    int total = 0;
+    for (LSQuestion *q in historyQst) {
+        total += q.rightOrWrong * 1;
+    }
+
+    NSLog(@"总得分：%d",total);
+}
 
 
 #pragma mark - tabbar delegate
@@ -341,10 +423,6 @@
         case 2:
             [self initCorrectionView];
             NSLog(@"click item3");
-            break;
-        case 3:
-            [self initAnswerView];
-            NSLog(@"click item4");
             break;
             
         default:
@@ -386,6 +464,11 @@
             NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
             cell.textLabel.text = [answers objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
+                [cell setSelected:YES];
+            }
+            
+            
             return cell;
         }
             break;
@@ -441,10 +524,50 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == selectedRow) {
+        selectedRow = -1;
+    }
+
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if ([qTypeString isEqualToString:@"单选"] || [qTypeString isEqualToString:@"判断"])
+    {
+        
+        [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
+        selectedRow = indexPath.row;
+        
+        NSString *myAsr =[cell.textLabel.text substringToIndex:1];
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",myAsr];
+        _currQuestion.myAser = myAsr;
+        if ([cell.textLabel.text hasPrefix:_currQuestion.right]) {
+            _currQuestion.rightOrWrong = YES;
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        }else {
+            _currQuestion.rightOrWrong = NO;
+            [eview.wrongImage setHidden:NO];
+            [eview.rightImage setHidden:YES];
+        }
+        
+    } else {//多选
+        
+    }
+    
+}
+
+
 
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
 {
+    [self smtExam];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
     [SVProgressHUD dismiss];
     [LSSheetNotify dismiss];

@@ -13,6 +13,7 @@
 - (void)nextQuestion;
 - (void)prevQuestion;
 - (void)smtExam;
+@optional
 - (void)smtAnswer;
 
 @end

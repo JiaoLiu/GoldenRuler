@@ -16,5 +16,8 @@
 @property (nonatomic,strong) NSString *answer;
 @property (nonatomic,strong) NSString *right;
 @property (nonatomic,strong) NSString *analysis;
+
+@property (nonatomic,strong) NSString *myAser;
+@property (nonatomic) BOOL rightOrWrong;
 + (instancetype)initWithDictionary:(NSDictionary*)dict;
 @end

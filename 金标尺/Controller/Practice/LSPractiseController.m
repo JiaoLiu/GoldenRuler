@@ -489,8 +489,6 @@
         
     }
     
-    
-    
 }
 
 
@@ -526,6 +524,7 @@
     currIndex = currIndex > questionList.count ? questionList.count : currIndex;
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= questionList.count && historyQst.count == questionList.count) {
+        [SVProgressHUD dismiss];
         return;
     }
     
@@ -534,6 +533,8 @@
         if (currIndex < questionList.count) {
             NSString *qid = [questionList objectAtIndex:currIndex];
             [self getQuestionsWithId:qid];
+        }else{
+            [SVProgressHUD dismiss];
         }
     }
     

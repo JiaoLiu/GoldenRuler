@@ -17,7 +17,7 @@
 #import "LSComments.h"
 #import "LSContestView.h"
 
-@interface LSTestViewController : UIViewController<UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, LSCorrectionDelegate, LSCommentsDelegate, LSExamDelegate>
+@interface LSTestViewController : UIViewController<UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, LSCorrectionDelegate, LSCommentsDelegate, LSExamDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) LSExam *exam;
 @property (nonatomic,strong) NSMutableArray *questionList;
