@@ -30,6 +30,14 @@
 				<string>goldenRuler</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>WeiXin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx791a769bf20e2231</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>

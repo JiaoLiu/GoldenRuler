@@ -19,6 +19,7 @@
 
 @synthesize choiceWebView;
 @synthesize urlStr;
+@synthesize urlTitle;
 @synthesize detailType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -136,9 +137,21 @@
             break;
         case kWeixinBtnTag:
         {
-            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=weixin&url=%@&title=金标尺",urlStr];
-            openUrl = [openUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
+//            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=weixin&url=%@&title=金标尺",urlStr];
+//            openUrl = [openUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
+            WXMediaMessage *msg = [WXMediaMessage message];
+            msg.title = urlTitle;
+            msg.description = @"Hello from Jiao ~_~";
+            [msg setThumbImage:[UIImage imageNamed:@"logo"]];
+            WXWebpageObject *obj = [WXWebpageObject object];
+            obj.webpageUrl = urlStr;
+            msg.mediaObject = obj;
+            SendMessageToWXReq *request = [[SendMessageToWXReq alloc] init];
+            request.message = msg;
+            request.bText = NO;
+            request.scene = WXSceneTimeline;
+            [WXApi sendReq:request];
         }
             break;
         default:

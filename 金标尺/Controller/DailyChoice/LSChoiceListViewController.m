@@ -332,6 +332,7 @@
     LSChoiceDetailViewController *detailVC = [[LSChoiceDetailViewController alloc] init];
     detailVC.urlStr = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
     detailVC.detailType = kDailyChoice;
+    detailVC.urlTitle = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

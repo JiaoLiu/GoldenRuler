@@ -47,6 +47,9 @@
         [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(5, 0) forBarMetrics:UIBarMetricsDefault];
     }
     
+    // register WeiXin
+    [WXApi registerApp:@"wx791a769bf20e2231"];
+    
     return YES;
 }
 
@@ -75,6 +78,22 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    if ([url.scheme isEqualToString:@"wx791a769bf20e2231"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    else return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if ([url.scheme isEqualToString:@"wx791a769bf20e2231"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    else return YES;
 }
 
 #pragma mark - show loginView
