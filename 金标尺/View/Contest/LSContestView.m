@@ -23,12 +23,14 @@
         _testType.font = [UIFont systemFontOfSize:14];
         _testType.textColor = [UIColor darkGrayColor];
         _testType.text = @"[单选题]";
+        _testType.backgroundColor = [UIColor clearColor];
         
         _usedTime = [[UILabel alloc]initWithFrame:CGRectMake(108, 0, 100, 31)];
         _usedTime.textAlignment = NSTextAlignmentCenter;
         _usedTime.font = [UIFont systemFontOfSize:14];
         _usedTime.textColor = [UIColor darkGrayColor];
         _usedTime.text = @"已用时 12:33";
+        _usedTime.backgroundColor = [UIColor clearColor];
         
         _selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(241, 0, 79, 31)];
         [_selectBtn setBackgroundImage:[UIImage imageNamed:@"nx.9.png"] forState:UIControlStateNormal];
