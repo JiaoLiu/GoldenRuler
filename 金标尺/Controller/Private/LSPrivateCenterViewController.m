@@ -240,8 +240,14 @@
             break;
         case 1:
         {
-            LSMsgPushViewController *msgPushVC = [[LSMsgPushViewController alloc] init];
-            [self.navigationController pushViewController:msgPushVC animated:YES];
+            if ([LSUserManager RevPush]) {
+                LSMsgPushViewController *msgPushVC = [[LSMsgPushViewController alloc] init];
+                [self.navigationController pushViewController:msgPushVC animated:YES];
+            }
+            else
+            {
+                [SVProgressHUD showErrorWithStatus:@"请先开启消息推送"];
+            }
         }
             break;
         case 2:

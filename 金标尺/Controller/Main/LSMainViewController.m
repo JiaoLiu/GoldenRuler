@@ -164,7 +164,9 @@
             [LSUserManager setUserEmail:[data objectForKey:@"email"]];
             [LSUserManager setPush:[[data objectForKey:@"push"] integerValue]];
             [LSUserManager setEndTime:[data objectForKey:@"endtime"]];
-            newMsg.hidden = [LSUserManager getPush] == 0 ? YES : NO;
+            if ([LSUserManager RevPush]) {
+                newMsg.hidden = [LSUserManager getPush] == 0 ? YES : NO;
+            }
         }
         else
         {
@@ -298,8 +300,14 @@
         [LSAppDelegate showLoginView:self];
         return;
     }
-    LSMsgPushViewController *msgPushVC = [[LSMsgPushViewController alloc] init];
-    [self.navigationController pushViewController:msgPushVC animated:YES];
+    if ([LSUserManager RevPush]) {
+        LSMsgPushViewController *msgPushVC = [[LSMsgPushViewController alloc] init];
+        [self.navigationController pushViewController:msgPushVC animated:YES];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"请先开启消息推送"];
+    }
 }
 
 @end
