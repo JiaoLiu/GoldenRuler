@@ -186,8 +186,8 @@
 		C69C46961951348B0066431D /* LSExamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSExamView.m; sourceTree = "<group>"; };
 		C69C469B195135030066431D /* LSContestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSContestView.h; sourceTree = "<group>"; };
 		C69C469C195135030066431D /* LSContestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSContestView.m; sourceTree = "<group>"; };
-		C69C469E195135510066431D /* LSTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTestViewController.h; sourceTree = "<group>"; };
-		C69C469F195135510066431D /* LSTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTestViewController.m; sourceTree = "<group>"; };
+		C69C469E195135510066431D /* LSTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSTestViewController.h; path = ../Practice/LSTestViewController.h; sourceTree = "<group>"; };
+		C69C469F195135510066431D /* LSTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSTestViewController.m; path = ../Practice/LSTestViewController.m; sourceTree = "<group>"; };
 		C69C46A1195139250066431D /* f_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_1@2x.png"; sourceTree = "<group>"; };
 		C69C46A2195139250066431D /* f_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_2@2x.png"; sourceTree = "<group>"; };
 		C69C46A3195139250066431D /* f_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_3@2x.png"; sourceTree = "<group>"; };
@@ -513,6 +513,8 @@
 				C62F1CE019403AFF0060A807 /* LSCityViewController.m */,
 				C62F1CDC194013C60060A807 /* LSWrapInfoViewController.h */,
 				C62F1CDD194013C60060A807 /* LSWrapInfoViewController.m */,
+				C69C469E195135510066431D /* LSTestViewController.h */,
+				C69C469F195135510066431D /* LSTestViewController.m */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -559,8 +561,6 @@
 		CCC3D72118F95153009CC532 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
-				C69C469E195135510066431D /* LSTestViewController.h */,
-				C69C469F195135510066431D /* LSTestViewController.m */,
 				C63C01D21952E31B00CB3167 /* LSPractiseController.h */,
 				C63C01D31952E31B00CB3167 /* LSPractiseController.m */,
 				C62F1CE219404D3D0060A807 /* LSFilterViewController.h */,

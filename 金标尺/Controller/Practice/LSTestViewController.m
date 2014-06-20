@@ -48,7 +48,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.examType == LSWrapTypeReal ? @"模拟考试" : @" 练习模块";
+    self.title = self.examType == LSWrapTypeReal ? @"模拟考试" : @"真题考试";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -119,6 +121,7 @@
 
     LSContestView *view = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
     [view.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    [view.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
             
     view.questionView.delegate = self;
     view.questionView.dataSource = self;
