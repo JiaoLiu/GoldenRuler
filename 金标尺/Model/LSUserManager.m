@@ -123,6 +123,16 @@
     [USER_DEFAULT synchronize];
 }
 
++ (void)setRevPush:(BOOL)status
+{
+    NSString *key = [NSString stringWithFormat:@"_USER_PUSH_REV_%d",[LSUserManager getUid]];
+    if (status) {
+        [USER_DEFAULT setObject:@"Y" forKey:key];
+    }
+    else [USER_DEFAULT setObject:@"N" forKey:key];
+    [USER_DEFAULT synchronize];
+}
+
 #pragma mark - get User Info
 + (BOOL)getIsLogin
 {
@@ -210,6 +220,15 @@
 + (BOOL)getPush
 {
     if ([[USER_DEFAULT objectForKey:@"_USER_PUSH_"] isEqualToString:@"Y"]) {
+        return TRUE;
+    }
+    else return FALSE;
+}
+
++ (BOOL)RevPush
+{
+    NSString *key = [NSString stringWithFormat:@"_USER_PUSH_REV_%d",[LSUserManager getUid]];
+    if ([[USER_DEFAULT objectForKey:key] isEqualToString:@"Y"]) {
         return TRUE;
     }
     else return FALSE;

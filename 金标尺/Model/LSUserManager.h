@@ -29,6 +29,7 @@
 + (void)setUserEmail:(NSString *)email;
 + (void)setEndTime:(NSString *)endTime;
 + (void)setPush:(int)push;
++ (void)setRevPush:(BOOL)status;
 
 // get user data
 + (BOOL)getIsLogin;
@@ -47,5 +48,6 @@
 + (NSString *)getuserQQ;
 + (NSString *)getEndTime;
 + (BOOL)getPush;
++ (BOOL)RevPush;
 
 @end

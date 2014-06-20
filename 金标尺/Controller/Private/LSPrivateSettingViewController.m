@@ -93,6 +93,12 @@
 - (void)switchBtnClicked:(UISwitch *)sender
 {
     NSLog(@"%@",sender.isOn ? @"On" : @"Off");
+    if (sender.isOn) {
+        [LSUserManager setRevPush:TRUE];
+    }
+    else{
+        [LSUserManager setRevPush:FALSE];
+    }
 }
 
 - (void)checkVersion
@@ -150,6 +156,7 @@
                     switchBtn.frame = frame;
                 }
                 [switchBtn addTarget:self action:@selector(switchBtnClicked:) forControlEvents:UIControlEventValueChanged];
+                switchBtn.on = [LSUserManager RevPush] ? TRUE : FALSE;
                 [Cell.contentView addSubview:switchBtn];
             }
                 break;
