@@ -123,14 +123,14 @@
             break;
         case kWeiboBtnTag:
         {
-            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=tqq&url=%@&title=金标尺",urlStr];
+            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=tqq&url=%@&title=%@",urlStr,urlTitle];
             openUrl = [openUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
         }
             break;
         case kSinaBtnTag:
         {
-            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=tsina&url=%@&title=金标尺",urlStr];
+            NSString *openUrl = [NSString stringWithFormat:@"http://www.jiathis.com/send/?webid=tsina&url=%@&title=%@",urlStr,urlTitle];
             openUrl = [openUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
         }

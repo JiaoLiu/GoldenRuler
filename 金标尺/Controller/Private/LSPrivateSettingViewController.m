@@ -8,6 +8,7 @@
 
 #import "LSPrivateSettingViewController.h"
 #import "LSPrivateFeedbackViewController.h"
+#import "LSPrivateAboutViewController.h"
 
 @interface LSPrivateSettingViewController ()
 {
@@ -205,7 +206,8 @@
             break;
         case 2:
         {
-            
+            LSPrivateAboutViewController *aboutVC = [[LSPrivateAboutViewController alloc] init];
+            [self.navigationController pushViewController:aboutVC animated:YES];
         }
             break;
         case 3:
