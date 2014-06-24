@@ -125,9 +125,15 @@
             [_currBtn setTitle:@"0/0" forState:UIControlStateNormal];
         }
         else {
+            if (question.myAser != nil) {
+//                [_currBtn setHidden:YES];
+                [_currBtn setEnabled:NO];
+            }
             [_currBtn setTitle:@"提交" forState:UIControlStateNormal];
             [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
         }
+        
+        
         
         [_currBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _currBtn.titleLabel.font = [UIFont systemFontOfSize:14];
