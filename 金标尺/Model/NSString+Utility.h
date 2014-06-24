@@ -11,5 +11,6 @@
 @interface NSString (Utility)
 
 + (NSString *)stringFromDate:(NSDate *)date Formatter:(NSString *)formatter;
++ (NSDate *)dateFromString:(NSString *)str Formatter:(NSString *)formatter;
 
 @end

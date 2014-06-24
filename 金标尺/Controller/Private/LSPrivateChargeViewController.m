@@ -26,6 +26,7 @@
 @synthesize paymentBtn;
 @synthesize dateBtn;
 @synthesize totalNum;
+@synthesize price;
 @synthesize lastDate;
 @synthesize pickerSheet;
 @synthesize kPaymentSelected;
@@ -54,10 +55,33 @@
         paymentArray = @[@"支付宝",@"微信支付"];
         kDateSelected = 2;
         kPaymentSelected = 0;
-        totalNum = 10 * (kDateSelected + 1);
+//        price = 10;
+//        totalNum = price * (kDateSelected + 1);
         isVip = [LSUserManager getIsVip];
     }
     return self;
+}
+
+- (void)loadDataWith:(NSInteger)month endTime:(NSString *)time
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/renew?key=%d&uid=%d&month=%d&etime=%@",[LSUserManager getKey],[LSUserManager getUid],month,time]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSDictionary *data = [dic objectForKey:@"data"];
+            price = [[data objectForKey:@"price"] integerValue];
+            lastDate = [data objectForKey:@"time"];
+            totalNum = price * month * [[data objectForKey:@"zhekou"] integerValue] / 10;
+            [table reloadData];
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 - (void)calculateDate
@@ -93,7 +117,7 @@
     // Do any additional setup after loading the view.
     self.title = @"会员充值";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self calculateDate];
+//    [self calculateDate];
     
     // backBtn
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
@@ -186,6 +210,9 @@
     // actionSheet
     pickerSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     [pickerSheet setBounds:CGRectMake(0, 0, 150, 100)];
+    
+    [SVProgressHUD showWithStatus:@"加载中"];
+    [self loadDataWith:kDateSelected + 1 endTime:[NSString stringFromDate:expireDate Formatter:@"yyy-MM-dd"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -266,13 +293,16 @@
                 case kDatePickerTag:
                 {
                     kDateSelected = [view selectedRowInComponent:0];
-                    totalNum = 10 * (kDateSelected + 1);
-                    [self calculateDate];
+//                    totalNum = price * (kDateSelected + 1);
+//                    [self calculateDate];
+                    [SVProgressHUD showWithStatus:@"加载中"];
+                    [self loadDataWith:kDateSelected + 1 endTime:[NSString stringFromDate:expireDate Formatter:@"yyy-MM-dd"]];
                 }
                     break;
                 case kPaymentPickerTag:
                 {
                     kPaymentSelected = [view selectedRowInComponent:0];
+                    [table reloadData];
                 }
                     break;
                 default:
@@ -281,7 +311,6 @@
         }
         [view removeFromSuperview];
     };
-    [table reloadData];
 }
 
 - (void)backBtnClicked
@@ -357,7 +386,7 @@
     switch (indexPath.row) {
         case 0:
         {
-            Cell.detailTextLabel.text = @"10元/月";
+            Cell.detailTextLabel.text = [NSString stringWithFormat:@"%d元/月",price];
         }
             break;
         case 1:
