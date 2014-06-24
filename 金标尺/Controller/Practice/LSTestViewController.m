@@ -96,7 +96,10 @@
     [self getQuestionsWithId:[_questionList objectAtIndex:0]];
     currIndex = 0;
     
-    [self initTabBarView];
+//    [self initTabBarView];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
+    [timer fire];
+    [self timeCounter];
 }
 
 - (void)initTabBarView
@@ -118,7 +121,7 @@
     
     [self.view addSubview:tabBar];
     
-    
+   
 }
 
 //考试界面
@@ -129,13 +132,7 @@
     eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
     [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-    NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
-    [fmt setDateFormat:@"mm:ss"];
-    
-    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:startTime.timeIntervalSinceNow];
-    eview.usedTime.text =[NSString stringWithFormat:@"已用时 %@",[fmt stringFromDate:now]];
-    
-    
+        
     if (_currQuestion.myAser != nil && ![_currQuestion.myAser isEqualToString:@""]) {
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",_currQuestion.myAser];
         if (_currQuestion.rightOrWrong) {
@@ -180,13 +177,20 @@
     eview.delegate = self;
     eview.questionView.tag = QTABLE_TAG;
     [self.view addSubview:eview];
-    [self.view bringSubviewToFront:tabBar];
+//    [self.view bringSubviewToFront:tabBar];
     
 }
 
 - (void)timeCounter
 {
+    NSDate *now = [NSDate date];
+    NSTimeInterval t = now.timeIntervalSince1970 - startTime.timeIntervalSince1970;
 
+    int min = (int)t / 60;
+    int sec = (int)t % 60;
+    
+    eview.usedTime.text = [NSString stringWithFormat:@"已用时 %02d:%02d",min,sec];
+    
 }
 
 //评论界面
@@ -200,7 +204,7 @@
     cview.cTableView.tag = CTABLE_TAG;
     cview.delegate = self;
     [self.view addSubview:cview];
-    [self.view bringSubviewToFront:tabBar];
+//    [self.view bringSubviewToFront:tabBar];
 }
 
 
@@ -221,7 +225,7 @@
     crView.delegate = self;
     
     [self.view addSubview:crView];
-    [self.view bringSubviewToFront:tabBar];
+//    [self.view bringSubviewToFront:tabBar];
 }
 
 //加入收藏

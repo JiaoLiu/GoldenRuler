@@ -29,7 +29,7 @@
         _usedTime.textAlignment = NSTextAlignmentCenter;
         _usedTime.font = [UIFont systemFontOfSize:14];
         _usedTime.textColor = [UIColor darkGrayColor];
-        _usedTime.text = @"已用时 12:33";
+        _usedTime.text = @"";
         _usedTime.backgroundColor = [UIColor clearColor];
         
         _selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(241, 0, 79, 31)];

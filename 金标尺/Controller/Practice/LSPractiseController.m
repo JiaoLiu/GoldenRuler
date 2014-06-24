@@ -311,6 +311,32 @@
         
     }];
 }
+
+
+- (void)addPractice
+{
+
+    int uid = [LSUserManager getUid];
+    int key = [LSUserManager getKey];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/addPractice?uid=%d&key=%d&qid=%@&answer=%@&right=%d&tk=%d",uid,key,currQuestion.qid,currQuestion.myAser,currQuestion.rightOrWrong,_testType==LSWrapTypeSimulation ? 1:2]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dict = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+        if (ret == 1)
+        {
+            NSLog(@"add practice success");
+        }else{
+            NSLog(@"add practice fail");
+        }
+    
+    }];
+}
+
+
+
+
 #pragma mark - tabbar delegate
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
@@ -468,6 +494,7 @@
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
+    //单选和判断 点击一次就提交服务器
     if ([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"])
     {
         
@@ -477,19 +504,25 @@
         [eview.operTop setHidden:NO];
         [eview.textLabel setHidden:NO];
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
-        if ([cell.textLabel.text hasPrefix:currQuestion.right]) {
+        
+        if ([cell.textLabel.text hasPrefix:currQuestion.right]) {//答案正确
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
-        }else {
+            currQuestion.rightOrWrong = YES;
+        }else {//答案错误
             [eview.wrongImage setHidden:NO];
             [eview.rightImage setHidden:YES];
+            currQuestion.rightOrWrong = NO;
         }
+//        tableView.allowsMultipleSelectionDuringEditing = NO;
+        [self addPractice];
         
     } else {//多选
         
     }
     
 }
+
 
 
 - (void)didReceiveMemoryWarning
@@ -578,8 +611,9 @@
             [eview.wrongImage setHidden:NO];
         }
         [eview.textLabel setHidden:NO];
-        
+        [self addPractice];
     }
+    
     
     
 }

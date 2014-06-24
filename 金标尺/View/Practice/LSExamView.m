@@ -177,6 +177,7 @@
 {
     if ([_delegate respondsToSelector:@selector(smtAnswer)]) {
         [_delegate smtAnswer];
+        [_currBtn setEnabled:NO];
     }
 
 }
