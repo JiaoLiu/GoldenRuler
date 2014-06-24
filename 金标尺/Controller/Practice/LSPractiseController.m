@@ -29,6 +29,9 @@
     LSCommentsView *cview;
     int currIndex;
     int selectedRow;
+    
+    BOOL isExamView;//当前界面是否是考试题目详情界面默认yes
+    
 }
 @end
 
@@ -67,6 +70,8 @@
     historyQst = [NSMutableArray arrayWithCapacity:0];
     questionList = [NSMutableArray arrayWithCapacity:0];
     [self getPaper];
+    [self saveExamInfo];
+    
 
     
 //    [self getQuestionsWithId:@"10"];
@@ -76,7 +81,13 @@
     [self initTabBarView];
 }
 
-
+- (void)saveExamInfo
+{
+    [LSUserManager setCid:_cid.intValue];
+    [LSUserManager setTid:_tid.intValue];
+    [LSUserManager setTk:_testType == LSWrapTypeSimulation?1:2];
+    
+}
 
 - (void)initTabBarView
 {
@@ -100,6 +111,7 @@
 //考试界面
 - (void)initExamView
 {
+    isExamView = YES;
     [self clearAllView];
     eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
     eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
@@ -121,6 +133,7 @@
 //评论界面
 - (void)initCommentsView
 {
+    isExamView = NO;
     [self clearAllView];
     self.title = @"考友评论";
 //    [self getComments];
@@ -145,6 +158,7 @@
 //纠错界面
 - (void)initCorrectionView
 {
+    isExamView = NO;
     [self clearAllView];
     self.title = @"我要纠错";
     LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:currQuestion.title];
@@ -159,7 +173,10 @@
 //加入收藏
 - (void)addToFav
 {
-    self.title = self.testType == LSWrapTypeReal ? @"模拟考试" : @" 练习模块";
+    if (isExamView) {//触发加入收藏功能
+        [self addFavToServer];
+    }
+    
     [self clearAllView];
     [self initExamView];
 
@@ -312,6 +329,22 @@
     }];
 }
 
+- (void)addFavToServer
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/checkCollect?uid=%d&key=%d&qid=%@&act=add&tpye=1",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dict = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+        if (ret == 1)
+        {
+            NSLog(@"add fav success");
+        }else{
+            NSLog(@"add fav fail");
+        }
+    
+    }];
+}
 
 - (void)addPractice
 {
@@ -653,16 +686,36 @@
     
 }
 
+#pragma mark - alertview delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [LSUserManager setLastqid:currQuestion.qid.intValue];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [SVProgressHUD dismiss];
+        [LSSheetNotify dismiss];
+    }
+}
+
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [SVProgressHUD dismiss];
-    [LSSheetNotify dismiss];
+    if (historyQst.count < questionList.count) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+    }
+
+    
 }
 
 - (void)backBtnClicked
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (historyQst.count < questionList.count) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+
+    }
+
 }
 @end
