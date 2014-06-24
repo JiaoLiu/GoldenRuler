@@ -440,7 +440,9 @@
             
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            if ([currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
+                [cell setSelected:YES];
+            }
             return cell;
         }
             break;
