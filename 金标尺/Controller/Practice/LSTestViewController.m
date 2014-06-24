@@ -31,7 +31,8 @@
     NSString *qTypeString;
     
     int selectedRow;
-    
+    NSDate *startTime;
+    NSDate *smtTime;
 }
 @end
 
@@ -71,7 +72,8 @@
     
     uid = [LSUserManager getUid];
     key = [LSUserManager getKey];
-
+    NSDate *date = [NSDate date];
+    startTime = [NSDate dateWithTimeIntervalSinceNow:date.timeIntervalSinceNow];
     
     //添加评论列表
     LSComments *cms = [[LSComments alloc]init];
@@ -127,6 +129,12 @@
     eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
     [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
+    [fmt setDateFormat:@"mm:ss"];
+    
+    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:startTime.timeIntervalSinceNow];
+    eview.usedTime.text =[NSString stringWithFormat:@"已用时 %@",[fmt stringFromDate:now]];
+    
     
     if (_currQuestion.myAser != nil && ![_currQuestion.myAser isEqualToString:@""]) {
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",_currQuestion.myAser];
@@ -174,6 +182,11 @@
     [self.view addSubview:eview];
     [self.view bringSubviewToFront:tabBar];
     
+}
+
+- (void)timeCounter
+{
+
 }
 
 //评论界面
@@ -391,12 +404,22 @@
     }
 }
 
+//确定交卷
 - (void)computeScore
 {
     int total = 0;
     for (LSQuestion *q in historyQst) {
         total += q.rightOrWrong * 1;
     }
+    
+    [SVProgressHUD showWithStatus:@"正在交卷,请稍侯..."];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/subExam?uid=%d&key=%d&mid=%@&addtime=0&tk=%d&score=100&etime=100&questions=%@",uid,key,_exam.mid,2,[historyQst JSONString]]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    
+    }];
+    
 
     NSLog(@"总得分：%d",total);
 }
