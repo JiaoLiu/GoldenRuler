@@ -43,7 +43,7 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = backItem;
     
-    // homeBtn
+    // sendBtn
     UIButton *sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 44)];
     [sendBtn addTarget:self action:@selector(sendBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [sendBtn setTitle:@"提交" forState:UIControlStateNormal];

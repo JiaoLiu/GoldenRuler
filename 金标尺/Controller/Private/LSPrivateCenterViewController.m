@@ -42,7 +42,10 @@
     if (self) {
         // Custom initialization
         isVip = [LSUserManager getIsVip];
-        expireDate = [NSDate date];
+        if ([LSUserManager getEndTime].length == 0) {
+            expireDate = [NSDate date];
+        }
+        else expireDate = [NSString dateFromString:[LSUserManager getEndTime] Formatter:@"yyy-MM-dd"];
         titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"我的评论",@"我要充值",@"设置",@"退出登陆"];
         hasNotice = [LSUserManager getPush];
     }

@@ -23,6 +23,7 @@ typedef enum {
 @property (nonatomic, strong)NSString *lastDate;
 
 @property (nonatomic, assign)NSInteger totalNum;
+@property (nonatomic, assign)NSInteger price;
 @property (nonatomic, assign)NSInteger kDateSelected;
 @property (nonatomic, assign)NSInteger kPaymentSelected;
 @property (nonatomic, assign)BOOL isVip;
