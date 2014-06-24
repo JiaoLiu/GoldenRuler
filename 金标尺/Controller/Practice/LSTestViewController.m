@@ -275,6 +275,22 @@
     }];
 }
 
+- (void)addFavToServer
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/checkCollect?uid=%d&key=%d&qid=%@&act=add&tpye=1",[LSUserManager getUid],[LSUserManager getKey],_currQuestion.qid]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dict = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+        if (ret == 1)
+        {
+            NSLog(@"add fav success");
+        }else{
+            NSLog(@"add fav fail");
+        }
+        
+    }];
+}
 
 #pragma mark - correction Delegate
 //纠错
@@ -582,6 +598,7 @@
             [eview.rightImage setHidden:YES];
         }
         
+        [self addFavToServer];
     } else {//多选
         
     }
