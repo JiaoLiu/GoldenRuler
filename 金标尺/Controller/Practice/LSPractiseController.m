@@ -120,6 +120,20 @@
         [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     }
     
+    if (currQuestion.myAser != nil && ![currQuestion.myAser isEqualToString:@""]) {
+        [eview.operTop setHidden:NO];
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",currQuestion.myAser];
+        if (currQuestion.rightOrWrong) {
+           
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        } else {
+            
+            [eview.rightImage setHidden:YES];
+            [eview.wrongImage setHidden:NO];
+        }
+    }
+    
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     eview.questionView.tag = QTABLE_TAG;
@@ -127,6 +141,7 @@
     
     [self.view addSubview:eview];
     [self.view bringSubviewToFront:tabBar];
+     [SVProgressHUD dismiss];
     
 }
 
@@ -440,9 +455,15 @@
             
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             
-            if ([currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
+//            if ([currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
+//                [cell setSelected:YES];
+//            }
+            
+            if (currQuestion.myAser != nil && [currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound) {
+                NSLog(@"%@",currQuestion.myAser);
                 [cell setSelected:YES];
             }
+            
             return cell;
         }
             break;
@@ -541,10 +562,12 @@
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
         
         if ([cell.textLabel.text hasPrefix:currQuestion.right]) {//答案正确
+            currQuestion.myAser = currQuestion.right;
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
             currQuestion.rightOrWrong = YES;
         }else {//答案错误
+            currQuestion.myAser = [cell.textLabel.text substringToIndex:1];
             [eview.wrongImage setHidden:NO];
             [eview.rightImage setHidden:YES];
             currQuestion.rightOrWrong = NO;
@@ -637,11 +660,14 @@
         NSLog(@"我的答案：%@",myAnswer);
         [eview.operTop setHidden:NO];
         eview.myAnswer.text = myAnswer;
+        currQuestion.myAser = myAnswer;
         if ([myAnswer isEqualToString:currQuestion.right]) {
+            currQuestion.rightOrWrong = YES;
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
         } else
         {
+            currQuestion.rightOrWrong = NO;
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }

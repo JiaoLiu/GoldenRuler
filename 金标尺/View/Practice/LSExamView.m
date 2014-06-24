@@ -83,7 +83,7 @@
         
         [_operTop addSubview:_rightImage];
         [_operTop addSubview:_wrongImage];
-        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
+        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 110, 21)];
         _myAnswer.textColor = [UIColor darkGrayColor];
         _myAnswer.font = [UIFont systemFontOfSize:14];
         _myAnswer.text = @"你的答案:A";
