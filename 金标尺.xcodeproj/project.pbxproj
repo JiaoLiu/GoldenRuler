@@ -31,6 +31,7 @@
 		278F1FC11908E78A003C0725 /* topBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 278F1FBF1908E78A003C0725 /* topBar@2x.png */; };
 		27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A8F84C18FB771900321F5A /* LSRegisterViewController.m */; };
 		27BAC11D1957F8AF0055971B /* LSPrivateAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BAC11C1957F8AF0055971B /* LSPrivateAboutViewController.m */; };
+		27CFA2C41959601100CD8760 /* LSPrivateErrorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CFA2C31959601100CD8760 /* LSPrivateErrorDetailViewController.m */; };
 		289C35AE8DEC43528B20CCDA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B23067BA7A4A5CAA210325 /* libPods.a */; };
 		C60F5B711946BA9200778BDA /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */; };
 		C60F5B741946CEBC00778BDA /* LSComments.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B731946CEBC00778BDA /* LSComments.m */; };
@@ -162,6 +163,8 @@
 		27A8F84C18FB771900321F5A /* LSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSRegisterViewController.m; sourceTree = "<group>"; };
 		27BAC11B1957F8AF0055971B /* LSPrivateAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateAboutViewController.h; sourceTree = "<group>"; };
 		27BAC11C1957F8AF0055971B /* LSPrivateAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateAboutViewController.m; sourceTree = "<group>"; };
+		27CFA2C21959601100CD8760 /* LSPrivateErrorDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateErrorDetailViewController.h; sourceTree = "<group>"; };
+		27CFA2C31959601100CD8760 /* LSPrivateErrorDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateErrorDetailViewController.m; sourceTree = "<group>"; };
 		C60F5B6F1946BA9200778BDA /* UITextViewWithPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextViewWithPlaceholder.h; sourceTree = "<group>"; };
 		C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
 		C60F5B721946CEBC00778BDA /* LSComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSComments.h; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 				2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */,
 				CC844E79194496140018DD69 /* LSPrivateErrorDBViewController.h */,
 				CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */,
+				27CFA2C21959601100CD8760 /* LSPrivateErrorDetailViewController.h */,
+				27CFA2C31959601100CD8760 /* LSPrivateErrorDetailViewController.m */,
 				CC844E761944409B0018DD69 /* LSPrivateFeedbackViewController.h */,
 				CC844E771944409B0018DD69 /* LSPrivateFeedbackViewController.m */,
 				27BAC11B1957F8AF0055971B /* LSPrivateAboutViewController.h */,
@@ -891,6 +896,7 @@
 				CCD6AE1618F99D7B004D758F /* LSMainAdScrollView.m in Sources */,
 				C62F1CE119403AFF0060A807 /* LSCityViewController.m in Sources */,
 				CC844E781944409B0018DD69 /* LSPrivateFeedbackViewController.m in Sources */,
+				27CFA2C41959601100CD8760 /* LSPrivateErrorDetailViewController.m in Sources */,
 				C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */,
 				C63C01CE1952C16200CB3167 /* LSCourseTableViewController.m in Sources */,
 				CCC3D72B18F95209009CC532 /* LSMainViewController.m in Sources */,

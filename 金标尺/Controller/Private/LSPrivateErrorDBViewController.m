@@ -7,6 +7,7 @@
 //
 
 #import "LSPrivateErrorDBViewController.h"
+#import "LSPrivateErrorDetailViewController.h"
 
 @interface LSPrivateErrorDBViewController ()
 {
@@ -147,7 +148,9 @@
 - (void)checkBtnClicked:(UIButton *)sender
 {
     [LSSheetNotify dismiss];
-    NSLog(@"check-%d",sender.tag);
+    LSPrivateErrorDetailViewController *errorVC = [[LSPrivateErrorDetailViewController alloc] init];
+    errorVC.qid = [[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue];
+    [self.navigationController pushViewController:errorVC animated:YES];
 }
 
 - (void)deleteBtnClicked:(UIButton *)sender
