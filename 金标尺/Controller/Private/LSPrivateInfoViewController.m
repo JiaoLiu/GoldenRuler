@@ -117,6 +117,7 @@
                     NSDictionary *dic = [data mutableObjectFromJSONData];
                     NSLog(@"%@",[dic objectForKey:@"msg"]);
                     [LSUserManager setIsLogin:NO];
+                    [LSUserManager setTCid:0];
                     [self.navigationController popToRootViewControllerAnimated:YES];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
                     //                NSInteger ret = [[dic objectForKey:@"status"] integerValue];

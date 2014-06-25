@@ -230,4 +230,10 @@
     }
     eview.questionView.userInteractionEnabled = NO;
 }
+
+- (void)smtExam
+{
+    
+}
+
 @end
