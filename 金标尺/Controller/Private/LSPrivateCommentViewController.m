@@ -7,6 +7,7 @@
 //
 
 #import "LSPrivateCommentViewController.h"
+#import "LSPrivateCommentDetailViewController.h"
 
 @interface LSPrivateCommentViewController ()
 {
@@ -145,8 +146,10 @@
 
 - (void)redBtnClicked:(UIButton *)sender
 {
-    NSLog(@"%d",sender.tag);
     [LSSheetNotify dismiss];
+    LSPrivateCommentDetailViewController *detailVC = [[LSPrivateCommentDetailViewController alloc] init];
+    detailVC.qid = [[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 #pragma mark - tableView delegate

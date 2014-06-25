@@ -24,6 +24,7 @@
 		2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7818FA828900ED443F /* LSLoginViewController.m */; };
 		2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */; };
 		27646459195A6276006504C9 /* LSPrivateCollectionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27646458195A6276006504C9 /* LSPrivateCollectionDetailViewController.m */; };
+		2764645C195AC67E006504C9 /* LSPrivateCommentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2764645B195AC67E006504C9 /* LSPrivateCommentDetailViewController.m */; };
 		277300191905FDA600D7C22C /* LSPrivateCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */; };
 		2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2773001A1906009C00D7C22C /* btn_red@2x.png */; };
 		2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */; };
@@ -152,6 +153,8 @@
 		2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateSettingViewController.m; sourceTree = "<group>"; };
 		27646457195A6276006504C9 /* LSPrivateCollectionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCollectionDetailViewController.h; sourceTree = "<group>"; };
 		27646458195A6276006504C9 /* LSPrivateCollectionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCollectionDetailViewController.m; sourceTree = "<group>"; };
+		2764645A195AC67E006504C9 /* LSPrivateCommentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCommentDetailViewController.h; sourceTree = "<group>"; };
+		2764645B195AC67E006504C9 /* LSPrivateCommentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCommentDetailViewController.m; sourceTree = "<group>"; };
 		277300171905FDA600D7C22C /* LSPrivateCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCommentViewController.h; sourceTree = "<group>"; };
 		277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCommentViewController.m; sourceTree = "<group>"; };
 		2773001A1906009C00D7C22C /* btn_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_red@2x.png"; sourceTree = "<group>"; };
@@ -592,6 +595,8 @@
 				2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */,
 				277300171905FDA600D7C22C /* LSPrivateCommentViewController.h */,
 				277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */,
+				2764645A195AC67E006504C9 /* LSPrivateCommentDetailViewController.h */,
+				2764645B195AC67E006504C9 /* LSPrivateCommentDetailViewController.m */,
 				2773001C19060FFF00D7C22C /* LSPrivateCollectionViewController.h */,
 				2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */,
 				27646457195A6276006504C9 /* LSPrivateCollectionDetailViewController.h */,
@@ -920,6 +925,7 @@
 				C6EB26BF194745C200A81108 /* LSContestViewController.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
 				C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */,
+				2764645C195AC67E006504C9 /* LSPrivateCommentDetailViewController.m in Sources */,
 				CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
 				C69C469D195135030066431D /* LSContestView.m in Sources */,
