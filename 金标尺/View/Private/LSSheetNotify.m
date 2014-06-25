@@ -152,13 +152,13 @@
     
     overlayWindow.hidden = NO;
     if(self.alpha != 1) {
-        self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1.3, 1.3);
+//        self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1.3, 1.3);
         
         [UIView animateWithDuration:0.15
                               delay:0
                             options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1/1.3, 1/1.3);
+//                             self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1/1.3, 1/1.3);
                              self.alpha = 1;
                              [spinnerView startAnimating];
                          }
@@ -190,13 +190,13 @@
     
     overlayWindow.hidden = NO;
     if(self.alpha != 1) {
-        self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1.3, 1.3);
+//        self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1.3, 1.3);
         
         [UIView animateWithDuration:0.15
                               delay:0
                             options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1/1.3, 1/1.3);
+//                             self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 1/1.3, 1/1.3);
                              self.alpha = 1;
                          }
                          completion:^(BOOL finished){
@@ -212,7 +212,7 @@
 {
     [UIView animateWithDuration:0.15 animations:^{ // available for ios 6.x
         self.alpha = 0;
-        self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 0.8, 0.8);
+//        self.sheetView.transform = CGAffineTransformScale(self.sheetView.transform, 0.8, 0.8);
     } completion:^(BOOL finished) {
         if (self.alpha == 0) {
             [sheetView removeFromSuperview];
