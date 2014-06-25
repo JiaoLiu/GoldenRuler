@@ -249,7 +249,6 @@
         default:
             break;
     }
-    NSLog(@"%d",sender.tag);
 }
 
 #pragma mark - handle button click

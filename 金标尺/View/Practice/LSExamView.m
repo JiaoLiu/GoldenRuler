@@ -25,7 +25,29 @@
         _testType = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 61, 31)];
         _testType.font = [UIFont systemFontOfSize:14];
         _testType.textColor = [UIColor darkGrayColor];
-        _testType.text = @"[单选题]";
+        switch ([question.tid integerValue]) {
+            case kSingleChoice:
+                _testType.text = @"[单选题]";
+                break;
+            case kMultipleChoice:
+                _testType.text = @"[多选题]";
+                break;
+            case kJudge:
+                _testType.text = @"[判断题]";
+                break;
+            case kBlank:
+                _testType.text = @"[填空题]";
+                break;
+            case kSimpleAnswer:
+                _testType.text = @"[简答题]";
+                break;
+            case kDiscuss:
+                _testType.text = @"[论述题]";
+                break;
+                
+            default:
+                break;
+        }
         _testType.backgroundColor = [UIColor clearColor];
         
         _usedTime = [[UILabel alloc]initWithFrame:CGRectMake(108, 0, 100, 31)];
