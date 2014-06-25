@@ -183,6 +183,8 @@
             [eview.rightImage setHidden:YES];
             question.rightOrWrong = NO;
         }
+        eview.questionView.userInteractionEnabled = NO;
+        eview.currBtn.enabled = NO;
     }
 }
 
@@ -226,5 +228,6 @@
         }
         [eview.textLabel setHidden:NO];
     }
+    eview.questionView.userInteractionEnabled = NO;
 }
 @end
