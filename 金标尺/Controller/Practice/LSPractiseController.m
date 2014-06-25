@@ -346,16 +346,21 @@
 
 - (void)addFavToServer
 {
+    [SVProgressHUD showWithStatus:@"加入收藏"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/checkCollect?uid=%d&key=%d&qid=%@&act=add&tpye=1",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dict = [data mutableObjectFromJSONData];
         NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+       [SVProgressHUD dismiss];
         if (ret == 1)
         {
             NSLog(@"add fav success");
+            
+            [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
         }else{
-            NSLog(@"add fav fail");
+            NSLog(@"add fav fail:%@",[dict objectForKey:@"msg"]);
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[dict objectForKey:@"msg"]]];
         }
     
     }];
@@ -679,13 +684,12 @@
     
 }
 
-#pragma mark - comments delegate
-//评论
-- (void)commentsBtnClick:(NSString *)content
+#pragma mark -correction btn click
+
+- (void)correctionBtnClick:(NSString *)content
 {
-    NSLog(@"%@",content);
     [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/addqerror?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -704,10 +708,38 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
             });
-
-        
+            
+            
         }
         
+        
+        
+    }];
+
+
+}
+
+#pragma mark - comments delegate
+//评论
+- (void)commentsBtnClick:(NSString *)content
+{
+    NSLog(@"%@",content);
+    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dict = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+        [SVProgressHUD dismiss];
+        if (ret == 1)
+        {
+            [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+            
+        } else
+        {
+            [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@",[dict objectForKey:@"msg"]]];
+        }
         
         
     }];
@@ -732,6 +764,10 @@
     if (historyQst.count < questionList.count) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
+    }else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [SVProgressHUD dismiss];
+        [LSSheetNotify dismiss];
     }
 
     
@@ -743,6 +779,11 @@
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
 
+    }else {
+    
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [SVProgressHUD dismiss];
+        [LSSheetNotify dismiss];
     }
 
 }
