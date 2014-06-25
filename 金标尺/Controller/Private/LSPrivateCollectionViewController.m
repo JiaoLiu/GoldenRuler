@@ -7,6 +7,7 @@
 //
 
 #import "LSPrivateCollectionViewController.h"
+#import "LSPrivateCollectionDetailViewController.h"
 
 @interface LSPrivateCollectionViewController ()
 {
@@ -147,7 +148,9 @@
 - (void)checkBtnClicked:(UIButton *)sender
 {
     [LSSheetNotify dismiss];
-    NSLog(@"check-%d",sender.tag);
+    LSPrivateCollectionDetailViewController *collectionDetailVC = [[LSPrivateCollectionDetailViewController alloc] init];
+    collectionDetailVC.qid = [[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue];
+    [self.navigationController pushViewController:collectionDetailVC animated:YES];
 }
 
 - (void)deleteBtnClicked:(UIButton *)sender

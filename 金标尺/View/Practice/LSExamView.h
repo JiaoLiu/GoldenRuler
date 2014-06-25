@@ -11,6 +11,15 @@
 #import "LSQuestion.h"
 #import "LSExamDelegate.h"
 
+typedef enum : NSUInteger {
+    kSingleChoice = 1,
+    kMultipleChoice,
+    kJudge,
+    kBlank,
+    kSimpleAnswer,
+    kDiscuss
+} kTid;
+
 @interface LSExamView : UIView
 
 @property (assign,nonatomic)    id<LSExamDelegate> delegate;

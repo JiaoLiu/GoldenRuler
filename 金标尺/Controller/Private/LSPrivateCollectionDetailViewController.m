@@ -1,18 +1,22 @@
 //
-//  LSPrivateErrorDetailViewController.m
+//  LSPrivateCollectionDetailViewController.m
 //  金标尺
 //
-//  Created by Jiao on 14-6-24.
+//  Created by Jiao on 14-6-25.
 //  Copyright (c) 2014年 Jiao Liu. All rights reserved.
 //
 
-#import "LSPrivateErrorDetailViewController.h"
+#import "LSPrivateCollectionDetailViewController.h"
 
-@interface LSPrivateErrorDetailViewController ()
+@interface LSPrivateCollectionDetailViewController ()
+{
+    LSExamView *eview;
+    int selectedRow;
+}
 
 @end
 
-@implementation LSPrivateErrorDetailViewController
+@implementation LSPrivateCollectionDetailViewController
 
 @synthesize qid;
 @synthesize question;
@@ -23,6 +27,7 @@
     if (self) {
         // Custom initialization
         question = [[LSQuestion alloc] init];
+        selectedRow = -1;
     }
     return self;
 }
@@ -31,9 +36,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"错题详情";
+    self.title = @"我的收藏";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self loadErrorData];
+    [self loadQestion];
     
     // backBtn
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
@@ -50,10 +55,10 @@
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 
-- (void)loadErrorData
+- (void)loadQestion
 {
     [SVProgressHUD showWithStatus:@"加载中"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/errorInfo?key=%d&uid=%d&qid=%d",[LSUserManager getKey],[LSUserManager getUid],qid]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/question?key=%d&uid=%d&qid=%d",[LSUserManager getKey],[LSUserManager getUid],qid]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
@@ -73,21 +78,12 @@
 
 - (void)initErrorView
 {
-    LSExamView *eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question];
+    eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question];
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
-    [eview.questionView setEditing:NO];
+    eview.delegate = self;
     [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
-    eview.rightImage.hidden = YES;
-    if (question.myAser.length > 1) {
-        eview.myAnswer.text = question.myAser;
-    }
-    else eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",question.myAser];
-    eview.operTop.hidden = NO;
-    eview.textLabel.hidden = NO;
-    eview.preQuestion.hidden = YES;
-    eview.nextQuestion.hidden = YES;
-    eview.currBtn.hidden = YES;
+    eview.currBtn.hidden = NO;
     [self.view addSubview:eview];
 }
 
@@ -138,7 +134,7 @@
     CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
     cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
     cell.textLabel.font = [UIFont systemFontOfSize:14];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
 }
 
@@ -156,4 +152,79 @@
     return UITableViewCellEditingStyleInsert|UITableViewCellEditingStyleDelete;
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == selectedRow) {
+        selectedRow = -1;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    //单选和判断 点击一次就提交服务器
+    if ([question.tid integerValue] == kSingleChoice || [question.tid integerValue] == kJudge)
+    {
+        
+        [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
+        selectedRow = indexPath.row;
+        
+        [eview.operTop setHidden:NO];
+        [eview.textLabel setHidden:NO];
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
+        
+        if ([cell.textLabel.text hasPrefix:question.right]) {//答案正确
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+            question.rightOrWrong = YES;
+        }else {//答案错误
+            [eview.wrongImage setHidden:NO];
+            [eview.rightImage setHidden:YES];
+            question.rightOrWrong = NO;
+        }
+    }
+}
+
+#pragma mark - exam delegate
+- (void)prevQuestion
+{
+
+}
+
+- (void)nextQuestion
+{
+
+}
+
+- (void)smtAnswer
+{
+    NSString *myAnswer = @"";
+    if ([question.tid integerValue] == kMultipleChoice) {
+        NSArray *array = [eview.questionView indexPathsForSelectedRows];
+        array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSIndexPath *o1 = (NSIndexPath *)obj1;
+            NSIndexPath *o2 = (NSIndexPath *)obj2;
+            
+            return o1.row > o2.row ? NSOrderedDescending:NSOrderedAscending;
+            
+        }];
+        NSArray *answers = [question.answer componentsSeparatedByString:@"|"];
+        for (NSIndexPath *path in array) {
+            NSString *s = [answers objectAtIndex:path.row];
+            myAnswer = [myAnswer stringByAppendingString:[s substringToIndex:1]];
+        }
+        [eview.operTop setHidden:NO];
+        eview.myAnswer.text = myAnswer;
+        if ([myAnswer isEqualToString:question.right]) {
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        } else
+        {
+            [eview.rightImage setHidden:YES];
+            [eview.wrongImage setHidden:NO];
+        }
+        [eview.textLabel setHidden:NO];
+    }
+}
 @end

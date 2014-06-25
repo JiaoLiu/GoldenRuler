@@ -23,6 +23,7 @@
 		2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7518FA702000ED443F /* UIImage+Utility.m */; };
 		2753ED7918FA828900ED443F /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753ED7818FA828900ED443F /* LSLoginViewController.m */; };
 		2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */; };
+		27646459195A6276006504C9 /* LSPrivateCollectionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27646458195A6276006504C9 /* LSPrivateCollectionDetailViewController.m */; };
 		277300191905FDA600D7C22C /* LSPrivateCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */; };
 		2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2773001A1906009C00D7C22C /* btn_red@2x.png */; };
 		2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */; };
@@ -149,6 +150,8 @@
 		2753ED7818FA828900ED443F /* LSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSLoginViewController.m; sourceTree = "<group>"; };
 		2760E2471904F1F1001F5205 /* LSPrivateSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateSettingViewController.h; sourceTree = "<group>"; };
 		2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateSettingViewController.m; sourceTree = "<group>"; };
+		27646457195A6276006504C9 /* LSPrivateCollectionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCollectionDetailViewController.h; sourceTree = "<group>"; };
+		27646458195A6276006504C9 /* LSPrivateCollectionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCollectionDetailViewController.m; sourceTree = "<group>"; };
 		277300171905FDA600D7C22C /* LSPrivateCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCommentViewController.h; sourceTree = "<group>"; };
 		277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCommentViewController.m; sourceTree = "<group>"; };
 		2773001A1906009C00D7C22C /* btn_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_red@2x.png"; sourceTree = "<group>"; };
@@ -591,6 +594,8 @@
 				277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */,
 				2773001C19060FFF00D7C22C /* LSPrivateCollectionViewController.h */,
 				2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */,
+				27646457195A6276006504C9 /* LSPrivateCollectionDetailViewController.h */,
+				27646458195A6276006504C9 /* LSPrivateCollectionDetailViewController.m */,
 				CC844E79194496140018DD69 /* LSPrivateErrorDBViewController.h */,
 				CC844E7A194496140018DD69 /* LSPrivateErrorDBViewController.m */,
 				27CFA2C21959601100CD8760 /* LSPrivateErrorDetailViewController.h */,
@@ -908,6 +913,7 @@
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
+				27646459195A6276006504C9 /* LSPrivateCollectionDetailViewController.m in Sources */,
 				CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */,
 				C69C46A0195135510066431D /* LSTestViewController.m in Sources */,
 				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
