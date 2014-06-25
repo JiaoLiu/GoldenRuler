@@ -109,7 +109,7 @@
 - (NSDictionary *)loadADdata
 {
     NSDictionary *dataArr = [[NSDictionary alloc] init];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/Adv"]]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/Adv"]]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:20];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *dic = [data mutableObjectFromJSONData];
     NSInteger ret = [[dic objectForKey:@"status"] integerValue];
@@ -121,7 +121,6 @@
     {
         [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
     }
-    
     return dataArr;
 }
 
