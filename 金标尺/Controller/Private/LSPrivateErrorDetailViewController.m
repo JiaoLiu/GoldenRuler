@@ -74,6 +74,7 @@
 - (void)initErrorView
 {
     LSExamView *eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question];
+    eview.testType.text = @"错题";
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     [eview.questionView setEditing:NO];
@@ -85,9 +86,6 @@
     else eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",question.myAser];
     eview.operTop.hidden = NO;
     eview.textLabel.hidden = NO;
-    eview.preQuestion.hidden = YES;
-    eview.nextQuestion.hidden = YES;
-    eview.currBtn.hidden = YES;
     [self.view addSubview:eview];
 }
 
