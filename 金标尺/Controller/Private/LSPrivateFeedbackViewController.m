@@ -75,6 +75,7 @@
     phoneTextField.layer.borderWidth = 1;
     phoneTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
     phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:phoneTextField];
 }
 
