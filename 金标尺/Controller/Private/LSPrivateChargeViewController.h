@@ -7,6 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AlixLibService.h"
+#import "PartnerConfig.h"
+#import "DataSigner.h"
+#import "AlixPayResult.h"
+#import "DataVerifier.h"
+#import "AlixPayOrder.h"
 
 typedef enum {
     kDatePickerTag,
@@ -14,6 +20,9 @@ typedef enum {
 }pickerViewTag;
 
 @interface LSPrivateChargeViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource,UIPickerViewDelegate,UIActionSheetDelegate>
+{
+    SEL _result;
+}
 
 @property (nonatomic, strong)UITableView *table;
 @property (nonatomic, strong)UIButton *dateBtn;
@@ -27,5 +36,6 @@ typedef enum {
 @property (nonatomic, assign)NSInteger kDateSelected;
 @property (nonatomic, assign)NSInteger kPaymentSelected;
 @property (nonatomic, assign)BOOL isVip;
+@property (nonatomic, assign)SEL result;//这里声明为属性方便在于外部传入。
 
 @end
