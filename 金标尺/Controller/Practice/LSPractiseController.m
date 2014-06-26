@@ -807,18 +807,14 @@
         
         if (ret == 1)
         {
-            [SVProgressHUD setStatus:@"提交成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-            });
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+            
         } else
         {
-            [SVProgressHUD setStatus:@"提交失败"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-            });
-            
-            
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
+           
         }
         
         
