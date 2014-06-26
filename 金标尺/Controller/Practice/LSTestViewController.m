@@ -7,13 +7,21 @@
 //
 
 #import "LSTestViewController.h"
-
+#import "LSTestResultViewController.h"
 
 
 
 #define QTABLE_TAG 0
 #define CTABLE_TAG 1
 
+@interface QuestionSimple : NSObject<NSCoding>
+@property (nonatomic) int qid;
+@property (nonatomic,strong) NSString *myanswer;
+@property (nonatomic) BOOL right;
+@end
+
+@implementation QuestionSimple
+@end
 
 @interface LSTestViewController ()
 {
@@ -33,6 +41,9 @@
     int selectedRow;
     NSDate *startTime;
     NSDate *smtTime;
+    
+    NSTimer *timer;
+    NSMutableArray *smtQst;
 }
 @end
 
@@ -75,54 +86,40 @@
     NSDate *date = [NSDate date];
     startTime = [NSDate dateWithTimeIntervalSinceNow:date.timeIntervalSinceNow];
     
-    //添加评论列表
-    LSComments *cms = [[LSComments alloc]init];
-    cms.username = @"jeanky wang";
-    cms.dateStr = @"2014-06-10";
-    cms.content = @"题目：题目内容是什么东西？恩阳古镇 ；雨中的恩阳古镇更显古朴宁静，到了恩阳古镇不可错过的当然就是“恩阳十大碗”，每一碗都是肉劲十足。";
-    LSComments *cms2 = [[LSComments alloc]init];
-    cms2.username = @"jeanky wang";
-    cms2.dateStr = @"2014-06-10";
-    cms2.content = @"题目：题目内容是什么东西？恩阳古镇 ；雨中的恩阳古镇更显古朴宁静，到了恩阳古镇不可错过的当然就是“恩阳十大碗”，每一碗都是肉劲十足。";
-    LSComments *cms3 = [[LSComments alloc]init];
-    cms3.username = @"jeanky wang";
-    cms3.dateStr = @"2014-06-10";
-    cms3.content = @"题目：题目内容是什么东西？恩阳古镇 ；雨中的恩阳古镇更显古朴宁静，到了恩阳古镇不可错过的当然就是“恩阳十大碗”，每一碗都是肉劲十足。";
-    currComments = [NSMutableArray arrayWithCapacity:0];
-    [currComments addObjectsFromArray:@[cms,cms2,cms3]];
+   
     
     historyQst = [NSMutableArray arrayWithCapacity:0];
     
     [self getQuestionsWithId:[_questionList objectAtIndex:0]];
     currIndex = 0;
     
-//    [self initTabBarView];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
-    [timer fire];
+
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
+
     [self timeCounter];
 }
 
-- (void)initTabBarView
-{
-    
-    //tabBar view
-    tabBar = [[UITabBar alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-49-64, SCREEN_WIDTH, 49)];
-    tabBar.delegate = self;
-
-    UITabBarItem *item1 = [[UITabBarItem alloc]initWithTitle:@"加入收藏" image:[UIImage imageNamed:@"f_1.png"] tag:0];
-    UITabBarItem *item2 = [[UITabBarItem alloc]initWithTitle:@"考友评论" image:[UIImage imageNamed:@"f_2.png"] tag:1];
-    UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"我要纠错" image:[UIImage imageNamed:@"f_3.png"] tag:2];
-   
-    
-    
-    tabBar.items= @[item1,item2,item3];
-    tabBar.backgroundImage = [UIImage imageNamed:@"f_bg.png"];
-    tabBar.selectedImageTintColor = [UIColor whiteColor];
-    
-    [self.view addSubview:tabBar];
-    
-   
-}
+//- (void)initTabBarView
+//{
+//    
+//    //tabBar view
+//    tabBar = [[UITabBar alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-49-64, SCREEN_WIDTH, 49)];
+//    tabBar.delegate = self;
+//
+//    UITabBarItem *item1 = [[UITabBarItem alloc]initWithTitle:@"加入收藏" image:[UIImage imageNamed:@"f_1.png"] tag:0];
+//    UITabBarItem *item2 = [[UITabBarItem alloc]initWithTitle:@"考友评论" image:[UIImage imageNamed:@"f_2.png"] tag:1];
+//    UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"我要纠错" image:[UIImage imageNamed:@"f_3.png"] tag:2];
+//   
+//    
+//    
+//    tabBar.items= @[item1,item2,item3];
+//    tabBar.backgroundImage = [UIImage imageNamed:@"f_bg.png"];
+//    tabBar.selectedImageTintColor = [UIColor whiteColor];
+//    
+//    [self.view addSubview:tabBar];
+//    
+//   
+//}
 
 //考试界面
 - (void)initExamView
@@ -193,40 +190,40 @@
     
 }
 
-//评论界面
-- (void)initCommentsView
-{
-    [self clearAllView];
-    self.title = @"考友评论";
-    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:_currQuestion.title];
-    cview.cTableView.delegate = self;
-    cview.cTableView.dataSource =self;
-    cview.cTableView.tag = CTABLE_TAG;
-    cview.delegate = self;
-    [self.view addSubview:cview];
-//    [self.view bringSubviewToFront:tabBar];
-}
+////评论界面
+//- (void)initCommentsView
+//{
+//    [self clearAllView];
+//    self.title = @"考友评论";
+//    LSCommentsView *cview = [[LSCommentsView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 49) withComments:currComments withTitle:_currQuestion.title];
+//    cview.cTableView.delegate = self;
+//    cview.cTableView.dataSource =self;
+//    cview.cTableView.tag = CTABLE_TAG;
+//    cview.delegate = self;
+//    [self.view addSubview:cview];
+////    [self.view bringSubviewToFront:tabBar];
+//}
 
 
-//查看答案界面
-- (void)initAnswerView
-{
-    [self clearAllView];
-    
-}
+////查看答案界面
+//- (void)initAnswerView
+//{
+//    [self clearAllView];
+//    
+//}
 
-//纠错界面
-- (void)initCorrectionView
-{
-    [self clearAllView];
-    self.title = @"我要纠错";
-    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:_currQuestion.title];
-    crView.userInteractionEnabled = YES;
-    crView.delegate = self;
-    
-    [self.view addSubview:crView];
-//    [self.view bringSubviewToFront:tabBar];
-}
+////纠错界面
+//- (void)initCorrectionView
+//{
+//    [self clearAllView];
+//    self.title = @"我要纠错";
+//    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:_currQuestion.title];
+//    crView.userInteractionEnabled = YES;
+//    crView.delegate = self;
+//    
+//    [self.view addSubview:crView];
+////    [self.view bringSubviewToFront:tabBar];
+//}
 
 //加入收藏
 - (void)addToFav
@@ -292,77 +289,77 @@
     }];
 }
 
-#pragma mark - correction Delegate
-//纠错
-- (void)correctionBtnClick:(NSString *)content
-{
-    NSLog(@"%@",content);
-    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDQERROR stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&content=%@",uid,key,_currQuestion.qid,content]]]];
-    
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *dict = [data mutableObjectFromJSONData];
-        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
-        
-        if (ret == 1)
-        {
-            [SVProgressHUD setStatus:@"提交成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-            });
-        }
-        else
-        {
-            [SVProgressHUD setStatus:@"提交失败"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-            });
-            
-            
-        }
-        
-        
-    }];
-    
-    
-}
+//#pragma mark - correction Delegate
+////纠错
+//- (void)correctionBtnClick:(NSString *)content
+//{
+//    NSLog(@"%@",content);
+//    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDQERROR stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&content=%@",uid,key,_currQuestion.qid,content]]]];
+//    
+//    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSDictionary *dict = [data mutableObjectFromJSONData];
+//        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+//        
+//        if (ret == 1)
+//        {
+//            [SVProgressHUD setStatus:@"提交成功"];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [SVProgressHUD dismiss];
+//            });
+//        }
+//        else
+//        {
+//            [SVProgressHUD setStatus:@"提交失败"];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [SVProgressHUD dismiss];
+//            });
+//            
+//            
+//        }
+//        
+//        
+//    }];
+//    
+//    
+//}
 
 
-#pragma mark - comments delegate
-//评论
-- (void)commentsBtnClick:(NSString *)content
-{
-    NSLog(@"%@",content);
-    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
-    
-    NSString *url =[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",uid,key,_currQuestion.qid,content]];
-    
-    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *dict = [data mutableObjectFromJSONData];
-        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
-        
-        if (ret == 1)
-        {
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showSuccessWithStatus:@"提交成功"];
-           
-        }
-        else
-        {
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
-        }
-        
-        
-    }];
-
-}
+//#pragma mark - comments delegate
+////评论
+//- (void)commentsBtnClick:(NSString *)content
+//{
+//    NSLog(@"%@",content);
+//    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
+//    
+//    NSString *url =[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",uid,key,_currQuestion.qid,content]];
+//    
+//    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+//    
+//    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSDictionary *dict = [data mutableObjectFromJSONData];
+//        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+//        
+//        if (ret == 1)
+//        {
+//            [SVProgressHUD dismiss];
+//            [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+//           
+//        }
+//        else
+//        {
+//            [SVProgressHUD dismiss];
+//            [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
+//        }
+//        
+//        
+//    }];
+//
+//}
 
 
 #pragma mark -exam delegate
@@ -433,8 +430,10 @@
             break;
         case 1:
         {
-            [self computeScore];
             NSLog(@"确定交卷");
+            [timer invalidate];
+            [self computeScore];
+            
         }
             break;
         default:
@@ -445,55 +444,109 @@
 //确定交卷
 - (void)computeScore
 {
+    
+    
+    
     int total = 0;
     for (LSQuestion *q in historyQst) {
         total += q.rightOrWrong * 1;
     }
     
+    NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
+    [fmt setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *addTime = [fmt stringFromDate:startTime];
+    NSDate *now = [NSDate date];
+    NSTimeInterval t = now.timeIntervalSince1970 - startTime.timeIntervalSince1970;
+    [self questionToQuestionSimple:historyQst ];
+    
+    NSLog(@"%@",[smtQst JSONString]);
+    
     [SVProgressHUD showWithStatus:@"正在交卷,请稍侯..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/subExam?uid=%d&key=%d&mid=%@&addtime=0&tk=%d&score=100&etime=100&questions=%@",uid,key,_exam.mid,2,[historyQst JSONString]]]]];
+    NSString *url =[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/subExam?uid=%d&key=%d&mid=%@&addtime=%@&tk=%d&score=%d&etime=%d&questions=%@",uid,key,_exam.mid,addTime,1,total,(int)t,[smtQst JSONString]]];
+    
+//    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-    
+        NSDictionary *dict = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"交卷成功"];
+            
+            LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
+            vc.usedtime = t;
+            vc.myscore = total;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else
+        {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
+            LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
+            vc.usedtime = t;
+            vc.myscore = total;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }];
     
 
     NSLog(@"总得分：%d",total);
 }
 
-
-#pragma mark - tabbar delegate
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+- (void)questionToQuestionSimple:(NSMutableArray *)array
 {
-    switch (item.tag) {
-        case 0:
-            [self addToFav];
-            NSLog(@"click item1");
-            break;
-        case 1:
-        {
-            
-            //现实评论view
-            [self initCommentsView];
-            
-        }
-            NSLog(@"click item2");
-            break;
-        case 2:
-            [self initCorrectionView];
-            NSLog(@"click item3");
-            break;
-            
-        default:
-            break;
+    smtQst = [NSMutableArray arrayWithCapacity:0];
+    
+    for (LSQuestion *qst in array) {
+//        QuestionSimple *sq = [[QuestionSimple alloc]init];
+//        sq.qid = qst.qid.intValue;
+//        sq.myanswer = qst.myAser;
+//        sq.right = qst.rightOrWrong;
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
+        [dict setValue:qst.qid forKey:@"qid"];
+        [dict setValue:qst.myAser forKey:@"myanswer"];
+        [dict setValue:[NSString stringWithFormat:@"%d",qst.rightOrWrong ] forKey:@"right"];
+        [smtQst addObject:dict];
     }
     
-    
-    
-    
+
 }
+
+
+//#pragma mark - tabbar delegate
+//
+//- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+//{
+//    switch (item.tag) {
+//        case 0:
+//            [self addToFav];
+//            NSLog(@"click item1");
+//            break;
+//        case 1:
+//        {
+//            
+//            //现实评论view
+//            [self initCommentsView];
+//            
+//        }
+//            NSLog(@"click item2");
+//            break;
+//        case 2:
+//            [self initCorrectionView];
+//            NSLog(@"click item3");
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//    
+//    
+//    
+//    
+//}
 
 
 #pragma mark -tableview delegate
