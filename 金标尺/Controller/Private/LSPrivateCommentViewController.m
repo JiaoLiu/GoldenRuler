@@ -30,9 +30,9 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         dataArray = [[NSMutableArray alloc] init];
-        msgPage = 1;
-        [self loadDataWithPage:msgPage size:0];
-        [SVProgressHUD showWithStatus:@"加载中"];
+//        msgPage = 1;
+//        [self loadDataWithPage:msgPage size:0];
+//        [SVProgressHUD showWithStatus:@"加载中"];
     }
     return self;
 }
@@ -112,6 +112,14 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [dataArray removeAllObjects];
+    msgPage = 1;
+    [self loadDataWithPage:msgPage size:0];
+    [SVProgressHUD showWithStatus:@"加载中"];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -149,6 +157,9 @@
     [LSSheetNotify dismiss];
     LSPrivateCommentDetailViewController *detailVC = [[LSPrivateCommentDetailViewController alloc] init];
     detailVC.qid = [[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue];
+    detailVC.myComment.username = [[dataArray objectAtIndex:sender.tag] objectForKey:@"name"];
+    detailVC.myComment.dateStr = [[dataArray objectAtIndex:sender.tag] objectForKey:@"addtime"];
+    detailVC.myComment.content = [[dataArray objectAtIndex:sender.tag] objectForKey:@"content"];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

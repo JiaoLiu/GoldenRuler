@@ -21,5 +21,6 @@
 @property (nonatomic,strong) UIButton *smtBtn;
 @property (nonatomic,strong) UITextViewWithPlaceholder *textView;
 @property (nonatomic,strong) UITableView *cTableView;
+@property (nonatomic,strong) UILabel *numLabel;
 - (id)initWithFrame:(CGRect)frame withComments:(NSMutableArray *)comments withTitle:(NSString *)title;
 @end

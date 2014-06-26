@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LSCommentsView.h"
+#import "LSComments.h"
 
-@interface LSPrivateCommentDetailViewController : UIViewController
+@interface LSPrivateCommentDetailViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,LSCommentsDelegate>
 
 @property (nonatomic, assign)NSInteger qid;
+@property (nonatomic, strong)LSComments *myComment;
 
 @end
