@@ -53,6 +53,9 @@
     [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,6 +95,11 @@
     }
     cView.delegate = self;
     [self.view addSubview:cView];
+}
+
+- (void)tapDismissKeyboard
+{
+    [cView endEditing:YES];
 }
 
 /*
@@ -156,7 +164,6 @@
 }
 
 #pragma mark - LSCommentDelegaet
-//评论
 - (void)commentsBtnClick:(NSString *)content
 {
     [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
