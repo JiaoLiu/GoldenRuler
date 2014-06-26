@@ -335,7 +335,12 @@
 {
     NSLog(@"%@",content);
     [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",uid,key,_currQuestion.qid,content]]]];
+    
+    NSString *url =[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",uid,key,_currQuestion.qid,content]];
+    
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -344,10 +349,14 @@
         
         if (ret == 1)
         {
-            [SVProgressHUD setStatus:@"提交成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-            });
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+           
+        }
+        else
+        {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
         }
         
         

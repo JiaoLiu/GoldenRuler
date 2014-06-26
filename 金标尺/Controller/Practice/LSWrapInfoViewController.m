@@ -114,6 +114,7 @@
     NSString *url = @"";
     if (_wrapType == LSWrapTypeReal) {
         url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d&city=%@",uid,key,2,_cid,_city];
+        url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     } else if(_wrapType == LSWrapTypeSimulation) {
         url = [NSString stringWithFormat:@"?uid=%d&key=%d&tk=%d&cid=%d",uid,key,1,_cid];
     }
