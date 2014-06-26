@@ -271,7 +271,7 @@
 {
     [SVProgressHUD showWithStatus:@"正在加载评论"];
     currComments = [NSMutableArray arrayWithCapacity:0];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],1,50,1,currQuestion.qid]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],1,50,2,currQuestion.qid]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
      [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -546,7 +546,7 @@
         }
             break;
         case CTABLE_TAG:
-            
+            cview.numLabel.text = [NSString stringWithFormat:@"共%d条评论",currComments.count];
             return currComments.count;
         default:
             return 0;
