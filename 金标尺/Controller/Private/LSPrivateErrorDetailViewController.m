@@ -74,7 +74,6 @@
 - (void)initErrorView
 {
     LSExamView *eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question];
-    eview.testType.text = @"错题";
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     [eview.questionView setEditing:NO];
