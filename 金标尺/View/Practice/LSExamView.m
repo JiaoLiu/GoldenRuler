@@ -152,6 +152,7 @@
                 [_currBtn setEnabled:NO];
             }
             [_currBtn setTitle:@"提交" forState:UIControlStateNormal];
+            [_currBtn setTitle:@"已提交" forState:UIControlStateDisabled];
             [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
         }
         

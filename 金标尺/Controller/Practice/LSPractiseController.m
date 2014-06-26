@@ -132,6 +132,8 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
+        [eview.textLabel setHidden:NO];
+        
     }
     
     eview.questionView.delegate = self;
@@ -284,23 +286,18 @@
         NSString *msg = [dic objectForKey:@"msg"];
         if (ret == 1) {
             NSDictionary *dt = [dic objectForKey:@"data"];
-            NSString *qids = [dt objectForKey:@"qid"];
+            NSArray *questions = [dt objectForKey:@"list"];
             
-            if (![qids isEqualToString:@""] && [qids respondsToSelector:@selector(rangeOfString:)])
-            {
-                
-                if ([qids rangeOfString:@","].location != NSNotFound) {
-                    NSArray *qidList = [qids componentsSeparatedByString:@","];
-                    [questionList addObjectsFromArray:qidList];
-                } else {
-                    [questionList addObject:qids];
-                }
-                
+            for (NSDictionary *qd in questions) {
+                LSQuestion *q = [LSQuestion initWithDictionary:qd];
+                [questionList addObject:q];
             }
+            
+            
          dispatch_async(dispatch_get_main_queue(), ^{
-             [self getQuestionsWithId:[questionList objectAtIndex:0]];
+             currQuestion = [questionList objectAtIndex:0];
              currIndex = 0;
-//             [SVProgressHUD dismiss];
+             [self initExamView];
              
             });
             
@@ -322,27 +319,28 @@
     
 }
 
-- (void)getQuestionsWithId:(NSString *)qid
-{
-    int uid = [LSUserManager getUid];
-    int key = [LSUserManager getKey];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIGETQUESTION stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@",uid,key,qid]]]];
-    
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *dict = [data mutableObjectFromJSONData];
-        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
-        if (ret == 1) {
-            NSDictionary *d = [dict objectForKey:@"data"];
-            LSQuestion *q = [LSQuestion initWithDictionary:d];
-            currQuestion = q;
-            [self initExamView];
-            [SVProgressHUD dismiss];
-        }
-        
-        
-    }];
-}
+
+//- (void)getQuestionsWithId:(NSString *)qid
+//{
+//    int uid = [LSUserManager getUid];
+//    int key = [LSUserManager getKey];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIGETQUESTION stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@",uid,key,qid]]]];
+//    
+//    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSDictionary *dict = [data mutableObjectFromJSONData];
+//        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+//        if (ret == 1) {
+//            NSDictionary *d = [dict objectForKey:@"data"];
+//            LSQuestion *q = [LSQuestion initWithDictionary:d];
+//            currQuestion = q;
+//            [self initExamView];
+//            [SVProgressHUD dismiss];
+//        }
+//        
+//        
+//    }];
+//}
 
 - (void)addFavToServer
 {
@@ -615,9 +613,10 @@
 {
     selectedRow = -1;
     NSLog(@"下一题");
-    [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeGradient];
+
     currIndex += 1;
     currIndex = currIndex > questionList.count ? questionList.count : currIndex;
+    
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= questionList.count && historyQst.count == questionList.count) {
         [SVProgressHUD dismiss];
@@ -627,8 +626,8 @@
     if (currIndex >= historyQst.count) {
         [historyQst addObject:currQuestion];
         if (currIndex < questionList.count) {
-            NSString *qid = [questionList objectAtIndex:currIndex];
-            [self getQuestionsWithId:qid];
+            currQuestion = [questionList objectAtIndex:currIndex];
+            [self initExamView];
         }else{
             [SVProgressHUD dismiss];
         }
@@ -764,6 +763,7 @@
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
 {
+    [SVProgressHUD dismiss];
     if (historyQst.count < questionList.count) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
@@ -778,13 +778,14 @@
 
 - (void)backBtnClicked
 {
+    [SVProgressHUD dismiss];
     if (historyQst.count < questionList.count) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
 
     }else {
     
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
         [SVProgressHUD dismiss];
         [LSSheetNotify dismiss];
     }
