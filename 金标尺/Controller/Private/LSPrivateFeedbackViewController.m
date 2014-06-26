@@ -126,6 +126,9 @@
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         if (ret == 1) {
             [SVProgressHUD showSuccessWithStatus:[dic objectForKey:@"msg"]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self backBtnClicked];
+            });
         }
         else
         {
