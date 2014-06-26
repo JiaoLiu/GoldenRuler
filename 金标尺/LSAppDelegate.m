@@ -16,9 +16,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    Reachability *kRech = [Reachability reachabilityForInternetConnection];
     LSMainViewController *mainController = [[LSMainViewController alloc] init];
-    mainController.iAdArray = [self loadADdata];
+    if (kRech.currentReachabilityStatus != NotReachable) {
+        mainController.iAdArray = [self loadADdata];
+    }
     UINavigationController *mainNav = [[UINavigationController alloc] initWithRootViewController:mainController];
     mainNav.navigationBar.translucent = NO;
     self.window.rootViewController = mainNav;
