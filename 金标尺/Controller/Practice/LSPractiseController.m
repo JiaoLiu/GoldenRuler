@@ -69,7 +69,18 @@
     
     historyQst = [NSMutableArray arrayWithCapacity:0];
     questionList = [NSMutableArray arrayWithCapacity:0];
-    [self getPaper];
+    
+    if (_isContinue) {
+        
+        [self getContinuePaper];
+        
+    } else
+    {
+        [self getPaper];
+    }
+    
+    
+    
     [self saveExamInfo];
     
 
@@ -113,9 +124,41 @@
 {
     isExamView = YES;
     [self clearAllView];
+    
+    switch (currQuestion.tid.intValue) {
+        case 1:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
+            _qTypeString =@"单选";
+            break;
+        case 2:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
+            _qTypeString =@"多选";
+            break;
+        case 3:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
+            _qTypeString =@"判断";
+            break;
+        case 4:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
+            _qTypeString =@"填空";
+            break;
+        case 5:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
+            _qTypeString =@"简答";
+            break;
+        case 6:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
+            _qTypeString =@"论述";
+            break;
+        default:
+            break;
+    }
+    
+    
     eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
     eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+    
     if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"]){
         [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     }
@@ -272,7 +315,6 @@
     
     exam = [[LSExam alloc]init];
    
-    
     [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
     int uid = [LSUserManager getUid];
     int key = [LSUserManager getKey];
@@ -317,6 +359,76 @@
     }];
     
     
+}
+
+- (void)getContinuePaper
+{
+    exam = [[LSExam alloc]init];
+    
+    [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
+    int uid = [LSUserManager getUid];
+    int key = [LSUserManager getKey];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/testQuestionList?uid=%d&key=%d&tk=%d&cid=%d&tid=%d",uid,key,[LSUserManager getTk],[LSUserManager getCid],[LSUserManager getTid]]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        NSString *msg = [dic objectForKey:@"msg"];
+        if (ret == 1) {
+            NSDictionary *dt = [dic objectForKey:@"data"];
+            NSArray *questions = [dt objectForKey:@"list"];
+            if ([[dt objectForKey:@"count"] intValue]<1) {
+                [SVProgressHUD dismiss];
+                [SVProgressHUD showErrorWithStatus:@"暂无历史纪录，请先做题"];
+                [self.navigationController popViewControllerAnimated:YES];
+                return;
+            }
+            
+            for (NSDictionary *qd in questions) {
+                LSQuestion *q = [LSQuestion initWithDictionary:qd];
+                [questionList addObject:q];
+            }
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                int lastQid = [LSUserManager getLastqid];
+                for (int i = 0; i<questionList.count; i++) {
+                    LSQuestion *q = [questionList objectAtIndex:i];
+                    if (q.qid.intValue == lastQid) {
+                        currQuestion = q;
+                        currIndex = i;
+                    }
+                    else
+                    {
+                        [historyQst addObject:q];
+                    }
+                }
+                
+                
+                [self initExamView];
+                
+            });
+            
+            
+        } else
+        {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showWithStatus:msg];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            
+        }
+        
+        
+        
+    }];
+    
+
+
+
 }
 
 

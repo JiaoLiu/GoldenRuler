@@ -43,6 +43,7 @@
 		C63C01CE1952C16200CB3167 /* LSCourseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C63C01CD1952C16200CB3167 /* LSCourseTableViewController.m */; };
 		C63C01D11952CB4700CB3167 /* LSQuestionTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C63C01D01952CB4700CB3167 /* LSQuestionTypeTableViewController.m */; };
 		C63C01D41952E31B00CB3167 /* LSPractiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = C63C01D31952E31B00CB3167 /* LSPractiseController.m */; };
+		C668A380195BCF3400DCE273 /* LSContinuePracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C668A37F195BCF3400DCE273 /* LSContinuePracticeViewController.m */; };
 		C69C46971951348B0066431D /* LSCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46911951348B0066431D /* LSCommentsView.m */; };
 		C69C46981951348B0066431D /* LSCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46931951348B0066431D /* LSCorrectionView.m */; };
 		C69C46991951348B0066431D /* LSExamView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46961951348B0066431D /* LSExamView.m */; };
@@ -186,6 +187,8 @@
 		C63C01D01952CB4700CB3167 /* LSQuestionTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestionTypeTableViewController.m; sourceTree = "<group>"; };
 		C63C01D21952E31B00CB3167 /* LSPractiseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPractiseController.h; sourceTree = "<group>"; };
 		C63C01D31952E31B00CB3167 /* LSPractiseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPractiseController.m; sourceTree = "<group>"; };
+		C668A37E195BCF3400DCE273 /* LSContinuePracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSContinuePracticeViewController.h; sourceTree = "<group>"; };
+		C668A37F195BCF3400DCE273 /* LSContinuePracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSContinuePracticeViewController.m; sourceTree = "<group>"; };
 		C69C46901951348B0066431D /* LSCommentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCommentsView.h; sourceTree = "<group>"; };
 		C69C46911951348B0066431D /* LSCommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCommentsView.m; sourceTree = "<group>"; };
 		C69C46921951348B0066431D /* LSCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCorrectionView.h; sourceTree = "<group>"; };
@@ -572,6 +575,8 @@
 			children = (
 				C63C01D21952E31B00CB3167 /* LSPractiseController.h */,
 				C63C01D31952E31B00CB3167 /* LSPractiseController.m */,
+				C668A37E195BCF3400DCE273 /* LSContinuePracticeViewController.h */,
+				C668A37F195BCF3400DCE273 /* LSContinuePracticeViewController.m */,
 				C63C01CC1952C16200CB3167 /* LSCourseTableViewController.h */,
 				C63C01CD1952C16200CB3167 /* LSCourseTableViewController.m */,
 				C63C01CF1952CB4700CB3167 /* LSQuestionTypeTableViewController.h */,
@@ -893,6 +898,7 @@
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
 				27810EC41935830E004F796B /* LSPrivateEditViewController.m in Sources */,
 				C69C46971951348B0066431D /* LSCommentsView.m in Sources */,
+				C668A380195BCF3400DCE273 /* LSContinuePracticeViewController.m in Sources */,
 				CC641D1C190699640073F8D5 /* LSCourseSelectMainViewController.m in Sources */,
 				CCD00D0E1941FD990033637D /* LSSheetNotify.m in Sources */,
 				CCC0897E1907EBB900C9B9ED /* LSChoiceListViewController.m in Sources */,

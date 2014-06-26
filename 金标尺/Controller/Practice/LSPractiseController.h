@@ -20,5 +20,7 @@
 @property (nonatomic,assign) LSWrapType testType;
 @property (nonatomic,strong) NSString *qTypeString;
 
+@property (nonatomic) BOOL isContinue;
+
 
 @end

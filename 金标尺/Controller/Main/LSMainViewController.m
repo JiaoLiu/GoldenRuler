@@ -10,6 +10,7 @@
 #import "LSWrapPracticeViewController.h"
 #import "LSPrivateErrorDBViewController.h"
 #import "LSCourseTableViewController.h"
+#import "LSPractiseController.h"
 
 @interface LSMainViewController ()
 {
@@ -213,7 +214,9 @@
     switch (sender.tag) {
         case 0:
         {
-            
+            LSPractiseController *vc = [[LSPractiseController alloc]init];
+            vc.isContinue = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 1:
