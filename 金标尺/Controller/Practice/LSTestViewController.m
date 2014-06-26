@@ -518,6 +518,7 @@
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
                 [cell setSelected:YES];
+                tableView.userInteractionEnabled = NO;
             }
             
             
@@ -619,6 +620,7 @@
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
 {
+    [SVProgressHUD dismiss];
     [self smtExam];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -628,6 +630,7 @@
 
 - (void)backBtnClicked
 {
+    [SVProgressHUD dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

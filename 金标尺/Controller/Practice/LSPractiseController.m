@@ -465,6 +465,7 @@
             if (currQuestion.myAser != nil && [currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound) {
                 NSLog(@"%@",currQuestion.myAser);
                 [cell setSelected:YES];
+                tableView.userInteractionEnabled = NO;
             }
             
             return cell;
@@ -628,12 +629,11 @@
         if (currIndex < questionList.count) {
             currQuestion = [questionList objectAtIndex:currIndex];
             [self initExamView];
+//            return;
         }else{
             [SVProgressHUD dismiss];
         }
-    }
-    
-    if (currIndex < historyQst.count) {
+    }else if (currIndex < historyQst.count) {
         currQuestion = [historyQst objectAtIndex:currIndex];
         [self initExamView];
     }

@@ -72,21 +72,21 @@
         UIView *operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
         operTop.backgroundColor = RGB(210, 210, 210);
         
-        [_operView addSubview:operTop];
-        _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
-        _rightImage.frame = CGRectMake(30, 6, 19, 18);
-        _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
-        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
-        [_rightImage setHidden:YES];
-        [_wrongImage setHidden:YES];
-        
-        [operTop addSubview:_rightImage];
-        [operTop addSubview:_wrongImage];
-        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
-        _myAnswer.textColor = [UIColor darkGrayColor];
-        _myAnswer.font = [UIFont systemFontOfSize:14];
-
-        [operTop addSubview:_myAnswer];
+//        [_operView addSubview:operTop];
+//        _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
+//        _rightImage.frame = CGRectMake(30, 6, 19, 18);
+//        _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
+//        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
+//        [_rightImage setHidden:YES];
+//        [_wrongImage setHidden:YES];
+//        
+//        [operTop addSubview:_rightImage];
+//        [operTop addSubview:_wrongImage];
+//        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
+//        _myAnswer.textColor = [UIColor darkGrayColor];
+//        _myAnswer.font = [UIFont systemFontOfSize:14];
+//
+//        [operTop addSubview:_myAnswer];
     
         
         
@@ -108,6 +108,8 @@
         
         _smtBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 48, 76, 27)];
         [_smtBtn setBackgroundImage:[UIImage imageNamed:@"module_topic_midlebx.9.png"] forState:UIControlStateNormal];
+        
+        
         [_smtBtn setTitle:@"提交" forState:UIControlStateNormal];
         [_smtBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _smtBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -116,6 +118,8 @@
         [_operView addSubview:_preQuestion];
         [_operView addSubview:_nextQuestion];
         [_operView addSubview:_smtBtn];
+        
+        _operView.backgroundColor = RGB(210, 210, 210);
         [_scrollView addSubview:_operView];
         [self addSubview:_scrollView];
     }
