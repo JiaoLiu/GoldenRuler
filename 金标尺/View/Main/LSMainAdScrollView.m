@@ -44,11 +44,14 @@
         self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         self.pagingEnabled = YES;
         self.clipsToBounds = YES;
+        self.bounces = NO;
         self.delegate = self;
+        
+        // auto Scrolling
+        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(autoScrollPage) userInfo:nil repeats:YES];
     }
     return self;
 }
-
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -81,6 +84,20 @@
 - (void)clickOnAd:(UIButton *)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[[[_items objectForKey:@"list"] objectAtIndex:sender.tag] objectForKey:@"url"]]];
+}
+
+- (void)autoScrollPage
+{
+    int page = scrollPageControl.currentPage;
+    if (page == _items.count - 1) {
+        scrollPageControl.currentPage = 0;
+    }
+    else
+    {
+        page++;
+        scrollPageControl.currentPage = page;
+    }
+    [self scrollPage];
 }
 
 @end

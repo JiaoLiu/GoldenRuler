@@ -7,6 +7,7 @@
 //
 
 #import "LSPrivateCommentViewController.h"
+#import "LSPrivateCommentDetailViewController.h"
 
 @interface LSPrivateCommentViewController ()
 {
@@ -145,8 +146,10 @@
 
 - (void)redBtnClicked:(UIButton *)sender
 {
-    NSLog(@"%d",sender.tag);
     [LSSheetNotify dismiss];
+    LSPrivateCommentDetailViewController *detailVC = [[LSPrivateCommentDetailViewController alloc] init];
+    detailVC.qid = [[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 #pragma mark - tableView delegate
@@ -192,7 +195,8 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (scrollView.contentOffset.y > 50) {
+    CGSize size = scrollView.contentSize;
+    if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y + scrollView.frame.size.height > size.height + 50) {
         [self loadDataWithPage:msgPage size:10];
         [LSSheetNotify showProgress:@"加载更多"];
     }

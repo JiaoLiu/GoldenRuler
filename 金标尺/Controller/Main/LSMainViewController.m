@@ -173,6 +173,7 @@
             [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
             if (ret == 0) {
                 [LSAppDelegate showLoginView:self];
+                [LSUserManager setTCid:0];
             }
         }
     }];

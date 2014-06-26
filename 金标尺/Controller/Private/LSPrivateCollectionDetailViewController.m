@@ -66,7 +66,7 @@
         if (ret == 1) {
             NSDictionary *data = [dic objectForKey:@"data"];
             question = [LSQuestion initWithDictionary:data];
-            [self initErrorView];
+            [self initExameView];
             [SVProgressHUD dismiss];
         }
         else
@@ -76,14 +76,13 @@
     }];
 }
 
-- (void)initErrorView
+- (void)initExameView
 {
     eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question];
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     eview.delegate = self;
     [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
-    eview.currBtn.hidden = NO;
     [self.view addSubview:eview];
 }
 
@@ -202,7 +201,7 @@
 - (void)smtAnswer
 {
     NSString *myAnswer = @"";
-    if ([question.tid integerValue] == kMultipleChoice) {
+    if ([question.tid integerValue] == kMultipleChoice || [question.tid integerValue] == kSingleChoice || [question.tid integerValue] == kJudge) {
         NSArray *array = [eview.questionView indexPathsForSelectedRows];
         array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             NSIndexPath *o1 = (NSIndexPath *)obj1;
@@ -230,4 +229,10 @@
     }
     eview.questionView.userInteractionEnabled = NO;
 }
+
+- (void)smtExam
+{
+    
+}
+
 @end

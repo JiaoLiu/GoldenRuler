@@ -52,7 +52,7 @@
                       @"十个月",
                       @"十一个月",
                       @"十二个月"];
-        paymentArray = @[@"支付宝",@"微信支付"];
+        paymentArray = @[@"支付宝"/*,@"微信支付"*/];
         kDateSelected = 2;
         kPaymentSelected = 0;
 //        price = 10;

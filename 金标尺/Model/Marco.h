@@ -13,6 +13,7 @@
 #import "LSSheetNotify.h"
 #import <SVProgressHUD.h>
 #import <JSONKit.h>
+#import <Reachability.h>
 
 @protocol Marco <NSObject>
 
