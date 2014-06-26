@@ -77,13 +77,8 @@
     } else
     {
         [self getPaper];
+        [self saveExamInfo];
     }
-    
-    
-    
-    [self saveExamInfo];
-    
-
     
 //    [self getQuestionsWithId:@"10"];
     
