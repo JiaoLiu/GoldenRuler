@@ -264,7 +264,7 @@
 
 - (void)getComments
 {
-    [SVProgressHUD showWithStatus:@"正在加载评论"];
+//    [SVProgressHUD showWithStatus:@"正在加载评论"];
     currComments = [NSMutableArray arrayWithCapacity:0];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],1,50,2,currQuestion.qid]]]];
     
@@ -277,6 +277,7 @@
              NSDictionary *dt = [dic objectForKey:@"data"];
              int count = [[dt objectForKey:@"count"] intValue];
              NSArray *list = [dt objectForKey:@"list"];
+             
              for (NSDictionary *cmt in list) {
                  LSComments *comments = [[LSComments alloc]init];
                  comments.username = [cmt objectForKey:@"name"];
@@ -554,7 +555,10 @@
     switch (tableView.tag) {
         case QTABLE_TAG:
         {
-            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            }
             NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
             NSString *asContent = [answers objectAtIndex:indexPath.row];
             cell.textLabel.text = asContent;
@@ -580,7 +584,12 @@
             break;
         case CTABLE_TAG:
         {
-            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell1"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell1"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
             LSComments *cms = [currComments objectAtIndex:indexPath.row];
             cell.textLabel.text =  [NSString stringWithFormat:@"%@发表于：%@",cms.username,cms.dateStr];
             cell.textLabel.font = [UIFont systemFontOfSize:10];
@@ -710,7 +719,8 @@
     currIndex = currIndex < 0 ? 0:currIndex;
     if (currIndex > 0) {
         
-        currQuestion = [historyQst objectAtIndex:--currIndex];
+//        currQuestion = [historyQst objectAtIndex:--currIndex];
+        currQuestion = [questionList objectAtIndex:--currIndex];
         [self initExamView];
     }
     
@@ -741,7 +751,8 @@
             [SVProgressHUD dismiss];
         }
     }else if (currIndex < historyQst.count) {
-        currQuestion = [historyQst objectAtIndex:currIndex];
+//        currQuestion = [historyQst objectAtIndex:currIndex];
+        currQuestion = [questionList objectAtIndex:currIndex];
         [self initExamView];
     }
     
@@ -788,6 +799,23 @@
     
     
     
+}
+
+-(void)chooseQuestion
+{
+    LSChooseQuestionViewController *vc = [[LSChooseQuestionViewController alloc]init];
+    vc.questions = questionList;
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - choosequestion delegate
+
+- (void)seletedQuestion:(int)index
+{
+    currQuestion = [questionList objectAtIndex:index];    
+    currIndex = index;
+    [self initExamView];
 }
 
 #pragma mark -correction btn click
@@ -843,6 +871,7 @@
         if (ret == 1)
         {
             [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+            [self getComments];
             
         } else
         {
