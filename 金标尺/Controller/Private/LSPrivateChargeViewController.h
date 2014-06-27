@@ -7,12 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AlixLibService.h"
-#import "PartnerConfig.h"
-#import "DataSigner.h"
-#import "AlixPayResult.h"
-#import "DataVerifier.h"
-#import "AlixPayOrder.h"
 
 typedef enum {
     kDatePickerTag,
