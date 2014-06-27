@@ -469,7 +469,7 @@
     
     int total = 0;
     for (LSQuestion *q in historyQst) {
-        total += q.rightOrWrong * 1;
+        total += q.rightOrWrong * q.qScore;
     }
     
     NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
