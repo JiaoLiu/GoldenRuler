@@ -7,6 +7,12 @@
 //
 
 #import "LSPrivateChargeViewController.h"
+#import "AlixLibService.h"
+#import "AlixPayResult.h"
+#import "AlixPayOrder.h"
+#import "PartnerConfig.h"
+#import "DataVerifier.h"
+#import "DataSigner.h"
 
 @interface LSPrivateChargeViewController ()
 {

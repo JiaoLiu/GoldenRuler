@@ -95,7 +95,7 @@
     
 
     timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
-
+    selectedRow = -1;
     [self timeCounter];
 }
 
@@ -459,38 +459,88 @@
     NSTimeInterval t = now.timeIntervalSince1970 - startTime.timeIntervalSince1970;
     [self questionToQuestionSimple:historyQst ];
     
-    NSLog(@"%@",[smtQst JSONString]);
+
+    //?uid=%d&key=%d&mid=%@&addtime=%@&tk=%d&score=%d&etime=%d&questions=%@",uid,key,_exam.mid,addTime,1,total,(int)t,[smtQst JSONString]]
     
     [SVProgressHUD showWithStatus:@"正在交卷,请稍侯..."];
-    NSString *url =[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/subExam?uid=%d&key=%d&mid=%@&addtime=%@&tk=%d&score=%d&etime=%d&questions=%@",uid,key,_exam.mid,addTime,1,total,(int)t,[smtQst JSONString]]];
+    NSString *url =[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/subExam"]];
+    //    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-//    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSMutableURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];
+    NSString *boundary = @"------VohpleBoundary4QuqLuM1cE5lMwCy";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    NSMutableData *body = [NSMutableData data];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setValue:[NSNumber numberWithInt:[LSUserManager getUid]] forKey:@"uid"];
+    [parameters setValue:[NSNumber numberWithInt:[LSUserManager getKey]] forKey:@"key"];
+    [parameters setValue:_exam.mid forKeyPath:@"mid"];
+    [parameters setValue:addTime forKeyPath:@"addtime"];
+    [parameters setValue:_examType == LSWrapTypeReal ? @"2":@"1" forKeyPath:@"tk"];
+    [parameters setValue:[NSNumber numberWithInt:total] forKeyPath:@"score"];
+    [parameters setValue:[NSNumber numberWithInt:t] forKeyPath:@"etime"];
+    [parameters setValue:[smtQst JSONData] forKeyPath:@"questions"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    // add params (all params are strings)
+    for (NSString *param in parameters) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"%@\r\n", [parameters objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dict = [data mutableObjectFromJSONData];
         NSInteger ret = [[dict objectForKey:@"status"] integerValue];
         if (ret == 1) {
             [SVProgressHUD dismiss];
             [SVProgressHUD showSuccessWithStatus:@"交卷成功"];
-            
+
             LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
             vc.usedtime = t;
             vc.myscore = total;
             [self.navigationController pushViewController:vc animated:YES];
-        }
-        else
-        {
+            }
+            else
+            {
             [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
             LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
             vc.usedtime = t;
             vc.myscore = total;
             [self.navigationController pushViewController:vc animated:YES];
-        }
+            }
+        
     }];
+    
+//    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSDictionary *dict = [data mutableObjectFromJSONData];
+//        NSInteger ret = [[dict objectForKey:@"status"] integerValue];
+//        if (ret == 1) {
+//            [SVProgressHUD dismiss];
+//            [SVProgressHUD showSuccessWithStatus:@"交卷成功"];
+//            
+//            LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
+//            vc.usedtime = t;
+//            vc.myscore = total;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//        else
+//        {
+//            [SVProgressHUD dismiss];
+//            [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
+//            LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
+//            vc.usedtime = t;
+//            vc.myscore = total;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//    }];
     
 
     NSLog(@"总得分：%d",total);
