@@ -20,6 +20,5 @@
 @interface LSMainViewController : UIViewController<LSMainItemsViewDelegate>
 
 @property (nonatomic, strong)NSArray *itemsArray;
-@property (nonatomic, strong)NSDictionary *iAdArray;
 
 @end

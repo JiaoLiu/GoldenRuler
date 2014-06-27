@@ -22,7 +22,6 @@
 @implementation LSMainViewController
 
 @synthesize itemsArray;
-@synthesize iAdArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -98,23 +97,18 @@
     [msgBtn addSubview:newMsg];
     
     // iAdScrollView
-    LSMainAdScrollView *iAdScrollView;
-    if (iAdArray.count != 0) {
-        CGRect frame;
-        if (iPhone5) {
-            frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 140);
-        }
-        else
-        {
-            frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 100);
-        }
-        iAdScrollView = [[LSMainAdScrollView alloc] initWithFrame:frame Items:iAdArray];
-        iAdScrollView.backgroundColor = [UIColor yellowColor];
-        [self.view addSubview:iAdScrollView];
+    [self loadADdata];
+    CGRect frame;
+    if (iPhone5) {
+        frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 140);
+    }
+    else
+    {
+        frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 100);
     }
     
     // itmesView
-    NSInteger iAdOffset = iAdScrollView.frame.size.height + 20;
+    NSInteger iAdOffset = frame.size.height + 20;
     LSMainItemsView *itemsView = [[LSMainItemsView alloc] initWithFrame:CGRectMake(0, iAdOffset, SCREEN_WIDTH - 50, SCREEN_HEIGHT - 64 - iAdOffset) Items:itemsArray];
     itemsView.delegate = self;
     [self.view addSubview:itemsView];
@@ -131,6 +125,37 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CheckLogin" object:nil];
+}
+
+#pragma mark - load AD Img
+- (void)loadADdata
+{
+    // iAdScrollView
+    CGRect frame;
+    if (iPhone5) {
+        frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 140);
+    }
+    else
+    {
+        frame = CGRectMake(0, 10, SCREEN_WIDTH - 50, 100);
+    }
+    __block LSMainAdScrollView *iAdScrollView= [[LSMainAdScrollView alloc] initWithFrame:frame];
+    [self.view addSubview:iAdScrollView];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/Adv"]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSDictionary *dataArr = [dic objectForKey:@"data"];
+            [LSUserManager setPush:[[dataArr objectForKey:@"push"] integerValue]];
+            [iAdScrollView setItems:dataArr];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
 #pragma mark - CheckLogin / getUserInfo
