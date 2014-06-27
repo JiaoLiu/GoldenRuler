@@ -31,6 +31,8 @@
     int selectedRow;
     
     BOOL isExamView;//当前界面是否是考试题目详情界面默认yes
+    BOOL isLoadingMore;
+    int pageNo;
     
 }
 @end
@@ -70,7 +72,7 @@
     historyQst = [NSMutableArray arrayWithCapacity:0];
     questionList = [NSMutableArray arrayWithCapacity:0];
     
-    if (_isContinue) {
+    if (_isContinue) {//继续上次练习
         
         [self getContinuePaper];
         
@@ -265,8 +267,11 @@
 - (void)getComments
 {
 //    [SVProgressHUD showWithStatus:@"正在加载评论"];
-    currComments = [NSMutableArray arrayWithCapacity:0];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],1,50,2,currQuestion.qid]]]];
+    if (currComments == nil) {
+        currComments = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],pageNo==0?1:pageNo,5,1,currQuestion.qid]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
      [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -274,10 +279,11 @@
          NSInteger ret = [[dic objectForKey:@"status"] integerValue];
          NSString *msg = [dic objectForKey:@"msg"];
          if (ret == 1) {
+             pageNo++;
              NSDictionary *dt = [dic objectForKey:@"data"];
              int count = [[dt objectForKey:@"count"] intValue];
              NSArray *list = [dt objectForKey:@"list"];
-             
+             [currComments removeAllObjects];
              for (NSDictionary *cmt in list) {
                  LSComments *comments = [[LSComments alloc]init];
                  comments.username = [cmt objectForKey:@"name"];
@@ -290,6 +296,7 @@
                  [SVProgressHUD dismiss];
 //                 [cview.cTableView reloadData];
                  [self initCommentsView];
+                 isLoadingMore = NO;
              });
 
              
@@ -699,6 +706,51 @@
         
     }
     
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+
+    if(!isLoadingMore && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
+        
+    {
+        
+        [self loadDataBegin];
+        
+    }
+    
+}
+
+
+- (void)loadDataBegin
+{
+    if (isLoadingMore == NO)
+        
+    {
+        
+        isLoadingMore = YES;
+        
+        UIActivityIndicatorView *tableFooterActivityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(75.0f, 10.0f, 20.0f, 20.0f)];
+        UILabel *loading = [[UILabel alloc]initWithFrame:CGRectMake(100, 12, 60, 20)];
+        loading.text = @"正在加载...";
+        loading.font = [UIFont systemFontOfSize:12];
+        loading.textColor = [UIColor lightGrayColor];
+        
+        
+        [tableFooterActivityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        
+        [tableFooterActivityIndicator startAnimating];
+        
+        [cview.cTableView.tableFooterView addSubview:tableFooterActivityIndicator];
+        [cview.cTableView.tableFooterView addSubview:loading];
+        [self loadDataing];
+        
+    }
+}
+
+- (void)loadDataing
+{
+    [self getComments];
 }
 
 
