@@ -89,9 +89,11 @@
    
     
     historyQst = [NSMutableArray arrayWithCapacity:0];
+    if (_questionList != nil && _questionList.count>0) {
+        _currQuestion = [_questionList objectAtIndex:0];
+        currIndex = 0;
+    }
     
-    [self getQuestionsWithId:[_questionList objectAtIndex:0]];
-    currIndex = 0;
     
 
     timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
@@ -370,7 +372,7 @@
     currIndex = currIndex < 0 ? 0:currIndex;
     if (currIndex > 0) {
         
-         _currQuestion = [historyQst objectAtIndex:--currIndex];
+         _currQuestion = [_questionList objectAtIndex:--currIndex];
         [self initExamView];
     }
     
@@ -393,15 +395,18 @@
     if (currIndex >= historyQst.count) {
         [historyQst addObject:_currQuestion];
         if (currIndex < _questionList.count) {
-            NSString *qid = [_questionList objectAtIndex:currIndex];
-            [self getQuestionsWithId:qid];
-        }else{
+//            NSString *qid = [_questionList objectAtIndex:currIndex];
+//            [self getQuestionsWithId:qid];
+            _currQuestion = [_questionList objectAtIndex:currIndex];
+        }
+        else
+        {
         [SVProgressHUD dismiss];
         }
     }
     
     if (currIndex < historyQst.count) {
-        _currQuestion = [historyQst objectAtIndex:currIndex];
+        _currQuestion = [_questionList objectAtIndex:currIndex];
         [self initExamView];
     }
     
@@ -419,6 +424,21 @@
     NSLog(@"交卷");
 }
 
+-(void)chooseQuestion
+{
+    LSChooseQuestionViewController *vc = [[LSChooseQuestionViewController alloc]init];
+    vc.questions = _questionList;
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - choosequestion delegate
+- (void)seletedQuestion:(int)index
+{
+    _currQuestion = [_questionList objectAtIndex:index];
+    currIndex = index;
+    [self initExamView];
+}
 #pragma mark -alertview delegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
