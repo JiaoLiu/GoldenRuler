@@ -14,8 +14,8 @@
 
 @interface LSWrapInfoViewController ()
 {
-    NSDictionary *info;
-    int cid;                         //科目id
+
+//    int cid;                         //科目id
     int key;
     int uid;
 
@@ -37,15 +37,7 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         
-        info = @{
-                 @"name"        :@"模拟套卷测试",
-                 @"course"      :@"政治",
-                 @"area"        :@"渝中区",
-                 @"testNum"     :@"90",
-                 @"totalScore"  :@"100",
-                 @"testTime"    :@"120",
-                 
-                 };
+        
         
     }
     return self;
@@ -65,13 +57,14 @@
     [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = backItem;
+   
     // filterBtn
-    UIButton *filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 24)];
-    [filterBtn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [filterBtn setTitle:@"筛选"forState:UIControlStateNormal];
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:filterBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    UIButton *filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 24)];
+//    [filterBtn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//    [filterBtn setTitle:@"筛选"forState:UIControlStateNormal];
+//    
+//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:filterBtn];
+//    self.navigationItem.rightBarButtonItem = rightItem;
     
     
     [self getPaper];
@@ -177,7 +170,7 @@
     if (_wrapType == LSWrapTypeReal) {
         UILabel *subLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 34, SCREEN_WIDTH, 44)];
         subLabel.textAlignment = NSTextAlignmentCenter;
-        subLabel.text = [[NSString alloc]initWithFormat:@"%@--%d",_city,cid];
+        subLabel.text = [[NSString alloc]initWithFormat:@"%@--%d",_city,_cid];
         [tv addSubview:subLabel];
     }
     

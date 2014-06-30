@@ -14,14 +14,17 @@
 #define QTABLE_TAG 0
 #define CTABLE_TAG 1
 
-@interface QuestionSimple : NSObject<NSCoding>
-@property (nonatomic) int qid;
-@property (nonatomic,strong) NSString *myanswer;
-@property (nonatomic) BOOL right;
-@end
+#define ALERT_BACK_TAG 10
+#define ALERT_SMT_TAG 11
 
-@implementation QuestionSimple
-@end
+//@interface QuestionSimple : NSObject<NSCoding>
+//@property (nonatomic) int qid;
+//@property (nonatomic,strong) NSString *myanswer;
+//@property (nonatomic) BOOL right;
+//@end
+//
+//@implementation QuestionSimple
+//@end
 
 @interface LSTestViewController ()
 {
@@ -92,6 +95,7 @@
     if (_questionList != nil && _questionList.count>0) {
         _currQuestion = [_questionList objectAtIndex:0];
         currIndex = 0;
+        [self initExamView];
     }
     
     
@@ -382,30 +386,37 @@
 - (void)nextQuestion
 {
     NSLog(@"下一题");
-    [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeGradient];
+//    [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeGradient];
     selectedRow = -1;
     currIndex += 1;
     currIndex = currIndex > _questionList.count ? _questionList.count : currIndex;
+    
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
-    if (currIndex >= _questionList.count && historyQst.count == _questionList.count) {
+    if (currIndex >= _questionList.count && historyQst.count == _questionList.count)
+    {
         [SVProgressHUD dismiss];
         return;
     }
     
-    if (currIndex >= historyQst.count) {
+    if (currIndex >= historyQst.count)
+    {
         [historyQst addObject:_currQuestion];
-        if (currIndex < _questionList.count) {
-//            NSString *qid = [_questionList objectAtIndex:currIndex];
-//            [self getQuestionsWithId:qid];
+        
+        if (currIndex < _questionList.count)
+        {
             _currQuestion = [_questionList objectAtIndex:currIndex];
+            [self initExamView];
         }
         else
         {
-        [SVProgressHUD dismiss];
+            
+            [SVProgressHUD dismiss];
+            
         }
     }
-    
-    if (currIndex < historyQst.count) {
+    else  if (currIndex < historyQst.count)
+        
+    {
         _currQuestion = [_questionList objectAtIndex:currIndex];
         [self initExamView];
     }
@@ -418,7 +429,7 @@
 - (void)smtExam
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定交卷吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    
+    alert.tag = ALERT_SMT_TAG;
     [alert show];
     
     NSLog(@"交卷");
@@ -451,8 +462,14 @@
         case 1:
         {
             NSLog(@"确定交卷");
-            [timer invalidate];
-            [self computeScore];
+            if (alertView.tag == ALERT_SMT_TAG) {
+                [timer invalidate];
+                [self computeScore];
+            }
+            else if (alertView.tag == ALERT_BACK_TAG)
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
             
         }
             break;
@@ -763,7 +780,11 @@
 - (void)backBtnClicked
 {
     [SVProgressHUD dismiss];
-    [self.navigationController popViewControllerAnimated:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"退出后本次考试将不计成绩" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.tag = ALERT_BACK_TAG;
+    [alert show];
+    
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
