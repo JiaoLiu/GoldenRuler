@@ -332,7 +332,7 @@
         if (ret == 1) {
             NSDictionary *dt = [dic objectForKey:@"data"];
             NSArray *questions = [dt objectForKey:@"list"];
-            if (![dt isKindOfClass:[NSDictionary class]]) {
+            if ([[dt objectForKey:@"count"] intValue] == 0 ||![dt isKindOfClass:[NSDictionary class]]) {
                 [SVProgressHUD dismiss];
                 [SVProgressHUD showErrorWithStatus:@"暂无考题"];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -962,9 +962,10 @@
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
     }else {
-        [self.navigationController popToRootViewControllerAnimated:YES];
         [SVProgressHUD dismiss];
         [LSSheetNotify dismiss];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+       
     }
 
     

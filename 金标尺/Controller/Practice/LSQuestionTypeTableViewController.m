@@ -202,13 +202,16 @@
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
     [SVProgressHUD dismiss];
     [LSSheetNotify dismiss];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+   
 }
 
 - (void)backBtnClicked
 {
+    [SVProgressHUD dismiss];
+    [LSSheetNotify dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end
