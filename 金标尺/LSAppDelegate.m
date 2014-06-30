@@ -17,11 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    Reachability *kRech = [Reachability reachabilityForInternetConnection];
     LSMainViewController *mainController = [[LSMainViewController alloc] init];
-    if (kRech.currentReachabilityStatus != NotReachable) {
-        mainController.iAdArray = [self loadADdata];
-    }
     UINavigationController *mainNav = [[UINavigationController alloc] initWithRootViewController:mainController];
     mainNav.navigationBar.translucent = NO;
     self.window.rootViewController = mainNav;
@@ -104,7 +100,6 @@
 }
 
 #pragma mark - AliPay delegate
-
 - (void)parse:(NSURL *)url application:(UIApplication *)application {
     
     //结果处理
@@ -168,25 +163,6 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
     [viewC presentViewController:nav animated:YES completion:^{
     }];
-}
-
-#pragma mark - load AD Img
-- (NSDictionary *)loadADdata
-{
-    NSDictionary *dataArr = [[NSDictionary alloc] init];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/Adv"]]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:20];
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *dic = [data mutableObjectFromJSONData];
-    NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-    if (ret == 1) {
-        dataArr = [dic objectForKey:@"data"];
-        [LSUserManager setPush:[[dataArr objectForKey:@"push"] integerValue]];
-    }
-    else
-    {
-        [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
-    }
-    return dataArr;
 }
 
 @end

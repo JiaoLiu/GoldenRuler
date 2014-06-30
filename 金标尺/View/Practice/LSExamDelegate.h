@@ -15,6 +15,8 @@
 - (void)smtExam;
 @optional
 - (void)smtAnswer;
+@optional
+- (void)chooseQuestion;
 
 @end
 

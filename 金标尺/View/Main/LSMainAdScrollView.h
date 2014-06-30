@@ -13,6 +13,6 @@
 @property (nonatomic, strong)UIPageControl *scrollPageControl;
 @property (nonatomic, strong)NSDictionary *items;
 
-- (id)initWithFrame:(CGRect)frame Items:(NSDictionary *)items;
+- (id)initWithFrame:(CGRect)frame;
 
 @end

@@ -12,43 +12,14 @@
 
 @synthesize scrollPageControl;
 
-- (id)initWithFrame:(CGRect)frame Items:(NSDictionary *)items
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _items = items;
-        // subViews
-        for (int i = 0; i < items.count; i++) {
-            UIButton *imgView = [[UIButton alloc] initWithFrame:CGRectMake(i * frame.size.width, 0, frame.size.width, frame.size.height)];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[[items objectForKey:@"list"] objectAtIndex:i] objectForKey:@"path"]]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [imgView setImage:img forState:UIControlStateNormal];
-                });
-            });
-            imgView.tag = i;
-            [imgView addTarget:self action:@selector(clickOnAd:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [self addSubview:imgView];
-        }
-        
-        // init pageControl
-        scrollPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(frame.size.width - 100, frame.size.height - 40, 100, 30)];
-        scrollPageControl.numberOfPages = items.count;
-        scrollPageControl.pageIndicatorTintColor = [UIColor whiteColor];
-        scrollPageControl.currentPageIndicatorTintColor = [UIColor redColor];
-        [scrollPageControl addTarget:self action:@selector(scrollPage) forControlEvents:UIControlEventValueChanged];
-        [self addSubview:scrollPageControl];
-        
-        self.contentSize = CGSizeMake(frame.size.width * items.count, frame.size.height);
-        self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-        self.pagingEnabled = YES;
-        self.clipsToBounds = YES;
-        self.bounces = NO;
-        self.delegate = self;
-        
+        self.items = [[NSDictionary alloc] init];
+        self.backgroundColor = [UIColor yellowColor];
         // auto Scrolling
-        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(autoScrollPage) userInfo:nil repeats:YES];
+        [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(autoScrollPage) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -58,7 +29,41 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+}
+
+- (void)setItems:(NSDictionary *)items
+{
+    _items = items;
+    // subViews
+    CGRect frame = self.frame;
+    for (int i = 0; i < items.count; i++) {
+        UIButton *imgView = [[UIButton alloc] initWithFrame:CGRectMake(i * frame.size.width, 0, frame.size.width, frame.size.height)];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[[items objectForKey:@"list"] objectAtIndex:i] objectForKey:@"path"]]]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [imgView setImage:img forState:UIControlStateNormal];
+            });
+        });
+        imgView.tag = i;
+        [imgView addTarget:self action:@selector(clickOnAd:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addSubview:imgView];
+    }
     
+    // init pageControl
+    scrollPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(frame.size.width - 100, frame.size.height - 40, 100, 30)];
+    scrollPageControl.numberOfPages = items.count;
+    scrollPageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    scrollPageControl.currentPageIndicatorTintColor = [UIColor redColor];
+    [scrollPageControl addTarget:self action:@selector(scrollPage) forControlEvents:UIControlEventValueChanged];
+    [self addSubview:scrollPageControl];
+    
+    self.contentSize = CGSizeMake(frame.size.width * items.count, frame.size.height);
+    self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self.pagingEnabled = YES;
+    self.clipsToBounds = YES;
+    self.bounces = NO;
+    self.delegate = self;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -94,8 +99,7 @@
     }
     else
     {
-        page++;
-        scrollPageControl.currentPage = page;
+        scrollPageControl.currentPage += 1;
     }
     [self scrollPage];
 }

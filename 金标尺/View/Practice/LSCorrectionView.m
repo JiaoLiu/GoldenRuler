@@ -30,7 +30,7 @@
         _titleLabel.textColor = RGB(4, 121, 202);
         [self addSubview:_titleLabel];
         
-        _textView = [[UITextViewWithPlaceholder alloc]initWithFrame:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height+10, SCREEN_WIDTH-40, 100)];
+        _textView = [[UITextViewWithPlaceholder alloc]initWithFrame:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height+10, SCREEN_WIDTH-40, 60)];
         _textView.placeholder = @"纠错内容，可输入0/200个字符";
         _textView.layer.borderWidth = 0.5;
         _textView.layer.borderColor = [UIColor grayColor].CGColor;

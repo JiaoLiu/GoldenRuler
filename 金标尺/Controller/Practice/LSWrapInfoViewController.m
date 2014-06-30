@@ -129,50 +129,28 @@
         NSString *msg = [dic objectForKey:@"msg"];
         if (ret == 1) {
             NSDictionary *dt = [dic objectForKey:@"data"];
+            exam.score = [[dt objectForKey:@"score"] intValue];
+            exam.num = [[dt objectForKey:@"num"] intValue];
+            exam.mid = [dt objectForKey:@"mid"];
+            exam.time = [[dt objectForKey:@"time"] intValue];
+            exam.list = questionList;
+            NSArray *questions = [dt objectForKey:@"list"];
             
-            NSArray *list = [dt objectForKey:@"list"];
-            NSString *totalScore = [dt objectForKey:@"score"];
-            NSString *time = [dt objectForKey:@"time"];
-            NSString *num  = [dt objectForKey:@"num"];
-            NSString *mid = [dt objectForKey:@"mid"];
-            
-            exam.score = [totalScore intValue];
-            exam.num = [num intValue];
-            exam.mid = mid;
-            exam.time = [time intValue];
-            
-            for (NSDictionary *qs in list)
-            {
-                
-                NSString *tid = [qs objectForKey:@"tid"];
-                NSString *score = [qs objectForKey:@"score"];
-                NSString *qids = [qs objectForKey:@"qid"];
-                if ( [qids respondsToSelector:@selector(rangeOfString:)])
-                {
-                    
-                    if ([qids rangeOfString:@","].location != NSNotFound) {
-                        NSArray *qidList = [[qs objectForKey:@"qid"] componentsSeparatedByString:@","];
-                        [questionList addObjectsFromArray:qidList];
-                    } else {
-                        [questionList addObject:qids];
-                    }
-                    
-                }
-                
+            for (NSDictionary *qd in questions) {
+                LSQuestion *q = [LSQuestion initWithDictionary:qd];
+                [questionList addObject:q];
             }
             
-            exam.list = questionList;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self initStartView];
                 [SVProgressHUD dismiss];
             });
             
         }
-        if (ret == 0) {
-            [SVProgressHUD showWithStatus:@"获取失败" maskType:SVProgressHUDMaskTypeNone];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-            });
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:msg];
             
         }
         

@@ -36,6 +36,7 @@
         [_selectBtn setBackgroundImage:[UIImage imageNamed:@"nx.9.png"] forState:UIControlStateNormal];
         [_selectBtn setTitle:@"2/100" forState:UIControlStateNormal];
         [_selectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_selectBtn addTarget:self action:@selector(chooseQuestion) forControlEvents:UIControlEventTouchUpInside];
         [ttView addSubview:_testType];
         [ttView addSubview:_usedTime];
         [ttView addSubview:_selectBtn];
@@ -148,6 +149,12 @@
 
 }
 
+- (void)chooseQuestion
+{
+    if ([_delegate respondsToSelector:@selector(chooseQuestion)]) {
+        [_delegate chooseQuestion];
+    }
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
