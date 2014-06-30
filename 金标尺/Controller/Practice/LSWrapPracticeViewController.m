@@ -12,7 +12,7 @@
 
 @interface LSWrapPracticeViewController ()
 {
-    NSMutableArray *courseArray;
+    NSArray *courseArray;
     LSWrapType testType;
     UITableView *table;
 }
@@ -62,20 +62,20 @@
 
 
     
+//    
+//    //tabBar
+//    LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
+//    tabBar.items = @[@"模拟试题",@"历年真题"];
+//    tabBar.selectedItem = 0;
+//    testType = LSWrapTypeSimulation;
+//    tabBar.delegate = self;
+//    [self.view addSubview:tabBar];
+//    
     
-    //tabBar
-    LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
-    tabBar.items = @[@"模拟试题",@"历年真题"];
-    tabBar.selectedItem = 0;
-    testType = LSWrapTypeSimulation;
-    tabBar.delegate = self;
-    [self.view addSubview:tabBar];
-    
-    
-    
+    courseArray = @[@"模拟套卷测试",@"真题套卷测试"];
     
     NSInteger height = 44;
-    table = [[UITableView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH,SCREEN_HEIGHT)];
+    table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,self.view.bounds.size.height)];
     table.rowHeight = height;
     table.scrollEnabled = NO;
     table.delegate = self;
@@ -86,42 +86,42 @@
        
     }
     
-    [self getCourses];
+//    [self getCourses];
 
 }
 
-- (void)getCourses
-{
-    [SVProgressHUD showWithStatus:@"科目加载中..."];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=1&cid=%d",[LSUserManager getKey],[LSUserManager getUid],[LSUserManager getTCid]]]]];
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *dic = [data mutableObjectFromJSONData];
-        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-        if (ret == 1) {
-            NSLog(@"dic:%@",dic);
-            
-            NSArray *tempArray = [dic objectForKey:@"data"];
-            NSInteger num = tempArray.count;
-            for (int i = 0; i < num; i++)
-            {
-                NSDictionary *dic = [tempArray objectAtIndex:i];
-                if (![courseArray containsObject:dic]) {
-                    [courseArray addObject:dic];
-                }
-                
-            }
-            [table reloadData];
-            [SVProgressHUD dismiss];
-        }
-        else
-        {
-            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
-        }
-    }];
-    
-}
+//- (void)getCourses
+//{
+//    [SVProgressHUD showWithStatus:@"科目加载中..."];
+//    
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/getCate?key=%d&uid=%d&tid=1&cid=%d",[LSUserManager getKey],[LSUserManager getUid],[LSUserManager getTCid]]]]];
+//    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSDictionary *dic = [data mutableObjectFromJSONData];
+//        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+//        if (ret == 1) {
+//            NSLog(@"dic:%@",dic);
+//            
+//            NSArray *tempArray = [dic objectForKey:@"data"];
+//            NSInteger num = tempArray.count;
+//            for (int i = 0; i < num; i++)
+//            {
+//                NSDictionary *dic = [tempArray objectAtIndex:i];
+//                if (![courseArray containsObject:dic]) {
+//                    [courseArray addObject:dic];
+//                }
+//                
+//            }
+//            [table reloadData];
+//            [SVProgressHUD dismiss];
+//        }
+//        else
+//        {
+//            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+//        }
+//    }];
+//    
+//}
 
 
 - (void)didReceiveMemoryWarning
@@ -144,11 +144,11 @@
         cell.detailTextLabel.textColor = [UIColor grayColor];
     }
     
-    NSString *name = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    int cid = [[[courseArray objectAtIndex:indexPath.row] objectForKey:@"cid"] intValue];
-    cell.textLabel.text = name;
-    cell.tag = cid;
-
+//    NSString *name = [[courseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+//    int cid = [[[courseArray objectAtIndex:indexPath.row] objectForKey:@"cid"] intValue];
+//    cell.textLabel.text = name;
+//    cell.tag = cid;
+    cell.textLabel.text = [courseArray objectAtIndex:indexPath.row];
     
     return cell;
 
@@ -156,27 +156,28 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return courseArray.count;
+    return 2;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int cid = [tableView cellForRowAtIndexPath:indexPath].tag;
+//    int cid = [tableView cellForRowAtIndexPath:indexPath].tag;
     
-    switch (testType) {
-        case LSWrapTypeSimulation:
+    switch (indexPath.row) {
+        case 0:
         {
             LSWrapInfoViewController *vc = [[LSWrapInfoViewController alloc]init];
             vc.wrapType = LSWrapTypeSimulation;
-            vc.cid = cid;
+            vc.cid = [LSUserManager getTCid];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case LSWrapTypeReal:
+        case 1:
         {
 
             LSCityViewController *vc = [[LSCityViewController alloc]init];
-            vc.cid = cid;
+//            vc.cid = cid;
+            vc.cid = [LSUserManager getTCid];
             [self.navigationController pushViewController:vc animated:NO];
             
         }
@@ -207,19 +208,19 @@
     NSLog(@"filterBtnClicked");
 }
 
-#pragma mark -tabbar delegate
-- (void)SelectItemAtIndex:(NSNumber *)index{
-    switch (index.intValue) {
-        case 0:
-            testType = LSWrapTypeSimulation;
-            break;
-        case 1:
-            testType = LSWrapTypeReal;
-            break;
-        default:
-            break;
-    }
-}
+//#pragma mark -tabbar delegate
+//- (void)SelectItemAtIndex:(NSNumber *)index{
+//    switch (index.intValue) {
+//        case 0:
+//            testType = LSWrapTypeSimulation;
+//            break;
+//        case 1:
+//            testType = LSWrapTypeReal;
+//            break;
+//        default:
+//            break;
+//    }
+//}
 
 
 
