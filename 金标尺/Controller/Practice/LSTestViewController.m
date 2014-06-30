@@ -534,24 +534,34 @@
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dict = [data mutableObjectFromJSONData];
         NSInteger ret = [[dict objectForKey:@"status"] integerValue];
-        if (ret == 1) {
+        if (ret == 1)
+        {
+            int examId = [[dict objectForKey:@"data"] intValue];
             [SVProgressHUD dismiss];
             [SVProgressHUD showSuccessWithStatus:@"交卷成功"];
 
             LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
             vc.usedtime = t;
             vc.myscore = total;
+            vc.totalscore = _exam.score;
+            vc.time = _exam.time;
+            vc.mid = _exam.mid.intValue;
+            vc.examId = examId;
             [self.navigationController pushViewController:vc animated:YES];
-            }
-            else
-            {
+        }
+        else
+        {
             [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:[dict objectForKey:@"msg"]];
             LSTestResultViewController *vc = [[LSTestResultViewController alloc]init];
             vc.usedtime = t;
             vc.myscore = total;
+            vc.totalscore = _exam.score;
+            vc.time = _exam.time;
+            vc.mid = _exam.mid.intValue;
+
             [self.navigationController pushViewController:vc animated:YES];
-            }
+        }
         
     }];
     

@@ -24,6 +24,7 @@
         question.right = [dict objectForKey:@"right"];
         question.analysis = [dict objectForKey:@"analysis"];
         question.myAser = [dict objectForKey:@"myanswer"];
+        question.qScore = [[dict objectForKey:@"score"] intValue];
     }
     
     

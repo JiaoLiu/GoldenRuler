@@ -200,6 +200,33 @@
     }
 }
 
+
+- (void)getExamTop
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/examTop?uid=%d&key=%d&mid=%d&id=%d",[LSUserManager getUid],[LSUserManager getKey],_mid,_examId]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        NSString *msg = [dic objectForKey:@"msg"];
+        if (ret == 1)
+        {
+            NSDictionary *dt = [dic objectForKey:@"data"];
+            int count = [[dt objectForKey:@"count"] intValue];
+            int mytop = [[dt objectForKey:@"mytop"] intValue];
+            NSString *avgTime = [dt objectForKey:@"meantime"];
+            NSString *avgScore = [dt objectForKey:@"meanscore"];
+        }
+        else
+        {
+        
+        }
+    
+    
+    }];
+}
+
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
 {

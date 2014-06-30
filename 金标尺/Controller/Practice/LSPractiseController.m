@@ -332,6 +332,13 @@
         if (ret == 1) {
             NSDictionary *dt = [dic objectForKey:@"data"];
             NSArray *questions = [dt objectForKey:@"list"];
+            if (![dt isKindOfClass:[NSDictionary class]]) {
+                [SVProgressHUD dismiss];
+                [SVProgressHUD showErrorWithStatus:@"暂无考题"];
+                [self.navigationController popViewControllerAnimated:YES];
+                return ;
+            }
+            
             
             for (NSDictionary *qd in questions) {
                 LSQuestion *q = [LSQuestion initWithDictionary:qd];

@@ -122,6 +122,13 @@
         NSString *msg = [dic objectForKey:@"msg"];
         if (ret == 1) {
             NSDictionary *dt = [dic objectForKey:@"data"];
+            
+            if (![dt isKindOfClass:[NSDictionary class]]) {
+                [SVProgressHUD showErrorWithStatus:@"暂无考题"];
+                [self.navigationController popViewControllerAnimated:YES];
+                return ;
+            }
+            
             exam.score = [[dt objectForKey:@"score"] intValue];
             exam.num = [[dt objectForKey:@"num"] intValue];
             exam.mid = [dt objectForKey:@"mid"];
@@ -180,22 +187,22 @@
     [tv addSubview:spt];
     [self.view addSubview:tv];
     
-    UILabel *numLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, tv.frame.size.height+20, SCREEN_WIDTH, 24)];
+    UILabel *numLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, tv.frame.size.height+20, SCREEN_WIDTH, 24)];
     numLabel.textColor = [UIColor redColor];
     numLabel.text = [[NSString alloc]initWithFormat:@"套卷题数：共%d题",exam.num];
-    numLabel.textAlignment = NSTextAlignmentCenter;
+
     numLabel.font = [UIFont systemFontOfSize:16];
     
-    UILabel *scoreLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, tv.frame.size.height+20+24, SCREEN_WIDTH,24)];
+    UILabel *scoreLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, tv.frame.size.height+20+24, SCREEN_WIDTH,24)];
     scoreLabel.text = [NSString stringWithFormat:@"套卷满分：%d分",exam.score];
     scoreLabel.textColor = [UIColor redColor];
-    scoreLabel.textAlignment = NSTextAlignmentCenter;
+
     scoreLabel.font = [UIFont systemFontOfSize:16];
     
-    UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, tv.frame.size.height+20+24+24, SCREEN_WIDTH, 24)];
+    UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, tv.frame.size.height+20+24+24, SCREEN_WIDTH, 24)];
     timeLabel.textColor = [UIColor redColor];
     timeLabel.text = [NSString stringWithFormat:@"参考时间：%d分钟",exam.time];
-    timeLabel.textAlignment = NSTextAlignmentCenter;
+
     timeLabel.font = [UIFont systemFontOfSize:16];
     
     [self.view addSubview:numLabel];

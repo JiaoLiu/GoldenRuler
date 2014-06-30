@@ -15,4 +15,7 @@
 @property (nonatomic) int time;
 @property (nonatomic) int usedtime;
 
+@property (nonatomic) int examId;//考试id 获取统计数据
+@property (nonatomic) int mid;
+
 @end
