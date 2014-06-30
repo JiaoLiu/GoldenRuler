@@ -156,7 +156,7 @@
     eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     
-    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"]){
+    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] ||  [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"]){
         [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     }
     
@@ -548,6 +548,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([_qTypeString isEqualToString:@"填空"])
+        return 0;
+    
     switch (tableView.tag) {
         case QTABLE_TAG:
         {
@@ -563,6 +566,7 @@
             break;
     }
     
+    
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -572,6 +576,7 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
             NSString *asContent = [answers objectAtIndex:indexPath.row];
@@ -592,7 +597,7 @@
                 [cell setSelected:YES];
                 tableView.userInteractionEnabled = NO;
             }
-            
+
             return cell;
         }
             break;
@@ -685,7 +690,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
     //单选和判断 点击一次就提交服务器
-    if ([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"])
+    if ([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] || [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"])
     {
         
         [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
@@ -823,7 +828,8 @@
 - (void)smtAnswer
 {
     NSString *myAnswer = @"";
-    if ([_qTypeString isEqualToString:@"多选"]) {
+    if ([_qTypeString isEqualToString:@"多选"])
+    {
         NSArray *array = [eview.questionView indexPathsForSelectedRows];
         array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
            NSIndexPath *o1 = (NSIndexPath *)obj1;
@@ -855,6 +861,31 @@
         [eview.textLabel setHidden:NO];
         [self addPractice];
     }
+    
+    if ([_qTypeString isEqualToString:@"填空"])
+    {
+        NSString *myAnswer = [eview.textFiled.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        NSLog(@"我的答案：%@",myAnswer);
+        [eview.operTop setHidden:NO];
+        eview.myAnswer.text = myAnswer;
+        currQuestion.myAser = myAnswer;
+        [eview.textFiled resignFirstResponder];
+        [eview.textFiled setEnabled:NO];
+        if ([myAnswer isEqualToString:currQuestion.right]) {
+            currQuestion.rightOrWrong = YES;
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        } else
+        {
+            currQuestion.rightOrWrong = NO;
+            [eview.rightImage setHidden:YES];
+            [eview.wrongImage setHidden:NO];
+        }
+        [eview.textLabel setHidden:NO];
+        [self addPractice];
+    }
+
     
     
     
@@ -948,9 +979,10 @@
 {
     if (buttonIndex == 1) {
         [LSUserManager setLastqid:currQuestion.qid.intValue];
-        [self.navigationController popToRootViewControllerAnimated:YES];
         [SVProgressHUD dismiss];
         [LSSheetNotify dismiss];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+       
     }
 }
 
@@ -979,10 +1011,10 @@
         [alert show];
 
     }else {
-    
-        [self.navigationController popViewControllerAnimated:YES];
         [SVProgressHUD dismiss];
         [LSSheetNotify dismiss];
+        [self.navigationController popViewControllerAnimated:YES];
+     
     }
 
 }

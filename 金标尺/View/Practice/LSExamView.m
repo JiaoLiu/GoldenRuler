@@ -145,11 +145,11 @@
         _currBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 48, 76, 27)];
         [_currBtn setBackgroundImage:[UIImage imageNamed:@"nx_btnb.9.png"] forState:UIControlStateNormal];
         
-        if ([_testType.text isEqualToString:@"单选"] || [_testType.text isEqualToString:@"判断"])
+        if ([_testType.text isEqualToString:@"[单选题]"] || [_testType.text isEqualToString:@"[判断题]"] || [_testType.text isEqualToString:@"[简答题]"] || [_testType.text isEqualToString:@"[论述题]"])
         {
             [_currBtn setTitle:@"0/0" forState:UIControlStateNormal];
         }
-        else if ([_testType.text isEqualToString:@"多选"])
+        else if ([_testType.text isEqualToString:@"[多选题]"])
         {
             if (question.myAser != nil) {
 //                [_currBtn setHidden:YES];
@@ -159,7 +159,7 @@
             [_currBtn setTitle:@"已提交" forState:UIControlStateDisabled];
             [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
         }
-        else if ([_testType.text isEqualToString:@"填空"])
+        else if ([_testType.text isEqualToString:@"[填空题]"])
         {
             if (question.myAser != nil) {
                 //                [_currBtn setHidden:YES];
@@ -171,26 +171,29 @@
             
             //输入框
             _textFiled = [[UITextField alloc]init];
-            _textFiled.frame = CGRectMake(hv.frame.origin.x, hv.frame.origin.y+hv.frame.size.height, hv.frame.size.width, 40);
-            [self addSubview:_textFiled];
+            _textFiled.placeholder =@"输入您的答案";
+            _operView.frame = CGRectMake(_operView.frame.origin.x, _operView.frame.origin.y-80, _operView.frame.size.width, _operView.frame.size.height);
+            _textFiled.frame = CGRectMake(10, _questionView.tableHeaderView.frame.origin.y + _questionView.tableHeaderView.frame.size.height+40,260, 40);
+            _textFiled.backgroundColor = [UIColor whiteColor];
+            [_scrollView addSubview:_textFiled];
             
         }
-        else
-        {
-        
-            if (question.myAser != nil) {
-                //                [_currBtn setHidden:YES];
-                [_currBtn setEnabled:NO];
-            }
-            [_currBtn setTitle:@"提交" forState:UIControlStateNormal];
-            [_currBtn setTitle:@"已提交" forState:UIControlStateDisabled];
-            [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
-            
-            //输入框
-            _answerView = [[UITextView alloc]init];
-            _answerView.frame = CGRectMake(hv.frame.origin.x, hv.frame.origin.y+hv.frame.size.height, hv.frame.size.width, 100);
-            [self addSubview:_answerView];
-        }
+//        else
+//        {
+//        
+//            if (question.myAser != nil) {
+//                //                [_currBtn setHidden:YES];
+//                [_currBtn setEnabled:NO];
+//            }
+//            [_currBtn setTitle:@"提交" forState:UIControlStateNormal];
+//            [_currBtn setTitle:@"已提交" forState:UIControlStateDisabled];
+//            [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
+//            
+//            //输入框
+//            _answerView = [[UITextView alloc]init];
+//            _answerView.frame = CGRectMake(hv.frame.origin.x, hv.frame.origin.y+hv.frame.size.height, hv.frame.size.width, 100);
+//            [self addSubview:_answerView];
+//        }
         
         
         [_currBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
