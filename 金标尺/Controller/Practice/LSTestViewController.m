@@ -8,6 +8,7 @@
 
 #import "LSTestViewController.h"
 #import "LSTestResultViewController.h"
+#import "SBJSON.h"
 
 
 
@@ -509,6 +510,7 @@
     NSString *boundary = @"------VohpleBoundary4QuqLuM1cE5lMwCy";
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
     NSMutableData *body = [NSMutableData data];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setValue:[NSNumber numberWithInt:[LSUserManager getUid]] forKey:@"uid"];
@@ -518,7 +520,7 @@
     [parameters setValue:_examType == LSWrapTypeReal ? @"2":@"1" forKeyPath:@"tk"];
     [parameters setValue:[NSNumber numberWithInt:total] forKeyPath:@"score"];
     [parameters setValue:[NSNumber numberWithInt:t] forKeyPath:@"etime"];
-    [parameters setValue:[smtQst JSONData] forKeyPath:@"questions"];
+    [parameters setValue:[[SBJsonWriter new] stringWithObject:smtQst] forKeyPath:@"question"];
     
     // add params (all params are strings)
     for (NSString *param in parameters) {
