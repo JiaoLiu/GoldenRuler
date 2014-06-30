@@ -54,6 +54,10 @@
     
     self.tableView.tableFooterView = [UIView new];
     
+    if (IOS_VERSION > 7.0) {
+        self.tableView.separatorInset = UIEdgeInsetsZero;
+    }
+    
     qTypeArray = [NSMutableArray arrayWithCapacity:0];
     [self getQuestionType];
 }

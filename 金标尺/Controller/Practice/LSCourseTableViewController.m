@@ -62,6 +62,9 @@
     
     courseArray = [NSMutableArray arrayWithCapacity:0];
     self.tableView.tableFooterView = [UIView new];
+    if (IOS_VERSION >= 7.0) {
+        self.tableView.separatorInset = UIEdgeInsetsZero;
+    }
     [self getCourses];
 }
 

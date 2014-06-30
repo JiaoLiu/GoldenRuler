@@ -83,7 +83,7 @@
     table.tableFooterView = [UIView new];
     [self.view addSubview:table];
     if (IOS_VERSION >= 7.0) {
-       
+        table.separatorInset = UIEdgeInsetsZero;
     }
     
 //    [self getCourses];
