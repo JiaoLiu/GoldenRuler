@@ -170,7 +170,7 @@
     if (_wrapType == LSWrapTypeReal) {
         UILabel *subLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 34, SCREEN_WIDTH, 44)];
         subLabel.textAlignment = NSTextAlignmentCenter;
-        subLabel.text = [[NSString alloc]initWithFormat:@"%@--%d",_city,_cid];
+        subLabel.text = [[NSString alloc]initWithFormat:@"重庆市－%@",_city];
         [tv addSubview:subLabel];
     }
     
