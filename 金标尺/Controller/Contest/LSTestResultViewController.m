@@ -71,7 +71,7 @@
     UILabel *placeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 30, 25)];
     placeLabel.textColor = [UIColor darkGrayColor];
     placeLabel.font = [UIFont systemFontOfSize:14];
-    placeLabel.textAlignment = NSTextAlignmentCenter;
+//    placeLabel.textAlignment = NSTextAlignmentCenter;
     placeLabel.text =@"排名";
     
     UILabel * nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 0, 100, 30)];
@@ -89,6 +89,7 @@
     scoreLabel.font = [UIFont systemFontOfSize:14];
     scoreLabel.textColor = [UIColor darkGrayColor];
     scoreLabel.text = @"得分";
+    
     [header addSubview:placeLabel];
     [header addSubview:nameLabel];
     [header addSubview:timeLabel];
