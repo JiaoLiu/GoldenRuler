@@ -15,7 +15,7 @@
 #import "LSCorrectionView.h"
 #import "LSChooseQuestionViewController.h"
 
-@interface LSPractiseController : UIViewController<UITabBarDelegate,UITableViewDataSource,UITableViewDelegate,LSExamDelegate,LSCommentsDelegate,LSCorrectionDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate>
+@interface LSPractiseController : UIViewController<UITabBarDelegate,UITableViewDataSource,UITableViewDelegate,LSExamDelegate,LSCommentsDelegate,LSCorrectionDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,UITextFieldDelegate>
 @property (nonatomic,strong) NSString *cid;
 @property (nonatomic,strong) NSString *tid;
 @property (nonatomic,assign) LSWrapType testType;

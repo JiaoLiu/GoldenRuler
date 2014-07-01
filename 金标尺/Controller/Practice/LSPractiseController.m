@@ -156,8 +156,13 @@
     eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     
-    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] ||  [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"]){
+    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] ||  [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"])
+    {
         [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+    }
+    
+    if ([_qTypeString isEqualToString:@"填空"]) {
+        eview.textFiled.delegate = self;
     }
     
     if (currQuestion.myAser != nil && ![currQuestion.myAser isEqualToString:@""]) {
@@ -513,6 +518,14 @@
 }
 
 
+#pragma mark -textfield delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    [textField resignFirstResponder];
+    [self smtAnswer];
+    return YES;
+}
 
 
 #pragma mark - tabbar delegate
@@ -885,6 +898,7 @@
         currQuestion.myAser = myAnswer;
         [eview.textFiled resignFirstResponder];
         [eview.textFiled setEnabled:NO];
+        [eview.currBtn setEnabled:NO];
         if ([myAnswer isEqualToString:currQuestion.right]) {
             currQuestion.rightOrWrong = YES;
             [eview.rightImage setHidden:NO];
@@ -1000,7 +1014,7 @@
 - (void)homeBtnClicked
 {
     [SVProgressHUD dismiss];
-    if (historyQst.count < questionList.count) {
+    if (historyQst.count < questionList.count && questionList.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
     }else {
@@ -1016,7 +1030,7 @@
 - (void)backBtnClicked
 {
     [SVProgressHUD dismiss];
-    if (historyQst.count < questionList.count) {
+    if (historyQst.count < questionList.count && questionList.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
 
