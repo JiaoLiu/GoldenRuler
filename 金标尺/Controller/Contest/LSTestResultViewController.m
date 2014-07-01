@@ -14,6 +14,10 @@
     int mytop;
     NSString *avgTimeStr;
     NSString *avgScoreStr;
+    
+    NSArray *topList;
+    UIView *resultView;
+    LSTabBar *tabBar;
 }
 @end
 
@@ -50,23 +54,40 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     //tabBar
-    LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
+    tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
     tabBar.items = @[@"成绩统计",@"排行榜"];
     tabBar.selectedItem = 0;
-
-    tabBar.delegate = self;
-    [self.view addSubview:tabBar];
     
+    tabBar.delegate = self;
+    
+    topList = [NSArray array];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y+tabBar.frame.size.height, SCREEN_WIDTH, self.view.bounds.size.height - tabBar.frame.size.height) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [_tableView setHidden:YES];
+    [self.view addSubview:_tableView];
+    
+
 //    [self initResultView];
     [self getExamTop];
+    
+
+    [self.view addSubview:tabBar];
+    
+    
+    
+    
 }
 
 - (void)initResultView
 {
+    resultView = [[UIView alloc]initWithFrame:self.view.frame];
+    [self.view addSubview:resultView];
+    
     UILabel *lb = [[UILabel alloc]initWithFrame:CGRectMake(30, 50, SCREEN_WIDTH - 30, 24)];
     lb.text = @"试卷得分";
     lb.font = [UIFont systemFontOfSize:15];
-    [self.view addSubview:lb];
+    [resultView addSubview:lb];
     
     UILabel *scoreLable = [[UILabel alloc] initWithFrame:CGRectMake(30, 80, 80, 30)];
     scoreLable.text = [NSString stringWithFormat:@"%d",_myscore];
@@ -74,34 +95,34 @@
     scoreLable.textColor = [UIColor whiteColor];
     scoreLable.font = [UIFont boldSystemFontOfSize:18];
     scoreLable.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:scoreLable];
+    [resultView addSubview:scoreLable];
     
     UILabel *avgScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 75, 70, 20)];
     avgScoreLabel.text = @"平均得分";
     avgScoreLabel.font = [UIFont systemFontOfSize:12];
     avgScoreLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:avgScoreLabel];
+    [resultView addSubview:avgScoreLabel];
     
     UILabel *avgScore = [[UILabel alloc] initWithFrame:CGRectMake(150, 90, 70, 20)];
     avgScore.text = [NSString stringWithFormat:@"%@",avgScoreStr];
     avgScore.font = [UIFont systemFontOfSize:12];
     avgScore.textColor = [UIColor grayColor];
     avgScore.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:avgScore];
+    [resultView addSubview:avgScore];
     
     
     UILabel *allScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, 75, 70, 20)];
     allScoreLabel.text = @"试卷总分";
     allScoreLabel.font = [UIFont systemFontOfSize:12];
     allScoreLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:allScoreLabel];
+    [resultView addSubview:allScoreLabel];
     
     UILabel *allScore = [[UILabel alloc] initWithFrame:CGRectMake(230, 90, 70, 20)];
     allScore.text = [NSString stringWithFormat:@"%d分",_totalscore];
     allScore.font = [UIFont systemFontOfSize:12];
     allScore.textColor = [UIColor grayColor];
     allScore.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:allScore];
+    [resultView addSubview:allScore];
     
     
     
@@ -110,7 +131,7 @@
     UILabel *lbt = [[UILabel alloc]initWithFrame:CGRectMake(30, 130, SCREEN_WIDTH - 30, 24)];
     lbt.text = @"试卷用时";
     lbt.font = [UIFont systemFontOfSize:15];
-    [self.view addSubview:lbt];
+    [resultView addSubview:lbt];
     
     UILabel *timeLable = [[UILabel alloc] initWithFrame:CGRectMake(30, 160, 80, 30)];
     timeLable.text = [NSString stringWithFormat:@"%02d:%02d",_usedtime/60,_usedtime%60];
@@ -118,72 +139,72 @@
     timeLable.textColor = [UIColor whiteColor];
     timeLable.font = [UIFont boldSystemFontOfSize:18];
     timeLable.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:timeLable];
+    [resultView addSubview:timeLable];
     
     UILabel *avgTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 155, 70, 20)];
     avgTimeLabel.text = @"平均用时";
     avgTimeLabel.font = [UIFont systemFontOfSize:12];
     avgTimeLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:avgTimeLabel];
+    [resultView addSubview:avgTimeLabel];
     
     UILabel *avgTime = [[UILabel alloc] initWithFrame:CGRectMake(150, 175, 70, 20)];
     avgTime.text = [NSString stringWithFormat:@"%@",avgTimeStr];
     avgTime.font = [UIFont systemFontOfSize:12];
     avgTime.textColor = [UIColor grayColor];
     avgTime.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:avgTime];
+    [resultView addSubview:avgTime];
     
     
     UILabel *allTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, 155, 70, 20)];
     allTimeLabel.text = @"考试时间";
     allTimeLabel.font = [UIFont systemFontOfSize:12];
     allTimeLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:allTimeLabel];
+    [resultView addSubview:allTimeLabel];
     
     UILabel *allTime = [[UILabel alloc] initWithFrame:CGRectMake(230, 175, 70, 20)];
     allTime.text = [NSString stringWithFormat:@"%d分钟",_time];
     allTime.font = [UIFont systemFontOfSize:12];
     allTime.textColor = [UIColor grayColor];
     allTime.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:allTime];
+    [resultView addSubview:allTime];
 
     
     UIView *sq = [[UIView alloc] initWithFrame:CGRectMake(30, 200, SCREEN_WIDTH-60, 0.5)];
     sq.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:sq];
+    [resultView addSubview:sq];
     
     UILabel *mc = [[UILabel alloc] initWithFrame:CGRectMake(30, 220, 100, 20)];
     mc.text =[NSString stringWithFormat:@"参考排名%d名",mytop];
     mc.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:mc];
+    [resultView addSubview:mc];
     
     UILabel *tps = [[UILabel alloc] initWithFrame:CGRectMake(200, 220, 100, 20)];
     tps.text =[NSString stringWithFormat:@"做答人次%d名",count];
     tps.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:tps];
+    [resultView addSubview:tps];
     
     UIButton *readAns = [[UIButton alloc]initWithFrame:CGRectMake(30, 255, 260, 35)];
     readAns.backgroundColor = RGB(4, 121, 202);
     [readAns setTitle:@"查看答案及解析" forState:UIControlStateNormal];
     [readAns setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     readAns.layer.cornerRadius = 5;
-    [self.view addSubview:readAns];
+    [resultView addSubview:readAns];
     
     UIButton *reDo = [[UIButton alloc]initWithFrame:CGRectMake(30, 305, 260, 35)];
     reDo.backgroundColor = [UIColor lightGrayColor];
     [reDo setTitle:@"重新作答" forState:UIControlStateNormal];
     [reDo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     reDo.layer.cornerRadius = 5;
-    [self.view addSubview:reDo];
+    [resultView addSubview:reDo];
     
     UIButton *share = [[UIButton alloc]initWithFrame:CGRectMake(30, 355, 260, 35)];
     share.backgroundColor = [UIColor lightGrayColor];
     [share setTitle:@"分享..." forState:UIControlStateNormal];
     share.layer.cornerRadius = 5;
 
-    [self.view addSubview:share];
+    [resultView addSubview:share];
     
-
+    [self.view bringSubviewToFront:tabBar];
 }
 
 -(void)SelectItemAtIndex:(NSNumber *)index
@@ -191,12 +212,16 @@
     switch (index.intValue) {
         case 0:
         {
-        
+            [_tableView setHidden: YES];
+            [resultView setHidden:NO];
+//            [self initResultView];
         }
             break;
         case 1:
         {
-            
+            [_tableView setHidden: NO];
+            [resultView setHidden:YES];
+            [self getAllTop];
         }
             break;
             
@@ -231,6 +256,59 @@
     
     
     }];
+}
+
+//排行榜
+- (void)getAllTop
+{
+    
+    [SVProgressHUD showWithStatus:@"正在统计"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],1,10]]]];
+    
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        NSString *msg = [dic objectForKey:@"msg"];
+        if (ret == 1)
+        {
+            [SVProgressHUD dismiss];
+            topList = [dic objectForKey:@"data"];
+            [_tableView reloadData];
+             [self.view bringSubviewToFront:tabBar];
+        }
+        else
+        {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:@"服务器繁忙"];
+        }
+        
+        
+    }];
+
+
+}
+
+#pragma mark -tableview delegate
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    if (topList.count >0) {
+        NSDictionary *dict = [topList objectAtIndex:indexPath.row];
+        cell.textLabel.text = [dict objectForKey:@"name"];
+    }
+   
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return topList.count;
 }
 
 #pragma mark -| nav btn click

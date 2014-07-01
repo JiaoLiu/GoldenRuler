@@ -151,6 +151,8 @@
         
         _operView.backgroundColor = RGB(210, 210, 210);
         [_scrollView addSubview:_operView];
+        
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+100);
         [self addSubview:_scrollView];
     }
     return self;

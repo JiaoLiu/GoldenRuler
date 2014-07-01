@@ -108,27 +108,6 @@
     [self timeCounter];
 }
 
-//- (void)initTabBarView
-//{
-//    
-//    //tabBar view
-//    tabBar = [[UITabBar alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-49-64, SCREEN_WIDTH, 49)];
-//    tabBar.delegate = self;
-//
-//    UITabBarItem *item1 = [[UITabBarItem alloc]initWithTitle:@"加入收藏" image:[UIImage imageNamed:@"f_1.png"] tag:0];
-//    UITabBarItem *item2 = [[UITabBarItem alloc]initWithTitle:@"考友评论" image:[UIImage imageNamed:@"f_2.png"] tag:1];
-//    UITabBarItem *item3 = [[UITabBarItem alloc]initWithTitle:@"我要纠错" image:[UIImage imageNamed:@"f_3.png"] tag:2];
-//   
-//    
-//    
-//    tabBar.items= @[item1,item2,item3];
-//    tabBar.backgroundImage = [UIImage imageNamed:@"f_bg.png"];
-//    tabBar.selectedImageTintColor = [UIColor whiteColor];
-//    
-//    [self.view addSubview:tabBar];
-//    
-//   
-//}
 
 //考试界面
 - (void)initExamView

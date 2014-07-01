@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LSTabBar.h"
 
-@interface LSTestResultViewController : UIViewController<LSTabBarDelegate>
+@interface LSTestResultViewController : UIViewController<LSTabBarDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic) int myscore;
 @property (nonatomic) int totalscore;
 @property (nonatomic) int time;
@@ -17,5 +17,7 @@
 
 @property (nonatomic) int examId;//考试id 获取统计数据
 @property (nonatomic) int mid;
+
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
