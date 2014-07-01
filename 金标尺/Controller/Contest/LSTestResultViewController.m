@@ -7,6 +7,7 @@
 //
 
 #import "LSTestResultViewController.h"
+#import "LSTopTableViewCell.h"
 
 @interface LSTestResultViewController ()
 {
@@ -61,10 +62,44 @@
     tabBar.delegate = self;
     
     topList = [NSArray array];
+    
+    UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+    UIView *sp = [[UIView alloc]initWithFrame:CGRectMake(0, 29.5, SCREEN_WIDTH, 0.5)];
+    sp.backgroundColor = [UIColor grayColor];
+    [header addSubview:sp];
+    
+    UILabel *placeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 30, 25)];
+    placeLabel.textColor = [UIColor darkGrayColor];
+    placeLabel.font = [UIFont systemFontOfSize:14];
+    placeLabel.textAlignment = NSTextAlignmentCenter;
+    placeLabel.text =@"排名";
+    
+    UILabel * nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 0, 100, 30)];
+    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.textColor = [UIColor darkGrayColor];
+    nameLabel.textColor = [UIColor darkGrayColor];
+    nameLabel.text =@"用户名";
+    
+    UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(180, 0, 80, 30)];
+    timeLabel.font = [UIFont systemFontOfSize:14];
+    timeLabel.textColor = [UIColor darkGrayColor];
+    timeLabel.text = @"作答时间";
+    
+    UILabel *scoreLabel = [[UILabel alloc]initWithFrame:CGRectMake(270, 0, 50, 30)];
+    scoreLabel.font = [UIFont systemFontOfSize:14];
+    scoreLabel.textColor = [UIColor darkGrayColor];
+    scoreLabel.text = @"得分";
+    [header addSubview:placeLabel];
+    [header addSubview:nameLabel];
+    [header addSubview:timeLabel];
+    [header addSubview:scoreLabel];
+    
+    
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y+tabBar.frame.size.height, SCREEN_WIDTH, self.view.bounds.size.height - tabBar.frame.size.height) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView setHidden:YES];
+    _tableView.tableHeaderView = header;
     [self.view addSubview:_tableView];
     
 
@@ -293,13 +328,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    LSTopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[LSTopTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     if (topList.count >0) {
         NSDictionary *dict = [topList objectAtIndex:indexPath.row];
-        cell.textLabel.text = [dict objectForKey:@"name"];
+
+        cell.placeLabel.text = [NSString stringWithFormat:@"%02d",indexPath.row+1];
+        if (indexPath.row < 3) {
+            cell.placeLabel.backgroundColor = [UIColor redColor];
+        }
+        else
+        {
+            cell.placeLabel.backgroundColor = [UIColor lightGrayColor];
+        }
+        cell.nameLabel.text =[dict objectForKey:@"name"];
+        cell.timeLabel.text = [dict objectForKey:@"etime"];
+        cell.scoreLabel.text = [NSString stringWithFormat:@"%@分",[dict objectForKey:@"score"]];
     }
    
     

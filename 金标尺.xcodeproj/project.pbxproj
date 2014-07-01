@@ -57,6 +57,7 @@
 		C63C01D41952E31B00CB3167 /* LSPractiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = C63C01D31952E31B00CB3167 /* LSPractiseController.m */; };
 		C668A383195C0CF200DCE273 /* LSTestResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C668A382195C0CF200DCE273 /* LSTestResultViewController.m */; };
 		C668A388195D0EC200DCE273 /* LSChooseQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C668A387195D0EC200DCE273 /* LSChooseQuestionViewController.m */; };
+		C68D243D196277F10072E7A2 /* LSTopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C68D243C196277F10072E7A2 /* LSTopTableViewCell.m */; };
 		C69C46971951348B0066431D /* LSCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46911951348B0066431D /* LSCommentsView.m */; };
 		C69C46981951348B0066431D /* LSCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46931951348B0066431D /* LSCorrectionView.m */; };
 		C69C46991951348B0066431D /* LSExamView.m in Sources */ = {isa = PBXBuildFile; fileRef = C69C46961951348B0066431D /* LSExamView.m */; };
@@ -230,6 +231,8 @@
 		C668A382195C0CF200DCE273 /* LSTestResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTestResultViewController.m; sourceTree = "<group>"; };
 		C668A386195D0EC200DCE273 /* LSChooseQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSChooseQuestionViewController.h; sourceTree = "<group>"; };
 		C668A387195D0EC200DCE273 /* LSChooseQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSChooseQuestionViewController.m; sourceTree = "<group>"; };
+		C68D243B196277F10072E7A2 /* LSTopTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTopTableViewCell.h; sourceTree = "<group>"; };
+		C68D243C196277F10072E7A2 /* LSTopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTopTableViewCell.m; sourceTree = "<group>"; };
 		C69C46901951348B0066431D /* LSCommentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCommentsView.h; sourceTree = "<group>"; };
 		C69C46911951348B0066431D /* LSCommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCommentsView.m; sourceTree = "<group>"; };
 		C69C46921951348B0066431D /* LSCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCorrectionView.h; sourceTree = "<group>"; };
@@ -723,6 +726,8 @@
 				C69C469C195135030066431D /* LSContestView.m */,
 				C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */,
 				C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */,
+				C68D243B196277F10072E7A2 /* LSTopTableViewCell.h */,
+				C68D243C196277F10072E7A2 /* LSTopTableViewCell.m */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -1033,6 +1038,7 @@
 				C69C46A0195135510066431D /* LSTestViewController.m in Sources */,
 				274B14BF1933365000F5EE0D /* LSUserManager.m in Sources */,
 				C6EB26BF194745C200A81108 /* LSContestViewController.m in Sources */,
+				C68D243D196277F10072E7A2 /* LSTopTableViewCell.m in Sources */,
 				2753ED7618FA702000ED443F /* UIImage+Utility.m in Sources */,
 				2791BCC3195C065A0051B1FE /* NSString+SBJSON.m in Sources */,
 				C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */,
