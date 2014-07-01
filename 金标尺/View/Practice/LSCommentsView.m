@@ -68,6 +68,10 @@
         _cTableView = [[UITableView alloc]initWithFrame:tFrame style:UITableViewStylePlain];
         _cTableView.tableFooterView = [UIView new];
         [self addSubview:_cTableView];
+        
+        if (IOS_VERSION >= 7.0) {
+            _cTableView.separatorInset = UIEdgeInsetsZero;
+        }
     }
     return self;
 }
