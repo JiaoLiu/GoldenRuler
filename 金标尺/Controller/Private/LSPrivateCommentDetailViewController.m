@@ -66,7 +66,10 @@
 
 - (void)loadComments
 {
-    [SVProgressHUD showWithStatus:@"正在加载"];
+    if (IOS_VERSION >= 7.0) {
+        [SVProgressHUD showWithStatus:@"正在加载"];
+    }
+    else [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeBlack];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=0&pagesize=0&type=2&qid=%d",[LSUserManager getUid],[LSUserManager getKey],qid]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -117,7 +120,9 @@
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
-    [SVProgressHUD dismiss];
+    if (IOS_VERSION >= 7.0) {
+        [SVProgressHUD dismiss];
+    }
 }
 
 - (void)homeBtnClicked
@@ -166,7 +171,10 @@
 #pragma mark - LSCommentDelegaet
 - (void)commentsBtnClick:(NSString *)content
 {
-    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
+    if (IOS_VERSION >= 7.0) {
+        [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
+    }
+    [SVProgressHUD showWithStatus:@"正在提交,请稍侯..." maskType:SVProgressHUDMaskTypeBlack];
     NSString *url =[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%d&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],qid,content]];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
