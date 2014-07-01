@@ -427,6 +427,68 @@
     
 }
 
+- (void)smtAnswer
+{
+    NSString *myAnswer = @"";
+    if ([qTypeString isEqualToString:@"多选"])
+    {
+        NSArray *array = [eview.questionView indexPathsForSelectedRows];
+        array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSIndexPath *o1 = (NSIndexPath *)obj1;
+            NSIndexPath *o2 = (NSIndexPath *)obj2;
+            
+            return o1.row > o2.row ? NSOrderedDescending:NSOrderedAscending;
+            
+        }];
+        
+        NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
+        for (NSIndexPath *path in array) {
+            NSString *s = [answers objectAtIndex:path.row];
+            myAnswer = [myAnswer stringByAppendingString:[s substringToIndex:1]];
+        }
+        NSLog(@"我的答案：%@",myAnswer);
+
+
+        _currQuestion.myAser = myAnswer;
+        
+        if ([myAnswer isEqualToString:_currQuestion.right])
+        {
+            _currQuestion.rightOrWrong = YES;
+
+        }
+        else
+        {
+            _currQuestion.rightOrWrong = NO;
+        }
+
+
+    }
+    
+    if ([qTypeString isEqualToString:@"填空"])
+    {
+        NSString *myAnswer = [eview.textFiled.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        NSLog(@"我的答案：%@",myAnswer);
+
+        eview.myAnswer.text = myAnswer;
+        _currQuestion.myAser = myAnswer;
+        [eview.textFiled resignFirstResponder];
+        [eview.textFiled setEnabled:NO];
+        
+        if ([myAnswer isEqualToString:_currQuestion.right])
+        {
+            _currQuestion.rightOrWrong = YES;
+        }
+        else
+        {
+            _currQuestion.rightOrWrong = NO;
+        }
+
+
+    }
+    
+}
+
 - (void)smtExam
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定交卷吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -435,6 +497,8 @@
     
     NSLog(@"交卷");
 }
+
+
 
 -(void)chooseQuestion
 {

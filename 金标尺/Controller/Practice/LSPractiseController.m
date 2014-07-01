@@ -283,13 +283,18 @@
              NSDictionary *dt = [dic objectForKey:@"data"];
              int count = [[dt objectForKey:@"count"] intValue];
              NSArray *list = [dt objectForKey:@"list"];
-             [currComments removeAllObjects];
+//             [currComments removeAllObjects];
              for (NSDictionary *cmt in list) {
                  LSComments *comments = [[LSComments alloc]init];
                  comments.username = [cmt objectForKey:@"name"];
                  comments.dateStr = [cmt objectForKey:@"addtime"];
                  comments.content = [cmt objectForKey:@"content"];
-                 [currComments addObject:comments];
+                 
+                 if (![currComments containsObject:comments]) {
+                     [currComments addObject:comments];
+                 }
+                 
+                 
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{
@@ -698,15 +703,23 @@
         
         [eview.operTop setHidden:NO];
         [eview.textLabel setHidden:NO];
-        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
         
-        if ([cell.textLabel.text hasPrefix:currQuestion.right]) {//答案正确
+        if([_qTypeString isEqualToString:@"单选"])
+        {
+            eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
+        }
+        else
+        {
+         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",cell.textLabel.text];
+        }
+        
+        if ([cell.textLabel.text isEqualToString:currQuestion.right]) {//答案正确
             currQuestion.myAser = currQuestion.right;
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
             currQuestion.rightOrWrong = YES;
         }else {//答案错误
-            currQuestion.myAser = [cell.textLabel.text substringToIndex:1];
+            currQuestion.myAser = cell.textLabel.text;
             [eview.wrongImage setHidden:NO];
             [eview.rightImage setHidden:YES];
             currQuestion.rightOrWrong = NO;
@@ -886,9 +899,6 @@
         [self addPractice];
     }
 
-    
-    
-    
 }
 
 -(void)chooseQuestion

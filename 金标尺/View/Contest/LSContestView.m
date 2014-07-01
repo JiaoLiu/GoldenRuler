@@ -110,11 +110,40 @@
         _smtBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 48, 76, 27)];
         [_smtBtn setBackgroundImage:[UIImage imageNamed:@"module_topic_midlebx.9.png"] forState:UIControlStateNormal];
         
+        if ([_testType.text isEqualToString:@"[多选]"])
+        {
+            [_smtBtn setTitle:@"提交" forState:UIControlStateNormal];
+            [_smtBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
+        }
         
-        [_smtBtn setTitle:@"提交" forState:UIControlStateNormal];
+        else if ([_testType.text isEqualToString:@"[填空]"])
+        {
+            if (question.myAser != nil) {
+
+                [_smtBtn setEnabled:NO];
+            }
+            [_smtBtn setTitle:@"提交" forState:UIControlStateNormal];
+            [_smtBtn setTitle:@"已提交" forState:UIControlStateDisabled];
+            [_smtBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
+            
+            //输入框
+            _textFiled = [[UITextField alloc]init];
+            _textFiled.placeholder =@"输入您的答案";
+            _operView.frame = CGRectMake(_operView.frame.origin.x, _operView.frame.origin.y-80, _operView.frame.size.width, _operView.frame.size.height);
+            _textFiled.frame = CGRectMake(10, _questionView.tableHeaderView.frame.origin.y + _questionView.tableHeaderView.frame.size.height+40,260, 40);
+            _textFiled.backgroundColor = [UIColor whiteColor];
+            [_scrollView addSubview:_textFiled];
+            
+        }
+        
+        
+        
+        
+        
         [_smtBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _smtBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_smtBtn addTarget:self action:@selector(smt) forControlEvents:UIControlEventTouchUpInside];
+       
+        
         
         [_operView addSubview:_preQuestion];
         [_operView addSubview:_nextQuestion];
@@ -147,6 +176,15 @@
         [_delegate smtExam];
     }
 
+}
+
+- (void)smtAnswer
+{
+    if ([_delegate respondsToSelector:@selector(smtAnswer)]) {
+        [_delegate smtAnswer];
+        [_smtBtn setEnabled:NO];
+    }
+    
 }
 
 - (void)chooseQuestion
