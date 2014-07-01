@@ -498,7 +498,7 @@
 
 - (void)smtExam
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定交卷吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"您还有%d道题没做，确定交卷吗？",_questionList.count - historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.tag = ALERT_SMT_TAG;
     [alert show];
     
@@ -748,6 +748,8 @@
             NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
             cell.textLabel.text = [answers objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            
             if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
                 [cell setSelected:YES];
                 tableView.userInteractionEnabled = NO;
@@ -759,7 +761,11 @@
             break;
         case CTABLE_TAG:
         {
-            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+            if (!cell) {
+               cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell1"];
+               
+            }
             LSComments *cms = [currComments objectAtIndex:indexPath.row];
             cell.textLabel.text =  [NSString stringWithFormat:@"%@发表于：%@",cms.username,cms.dateStr];
             cell.textLabel.font = [UIFont systemFontOfSize:10];
@@ -821,23 +827,33 @@
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    if ([qTypeString isEqualToString:@"单选"] || [qTypeString isEqualToString:@"判断"])
+    if ([qTypeString isEqualToString:@"单选"] || [qTypeString isEqualToString:@"判断"] || [qTypeString isEqualToString:@"简答"] ||  [qTypeString isEqualToString:@"论述"])
     {
         
         [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
+       
         selectedRow = indexPath.row;
         
-        NSString *myAsr =[cell.textLabel.text substringToIndex:1];
+        NSString *myAsr = nil;
+        
+        if ([qTypeString isEqualToString:@"单选"]) {
+            myAsr =[cell.textLabel.text substringToIndex:1];
+        }
+        else
+        {
+            myAsr = cell.textLabel.text;
+        }
+        
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",myAsr];
         _currQuestion.myAser = myAsr;
-        if ([cell.textLabel.text hasPrefix:_currQuestion.right]) {
+        
+        
+        if ([myAsr isEqualToString:_currQuestion.right]) {
             _currQuestion.rightOrWrong = YES;
-            [eview.rightImage setHidden:NO];
-            [eview.wrongImage setHidden:YES];
+
         }else {
             _currQuestion.rightOrWrong = NO;
-            [eview.wrongImage setHidden:NO];
-            [eview.rightImage setHidden:YES];
+
         }
         
         [self addFavToServer];
@@ -863,7 +879,7 @@
 - (void)backBtnClicked
 {
     [SVProgressHUD dismiss];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"退出后本次考试将不计成绩" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有提交试卷，本次考试不生效！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.tag = ALERT_BACK_TAG;
     [alert show];
     

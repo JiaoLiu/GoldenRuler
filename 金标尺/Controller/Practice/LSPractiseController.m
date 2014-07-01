@@ -605,7 +605,6 @@
             cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
             CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
             cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
-            
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             
 //            if ([currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
@@ -718,17 +717,19 @@
         
         [eview.operTop setHidden:NO];
         [eview.textLabel setHidden:NO];
-        
+        NSString *myAnswer = nil;
         if([_qTypeString isEqualToString:@"单选"])
         {
             eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
+            myAnswer = [cell.textLabel.text substringToIndex:1];
         }
         else
         {
          eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",cell.textLabel.text];
+            myAnswer = cell.textLabel.text;
         }
         
-        if ([cell.textLabel.text isEqualToString:currQuestion.right]) {//答案正确
+        if ([myAnswer isEqualToString:currQuestion.right]) {//答案正确
             currQuestion.myAser = currQuestion.right;
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
