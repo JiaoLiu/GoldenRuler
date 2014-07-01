@@ -48,6 +48,8 @@
     
     NSTimer *timer;
     NSMutableArray *smtQst;
+    
+    BOOL isSmt;
 }
 @end
 
@@ -131,6 +133,7 @@
 //考试界面
 - (void)initExamView
 {
+    isSmt = NO;
     [self clearAllView];
 
     eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
@@ -387,7 +390,11 @@
 - (void)nextQuestion
 {
     NSLog(@"下一题");
-//    [SVProgressHUD showWithStatus:@"正在加载" maskType:SVProgressHUDMaskTypeGradient];
+
+    if (!isSmt) {
+        [self smtAnswer];
+    }
+    
     selectedRow = -1;
     currIndex += 1;
     currIndex = currIndex > _questionList.count ? _questionList.count : currIndex;

@@ -32,6 +32,7 @@
     
     BOOL isExamView;//当前界面是否是考试题目详情界面默认yes
     BOOL isLoadingMore;
+    BOOL isSmt;
     int pageNo;
     
 }
@@ -120,6 +121,7 @@
 - (void)initExamView
 {
     isExamView = YES;
+    isSmt = NO;
     [self clearAllView];
     
     switch (currQuestion.tid.intValue) {
@@ -749,7 +751,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
 
-    if(!isLoadingMore && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
+    if(!isExamView && !isLoadingMore && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
         
     {
         
@@ -821,12 +823,18 @@
 {
     selectedRow = -1;
     NSLog(@"下一题");
-
     currIndex += 1;
+    if (!isSmt) {
+        [self smtAnswer];
+    }
+    
     currIndex = currIndex > questionList.count ? questionList.count : currIndex;
     
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= questionList.count && historyQst.count == questionList.count) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"本次练习已做完" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+        
         [SVProgressHUD dismiss];
         return;
     }
@@ -1015,7 +1023,7 @@
 {
     [SVProgressHUD dismiss];
     if (historyQst.count < questionList.count && questionList.count != 1) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
     }else {
         [SVProgressHUD dismiss];
@@ -1031,7 +1039,7 @@
 {
     [SVProgressHUD dismiss];
     if (historyQst.count < questionList.count && questionList.count != 1) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"题目暂未做完，退出将保存！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
 
     }else {
