@@ -736,9 +736,17 @@
         {
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
             NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
-            cell.textLabel.text = [answers objectAtIndex:indexPath.row];
+            NSString *asContent = [answers objectAtIndex:indexPath.row];
+            cell.textLabel.text = asContent;
+            
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            cell.textLabel.numberOfLines = 0;
+            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.textLabel.text = asContent;
             
             if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
                 [cell setSelected:YES];
@@ -775,19 +783,36 @@
 }
 
 
+
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (tableView.tag) {
-        case QTABLE_TAG:
-            return 35;
-            break;
-        case CTABLE_TAG:
-            return 50;
-            break;
-        default:
-            return 44;
-            break;
-    }
+        switch (tableView.tag) {
+            case QTABLE_TAG:
+            {
+                
+                NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
+                NSString *asContent = [answers objectAtIndex:indexPath.row];
+                CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+                
+                return rect.height+20;
+            }
+                
+                break;
+            case CTABLE_TAG:
+            {
+                LSComments *cms = [currComments objectAtIndex:indexPath.row];
+                CGSize rect = [cms.content sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+                return 30+rect.height;
+            }
+                
+                break;
+            default:
+                return 44;
+                break;
+        }
+        
+    
+
     
 }
 

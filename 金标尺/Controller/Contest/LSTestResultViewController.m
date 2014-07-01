@@ -16,9 +16,11 @@
     NSString *avgTimeStr;
     NSString *avgScoreStr;
     
-    NSArray *topList;
+    NSMutableArray *topList;
     UIView *resultView;
     LSTabBar *tabBar;
+    
+    BOOL isLoadingMore;
 }
 @end
 
@@ -61,22 +63,20 @@
     
     tabBar.delegate = self;
     
-    topList = [NSArray array];
+    topList = [NSMutableArray arrayWithCapacity:0];
     
     UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     UIView *sp = [[UIView alloc]initWithFrame:CGRectMake(0, 29.5, SCREEN_WIDTH, 0.5)];
     sp.backgroundColor = [UIColor grayColor];
     [header addSubview:sp];
     
-    UILabel *placeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 30, 25)];
+    UILabel *placeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 30, 30)];
     placeLabel.textColor = [UIColor darkGrayColor];
     placeLabel.font = [UIFont systemFontOfSize:14];
-//    placeLabel.textAlignment = NSTextAlignmentCenter;
     placeLabel.text =@"排名";
     
     UILabel * nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 0, 100, 30)];
     nameLabel.font = [UIFont systemFontOfSize:14];
-    nameLabel.textColor = [UIColor darkGrayColor];
     nameLabel.textColor = [UIColor darkGrayColor];
     nameLabel.text =@"用户名";
     
@@ -101,6 +101,7 @@
     _tableView.dataSource = self;
     [_tableView setHidden:YES];
     _tableView.tableHeaderView = header;
+    _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
     
 
@@ -295,11 +296,12 @@
 }
 
 //排行榜
+int currPage = 1;
 - (void)getAllTop
 {
     
     [SVProgressHUD showWithStatus:@"正在统计"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],1,10]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],currPage++,10]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -309,9 +311,13 @@
         if (ret == 1)
         {
             [SVProgressHUD dismiss];
-            topList = [dic objectForKey:@"data"];
+            NSArray *temp = [dic objectForKey:@"data"];
+            
+            [topList addObjectsFromArray:temp];
+            
             [_tableView reloadData];
-             [self.view bringSubviewToFront:tabBar];
+            isLoadingMore = NO;
+            [self.view bringSubviewToFront:tabBar];
         }
         else
         {
@@ -357,6 +363,50 @@
 {
     return topList.count;
 }
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    
+        [self loadDataBegin];
+}
+
+
+- (void)loadDataBegin
+{
+    if (isLoadingMore == NO)
+        
+    {
+        
+        isLoadingMore = YES;
+        
+        UIActivityIndicatorView *tableFooterActivityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(75.0f, 10.0f, 20.0f, 20.0f)];
+        UILabel *loading = [[UILabel alloc]initWithFrame:CGRectMake(100, 12, 60, 20)];
+        loading.text = @"正在加载...";
+        loading.font = [UIFont systemFontOfSize:12];
+        loading.textColor = [UIColor lightGrayColor];
+        
+        
+        [tableFooterActivityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        
+        [tableFooterActivityIndicator startAnimating];
+        
+        [_tableView.tableFooterView addSubview:tableFooterActivityIndicator];
+        [_tableView.tableFooterView addSubview:loading];
+        [self loadDataing];
+        
+    }
+}
+
+- (void)loadDataing
+{
+    [self getAllTop];
+}
+
+
+
+
+
 
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
