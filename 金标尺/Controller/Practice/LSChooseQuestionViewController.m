@@ -42,6 +42,10 @@
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
+    
+    if (IOS_VERSION >= 7.0) {
+        _tableView.separatorInset = UIEdgeInsetsZero;
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -56,7 +60,6 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%d",indexPath.row+1];
     LSQuestion *q = [_questions objectAtIndex:indexPath.row];
     if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -65,6 +68,7 @@
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+    cell.textLabel.text = [NSString stringWithFormat:@"%d.%@",indexPath.row+1,q.title];
     
     return cell;
 }
