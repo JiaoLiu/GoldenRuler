@@ -9,7 +9,12 @@
 #import "LSTestResultViewController.h"
 
 @interface LSTestResultViewController ()
-
+{
+    int count;
+    int mytop;
+    NSString *avgTimeStr;
+    NSString *avgScoreStr;
+}
 @end
 
 @implementation LSTestResultViewController
@@ -52,8 +57,8 @@
     tabBar.delegate = self;
     [self.view addSubview:tabBar];
     
-    [self initResultView];
-    
+//    [self initResultView];
+    [self getExamTop];
 }
 
 - (void)initResultView
@@ -78,7 +83,7 @@
     [self.view addSubview:avgScoreLabel];
     
     UILabel *avgScore = [[UILabel alloc] initWithFrame:CGRectMake(150, 90, 70, 20)];
-    avgScore.text = [NSString stringWithFormat:@"%d分",99];
+    avgScore.text = [NSString stringWithFormat:@"%@",avgScoreStr];
     avgScore.font = [UIFont systemFontOfSize:12];
     avgScore.textColor = [UIColor grayColor];
     avgScore.textAlignment = NSTextAlignmentCenter;
@@ -122,7 +127,7 @@
     [self.view addSubview:avgTimeLabel];
     
     UILabel *avgTime = [[UILabel alloc] initWithFrame:CGRectMake(150, 175, 70, 20)];
-    avgTime.text = [NSString stringWithFormat:@"%02d分%02d秒",9,9];
+    avgTime.text = [NSString stringWithFormat:@"%@",avgTimeStr];
     avgTime.font = [UIFont systemFontOfSize:12];
     avgTime.textColor = [UIColor grayColor];
     avgTime.textAlignment = NSTextAlignmentCenter;
@@ -148,12 +153,12 @@
     [self.view addSubview:sq];
     
     UILabel *mc = [[UILabel alloc] initWithFrame:CGRectMake(30, 220, 100, 20)];
-    mc.text =@"参考排名120名";
+    mc.text =[NSString stringWithFormat:@"参考排名%d名",mytop];
     mc.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:mc];
     
     UILabel *tps = [[UILabel alloc] initWithFrame:CGRectMake(200, 220, 100, 20)];
-    tps.text =@"做答人次1000名";
+    tps.text =[NSString stringWithFormat:@"做答人次%d名",count];
     tps.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:tps];
     
@@ -213,10 +218,11 @@
         if (ret == 1)
         {
             NSDictionary *dt = [dic objectForKey:@"data"];
-            int count = [[dt objectForKey:@"count"] intValue];
-            int mytop = [[dt objectForKey:@"mytop"] intValue];
-            NSString *avgTime = [dt objectForKey:@"meantime"];
-            NSString *avgScore = [dt objectForKey:@"meanscore"];
+            count = [[dt objectForKey:@"count"] intValue];
+            mytop = [[dt objectForKey:@"mytop"] intValue];
+            avgTimeStr = [dt objectForKey:@"meantime"];
+            avgScoreStr = [dt objectForKey:@"meanscore"];
+            [self initResultView];
         }
         else
         {

@@ -402,6 +402,8 @@
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= _questionList.count && historyQst.count == _questionList.count)
     {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"本次考试已做完" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
         [SVProgressHUD dismiss];
         return;
     }
@@ -498,7 +500,16 @@
 
 - (void)smtExam
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"您还有%d道题没做，确定交卷吗？",_questionList.count - historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    NSString *alertContent = nil;
+    if ((_questionList.count - historyQst.count) == 0) {
+        alertContent = [NSString stringWithFormat:@"确定交卷吗？"];
+    }
+    else
+    {
+       alertContent = [NSString stringWithFormat:@"您还有%d道题没做，确定交卷吗？",_questionList.count - historyQst.count];
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertContent delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.tag = ALERT_SMT_TAG;
     [alert show];
     
@@ -528,7 +539,7 @@
     switch (buttonIndex) {
         case 0:
         {
-            NSLog(@"取消交卷");
+//            NSLog(@"取消交卷");
         }
             break;
         case 1:
@@ -872,8 +883,7 @@
     [self smtExam];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
-    [SVProgressHUD dismiss];
-    [LSSheetNotify dismiss];
+
 }
 
 - (void)backBtnClicked

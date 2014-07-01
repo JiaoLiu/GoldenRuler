@@ -76,6 +76,7 @@
 
 - (void)backBtnClicked
 {
+    [SVProgressHUD dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
