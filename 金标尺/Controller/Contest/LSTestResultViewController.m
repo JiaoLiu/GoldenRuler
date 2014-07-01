@@ -104,6 +104,9 @@
     _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
     
+    if (IOS_VERSION >= 7.0) {
+        _tableView.separatorInset = UIEdgeInsetsZero;
+    }
 
 //    [self initResultView];
     [self getExamTop];
