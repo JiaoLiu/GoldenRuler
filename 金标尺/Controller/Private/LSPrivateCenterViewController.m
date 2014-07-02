@@ -88,7 +88,11 @@
     
     emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, 35, nameLabel.frame.size.width, 15)];
     emailLabel.backgroundColor = [UIColor clearColor];
-    emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
+    if ([LSUserManager getUserEmail].length != 0) {
+        emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
+        emailLabel.hidden = NO;
+    }
+    else emailLabel.hidden = YES;
     emailLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     emailLabel.textColor = [UIColor lightGrayColor];
     emailLabel.font = [UIFont systemFontOfSize:11];
@@ -158,7 +162,11 @@
     hasNotice = [LSUserManager getPush];
     [table reloadData];
     headerImgView.image = [LSUserManager getUserImg];
-    emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
+    if ([LSUserManager getUserEmail].length != 0) {
+        emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
+        emailLabel.hidden = NO;
+    }
+    else emailLabel.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning

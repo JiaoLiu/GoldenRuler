@@ -43,7 +43,7 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = backItem;
     
-    table = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 20, 280)];
+    table = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 20, 315)];
     table.dataSource = self;
     table.delegate = self;
     table.scrollEnabled = NO;
@@ -259,7 +259,7 @@
 #pragma mark - tableView delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -359,6 +359,16 @@
             break;
         case 5:
         {
+            Cell.textLabel.text = @"选择区域";
+            Cell.textLabel.textColor = [UIColor lightGrayColor];
+            Cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+            
+            Cell.detailTextLabel.text = [LSUserManager getUserCity];
+            Cell.detailTextLabel.textColor = RGB(69, 111, 158);
+        }
+            break;
+        case 6:
+        {
             Cell.textLabel.text = @"登陆密码修改";
             Cell.textLabel.textColor = [UIColor lightGrayColor];
             Cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
@@ -431,6 +441,13 @@
         }
             break;
         case 5:
+        {
+            LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
+            privateEditVC.type = kEditCity;
+            [self.navigationController pushViewController:privateEditVC animated:YES];
+        }
+            break;
+        case 6:
         {
             LSPrivateEditViewController *privateEditVC = [[LSPrivateEditViewController alloc] init];
             privateEditVC.type = kEditPwd;

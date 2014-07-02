@@ -15,6 +15,8 @@
     UITextField *textOldPwd;
     UITextField *textNewPwd;
     UITextField *textNewPwdAgain;
+    
+    NSDictionary *cityInfo;
 }
 
 @end
@@ -53,55 +55,68 @@
     self.navigationItem.rightBarButtonItem = saveItem;
     
     // editField
-    if (type != kEditPwd) {
-        textFD = [[UITextField alloc] initWithFrame:CGRectMake(-0.5, 15, SCREEN_WIDTH + 1, 35)];
-        textFD.layer.borderWidth = 0.5;
-        textFD.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        textFD.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        textFD.returnKeyType = UIReturnKeyDone;
-        textFD.clearButtonMode = UITextFieldViewModeWhileEditing;
-        [textFD becomeFirstResponder];
-        textFD.delegate = self;
-        [self.view addSubview:textFD];
+    switch (type) {
+        case kEditPwd:
+        {
+            textOldPwd = [[UITextField alloc] initWithFrame:CGRectMake(10, 15, SCREEN_WIDTH - 20, 35)];
+            textOldPwd.placeholder = @"请输入旧密码";
+            textOldPwd.layer.borderWidth = 0.5;
+            textOldPwd.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            textOldPwd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            textOldPwd.returnKeyType = UIReturnKeyDone;
+            textOldPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+            textOldPwd.returnKeyType = UIReturnKeyNext;
+            textOldPwd.secureTextEntry = YES;
+            textOldPwd.delegate = self;
+            [self.view addSubview:textOldPwd];
+            
+            textNewPwd = [[UITextField alloc] initWithFrame:CGRectMake(10, textOldPwd.frame.origin.y + textOldPwd.frame.size.height - 0.5, SCREEN_WIDTH - 20, 35)];
+            textNewPwd.placeholder = @"请输入新密码";
+            textNewPwd.layer.borderWidth = 0.5;
+            textNewPwd.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            textNewPwd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            textNewPwd.returnKeyType = UIReturnKeyDone;
+            textNewPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+            textNewPwd.returnKeyType = UIReturnKeyNext;
+            textNewPwd.secureTextEntry = YES;
+            textNewPwd.delegate = self;
+            [self.view addSubview:textNewPwd];
+            
+            textNewPwdAgain = [[UITextField alloc] initWithFrame:CGRectMake(10, textNewPwd.frame.origin.y + textNewPwd.frame.size.height - 0.5, SCREEN_WIDTH - 20, 35)];
+            textNewPwdAgain.placeholder = @"请再次输入新密码";
+            textNewPwdAgain.layer.borderWidth = 0.5;
+            textNewPwdAgain.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            textNewPwdAgain.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            textNewPwdAgain.returnKeyType = UIReturnKeyDone;
+            textNewPwdAgain.clearButtonMode = UITextFieldViewModeWhileEditing;
+            textNewPwdAgain.returnKeyType = UIReturnKeyDone;
+            textNewPwdAgain.secureTextEntry = YES;
+            textNewPwdAgain.delegate = self;
+            [self.view addSubview:textNewPwdAgain];
+        }
+            break;
+        case kEditCity:
+        {
+            cityInfo = [[NSDictionary alloc] init];
+            [self getCitys];
+        }
+            break;
+        default:
+        {
+            textFD = [[UITextField alloc] initWithFrame:CGRectMake(-0.5, 15, SCREEN_WIDTH + 1, 35)];
+            textFD.layer.borderWidth = 0.5;
+            textFD.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            textFD.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            textFD.returnKeyType = UIReturnKeyDone;
+            textFD.clearButtonMode = UITextFieldViewModeWhileEditing;
+            [textFD becomeFirstResponder];
+            textFD.delegate = self;
+            [self.view addSubview:textFD];
+        }
+            break;
     }
-    else
-    {
-        textOldPwd = [[UITextField alloc] initWithFrame:CGRectMake(10, 15, SCREEN_WIDTH - 20, 35)];
-        textOldPwd.placeholder = @"请输入旧密码";
-        textOldPwd.layer.borderWidth = 0.5;
-        textOldPwd.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        textOldPwd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        textOldPwd.returnKeyType = UIReturnKeyDone;
-        textOldPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
-        textOldPwd.returnKeyType = UIReturnKeyNext;
-        textOldPwd.secureTextEntry = YES;
-        textOldPwd.delegate = self;
-        [self.view addSubview:textOldPwd];
-        
-        textNewPwd = [[UITextField alloc] initWithFrame:CGRectMake(10, textOldPwd.frame.origin.y + textOldPwd.frame.size.height - 0.5, SCREEN_WIDTH - 20, 35)];
-        textNewPwd.placeholder = @"请输入新密码";
-        textNewPwd.layer.borderWidth = 0.5;
-        textNewPwd.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        textNewPwd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        textNewPwd.returnKeyType = UIReturnKeyDone;
-        textNewPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
-        textNewPwd.returnKeyType = UIReturnKeyNext;
-        textNewPwd.secureTextEntry = YES;
-        textNewPwd.delegate = self;
-        [self.view addSubview:textNewPwd];
-        
-        textNewPwdAgain = [[UITextField alloc] initWithFrame:CGRectMake(10, textNewPwd.frame.origin.y + textNewPwd.frame.size.height - 0.5, SCREEN_WIDTH - 20, 35)];
-        textNewPwdAgain.placeholder = @"请再次输入新密码";
-        textNewPwdAgain.layer.borderWidth = 0.5;
-        textNewPwdAgain.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        textNewPwdAgain.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        textNewPwdAgain.returnKeyType = UIReturnKeyDone;
-        textNewPwdAgain.clearButtonMode = UITextFieldViewModeWhileEditing;
-        textNewPwdAgain.returnKeyType = UIReturnKeyDone;
-        textNewPwdAgain.secureTextEntry = YES;
-        textNewPwdAgain.delegate = self;
-        [self.view addSubview:textNewPwdAgain];
-    }
+    
+    // title
     switch (type) {
         case kEditName:
         {
@@ -136,6 +151,12 @@
             textFD.keyboardType = UIKeyboardTypeEmailAddress;
         }
             break;
+        case kEditCity:
+        {
+            self.title = @"选择区域";
+            saveBtn.hidden = YES;
+        }
+            break;
         default:
             break;
     }
@@ -158,10 +179,61 @@
 }
 */
 
+- (void)getCitys{
+    [SVProgressHUD showWithStatus:@"正在获取城市列表，请稍候..."];
+    int uid = [LSUserManager getUid];
+    int key = [LSUserManager getKey];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIGETCITY stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d",uid,key]]]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            cityInfo = dic;
+            [SVProgressHUD dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self buildView];
+            });
+        }
+        
+        if (ret == 0) {
+            [SVProgressHUD showErrorWithStatus:@"获取失败"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+        }
+    }];
+}
+
+- (void)buildView
+{
+    NSArray *data = [cityInfo objectForKey:@"data"];
+    NSLog(@"%@",data);
+    int i = 0;
+    for (NSDictionary *dic in data) {
+        NSString *cid = [dic objectForKey:@"id"];
+        NSString *name = [dic objectForKey:@"name"];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [btn setTitle:name forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(cityBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = cid.intValue;
+        btn.layer.borderColor = [UIColor grayColor].CGColor;
+        btn.layer.borderWidth = 1;
+        [btn.layer setCornerRadius:5];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        CGRect frame = CGRectMake(70*(i%4) + 10*(i%4) +10, 44*(i/4) + 10*(i/4) +10, 65, 40);
+        btn.frame = frame;
+        [self.view addSubview:btn];
+        i++;
+    }
+}
+
 #pragma mark - handleBtnClicked
 - (void)backBtnClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD dismiss];
 }
 
 - (void)saveBtnClicked
@@ -212,6 +284,7 @@
         default:
             break;
     }
+    [SVProgressHUD showWithStatus:@"修改中..."];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -248,6 +321,31 @@
                     break;
             }
             [self backBtnClicked];
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
+}
+
+- (void)cityBtnClick:(UIButton *)sender
+{
+    [SVProgressHUD showWithStatus:@"修改中..."];
+    UIButton *btn = sender;
+    NSString *city = btn.titleLabel.text;
+    NSString *urlStr = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/editInfo?uid=%d&key=%d&value=%@&name=city&t=0",[LSUserManager getUid],[LSUserManager getKey],city]];
+    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            [LSUserManager setUserCity:city];
+            [self backBtnClicked];
+            [SVProgressHUD dismiss];
         }
         else
         {

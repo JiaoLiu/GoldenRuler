@@ -36,10 +36,11 @@
     _items = items;
     // subViews
     CGRect frame = self.frame;
-    for (int i = 0; i < items.count; i++) {
+    NSArray *tempArr = [items objectForKey:@"list"];
+    for (int i = 0; i < tempArr.count; i++) {
         UIButton *imgView = [[UIButton alloc] initWithFrame:CGRectMake(i * frame.size.width, 0, frame.size.width, frame.size.height)];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[[items objectForKey:@"list"] objectAtIndex:i] objectForKey:@"path"]]]];
+            UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[tempArr objectAtIndex:i] objectForKey:@"path"]]]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [imgView setImage:img forState:UIControlStateNormal];
             });
@@ -52,13 +53,13 @@
     
     // init pageControl
     scrollPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(frame.size.width - 100, frame.size.height - 40, 100, 30)];
-    scrollPageControl.numberOfPages = items.count;
+    scrollPageControl.numberOfPages = tempArr.count;
     scrollPageControl.pageIndicatorTintColor = [UIColor whiteColor];
     scrollPageControl.currentPageIndicatorTintColor = [UIColor redColor];
     [scrollPageControl addTarget:self action:@selector(scrollPage) forControlEvents:UIControlEventValueChanged];
     [self addSubview:scrollPageControl];
     
-    self.contentSize = CGSizeMake(frame.size.width * items.count, frame.size.height);
+    self.contentSize = CGSizeMake(frame.size.width * tempArr.count, frame.size.height);
     self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.pagingEnabled = YES;
     self.clipsToBounds = YES;

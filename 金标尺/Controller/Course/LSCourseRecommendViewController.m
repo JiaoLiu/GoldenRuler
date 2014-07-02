@@ -18,6 +18,7 @@
     NSMutableArray *cateArray;
     NSInteger msgPage;
     NSInteger selectedCate;
+    BOOL hasMore;
 }
 
 @end
@@ -65,7 +66,9 @@
                     [cateArray addObject:dic];
                 }
             }
-            [SVProgressHUD dismiss];
+            selectedCate = 1;
+            [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+//            [SVProgressHUD dismiss];
         }
         else
         {
@@ -89,10 +92,12 @@
             NSInteger num = tempArray.count;
             if (num >= pageSize) {
                 msgPage += 1;
+                hasMore = YES;
                 [LSSheetNotify dismiss];
             }
             else
             {
+                hasMore = NO;
                 [LSSheetNotify showOnce:@"暂无更多精选"];
             }
             for (int i = 0; i < num; i++) {
@@ -268,6 +273,7 @@
             selectedDate = date;
             [dateSelectBtn setTitle:[NSString stringFromDate:date Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
             msgPage = 1;
+            [dataArray removeAllObjects];
             [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
             [SVProgressHUD showWithStatus:@"加载中..."];
         }
@@ -275,6 +281,7 @@
             [catSelectBtn setTitle:[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"name"] forState:UIControlStateNormal];
             [dateSelectBtn setTitle:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
             selectedCate = [[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"cid"] integerValue];
+            [dataArray removeAllObjects];
             [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
             [SVProgressHUD showWithStatus:@"加载中..."];
         }
@@ -346,7 +353,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     CGSize size = scrollView.contentSize;
-    if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y + scrollView.frame.size.height > size.height + 50) {
+    if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y + scrollView.frame.size.height > size.height + 50 && hasMore) {
         [self loadDataWithPage:msgPage size:10 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
         [LSSheetNotify showProgress:@"加载更多"];
     }

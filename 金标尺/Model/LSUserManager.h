@@ -28,6 +28,7 @@
 + (void)setUserQQ:(NSString *)qq;
 + (void)setUserEmail:(NSString *)email;
 + (void)setEndTime:(NSString *)endTime;
++ (void)setUserCity:(NSString *)city;
 + (void)setPush:(int)push;
 + (void)setRevPush:(BOOL)status;
 
@@ -47,6 +48,7 @@
 + (NSString *)getUserEmail;
 + (NSString *)getuserQQ;
 + (NSString *)getEndTime;
++ (NSString *)getUserCity;
 + (BOOL)getPush;
 + (BOOL)RevPush;
 

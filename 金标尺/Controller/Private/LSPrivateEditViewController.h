@@ -13,6 +13,7 @@ typedef enum : NSUInteger {
     kEditPhone,
     kEditEmail,
     kEditQQ,
+    kEditCity,
     kEditPwd
 } kEditType;
 

@@ -13,6 +13,7 @@
 {
     NSMutableArray *dataArray;
     NSInteger msgPage;
+    BOOL hasMore;
 }
 
 @end
@@ -52,10 +53,12 @@
             NSInteger num = tempArray.count;
             if (num >= pageSize) {
                 msgPage += 1;
+                hasMore = YES;
                 [LSSheetNotify dismiss];
             }
             else
             {
+                hasMore = NO;
                 [LSSheetNotify showOnce:@"暂无更多消息"];
             }
             for (int i = 0; i < num; i++) {
@@ -177,7 +180,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     CGSize size = scrollView.contentSize;
-    if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y + scrollView.frame.size.height > size.height + 50) {
+    if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y + scrollView.frame.size.height > size.height + 50 && hasMore) {
         [self loadDataWithPage:msgPage size:10];
         [LSSheetNotify showProgress:@"加载更多"];
     }
