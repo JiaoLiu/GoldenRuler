@@ -309,14 +309,16 @@ int currPage = 1;
 - (void)getAllTop
 {
     
-    [SVProgressHUD showWithStatus:@"正在统计..."];
+    if (!isLoadingMore) {
+         [SVProgressHUD showWithStatus:@"正在统计..."];
+    }
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],currPage++,20]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-        NSString *msg = [dic objectForKey:@"msg"];
+//        NSString *msg = [dic objectForKey:@"msg"];
         if (ret == 1)
         {
             [SVProgressHUD dismiss];
@@ -352,6 +354,7 @@ int currPage = 1;
     LSTopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[LSTopTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if (topList.count >0) {
         NSDictionary *dict = [topList objectAtIndex:indexPath.row];
