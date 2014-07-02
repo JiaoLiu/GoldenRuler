@@ -34,6 +34,7 @@
     BOOL isLoadingMore;
     BOOL isSmt;
     int pageNo;
+    LSCorrectionView *crView ;
     
 }
 @end
@@ -207,9 +208,12 @@
     cview.cTableView.delegate = self;
     cview.cTableView.dataSource =self;
     cview.cTableView.tag = CTABLE_TAG;
-    
-    
     cview.delegate = self;
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
+    
+    [cview addGestureRecognizer:gesture];
+    cview.userInteractionEnabled = YES;
     [self.view addSubview:cview];
     [self.view bringSubviewToFront:tabBar];
 }
@@ -227,10 +231,13 @@
     isExamView = NO;
     [self clearAllView];
     self.title = @"我要纠错";
-    LSCorrectionView *crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:currQuestion.title];
+    crView = [[LSCorrectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 400) withTitle:currQuestion.title];
     crView.userInteractionEnabled = YES;
     crView.delegate = self;
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
     
+    [crView addGestureRecognizer:gesture];
+    crView.userInteractionEnabled = YES;
     [self.view addSubview:crView];
     [self.view bringSubviewToFront:tabBar];
 
@@ -522,6 +529,8 @@
 -(void)hideKeyBoard
 {
     [eview.textFiled resignFirstResponder];
+    [cview.textView resignFirstResponder];
+    [crView.textView resignFirstResponder];
 }
 
 

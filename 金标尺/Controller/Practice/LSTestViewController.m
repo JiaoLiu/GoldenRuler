@@ -205,6 +205,7 @@
 -(void)hideKeyBoard
 {
     [eview.textFiled resignFirstResponder];
+    
 }
 ////评论界面
 //- (void)initCommentsView
