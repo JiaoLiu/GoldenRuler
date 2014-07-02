@@ -1024,8 +1024,17 @@
         [SVProgressHUD dismiss];
         if (ret == 1)
         {
+            NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
+            [fmt setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            
+            
             [SVProgressHUD showSuccessWithStatus:@"提交成功"];
-            [self getComments];
+            LSComments *cms = [[LSComments alloc]init];
+            cms.username = [LSUserManager getUserName];
+            cms.content = content;
+            cms.dateStr = [fmt stringFromDate:[NSDate date]];
+            [currComments insertObject:cms atIndex:0];
+            [cview.cTableView reloadData];
             
         } else
         {
