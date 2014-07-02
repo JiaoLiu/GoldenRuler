@@ -407,7 +407,7 @@
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= _questionList.count || historyQst.count == _questionList.count)
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"本次考试已做完" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是最后一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         [SVProgressHUD dismiss];
         return;
