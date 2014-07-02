@@ -68,6 +68,7 @@
 		C69C46A8195139250066431D /* f_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A3195139250066431D /* f_3@2x.png */; };
 		C69C46A9195139250066431D /* f_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A4195139250066431D /* f_4@2x.png */; };
 		C69C46AA195139250066431D /* f_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A5195139250066431D /* f_bg@2x.png */; };
+		C6A84FC21963B37400E4F8C2 /* LSAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A84FC11963B37400E4F8C2 /* LSAnalysisViewController.m */; };
 		C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD11942DB76001A49B5 /* LSQuestion.m */; };
 		C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */; };
 		C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD71942E1EF001A49B5 /* LSExam.m */; };
@@ -249,6 +250,8 @@
 		C69C46A3195139250066431D /* f_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_3@2x.png"; sourceTree = "<group>"; };
 		C69C46A4195139250066431D /* f_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_4@2x.png"; sourceTree = "<group>"; };
 		C69C46A5195139250066431D /* f_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_bg@2x.png"; sourceTree = "<group>"; };
+		C6A84FC01963B37400E4F8C2 /* LSAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAnalysisViewController.h; sourceTree = "<group>"; };
+		C6A84FC11963B37400E4F8C2 /* LSAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAnalysisViewController.m; sourceTree = "<group>"; };
 		C6E0EBD01942DB76001A49B5 /* LSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestion.h; sourceTree = "<group>"; };
 		C6E0EBD11942DB76001A49B5 /* LSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestion.m; sourceTree = "<group>"; };
 		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSQuestionView.h; path = "金标尺/View/Contest/LSQuestionView.h"; sourceTree = SOURCE_ROOT; };
@@ -628,6 +631,8 @@
 				C69C469F195135510066431D /* LSTestViewController.m */,
 				C668A381195C0CF200DCE273 /* LSTestResultViewController.h */,
 				C668A382195C0CF200DCE273 /* LSTestResultViewController.m */,
+				C6A84FC01963B37400E4F8C2 /* LSAnalysisViewController.h */,
+				C6A84FC11963B37400E4F8C2 /* LSAnalysisViewController.m */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -1032,6 +1037,7 @@
 				CCC3D72E18F98002009CC532 /* LSMainItemsView.m in Sources */,
 				CC49FFE418F93AA8007E83F4 /* main.m in Sources */,
 				CC42B5601902C9E400586176 /* LSPrivateChargeViewController.m in Sources */,
+				C6A84FC21963B37400E4F8C2 /* LSAnalysisViewController.m in Sources */,
 				2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */,
 				27646459195A6276006504C9 /* LSPrivateCollectionDetailViewController.m in Sources */,
 				CC8A46681940AA2B00B05E09 /* LSMsgDetailViewController.m in Sources */,

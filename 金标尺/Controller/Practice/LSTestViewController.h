@@ -23,7 +23,6 @@
 
 @property (nonatomic,strong) LSExam *exam;
 @property (nonatomic,strong) NSMutableArray *questionList;
-
 @property (nonatomic,strong) LSQuestion *currQuestion;
 @property (nonatomic) LSWrapType examType;
 @end

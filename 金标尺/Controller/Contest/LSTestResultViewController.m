@@ -9,6 +9,7 @@
 #import "LSTestResultViewController.h"
 #import "LSTopTableViewCell.h"
 #import "LSWrapPracticeViewController.h"
+#import "LSAnalysisViewController.h"
 
 @interface LSTestResultViewController ()
 {
@@ -434,8 +435,10 @@ int currPage = 1;
 {
     if([_delegate respondsToSelector:@selector(checkAnalysis)])
     {
-        [_delegate checkAnalysis];
-        [self.navigationController popViewControllerAnimated:YES];
+//        [_delegate checkAnalysis];
+        LSAnalysisViewController *vc = [[LSAnalysisViewController alloc]init];
+        vc.questionList = _questionList;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 
 }

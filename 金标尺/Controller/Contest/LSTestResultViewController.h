@@ -25,6 +25,7 @@
 
 @property (nonatomic) int examId;//考试id 获取统计数据
 @property (nonatomic) int mid;
+@property (nonatomic,strong) NSMutableArray *questionList;
 
 @property (nonatomic,strong) UITableView *tableView;
 

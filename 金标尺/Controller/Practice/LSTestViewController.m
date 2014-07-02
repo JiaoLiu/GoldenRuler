@@ -653,6 +653,7 @@
             vc.time = _exam.time;
             vc.mid = _exam.mid.intValue;
             vc.examId = examId;
+            vc.questionList = _questionList;
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -793,10 +794,12 @@
             cell.textLabel.text = asContent;
             
             if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
-                [cell setSelected:YES];
+
+                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                
                 selectedRow = indexPath.row;
-                cell.selectedBackgroundView = [UIView new];
-//                tableView.userInteractionEnabled = NO;
+//                cell.selectedBackgroundView = [UIView new];
+
                
             }
             
