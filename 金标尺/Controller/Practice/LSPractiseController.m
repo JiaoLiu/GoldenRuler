@@ -288,7 +288,7 @@
          if (ret == 1) {
              pageNo++;
              NSDictionary *dt = [dic objectForKey:@"data"];
-             int count = [[dt objectForKey:@"count"] intValue];
+//             int count = [[dt objectForKey:@"count"] intValue];
              NSArray *list = [dt objectForKey:@"list"];
 //             [currComments removeAllObjects];
              for (NSDictionary *cmt in list) {
@@ -314,8 +314,7 @@
              
          } else
          {
-             [SVProgressHUD dismiss];
-             [SVProgressHUD showWithStatus:msg];
+             [SVProgressHUD showErrorWithStatus:msg];
              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                  [SVProgressHUD dismiss];
              });
@@ -368,8 +367,7 @@
             
         } else
         {
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showWithStatus:msg];
+            [SVProgressHUD showErrorWithStatus:msg];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
             });
@@ -437,7 +435,7 @@
         } else
         {
             [SVProgressHUD dismiss];
-            [SVProgressHUD showWithStatus:msg];
+            [SVProgressHUD showErrorWithStatus:msg];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
             });
@@ -478,7 +476,7 @@
 
 - (void)addFavToServer
 {
-    [SVProgressHUD showWithStatus:@"加入收藏"];
+    [SVProgressHUD showWithStatus:@"加入收藏中..."];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/checkCollect?uid=%d&key=%d&qid=%@&act=add&tpye=1",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {

@@ -217,7 +217,7 @@
     pickerSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     [pickerSheet setBounds:CGRectMake(0, 0, 150, 100)];
     
-    [SVProgressHUD showWithStatus:@"加载中"];
+    [SVProgressHUD showWithStatus:@"加载中..."];
     [self loadDataWith:kDateSelected + 1 endTime:[NSString stringFromDate:expireDate Formatter:@"yyy-MM-dd"]];
 }
 
@@ -315,7 +315,7 @@
                     kDateSelected = [view selectedRowInComponent:0];
 //                    totalNum = price * (kDateSelected + 1);
 //                    [self calculateDate];
-                    [SVProgressHUD showWithStatus:@"加载中"];
+                    [SVProgressHUD showWithStatus:@"加载中..."];
                     [self loadDataWith:kDateSelected + 1 endTime:[NSString stringFromDate:expireDate Formatter:@"yyy-MM-dd"]];
                 }
                     break;

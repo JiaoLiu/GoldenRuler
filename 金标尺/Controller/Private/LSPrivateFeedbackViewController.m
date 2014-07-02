@@ -113,7 +113,7 @@
         [SVProgressHUD showErrorWithStatus:@"请输入电话号码"];
         return;
     }
-    [SVProgressHUD showWithStatus:@"提交中" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"提交中..." maskType:SVProgressHUDMaskTypeBlack];
     [self sendFeedBack];
 }
 

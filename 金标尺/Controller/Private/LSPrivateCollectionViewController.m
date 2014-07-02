@@ -32,7 +32,7 @@
         dataArray = [[NSMutableArray alloc] init];
         msgPage = 1;
         [self loadDataWithPage:msgPage size:0];
-        [SVProgressHUD showWithStatus:@"加载中"];
+        [SVProgressHUD showWithStatus:@"加载中..."];
     }
     return self;
 }
@@ -156,7 +156,7 @@
 - (void)deleteBtnClicked:(UIButton *)sender
 {
     NSLog(@"delete-%d",sender.tag);
-    [SVProgressHUD showWithStatus:@"删除中"];
+    [SVProgressHUD showWithStatus:@"删除中..."];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?key=%d&uid=%d&qid=%d&act=del&tpye=1",[LSUserManager getKey],[LSUserManager getUid],[[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue]]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {

@@ -252,8 +252,8 @@
             
             for (NSDictionary *qs in list) {
                 
-                NSString *tid = [qs objectForKey:@"tid"];
-                NSString *score = [qs objectForKey:@"score"];
+//                NSString *tid = [qs objectForKey:@"tid"];
+//                NSString *score = [qs objectForKey:@"score"];
                 NSString *qids = [qs objectForKey:@"qid"];
                 if ( [qids respondsToSelector:@selector(rangeOfString:)]) {
                     

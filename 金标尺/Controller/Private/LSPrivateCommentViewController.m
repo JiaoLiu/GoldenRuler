@@ -117,7 +117,7 @@
     [dataArray removeAllObjects];
     msgPage = 1;
     [self loadDataWithPage:msgPage size:0];
-    [SVProgressHUD showWithStatus:@"加载中" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
 }
 
 - (void)didReceiveMemoryWarning
