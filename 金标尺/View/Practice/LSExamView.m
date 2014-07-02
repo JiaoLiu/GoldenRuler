@@ -210,6 +210,7 @@
         [_yellowBtn setTitle:@"习题解析" forState:UIControlStateNormal];
         [_yellowBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _yellowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_yellowBtn setHidden:YES];
         [_scrollView addSubview:_yellowBtn];
         
         

@@ -104,7 +104,7 @@
     
     
 
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
     selectedRow = -1;
     [self timeCounter];
 }
@@ -159,6 +159,12 @@
         default:
             break;
     }
+    if ([qTypeString isEqualToString:@"填空"]) {
+        eview.textFiled.delegate = self;
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
+        
+        [eview addGestureRecognizer:gesture];
+    }
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     eview.delegate = self;
@@ -177,8 +183,7 @@
         [eview.yellowBtn setHidden:YES];
     }
     
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
-    [eview addGestureRecognizer:gesture];
+  
     
     [self.view addSubview:eview];
 //    [self.view bringSubviewToFront:tabBar];
@@ -807,15 +812,12 @@
                 [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 
                 selectedRow = indexPath.row;
-//                cell.selectedBackgroundView = [UIView new];
+
 
                
             }
             
-                cell.userInteractionEnabled = !isCheckingAns;
-           
-            
-            
+        
             return cell;
         }
             break;
@@ -912,15 +914,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    if (isCheckingAns) {
-        [cell setSelected:NO];
-
-        return;
-    }
-    
-    
-    
     
     
     

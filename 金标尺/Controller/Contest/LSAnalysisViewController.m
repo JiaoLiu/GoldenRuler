@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.title = @"查看答案及解析";
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
@@ -97,6 +97,8 @@
 
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
+//    eview.questionView.userInteractionEnabled = NO;
+
     eview.delegate = self;
     [eview.operTop setHidden:NO];
     [eview.textLabel setHidden:NO];
@@ -214,13 +216,13 @@
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.textLabel.text = asContent;
             
-            if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
-                
+            if ([_currQuestion.myAser isEqualToString:[asContent substringToIndex:1]]) {
+
                 [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 
             }
             
-           cell.userInteractionEnabled = NO;
+//
     
             
             

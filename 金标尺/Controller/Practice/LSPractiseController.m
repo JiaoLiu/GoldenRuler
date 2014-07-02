@@ -165,10 +165,14 @@
     
     if ([_qTypeString isEqualToString:@"填空"]) {
         eview.textFiled.delegate = self;
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
+        
+        [eview addGestureRecognizer:gesture];
     }
     
     if (currQuestion.myAser != nil && ![currQuestion.myAser isEqualToString:@""]) {
         [eview.operTop setHidden:NO];
+        [eview.yellowBtn setHidden:NO];
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",currQuestion.myAser];
         if (currQuestion.rightOrWrong) {
            
@@ -188,8 +192,7 @@
     eview.questionView.tag = QTABLE_TAG;
     eview.delegate = self;
     
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
-    [eview addGestureRecognizer:gesture];
+   
     
     [self.view addSubview:eview];
     [self.view bringSubviewToFront:tabBar];

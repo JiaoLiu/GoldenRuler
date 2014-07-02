@@ -19,7 +19,7 @@
 #import "LSChooseQuestionViewController.h"
 #import "LSTestResultViewController.h"
 
-@interface LSTestViewController : UIViewController<UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, LSCorrectionDelegate, LSCommentsDelegate, LSExamDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,LSTestResultViewDelegate>
+@interface LSTestViewController : UIViewController<UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, LSCorrectionDelegate, LSCommentsDelegate, LSExamDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,LSTestResultViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong) LSExam *exam;
 @property (nonatomic,strong) NSMutableArray *questionList;

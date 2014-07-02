@@ -86,6 +86,7 @@
         _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
         _myAnswer.textColor = [UIColor darkGrayColor];
         _myAnswer.font = [UIFont systemFontOfSize:14];
+        _myAnswer.backgroundColor = [UIColor clearColor];
 
         [_operTop addSubview:_myAnswer];
         
