@@ -97,7 +97,7 @@
 
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
-//    eview.questionView.userInteractionEnabled = NO;
+    [eview.questionView setEditing:NO];
 
     eview.delegate = self;
     [eview.operTop setHidden:NO];
@@ -219,9 +219,13 @@
             if ([_currQuestion.myAser isEqualToString:[asContent substringToIndex:1]]) {
 
                 [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                cell.userInteractionEnabled = NO;
                 
             }
-            
+            else
+            {
+                cell.userInteractionEnabled = YES;
+            }
 //
     
             
@@ -231,12 +235,18 @@
           
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-    return UITableViewCellEditingStyleInsert|UITableViewCellEditingStyleDelete;
- 
+//  UITableViewCell *cell  =  [tableView cellForRowAtIndexPath:indexPath];
+//    cell.userInteractionEnabled = NO;
 }
+
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//   
+//    return UITableViewCellEditingStyleNone;
+// 
+//}
 
 #pragma mark - choosequestion delegate
 - (void)seletedQuestion:(int)index

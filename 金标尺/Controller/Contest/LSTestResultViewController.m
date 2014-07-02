@@ -330,7 +330,12 @@ int currPage = 1;
             [topList addObjectsFromArray:temp];
             
             [_tableView reloadData];
+            if (topList.count % 20 != 0) {
+                isLoadingMore = YES;
+            }else
+            {
             isLoadingMore = NO;
+            }
             [_tableView.tableFooterView setHidden:YES];
             for (UIView *view in _tableView.tableFooterView.subviews) {
                 [view removeFromSuperview];
@@ -363,13 +368,7 @@ int currPage = 1;
         NSDictionary *dict = [topList objectAtIndex:indexPath.row];
 
         cell.placeLabel.text = [NSString stringWithFormat:@"%02d",indexPath.row+1];
-        if (indexPath.row < 3) {
-            cell.placeLabel.backgroundColor = [UIColor redColor];
-        }
-        else
-        {
-            cell.placeLabel.backgroundColor = [UIColor lightGrayColor];
-        }
+        cell.placeLabel.backgroundColor = [UIColor redColor];
         cell.nameLabel.text =[dict objectForKey:@"name"];
         cell.timeLabel.text = [dict objectForKey:@"etime"];
         cell.scoreLabel.text = [NSString stringWithFormat:@"%@分",[dict objectForKey:@"score"]];

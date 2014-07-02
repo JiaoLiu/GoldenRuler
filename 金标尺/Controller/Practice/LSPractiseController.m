@@ -83,11 +83,7 @@
         [self saveExamInfo];
     }
     
-//    [self getQuestionsWithId:@"10"];
-    
-    
-//    [self initExamView];
-    [self initTabBarView];
+   
 }
 
 - (void)saveExamInfo
@@ -368,7 +364,7 @@
              currQuestion = [questionList objectAtIndex:0];
              currIndex = 0;
              [self initExamView];
-             
+              [self initTabBarView];
             });
             
             
@@ -966,6 +962,13 @@
 
 - (void)correctionBtnClick:(NSString *)content
 {
+    
+    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"请先答题！"];
+        return;
+    }
+    
+    
     [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
     NSString *url = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/addqerror?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -1035,7 +1038,7 @@
         [LSUserManager setLastqid:currQuestion.qid.intValue];
         [SVProgressHUD dismiss];
         [LSSheetNotify dismiss];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
        
     }
 }

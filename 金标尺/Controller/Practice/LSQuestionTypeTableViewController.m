@@ -59,9 +59,15 @@
     }
     
     qTypeArray = [NSMutableArray arrayWithCapacity:0];
-    [self getQuestionType];
+    
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getQuestionType];
+}
 
 
 - (void)getQuestionType
