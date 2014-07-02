@@ -31,6 +31,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -98,8 +101,9 @@
     [eview.operTop setHidden:NO];
     [eview.textLabel setHidden:NO];
     [eview.yellowBtn setHidden:NO];
+    [eview.smtBtn setEnabled:NO];
     [self.view addSubview:eview];
-    //    [self.view bringSubviewToFront:tabBar];
+
     
 }
 
@@ -126,6 +130,8 @@
     NSLog(@"上一题");
     
     currIndex = currIndex < 0 ? 0:currIndex;
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是第一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
     if (currIndex > 0) {
         
         _currQuestion = [_questionList objectAtIndex:--currIndex];
