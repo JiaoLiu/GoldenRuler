@@ -25,6 +25,7 @@
 		2760E2491904F1F1001F5205 /* LSPrivateSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760E2481904F1F1001F5205 /* LSPrivateSettingViewController.m */; };
 		27646459195A6276006504C9 /* LSPrivateCollectionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27646458195A6276006504C9 /* LSPrivateCollectionDetailViewController.m */; };
 		2764645C195AC67E006504C9 /* LSPrivateCommentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2764645B195AC67E006504C9 /* LSPrivateCommentDetailViewController.m */; };
+		276816BE196408F100B4A13A /* LSContestRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276816BD196408F100B4A13A /* LSContestRankViewController.m */; };
 		277300191905FDA600D7C22C /* LSPrivateCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */; };
 		2773001B1906009C00D7C22C /* btn_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2773001A1906009C00D7C22C /* btn_red@2x.png */; };
 		2773001E19060FFF00D7C22C /* LSPrivateCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2773001D19060FFF00D7C22C /* LSPrivateCollectionViewController.m */; };
@@ -171,6 +172,8 @@
 		27646458195A6276006504C9 /* LSPrivateCollectionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCollectionDetailViewController.m; sourceTree = "<group>"; };
 		2764645A195AC67E006504C9 /* LSPrivateCommentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCommentDetailViewController.h; sourceTree = "<group>"; };
 		2764645B195AC67E006504C9 /* LSPrivateCommentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCommentDetailViewController.m; sourceTree = "<group>"; };
+		276816BC196408F100B4A13A /* LSContestRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSContestRankViewController.h; sourceTree = "<group>"; };
+		276816BD196408F100B4A13A /* LSContestRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSContestRankViewController.m; sourceTree = "<group>"; };
 		277300171905FDA600D7C22C /* LSPrivateCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateCommentViewController.h; sourceTree = "<group>"; };
 		277300181905FDA600D7C22C /* LSPrivateCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateCommentViewController.m; sourceTree = "<group>"; };
 		2773001A1906009C00D7C22C /* btn_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_red@2x.png"; sourceTree = "<group>"; };
@@ -633,6 +636,8 @@
 				C668A382195C0CF200DCE273 /* LSTestResultViewController.m */,
 				C6A84FC01963B37400E4F8C2 /* LSAnalysisViewController.h */,
 				C6A84FC11963B37400E4F8C2 /* LSAnalysisViewController.m */,
+				276816BC196408F100B4A13A /* LSContestRankViewController.h */,
+				276816BD196408F100B4A13A /* LSContestRankViewController.m */,
 			);
 			path = Contest;
 			sourceTree = "<group>";
@@ -1006,6 +1011,7 @@
 				C62F1CDB193FFF140060A807 /* LSWrapPracticeViewController.m in Sources */,
 				C60F5B711946BA9200778BDA /* UITextViewWithPlaceholder.m in Sources */,
 				CCB3BA681902200C00CC1849 /* LSPrivateCenterViewController.m in Sources */,
+				276816BE196408F100B4A13A /* LSContestRankViewController.m in Sources */,
 				271A711C190A648700E055BD /* LSChoiceDetailViewController.m in Sources */,
 				CC844E7B194496140018DD69 /* LSPrivateErrorDBViewController.m in Sources */,
 				CC4614BB1905511D0082D96A /* LSMsgPushViewController.m in Sources */,
