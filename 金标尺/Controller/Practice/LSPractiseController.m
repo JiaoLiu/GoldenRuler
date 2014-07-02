@@ -554,6 +554,12 @@
             NSLog(@"click item2");
             break;
         case 2:
+            if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
+            {
+                [SVProgressHUD showErrorWithStatus:@"请先答题！"];
+                return;
+            }
+            
             [self initCorrectionView];
             NSLog(@"click item3");
             break;
@@ -960,12 +966,6 @@
 
 - (void)correctionBtnClick:(NSString *)content
 {
-    
-    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""]) {
-        [SVProgressHUD showErrorWithStatus:@"请先答题！"];
-        return;
-    }
-    
     
     [SVProgressHUD showWithStatus:@"正在提交,请稍侯..."];
     NSString *url = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/addqerror?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]];
