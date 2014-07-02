@@ -177,7 +177,8 @@
         [eview.yellowBtn setHidden:YES];
     }
     
-    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
+    [eview addGestureRecognizer:gesture];
     
     [self.view addSubview:eview];
 //    [self.view bringSubviewToFront:tabBar];
@@ -195,7 +196,10 @@
     eview.usedTime.text = [NSString stringWithFormat:@"已用时 %02d:%02d",min,sec];
     
 }
-
+-(void)hideKeyBoard
+{
+    [eview.textFiled resignFirstResponder];
+}
 ////评论界面
 //- (void)initCommentsView
 //{

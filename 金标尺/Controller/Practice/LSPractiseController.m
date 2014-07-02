@@ -188,9 +188,12 @@
     eview.questionView.tag = QTABLE_TAG;
     eview.delegate = self;
     
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
+    [eview addGestureRecognizer:gesture];
+    
     [self.view addSubview:eview];
     [self.view bringSubviewToFront:tabBar];
-     [SVProgressHUD dismiss];
+    [SVProgressHUD dismiss];
     
 }
 
@@ -517,6 +520,11 @@
         }
     
     }];
+}
+
+-(void)hideKeyBoard
+{
+    [eview.textFiled resignFirstResponder];
 }
 
 
