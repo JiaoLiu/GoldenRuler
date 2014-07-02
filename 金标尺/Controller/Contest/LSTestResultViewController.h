@@ -9,7 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "LSTabBar.h"
 
+@protocol LSTestResultViewDelegate <NSObject>
+
+- (void)redoExam;
+- (void)checkAnalysis;
+
+@end
+
 @interface LSTestResultViewController : UIViewController<LSTabBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, assign) id<LSTestResultViewDelegate> delegate;
 @property (nonatomic) int myscore;
 @property (nonatomic) int totalscore;
 @property (nonatomic) int time;

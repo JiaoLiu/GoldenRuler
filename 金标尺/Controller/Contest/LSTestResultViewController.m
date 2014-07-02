@@ -8,6 +8,7 @@
 
 #import "LSTestResultViewController.h"
 #import "LSTopTableViewCell.h"
+#import "LSWrapPracticeViewController.h"
 
 @interface LSTestResultViewController ()
 {
@@ -121,7 +122,7 @@
 
 - (void)initResultView
 {
-    resultView = [[UIView alloc]initWithFrame:self.view.frame];
+    resultView = [[UIView alloc]initWithFrame:self.view.bounds];
     [self.view addSubview:resultView];
     
     UILabel *lb = [[UILabel alloc]initWithFrame:CGRectMake(30, 50, SCREEN_WIDTH - 30, 24)];
@@ -226,6 +227,7 @@
     UIButton *readAns = [[UIButton alloc]initWithFrame:CGRectMake(30, 255, 260, 35)];
     readAns.backgroundColor = RGB(4, 121, 202);
     [readAns setTitle:@"查看答案及解析" forState:UIControlStateNormal];
+    [readAns addTarget:self action:@selector(redoExam) forControlEvents:UIControlEventTouchUpInside];
     [readAns setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     readAns.layer.cornerRadius = 5;
     [resultView addSubview:readAns];
@@ -233,6 +235,7 @@
     UIButton *reDo = [[UIButton alloc]initWithFrame:CGRectMake(30, 305, 260, 35)];
     reDo.backgroundColor = [UIColor lightGrayColor];
     [reDo setTitle:@"重新作答" forState:UIControlStateNormal];
+    [reDo addTarget:self action:@selector(redoExam) forControlEvents:UIControlEventTouchUpInside];
     [reDo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     reDo.layer.cornerRadius = 5;
     [resultView addSubview:reDo];
@@ -273,6 +276,7 @@
 
 - (void)getExamTop
 {
+    [SVProgressHUD showWithStatus:@"统计成绩中"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/examTop?uid=%d&key=%d&mid=%d&id=%d",[LSUserManager getUid],[LSUserManager getKey],_mid,_examId]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
@@ -288,10 +292,11 @@
             avgTimeStr = [dt objectForKey:@"meantime"];
             avgScoreStr = [dt objectForKey:@"meanscore"];
             [self initResultView];
+            [SVProgressHUD dismiss];
         }
         else
         {
-        
+            [SVProgressHUD showErrorWithStatus:msg];
         }
     
     
@@ -320,6 +325,11 @@ int currPage = 1;
             
             [_tableView reloadData];
             isLoadingMore = NO;
+            [_tableView.tableFooterView setHidden:YES];
+            for (UIView *view in _tableView.tableFooterView.subviews) {
+                [view removeFromSuperview];
+            }
+            
             [self.view bringSubviewToFront:tabBar];
         }
         else
@@ -370,8 +380,10 @@ int currPage = 1;
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    
+    if (scrollView.contentOffset.y > 20) {
         [self loadDataBegin];
+
+    }
 }
 
 
@@ -393,7 +405,7 @@ int currPage = 1;
         [tableFooterActivityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
         
         [tableFooterActivityIndicator startAnimating];
-        
+        [_tableView.tableFooterView setHidden:NO];
         [_tableView.tableFooterView addSubview:tableFooterActivityIndicator];
         [_tableView.tableFooterView addSubview:loading];
         [self loadDataing];
@@ -407,7 +419,26 @@ int currPage = 1;
 }
 
 
+- (void)redoExam
+{
 
+    if([_delegate respondsToSelector:@selector(redoExam)])
+    {
+        [_delegate redoExam];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
+
+- (void) checkAnlysis
+{
+    if([_delegate respondsToSelector:@selector(checkAnalysis)])
+    {
+        [_delegate checkAnalysis];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+
+}
 
 
 
@@ -421,7 +452,15 @@ int currPage = 1;
 - (void)backBtnClicked
 {
     [SVProgressHUD dismiss];
-    [self.navigationController popViewControllerAnimated:YES];
+
+    NSArray *array = self.navigationController.viewControllers;
+    LSWrapPracticeViewController *vc = [[LSWrapPracticeViewController alloc]init];
+    for (UIViewController *vv in array) {
+        if ([vv isKindOfClass:vc.class]) {
+            vc = (LSWrapPracticeViewController*)vv;
+        }
+    }
+    [self.navigationController popToViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

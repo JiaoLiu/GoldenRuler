@@ -7,7 +7,6 @@
 //
 
 #import "LSTestViewController.h"
-#import "LSTestResultViewController.h"
 #import "SBJSON.h"
 
 
@@ -379,7 +378,7 @@
     currIndex = currIndex > _questionList.count ? _questionList.count : currIndex;
     
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
-    if (currIndex >= _questionList.count && historyQst.count == _questionList.count)
+    if (currIndex >= _questionList.count || historyQst.count == _questionList.count)
     {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"本次考试已做完" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
@@ -505,6 +504,29 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+
+#pragma mark -result delegate
+- (void)redoExam
+{
+
+    for (LSQuestion *question in _questionList) {
+        question.myAser = nil;
+        question.rightOrWrong = NO;
+    }
+    [historyQst removeAllObjects];
+    _currQuestion = [_questionList objectAtIndex:0];
+    currIndex = 0;
+    [self initExamView];
+    
+}
+
+- (void)checkAnalysis
+{
+
+}
+
+
+
 #pragma mark - choosequestion delegate
 - (void)seletedQuestion:(int)index
 {
@@ -610,6 +632,7 @@
             vc.time = _exam.time;
             vc.mid = _exam.mid.intValue;
             vc.examId = examId;
+            vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
         }
         else
