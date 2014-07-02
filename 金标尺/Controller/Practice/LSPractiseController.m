@@ -621,8 +621,7 @@
             
             if (currQuestion.myAser != nil && [currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound) {
                 NSLog(@"%@",currQuestion.myAser);
-                [cell setSelected:YES];
-                cell.selectedBackgroundView = [UIView new];
+                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 tableView.userInteractionEnabled = NO;
             }
 
