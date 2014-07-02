@@ -83,6 +83,8 @@
         eview.myAnswer.text = question.myAser;
     }
     else eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",question.myAser];
+    eview.textFiled.hidden = YES;
+    eview.yellowBtn.hidden = NO;
     eview.operTop.hidden = NO;
     eview.textLabel.hidden = NO;
     [self.view addSubview:eview];
@@ -127,14 +129,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    NSArray *answers = [question.answer componentsSeparatedByString:@"|"];
-    NSString *asContent = [answers objectAtIndex:indexPath.row];
-    cell.textLabel.text = asContent;
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-    cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    if ([question.tid intValue] != kBlank) {
+        NSArray *answers = [question.answer componentsSeparatedByString:@"|"];
+        NSString *asContent = [answers objectAtIndex:indexPath.row];
+        cell.textLabel.text = asContent;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+        cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

@@ -1010,7 +1010,6 @@
 //评论
 - (void)commentsBtnClick:(NSString *)content
 {
-    NSLog(@"%@",content);
     [SVProgressHUD
      showWithStatus:@"正在提交,请稍侯..."];
     NSString *url =[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]];
