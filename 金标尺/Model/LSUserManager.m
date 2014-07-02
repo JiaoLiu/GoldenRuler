@@ -114,6 +114,12 @@
     [USER_DEFAULT synchronize];
 }
 
++ (void)setUserCity:(NSString *)city
+{
+    [USER_DEFAULT setObject:city forKey:@"_USER_CITY_"];
+    [USER_DEFAULT synchronize];
+}
+
 + (void)setPush:(int)push
 {
     if (push == 1) {
@@ -215,6 +221,11 @@
 + (NSString *)getEndTime
 {
     return [USER_DEFAULT objectForKey:@"_USER_ENDTIME_"];
+}
+
++ (NSString *)getUserCity
+{
+    return [USER_DEFAULT objectForKey:@"_USER_CITY_"];
 }
 
 + (BOOL)getPush

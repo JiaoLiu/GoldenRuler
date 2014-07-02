@@ -216,6 +216,7 @@
             NSDictionary *data = [dic objectForKey:@"data"];
             [LSUserManager setUserTel:[data objectForKey:@"tel"]];
             [LSUserManager setUserQQ:[data objectForKey:@"qq"]];
+            [LSUserManager setUserCity:[data objectForKey:@"city"]];
         }
         else
         {
