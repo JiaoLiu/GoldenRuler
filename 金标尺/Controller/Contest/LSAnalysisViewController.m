@@ -203,6 +203,8 @@
 {
     
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
             NSString *asContent = [answers objectAtIndex:indexPath.row];
             cell.textLabel.text = asContent;
