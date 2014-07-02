@@ -86,7 +86,7 @@
     [header addSubview:timeLabel];
     [header addSubview:scoreLabel];
     
-    
+    [self getAllTop];
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -120,7 +120,6 @@
 //排行榜
 - (void)getAllTop
 {
-    
     if (!isLoadingMore) {
         [SVProgressHUD showWithStatus:@"正在统计..."];
     }
