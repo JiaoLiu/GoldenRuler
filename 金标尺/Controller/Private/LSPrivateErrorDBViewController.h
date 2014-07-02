@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSPrivateErrorDBViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface LSPrivateErrorDBViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong)UITableView *errorTable;
 

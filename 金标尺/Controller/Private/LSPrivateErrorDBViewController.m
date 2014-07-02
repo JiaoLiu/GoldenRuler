@@ -13,6 +13,7 @@
 {
     NSMutableArray *dataArray;
     NSInteger msgPage;
+    NSInteger deleteRow;
 }
 
 @end
@@ -31,6 +32,7 @@
         }
         dataArray = [[NSMutableArray alloc] init];
         msgPage = 1;
+        deleteRow = 0;
         [self loadDataWithPage:msgPage size:0];
         [SVProgressHUD showWithStatus:@"加载中..."];
     }
@@ -155,24 +157,41 @@
 
 - (void)deleteBtnClicked:(UIButton *)sender
 {
-    NSLog(@"delete-%d",sender.tag);
-    [SVProgressHUD showWithStatus:@"删除中..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?uid=%d&key=%d&qid=%d&act=del&tpye=2",[LSUserManager getUid],[LSUserManager getKey],[[[dataArray objectAtIndex:sender.tag] objectForKey:@"qid"] integerValue]]]]];
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *dic = [data mutableObjectFromJSONData];
-        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-        if (ret == 1) {
-            [dataArray removeObjectAtIndex:sender.tag];
-            [errorTable reloadData];
-            [SVProgressHUD dismiss];
-            msgPage = dataArray.count % 10 + 1;
-        }
-        else
+    UIAlertView *deleteAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定要删除吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [deleteAlert show];
+    deleteRow = sender.tag;
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
         {
-            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+            [SVProgressHUD showWithStatus:@"删除中..."];
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/checkCollect?uid=%d&key=%d&qid=%d&act=del&tpye=2",[LSUserManager getUid],[LSUserManager getKey],[[[dataArray objectAtIndex:deleteRow] objectForKey:@"qid"] integerValue]]]]];
+            NSOperationQueue *queue = [NSOperationQueue currentQueue];
+            [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                NSDictionary *dic = [data mutableObjectFromJSONData];
+                NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+                if (ret == 1) {
+                    [dataArray removeObjectAtIndex:deleteRow];
+                    [errorTable reloadData];
+                    [SVProgressHUD dismiss];
+                    msgPage = dataArray.count % 10 + 1;
+                }
+                else
+                {
+                    [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+                }
+            }];
         }
-    }];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - tableView delegate
