@@ -104,7 +104,7 @@
     
     
 
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeCounter) userInfo:nil repeats:YES];
     selectedRow = -1;
     [self timeCounter];
 }
@@ -169,21 +169,22 @@
     eview.questionView.dataSource = self;
     eview.delegate = self;
     eview.questionView.tag = QTABLE_TAG;
-   
+    [eview.operTop removeFromSuperview];
+    CGRect frame = eview.operView.frame;
+    frame.size.height -= 50;
+    eview.operView.frame = frame;
     
-    if (isCheckingAns) {
-        [eview.operTop setHidden:NO];
-        [eview.textLabel setHidden:NO];
-        [eview.yellowBtn setHidden:NO];
-    }
-    else
-    {
-        [eview.operTop setHidden:YES];
-        [eview.textLabel setHidden:YES];
-        [eview.yellowBtn setHidden:YES];
-    }
+    CGRect frame1 = eview.preQuestion.frame;
+    frame1.origin.y -= 35;
+    eview.preQuestion.frame = frame1;
     
+    CGRect frame2 = eview.nextQuestion.frame;
+    frame2.origin.y -= 35;
+    eview.nextQuestion.frame = frame2;
   
+    CGRect frame3 = eview.smtBtn.frame;
+    frame3.origin.y -= 35;
+    eview.smtBtn.frame = frame3;
     
     [self.view addSubview:eview];
 //    [self.view bringSubviewToFront:tabBar];

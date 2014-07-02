@@ -68,7 +68,7 @@
         
         
         _operView = [[UIView alloc]initWithFrame:CGRectMake(0, _questionView.frame.size.height + _questionView.frame.origin.y, SCREEN_WIDTH, 100)];
-        _operView.backgroundColor = [UIColor clearColor];
+
         
         _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
         _operTop.backgroundColor = RGB(210, 210, 210);
@@ -104,6 +104,7 @@
         [_yellowBtn setTitle:@"习题解析" forState:UIControlStateNormal];
         [_yellowBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _yellowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_yellowBtn setHidden:YES];
         [_scrollView addSubview:_yellowBtn];
         
         
