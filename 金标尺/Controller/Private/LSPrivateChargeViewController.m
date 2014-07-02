@@ -154,8 +154,12 @@
     
     UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, 35, nameLabel.frame.size.width, 15)];
     emailLabel.backgroundColor = [UIColor clearColor];
-    emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
-    emailLabel.textColor = [UIColor lightGrayColor];
+    if ([LSUserManager getUserEmail].length != 0) {
+        emailLabel.text = [NSString stringWithFormat:@"电子邮箱：%@",[LSUserManager getUserEmail]];
+        emailLabel.hidden = NO;
+    }
+    else emailLabel.hidden = YES;
+    emailLabel.textColor = [UIColor grayColor];
     emailLabel.font = [UIFont systemFontOfSize:11];
     emailLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [headerBackView addSubview:emailLabel];
@@ -177,17 +181,21 @@
     timeLabel.font = [UIFont systemFontOfSize:11];
     [headerBackView addSubview:timeLabel];
     
-    addBtn = [[UIButton alloc] initWithFrame:CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y, 50, 15)];
-    [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
-    [addBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
-    [addBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    addBtn.titleLabel.font = [UIFont systemFontOfSize:11];
-    [headerBackView addSubview:addBtn];
+//    addBtn = [[UIButton alloc] initWithFrame:CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y, 50, 15)];
+//    [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
+//    [addBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
+//    [addBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+//    addBtn.titleLabel.font = [UIFont systemFontOfSize:11];
+//    addBtn.userInteractionEnabled = NO;
+//    [headerBackView addSubview:addBtn];
     
     if (!isVip) {
-        vipLabel.hidden = YES;
+        vipLabel.text = @"普通会员";
+        vipLabel.font = [UIFont systemFontOfSize:13];
+        vipLabel.textColor = [UIColor grayColor];
         timeLabel.hidden = YES;
-        addBtn.hidden = YES;
+//        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y, 100, 15);
+//        [addBtn setTitle:@"【开通VIP会员】" forState:UIControlStateNormal];
     }
     
     // tableList
