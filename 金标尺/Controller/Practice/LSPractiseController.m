@@ -810,9 +810,17 @@
     selectedRow = -1;
     NSLog(@"上一题");
     
+    if (currIndex==0) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是第一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    
+    
     currIndex = currIndex < 0 ? 0:currIndex;
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是第一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
+    
+    
+    
     if (currIndex > 0) {
         
 //        currQuestion = [historyQst objectAtIndex:--currIndex];
