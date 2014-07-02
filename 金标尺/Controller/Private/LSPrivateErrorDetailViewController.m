@@ -83,6 +83,9 @@
         eview.myAnswer.text = question.myAser;
     }
     else eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",question.myAser];
+    if ([question.tid intValue] == kJudge || [question.tid intValue] == kSingleChoice || [question.tid intValue] == kSimpleAnswer || [question.tid intValue] == kDiscuss) {
+        [eview.currBtn setTitle:@"1/1" forState:UIControlStateNormal];
+    }
     eview.textFiled.hidden = YES;
     eview.yellowBtn.hidden = NO;
     eview.operTop.hidden = NO;
