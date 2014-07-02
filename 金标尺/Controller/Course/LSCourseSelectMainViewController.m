@@ -30,7 +30,7 @@
         }
 //        titleArray = @[@"综合基础知识",@"综合基础知识",@"综合基础知识",@"综合基础知识"];
         selectedRow = -1;
-        [SVProgressHUD showWithStatus:@"加载中"];
+        [SVProgressHUD showWithStatus:@"加载中..."];
         titleArray = [[NSMutableArray alloc] init];
         [self loadData];
     }

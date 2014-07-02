@@ -277,7 +277,7 @@
 
 - (void)getExamTop
 {
-    [SVProgressHUD showWithStatus:@"统计成绩中"];
+    [SVProgressHUD showWithStatus:@"统计成绩中..."];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/examTop?uid=%d&key=%d&mid=%d&id=%d",[LSUserManager getUid],[LSUserManager getKey],_mid,_examId]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
@@ -310,18 +310,15 @@ int currPage = 1;
 {
     
     if (!isLoadingMore) {
-         [SVProgressHUD showWithStatus:@"正在统计"];
+         [SVProgressHUD showWithStatus:@"正在统计..."];
     }
-   
-    
-    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],currPage++,20]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-        NSString *msg = [dic objectForKey:@"msg"];
+//        NSString *msg = [dic objectForKey:@"msg"];
         if (ret == 1)
         {
             [SVProgressHUD dismiss];

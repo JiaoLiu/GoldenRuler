@@ -213,7 +213,7 @@
         case 3:
         {
             [self checkVersion];
-            [SVProgressHUD showWithStatus:@"检测中" maskType:SVProgressHUDMaskTypeBlack];
+            [SVProgressHUD showWithStatus:@"检测中..." maskType:SVProgressHUDMaskTypeBlack];
         }
             break;
         default:

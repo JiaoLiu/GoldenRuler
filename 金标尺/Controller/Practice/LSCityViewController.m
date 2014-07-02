@@ -78,7 +78,7 @@
         }
         
         if (ret == 0) {
-            [SVProgressHUD showWithStatus:@"获取失败" maskType:SVProgressHUDMaskTypeNone];
+            [SVProgressHUD showErrorWithStatus:@"获取失败"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
             });

@@ -32,7 +32,7 @@
         dataArray = [[NSMutableArray alloc] init];
         msgPage = 1;
         [self loadDataWithPage:msgPage size:0];
-        [SVProgressHUD showWithStatus:@"加载中"];
+        [SVProgressHUD showWithStatus:@"加载中..."];
     }
     return self;
 }

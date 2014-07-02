@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSPrivateCollectionViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface LSPrivateCollectionViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong)UITableView *collectionTable;
 

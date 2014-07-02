@@ -31,7 +31,7 @@
 
 - (void)loadData
 {
-    [SVProgressHUD showWithStatus:@"加载中"];
+    [SVProgressHUD showWithStatus:@"加载中..."];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/About"]]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
