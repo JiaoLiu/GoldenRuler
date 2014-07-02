@@ -33,6 +33,8 @@
 @property (strong, nonatomic)  UILabel *myAnswer;
 
 @property (strong, nonatomic) UITextField *textFiled;
+@property (strong, nonatomic) UILabel* textLabel;
+@property (strong, nonatomic) UIView *operTop;
 
 - (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question;
 @end

@@ -227,7 +227,7 @@
     UIButton *readAns = [[UIButton alloc]initWithFrame:CGRectMake(30, 255, 260, 35)];
     readAns.backgroundColor = RGB(4, 121, 202);
     [readAns setTitle:@"查看答案及解析" forState:UIControlStateNormal];
-    [readAns addTarget:self action:@selector(redoExam) forControlEvents:UIControlEventTouchUpInside];
+    [readAns addTarget:self action:@selector(checkAnlysis) forControlEvents:UIControlEventTouchUpInside];
     [readAns setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     readAns.layer.cornerRadius = 5;
     [resultView addSubview:readAns];

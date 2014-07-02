@@ -70,25 +70,40 @@
         _operView = [[UIView alloc]initWithFrame:CGRectMake(0, _questionView.frame.size.height + _questionView.frame.origin.y, SCREEN_WIDTH, 100)];
         _operView.backgroundColor = [UIColor clearColor];
         
-        UIView *operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
-        operTop.backgroundColor = RGB(210, 210, 210);
+        _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
+        _operTop.backgroundColor = RGB(210, 210, 210);
         
-//        [_operView addSubview:operTop];
-//        _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
-//        _rightImage.frame = CGRectMake(30, 6, 19, 18);
-//        _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
-//        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
-//        [_rightImage setHidden:YES];
-//        [_wrongImage setHidden:YES];
-//        
-//        [operTop addSubview:_rightImage];
-//        [operTop addSubview:_wrongImage];
-//        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
-//        _myAnswer.textColor = [UIColor darkGrayColor];
-//        _myAnswer.font = [UIFont systemFontOfSize:14];
-//
-//        [operTop addSubview:_myAnswer];
+        [_operView addSubview:_operTop];
+        _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
+        _rightImage.frame = CGRectMake(30, 6, 19, 18);
+        _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
+        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
+        [_rightImage setHidden:YES];
+        [_wrongImage setHidden:YES];
+        
+        [_operTop addSubview:_rightImage];
+        [_operTop addSubview:_wrongImage];
+        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
+        _myAnswer.textColor = [UIColor darkGrayColor];
+        _myAnswer.font = [UIFont systemFontOfSize:14];
+
+        [_operTop addSubview:_myAnswer];
+        
+        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(198, 4, 110, 21)];
+        rtAnswer.textColor = [UIColor darkGrayColor];
+        rtAnswer.font = [UIFont systemFontOfSize:14];
+        rtAnswer.text = [NSString stringWithFormat:@"正确答案:%@",question.right];
+        rtAnswer.backgroundColor = [UIColor clearColor];
+        [_operTop addSubview:rtAnswer];
+        
+        
     
+        _yellowBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, _operView.frame.origin.y + _operView.frame.size.height + 10, 76, 27)];
+        [_yellowBtn setBackgroundImage:[UIImage imageNamed:@"nx_bg.9.png"] forState:UIControlStateNormal];
+        [_yellowBtn setTitle:@"习题解析" forState:UIControlStateNormal];
+        [_yellowBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _yellowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_scrollView addSubview:_yellowBtn];
         
         
         //操作按钮
@@ -136,15 +151,8 @@
             
         }
         
-        
-        
-        
-        
         [_smtBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _smtBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-       
-        
-        
         [_operView addSubview:_preQuestion];
         [_operView addSubview:_nextQuestion];
         [_operView addSubview:_smtBtn];
@@ -152,8 +160,26 @@
         _operView.backgroundColor = RGB(210, 210, 210);
         [_scrollView addSubview:_operView];
         
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+100);
+        
+        CGSize tsize = [question.analysis sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(290, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+        CGRect tframe = CGRectMake(13, _yellowBtn.frame.origin.y + _yellowBtn.frame.size.height, 0, 0);
+        tframe.size = tsize;
+        _textLabel = [[UILabel alloc]initWithFrame:tframe];
+        _textLabel.numberOfLines = 0;
+        _textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _textLabel.text = question.analysis;
+        _textLabel.font = [UIFont systemFontOfSize:13];
+        [_textLabel setHidden:YES];
+        [_scrollView addSubview:_textLabel];
+        
+        CGRect rect = _scrollView.frame;
+        rect.size.height = _textLabel.frame.origin.y + _textLabel.frame.size.height + 150;
+        _scrollView.contentSize = rect.size;
+        
+        
+//        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+100);
         [self addSubview:_scrollView];
+        
     }
     return self;
 }

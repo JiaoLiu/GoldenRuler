@@ -49,6 +49,7 @@
     NSMutableArray *smtQst;
     
     BOOL isSmt;
+    BOOL isCheckingAns;
 }
 @end
 
@@ -95,9 +96,10 @@
     
     historyQst = [NSMutableArray arrayWithCapacity:0];
     if (_questionList != nil && _questionList.count>0) {
-        _currQuestion = [_questionList objectAtIndex:0];
-        currIndex = 0;
-        [self initExamView];
+//        _currQuestion = [_questionList objectAtIndex:0];
+//        currIndex = 0;
+//        [self initExamView];
+        [self redoExam];
     }
     
     
@@ -161,6 +163,22 @@
     eview.questionView.dataSource = self;
     eview.delegate = self;
     eview.questionView.tag = QTABLE_TAG;
+   
+    
+    if (isCheckingAns) {
+        [eview.operTop setHidden:NO];
+        [eview.textLabel setHidden:NO];
+        [eview.yellowBtn setHidden:NO];
+    }
+    else
+    {
+        [eview.operTop setHidden:YES];
+        [eview.textLabel setHidden:YES];
+        [eview.yellowBtn setHidden:YES];
+    }
+    
+    
+    
     [self.view addSubview:eview];
 //    [self.view bringSubviewToFront:tabBar];
     
@@ -522,7 +540,10 @@
 
 - (void)checkAnalysis
 {
-
+    isCheckingAns = YES;
+    _currQuestion = [_questionList objectAtIndex:0];
+    currIndex = 0;
+    [self initExamView];
 }
 
 
@@ -773,8 +794,14 @@
             
             if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
                 [cell setSelected:YES];
-                tableView.userInteractionEnabled = NO;
+                selectedRow = indexPath.row;
+                cell.selectedBackgroundView = [UIView new];
+//                tableView.userInteractionEnabled = NO;
+               
             }
+            
+                cell.userInteractionEnabled = !isCheckingAns;
+           
             
             
             return cell;
@@ -806,7 +833,16 @@
 }
 
 
-
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    CGRect tFrame = eview.questionView.frame;
+//    tFrame.size = eview.questionView.contentSize;
+//    eview.questionView.frame = tFrame;
+//    
+//    CGRect operFrame = eview.operView.frame;
+//    operFrame.origin.y = eview.questionView.frame.origin.y + eview.questionView.contentSize.height;
+//    eview.operView.frame = operFrame;
+}
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
         switch (tableView.tag) {
@@ -864,6 +900,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (isCheckingAns) {
+        [cell setSelected:NO];
+
+        return;
+    }
+    
+    
+    
+    
+    
     
     if ([qTypeString isEqualToString:@"单选"] || [qTypeString isEqualToString:@"判断"] || [qTypeString isEqualToString:@"简答"] ||  [qTypeString isEqualToString:@"论述"])
     {
