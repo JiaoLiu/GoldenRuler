@@ -948,7 +948,7 @@
 
         }
         
-        [self addFavToServer];
+//        [self addFavToServer];
     } else {//多选
         
     }
