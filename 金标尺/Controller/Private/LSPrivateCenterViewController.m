@@ -14,6 +14,7 @@
 #import "LSPrivateCommentViewController.h"
 #import "LSPrivateCollectionViewController.h"
 #import "LSPrivateErrorDBViewController.h"
+#import "LSContestRankViewController.h"
 
 #define LOGOUT_TAG 100
 
@@ -46,7 +47,7 @@
             expireDate = [NSDate date];
         }
         else expireDate = [NSString dateFromString:[LSUserManager getEndTime] Formatter:@"yyy-MM-dd"];
-        titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"我的评论",@"我要充值",@"设置",@"退出登陆"];
+        titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"排行榜",@"我的评论",@"我要充值",@"设置",@"退出登陆"];
         hasNotice = [LSUserManager getPush];
     }
     return self;
@@ -284,22 +285,28 @@
             break;
         case 4:
         {
-            LSPrivateCommentViewController *commentVC = [[LSPrivateCommentViewController alloc] init];
-            [self.navigationController pushViewController:commentVC animated:YES];
+            LSContestRankViewController *rankVC = [[LSContestRankViewController alloc] init];
+            [self.navigationController pushViewController:rankVC animated:YES];
         }
             break;
         case 5:
         {
-            [self addBtnClicked];
+            LSPrivateCommentViewController *commentVC = [[LSPrivateCommentViewController alloc] init];
+            [self.navigationController pushViewController:commentVC animated:YES];
         }
             break;
         case 6:
+        {
+            [self addBtnClicked];
+        }
+            break;
+        case 7:
         {
             LSPrivateSettingViewController *settingVC = [[LSPrivateSettingViewController alloc] init];
             [self.navigationController pushViewController:settingVC animated:YES];
         }
             break;
-        case 7:
+        case 8:
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"退出登录" message:@"确定退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.tag = LOGOUT_TAG;
