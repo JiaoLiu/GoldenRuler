@@ -191,7 +191,6 @@
     
     if (!isVip) {
         vipLabel.text = @"普通会员";
-        vipLabel.font = [UIFont systemFontOfSize:13];
         vipLabel.textColor = [UIColor grayColor];
         timeLabel.hidden = YES;
 //        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y, 100, 15);

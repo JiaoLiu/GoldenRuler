@@ -67,6 +67,7 @@
     choiceWebView.dataDetectorTypes = UIDataDetectorTypeAll;
     [choiceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
     choiceWebView.delegate = self;
+    choiceWebView.scalesPageToFit = YES;
     [self.view addSubview:choiceWebView];
     
     activityIDC = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -142,7 +143,7 @@
 //            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
             WXMediaMessage *msg = [WXMediaMessage message];
             msg.title = urlTitle;
-            msg.description = @"Hello from Jiao ~_~";
+//            msg.description = @"Hello from Jiao ~_~";
             [msg setThumbImage:[UIImage imageNamed:@"logo"]];
             WXWebpageObject *obj = [WXWebpageObject object];
             obj.webpageUrl = urlStr;
