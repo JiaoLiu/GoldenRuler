@@ -65,7 +65,9 @@
                     [cateArray addObject:dic];
                 }
             }
-            [SVProgressHUD dismiss];
+            selectedCate = 1;
+            [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+//            [SVProgressHUD dismiss];
         }
         else
         {
@@ -268,6 +270,7 @@
             selectedDate = date;
             [dateSelectBtn setTitle:[NSString stringFromDate:date Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
             msgPage = 1;
+            [dataArray removeAllObjects];
             [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
             [SVProgressHUD showWithStatus:@"加载中..."];
         }
@@ -275,6 +278,7 @@
             [catSelectBtn setTitle:[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"name"] forState:UIControlStateNormal];
             [dateSelectBtn setTitle:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
             selectedCate = [[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"cid"] integerValue];
+            [dataArray removeAllObjects];
             [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
             [SVProgressHUD showWithStatus:@"加载中..."];
         }
