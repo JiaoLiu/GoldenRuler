@@ -94,7 +94,7 @@
     }
     else emailLabel.hidden = YES;
     emailLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
-    emailLabel.textColor = [UIColor lightGrayColor];
+    emailLabel.textColor = [UIColor grayColor];
     emailLabel.font = [UIFont systemFontOfSize:11];
     [headerBackView addSubview:emailLabel];
     
@@ -124,9 +124,12 @@
     [headerBackView addSubview:addBtn];
     
     if (!isVip) {
-        vipLabel.hidden = YES;
+        vipLabel.text = @"普通会员";
+        vipLabel.textColor = [UIColor grayColor];
+        vipLabel.font = [UIFont systemFontOfSize:13];
         timeLabel.hidden = YES;
-        addBtn.hidden = YES;
+        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y, 100, 15);
+        [addBtn setTitle:@"【开通VIP会员】" forState:UIControlStateNormal];
     }
     
     NSInteger height = 35;
@@ -148,16 +151,22 @@
 {
     [super viewDidAppear:YES];
     isVip = [LSUserManager getIsVip];
-    if (!isVip) {
-        vipLabel.hidden = YES;
-        timeLabel.hidden = YES;
-        addBtn.hidden = YES;
+    if (isVip) {
+        vipLabel.textColor = [UIColor redColor];
+        vipLabel.font = [UIFont systemFontOfSize:11];
+        vipLabel.text = @"VIP贵宾会员";
+        timeLabel.hidden = NO;
+        addBtn.frame = CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y, 50, 15);
+        [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
     }
     else
     {
-        vipLabel.hidden = NO;
-        timeLabel.hidden = NO;
-        addBtn.hidden = NO;
+        vipLabel.text = @"普通会员";
+        vipLabel.textColor = [UIColor grayColor];
+        vipLabel.font = [UIFont systemFontOfSize:13];
+        timeLabel.hidden = YES;
+        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y, 100, 15);
+        [addBtn setTitle:@"【开通VIP会员】" forState:UIControlStateNormal];
     }
     hasNotice = [LSUserManager getPush];
     [table reloadData];
