@@ -388,7 +388,7 @@ int currPage = 1;
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (scrollView.contentOffset.y > 20) {
+    if (scrollView.contentSize.height - scrollView.frame.size.height < scrollView.contentOffset.y) {
         [self loadDataBegin];
 
     }
