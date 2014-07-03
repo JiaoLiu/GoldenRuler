@@ -117,6 +117,7 @@
 //考试界面
 - (void)initExamView
 {
+    [currComments removeAllObjects];
     isExamView = YES;
     isSmt = NO;
     [self clearAllView];
@@ -200,6 +201,7 @@
 //评论界面
 - (void)initCommentsView
 {
+    
     isExamView = NO;
     [self clearAllView];
     self.title = @"考友评论";
@@ -299,7 +301,9 @@
              NSDictionary *dt = [dic objectForKey:@"data"];
 //             int count = [[dt objectForKey:@"count"] intValue];
              NSArray *list = [dt objectForKey:@"list"];
-             [currComments removeAllObjects];
+             
+             
+//             [currComments removeAllObjects];
              for (NSDictionary *cmt in list) {
                  LSComments *comments = [[LSComments alloc]init];
                  comments.username = [cmt objectForKey:@"name"];
@@ -313,12 +317,10 @@
                  
              }
              
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [SVProgressHUD dismiss];
-//                 [cview.cTableView reloadData];
-                 [self initCommentsView];
-                 isLoadingMore = NO;
-             });
+             [SVProgressHUD dismiss];
+             [self initCommentsView];
+             isLoadingMore = NO;
+             
 
              
          } else

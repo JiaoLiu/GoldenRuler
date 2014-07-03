@@ -332,11 +332,12 @@ int currPage = 1;
             [topList addObjectsFromArray:temp];
             
             [_tableView reloadData];
+            
             if (topList.count % 20 != 0) {
                 isLoadingMore = YES;
             }else
             {
-            isLoadingMore = NO;
+                isLoadingMore = NO;
             }
             [_tableView.tableFooterView setHidden:YES];
             for (UIView *view in _tableView.tableFooterView.subviews) {
