@@ -12,8 +12,8 @@
 @interface LSContestRankViewController ()
 {
     NSMutableArray *topList;
-    BOOL isLoadingMore;
-    NSInteger currPage;
+    BOOL hasMore;
+    NSInteger msgPage;
 }
 
 @end
@@ -26,7 +26,9 @@
     if (self) {
         // Custom initialization
         topList = [[NSMutableArray alloc] init];
-        currPage = 1;
+        msgPage = 1;
+        [self loadDataWithPage:msgPage size:0];
+        [SVProgressHUD showWithStatus:@"加载中..."];
     }
     return self;
 }
@@ -86,7 +88,6 @@
     [header addSubview:timeLabel];
     [header addSubview:scoreLabel];
     
-    
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -117,47 +118,6 @@
 }
 */
 
-//排行榜
-- (void)getAllTop
-{
-    
-    if (!isLoadingMore) {
-        [SVProgressHUD showWithStatus:@"正在统计..."];
-    }
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],currPage++,20]]]];
-    
-    NSOperationQueue *queue = [NSOperationQueue currentQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *dic = [data mutableObjectFromJSONData];
-        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
-        //        NSString *msg = [dic objectForKey:@"msg"];
-        if (ret == 1)
-        {
-            [SVProgressHUD dismiss];
-            NSArray *temp = [dic objectForKey:@"data"];
-            
-            [topList addObjectsFromArray:temp];
-            
-            [_tableView reloadData];
-            if (topList.count % 20 != 0) {
-                isLoadingMore = YES;
-            }else
-            {
-                isLoadingMore = NO;
-            }
-            [_tableView.tableFooterView setHidden:YES];
-            for (UIView *view in _tableView.tableFooterView.subviews) {
-                [view removeFromSuperview];
-            }
-        }
-        else
-        {
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:@"服务器繁忙"];
-        }
-    }];
-}
-
 #pragma mark - tableview delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -183,46 +143,51 @@
     return topList.count;
 }
 
-
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (scrollView.contentOffset.y > 20) {
-        [self loadDataBegin];
+    CGSize size = scrollView.contentSize;
+    if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y + scrollView.frame.size.height > size.height + 50 && hasMore) {
+        [self loadDataWithPage:msgPage size:10];
+        [LSSheetNotify showProgress:@"加载更多"];
     }
 }
 
-
-- (void)loadDataBegin
+- (void)loadDataWithPage:(int)page size:(int)pageSize
 {
-    if (isLoadingMore == NO)
-        
-    {
-        isLoadingMore = YES;
-        
-        UIActivityIndicatorView *tableFooterActivityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(75.0f, 10.0f, 20.0f, 20.0f)];
-        UILabel *loading = [[UILabel alloc]initWithFrame:CGRectMake(100, 12, 60, 20)];
-        loading.text = @"正在加载...";
-        loading.font = [UIFont systemFontOfSize:12];
-        loading.textColor = [UIColor lightGrayColor];
-        
-        
-        [tableFooterActivityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-        
-        [tableFooterActivityIndicator startAnimating];
-        [_tableView.tableFooterView setHidden:NO];
-        [_tableView.tableFooterView addSubview:tableFooterActivityIndicator];
-        [_tableView.tableFooterView addSubview:loading];
-        [self loadDataing];
-        
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/Top?key=%d&uid=%d&page=%d&pagesize=%d",[LSUserManager getKey],[LSUserManager getUid],page,pageSize]]]];
+    if (pageSize == 0) {
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Demand/Top?key=%d&uid=%d&page=%d",[LSUserManager getKey],[LSUserManager getUid],page]]]];
     }
+    NSOperationQueue *queue = [NSOperationQueue currentQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [data mutableObjectFromJSONData];
+        NSInteger ret = [[dic objectForKey:@"status"] integerValue];
+        if (ret == 1) {
+            NSArray *tempArray = [dic objectForKey:@"data"];
+            NSInteger num = tempArray.count;
+            if (num >= pageSize) {
+                msgPage += 1;
+                hasMore = YES;
+                [LSSheetNotify dismiss];
+            }
+            else
+            {
+                hasMore = NO;
+                [LSSheetNotify showOnce:@"暂无更多"];
+            }
+            NSArray *temp = [dic objectForKey:@"data"];
+            [topList addObjectsFromArray:temp];
+            [_tableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        }
+    }];
 }
 
-- (void)loadDataing
-{
-    [self getAllTop];
-}
-
-#pragma mark -| nav btn click
+#pragma mark - handle btnClick
 - (void)homeBtnClicked
 {
     [SVProgressHUD dismiss];

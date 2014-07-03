@@ -83,7 +83,20 @@
     eview.questionView.dataSource = self;
     eview.delegate = self;
     [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
+    if ([question.tid intValue] == kJudge || [question.tid intValue] == kSingleChoice || [question.tid intValue] == kSimpleAnswer || [question.tid intValue] == kDiscuss) {
+        [eview.currBtn setTitle:@"1/1" forState:UIControlStateNormal];
+    }
+    if ([question.tid intValue] == kBlank) {
+        [eview.questionView setEditing:NO];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDismissKeyboard)];
+        [self.view addGestureRecognizer:tap];
+    }
     [self.view addSubview:eview];
+}
+
+- (void)tapDismissKeyboard
+{
+    [eview endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,14 +138,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    NSArray *answers = [question.answer componentsSeparatedByString:@"|"];
-    NSString *asContent = [answers objectAtIndex:indexPath.row];
-    cell.textLabel.text = asContent;
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-    cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    if ([question.tid intValue] != kBlank) {
+        NSArray *answers = [question.answer componentsSeparatedByString:@"|"];
+        NSString *asContent = [answers objectAtIndex:indexPath.row];
+        cell.textLabel.text = asContent;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+        cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
 }
@@ -163,7 +178,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     //单选和判断 点击一次就提交服务器
-    if ([question.tid integerValue] == kSingleChoice || [question.tid integerValue] == kJudge)
+    if ([question.tid integerValue] == kSingleChoice || [question.tid integerValue] == kJudge || [question.tid integerValue] == kSimpleAnswer || [question.tid integerValue] == kDiscuss)
     {
         
         [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
@@ -171,6 +186,7 @@
         
         [eview.operTop setHidden:NO];
         [eview.textLabel setHidden:NO];
+        eview.yellowBtn.hidden = NO;
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
         
         if ([cell.textLabel.text hasPrefix:question.right]) {//答案正确
@@ -201,7 +217,7 @@
 - (void)smtAnswer
 {
     NSString *myAnswer = @"";
-    if ([question.tid integerValue] == kMultipleChoice || [question.tid integerValue] == kSingleChoice || [question.tid integerValue] == kJudge) {
+    if ([question.tid integerValue] == kMultipleChoice) {
         NSArray *array = [eview.questionView indexPathsForSelectedRows];
         array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             NSIndexPath *o1 = (NSIndexPath *)obj1;
@@ -216,6 +232,7 @@
             myAnswer = [myAnswer stringByAppendingString:[s substringToIndex:1]];
         }
         [eview.operTop setHidden:NO];
+        eview.yellowBtn.hidden = NO;
         eview.myAnswer.text = myAnswer;
         if ([myAnswer isEqualToString:question.right]) {
             [eview.rightImage setHidden:NO];
@@ -228,6 +245,28 @@
         [eview.textLabel setHidden:NO];
     }
     eview.questionView.userInteractionEnabled = NO;
+    
+    if ([question.tid integerValue] == kBlank)
+    {
+        NSString *myAnswer = [eview.textFiled.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        [eview.operTop setHidden:NO];
+        eview.myAnswer.text = myAnswer;
+        question.myAser = myAnswer;
+        [eview.textFiled resignFirstResponder];
+        [eview.textFiled setEnabled:NO];
+        [eview.currBtn setEnabled:NO];
+        if ([myAnswer isEqualToString:question.right]) {
+            question.rightOrWrong = YES;
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+        } else
+        {
+            question.rightOrWrong = NO;
+            [eview.rightImage setHidden:YES];
+            [eview.wrongImage setHidden:NO];
+        }
+        [eview.textLabel setHidden:NO];
+    }
 }
 
 - (void)smtExam

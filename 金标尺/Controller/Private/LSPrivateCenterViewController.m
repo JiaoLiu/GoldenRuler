@@ -116,7 +116,7 @@
     timeLabel.font = [UIFont systemFontOfSize:11];
     [headerBackView addSubview:timeLabel];
     
-    addBtn = [[UIButton alloc] initWithFrame:CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y, 50, 15)];
+    addBtn = [[UIButton alloc] initWithFrame:CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y + 1, 50, 15)];
     [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
     [addBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
     [addBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -127,9 +127,8 @@
     if (!isVip) {
         vipLabel.text = @"普通会员";
         vipLabel.textColor = [UIColor grayColor];
-        vipLabel.font = [UIFont systemFontOfSize:13];
         timeLabel.hidden = YES;
-        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y, 100, 15);
+        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y + 1, 100, 15);
         [addBtn setTitle:@"【开通VIP会员】" forState:UIControlStateNormal];
     }
     
@@ -154,19 +153,17 @@
     isVip = [LSUserManager getIsVip];
     if (isVip) {
         vipLabel.textColor = [UIColor redColor];
-        vipLabel.font = [UIFont systemFontOfSize:11];
         vipLabel.text = @"VIP贵宾会员";
         timeLabel.hidden = NO;
-        addBtn.frame = CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y, 50, 15);
+        addBtn.frame = CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y + 1, 50, 15);
         [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
     }
     else
     {
         vipLabel.text = @"普通会员";
         vipLabel.textColor = [UIColor grayColor];
-        vipLabel.font = [UIFont systemFontOfSize:13];
         timeLabel.hidden = YES;
-        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y, 100, 15);
+        addBtn.frame = CGRectMake(vipLabel.frame.origin.x + vipLabel.frame.size.width - 20, vipLabel.frame.origin.y + 1, 100, 15);
         [addBtn setTitle:@"【开通VIP会员】" forState:UIControlStateNormal];
     }
     hasNotice = [LSUserManager getPush];

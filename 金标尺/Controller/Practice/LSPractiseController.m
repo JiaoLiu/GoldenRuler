@@ -287,7 +287,7 @@
         currComments = [NSMutableArray arrayWithCapacity:0];
     }
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],pageNo==0?1:pageNo,5,1,currQuestion.qid]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],pageNo==0?1:pageNo,5,2,currQuestion.qid]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
      [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -1019,7 +1019,6 @@
 //评论
 - (void)commentsBtnClick:(NSString *)content
 {
-    NSLog(@"%@",content);
     [SVProgressHUD
      showWithStatus:@"正在提交,请稍侯..."];
     NSString *url =[APIADDCOMMENT stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&qid=%@&rid=0&content=%@",[LSUserManager getUid],[LSUserManager getKey],currQuestion.qid,content]];
