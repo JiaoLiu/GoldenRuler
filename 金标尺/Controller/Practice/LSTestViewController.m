@@ -837,9 +837,6 @@
                 [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 
                 selectedRow = indexPath.row;
-
-
-               
             }
             
         

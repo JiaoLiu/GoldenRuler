@@ -405,6 +405,7 @@
         NSDictionary *dic = [data mutableObjectFromJSONData];
         NSInteger ret = [[dic objectForKey:@"status"] integerValue];
         NSString *msg = [dic objectForKey:@"msg"];
+        
         if (ret == 1) {
             NSDictionary *dt = [dic objectForKey:@"data"];
             NSArray *questions = [dt objectForKey:@"list"];
@@ -419,31 +420,33 @@
                 LSQuestion *q = [LSQuestion initWithDictionary:qd];
                 [questionList addObject:q];
             }
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                int lastQid = [LSUserManager getLastqid];
-                
-                for (int i = 0; i<questionList.count; i++)
+            int lastQid = [LSUserManager getLastqid];
+            for (int i = 0; i<questionList.count; i++)
+            {
+                LSQuestion *q = [questionList objectAtIndex:i];
+                if (q.qid.intValue == lastQid)
                 {
-                    LSQuestion *q = [questionList objectAtIndex:i];
-                    
-                    if (q.qid.intValue == lastQid) {
-                        currQuestion = q;
-                        currIndex = i;
-                    }
-                    else
+                    currQuestion = q;
+                    currIndex = i;
+                }
+                else
+                {
+                    if (![historyQst containsObject:q])
                     {
-                        
-                        [historyQst addObject:q];
+                         [historyQst addObject:q];
                     }
                 }
+             }
                 
+             if (currQuestion == nil || currQuestion.qid == nil || [currQuestion.qid isEqualToString:@""])
+             {
+                    currQuestion = [questionList objectAtIndex:0];
+                    currIndex = 0;
+             }
                 
-                [self initExamView];
+             [self initExamView];
                 
-            });
+           
             
             
         } else
@@ -626,7 +629,9 @@
             }
             NSArray *answers = [currQuestion.answer componentsSeparatedByString:@"|"];
             NSString *asContent = [answers objectAtIndex:indexPath.row];
+            
             cell.textLabel.text = asContent;
+            
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
             CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
@@ -636,6 +641,7 @@
 //            if ([currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
 //                [cell setSelected:YES];
 //            }
+            //单选
             if (![_qTypeString isEqualToString:@"简答"] && ![_qTypeString isEqualToString:@"论述"] && ![_qTypeString isEqualToString:@"填空"])
             {
                 
@@ -754,6 +760,7 @@
         [eview.operTop setHidden:NO];
         [eview.textLabel setHidden:NO];
         NSString *myAnswer = nil;
+        
         if([_qTypeString isEqualToString:@"单选"])
         {
             eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
@@ -764,6 +771,8 @@
          eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",cell.textLabel.text];
             myAnswer = cell.textLabel.text;
         }
+        
+        
         [eview.yellowBtn setHidden:NO];
         
         if ([myAnswer isEqualToString:currQuestion.right]) {//答案正确
@@ -772,7 +781,7 @@
             [eview.wrongImage setHidden:YES];
             currQuestion.rightOrWrong = YES;
         }else {//答案错误
-            currQuestion.myAser = cell.textLabel.text;
+            currQuestion.myAser = myAnswer;
             [eview.wrongImage setHidden:NO];
             [eview.rightImage setHidden:YES];
             currQuestion.rightOrWrong = NO;
@@ -1104,6 +1113,8 @@
     [SVProgressHUD dismiss];
     if (_isContinue) {
         [LSUserManager setLastqid:currQuestion.qid.intValue];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"是否要退出本次练习？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
     }
     if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -1126,6 +1137,8 @@
     
     if (_isContinue) {
         [LSUserManager setLastqid:currQuestion.qid.intValue];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"是否要退出本次练习？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
     }
     
     if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
