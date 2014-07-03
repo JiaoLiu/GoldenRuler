@@ -47,6 +47,8 @@
     
     NSTimer *timer;
     NSMutableArray *smtQst;
+    NSMutableArray *filterQuestion;
+    
     
     BOOL isSmt;
     BOOL isCheckingAns;
@@ -414,16 +416,23 @@
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= _questionList.count)
     {
+        if (![historyQst containsObject: _currQuestion]) {
+            [historyQst addObject:_currQuestion];
+        }
+        
+        
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是最后一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
+        
         [SVProgressHUD dismiss];
         return;
     }
     
     if (currIndex >= historyQst.count)
     {
-        [historyQst addObject:_currQuestion];
-        
+        if (![historyQst containsObject:_currQuestion]) {
+            [historyQst addObject:_currQuestion];
+        }
         if (currIndex < _questionList.count)
         {
             _currQuestion = [_questionList objectAtIndex:currIndex];
@@ -512,13 +521,14 @@
 
 - (void)smtExam
 {
+    [self filterQuestions];
     NSString *alertContent = nil;
     if ((_questionList.count - historyQst.count) == 0) {
         alertContent = [NSString stringWithFormat:@"确定交卷吗？"];
     }
     else
     {
-       alertContent = [NSString stringWithFormat:@"您还有%d道题没做，确定交卷吗？",_questionList.count - historyQst.count];
+       alertContent = [NSString stringWithFormat:@"您还有%d道题没做，确定交卷吗？",_questionList.count - filterQuestion.count];
     }
     
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertContent delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -528,6 +538,19 @@
     NSLog(@"交卷");
 }
 
+
+- (void)filterQuestions
+{
+    filterQuestion = [NSMutableArray arrayWithCapacity:0];
+    
+    
+    for (LSQuestion *q  in _questionList) {
+        if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
+            [filterQuestion addObject:q];
+        }
+    }
+   
+}
 
 
 -(void)chooseQuestion
