@@ -863,6 +863,11 @@
     
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
     if (currIndex >= questionList.count && historyQst.count == questionList.count) {
+        
+        if (![historyQst containsObject:currQuestion]) {
+            [historyQst addObject:currQuestion];
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是最后一题" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
         
@@ -871,7 +876,11 @@
     }
     
     if (currIndex >= historyQst.count) {
-        [historyQst addObject:currQuestion];
+        
+        if (![historyQst containsObject:currQuestion]) {
+            [historyQst addObject:currQuestion];
+        }
+        
         if (currIndex < questionList.count) {
             currQuestion = [questionList objectAtIndex:currIndex];
             [self initExamView];
