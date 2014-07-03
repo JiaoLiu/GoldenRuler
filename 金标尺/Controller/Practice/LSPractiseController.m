@@ -299,7 +299,7 @@
              NSDictionary *dt = [dic objectForKey:@"data"];
 //             int count = [[dt objectForKey:@"count"] intValue];
              NSArray *list = [dt objectForKey:@"list"];
-//             [currComments removeAllObjects];
+             [currComments removeAllObjects];
              for (NSDictionary *cmt in list) {
                  LSComments *comments = [[LSComments alloc]init];
                  comments.username = [cmt objectForKey:@"name"];
@@ -1102,6 +1102,9 @@
 - (void)homeBtnClicked
 {
     [SVProgressHUD dismiss];
+    if (_isContinue) {
+        [LSUserManager setLastqid:currQuestion.qid.intValue];
+    }
     if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         alert.tag = 99;
@@ -1119,6 +1122,12 @@
 - (void)backBtnClicked
 {
     [SVProgressHUD dismiss];
+    
+    
+    if (_isContinue) {
+        [LSUserManager setLastqid:currQuestion.qid.intValue];
+    }
+    
     if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
