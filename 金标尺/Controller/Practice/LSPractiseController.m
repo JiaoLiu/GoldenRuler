@@ -211,7 +211,7 @@
     cview.cTableView.dataSource =self;
     cview.cTableView.tag = CTABLE_TAG;
     cview.delegate = self;
-    
+
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
     
     [cview addGestureRecognizer:gesture];
@@ -237,7 +237,7 @@
     crView.userInteractionEnabled = YES;
     crView.delegate = self;
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
-    
+    crView.anserLabel.text = [NSString stringWithFormat:@"答案：%@",currQuestion.right];
     [crView addGestureRecognizer:gesture];
     crView.userInteractionEnabled = YES;
     [self.view addSubview:crView];
@@ -316,10 +316,17 @@
                  
                  
              }
-             
+             if (currComments.count % 5 != 0) {
+                 
+                 isLoadingMore = YES;
+             }
+             else
+             {
+                 isLoadingMore = NO;
+             }
              [SVProgressHUD dismiss];
              [self initCommentsView];
-             isLoadingMore = NO;
+             
              
 
              
