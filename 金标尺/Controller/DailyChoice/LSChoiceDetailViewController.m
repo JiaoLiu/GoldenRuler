@@ -7,6 +7,7 @@
 //
 
 #import "LSChoiceDetailViewController.h"
+#import "LSShareSheet.h"
 
 @interface LSChoiceDetailViewController ()
 {
@@ -55,11 +56,11 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = backItem;
     
-    // homeBtn
-    UIButton *homeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
-    [homeBtn addTarget:self action:@selector(homeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
+    // shareBtn
+    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, NavigationBar_HEIGHT)];
+    [shareBtn addTarget:self action:@selector(shareBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     // webView & activityView
@@ -98,9 +99,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)homeBtnClicked
+- (void)shareBtnClicked
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    LSShareSheet *shareSheet = [[LSShareSheet alloc] initWithDelegate:self];
+    shareSheet.items = @{@"url":urlStr,@"title":urlTitle};
+    [shareSheet showInView:self.view];
 }
 
 - (void)footViewBtnClicked:(UIButton *)sender
@@ -169,7 +172,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [activityIDC stopAnimating];
-    CGFloat contentHeight = webView.scrollView.contentSize.height;
+/*    CGFloat contentHeight = webView.scrollView.contentSize.height;
     CGFloat widthOffset = (SCREEN_WIDTH - 90 * 3) / 4.0;
     dispatch_async(dispatch_get_main_queue(), ^{ // add footerView for web
         webView.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, contentHeight + 70);
@@ -237,6 +240,7 @@
         [weixinBtn addTarget:self action:@selector(footViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [shareCenterView addSubview:weixinBtn];
     });
+ */
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

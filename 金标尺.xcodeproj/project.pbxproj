@@ -47,6 +47,7 @@
 		27A8F84D18FB771900321F5A /* LSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A8F84C18FB771900321F5A /* LSRegisterViewController.m */; };
 		27BAC11D1957F8AF0055971B /* LSPrivateAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BAC11C1957F8AF0055971B /* LSPrivateAboutViewController.m */; };
 		27CFA2C41959601100CD8760 /* LSPrivateErrorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CFA2C31959601100CD8760 /* LSPrivateErrorDetailViewController.m */; };
+		27F390311964F5E000413AB2 /* LSShareSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F390301964F5E000413AB2 /* LSShareSheet.m */; };
 		289C35AE8DEC43528B20CCDA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B23067BA7A4A5CAA210325 /* libPods.a */; };
 		C60F5B711946BA9200778BDA /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */; };
 		C60F5B741946CEBC00778BDA /* LSComments.m in Sources */ = {isa = PBXBuildFile; fileRef = C60F5B731946CEBC00778BDA /* LSComments.m */; };
@@ -215,6 +216,8 @@
 		27BAC11C1957F8AF0055971B /* LSPrivateAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateAboutViewController.m; sourceTree = "<group>"; };
 		27CFA2C21959601100CD8760 /* LSPrivateErrorDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPrivateErrorDetailViewController.h; sourceTree = "<group>"; };
 		27CFA2C31959601100CD8760 /* LSPrivateErrorDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPrivateErrorDetailViewController.m; sourceTree = "<group>"; };
+		27F3902F1964F5E000413AB2 /* LSShareSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSShareSheet.h; sourceTree = "<group>"; };
+		27F390301964F5E000413AB2 /* LSShareSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSShareSheet.m; sourceTree = "<group>"; };
 		C60F5B6F1946BA9200778BDA /* UITextViewWithPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextViewWithPlaceholder.h; sourceTree = "<group>"; };
 		C60F5B701946BA9200778BDA /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
 		C60F5B721946CEBC00778BDA /* LSComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSComments.h; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 			children = (
 				271D2045191B6FFA00B51CF2 /* LSImageButton.h */,
 				271D2046191B6FFA00B51CF2 /* LSImageButton.m */,
+				27F3902F1964F5E000413AB2 /* LSShareSheet.h */,
+				27F390301964F5E000413AB2 /* LSShareSheet.m */,
 			);
 			path = DailyChoice;
 			sourceTree = "<group>";
@@ -1057,6 +1062,7 @@
 				2791BCC0195C065A0051B1FE /* AlixPayOrder.m in Sources */,
 				2764645C195AC67E006504C9 /* LSPrivateCommentDetailViewController.m in Sources */,
 				CCCE5A4C190D47C40057FBFC /* LSTabBar.m in Sources */,
+				27F390311964F5E000413AB2 /* LSShareSheet.m in Sources */,
 				CC49FFE818F93AA8007E83F4 /* LSAppDelegate.m in Sources */,
 				C668A383195C0CF200DCE273 /* LSTestResultViewController.m in Sources */,
 				C69C469D195135030066431D /* LSContestView.m in Sources */,

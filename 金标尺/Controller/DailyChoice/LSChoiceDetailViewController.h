@@ -27,7 +27,7 @@ typedef enum : NSUInteger {
 @interface LSChoiceDetailViewController : UIViewController<UIWebViewDelegate,WXApiDelegate>
 
 @property (nonatomic, strong)UIWebView *choiceWebView;
-@property (nonatomic, assign)NSString *urlStr;
+@property (nonatomic, strong)NSString *urlStr;
 @property (nonatomic, strong)NSString *urlTitle;
 @property (nonatomic, assign)kDetailType detailType;
 
