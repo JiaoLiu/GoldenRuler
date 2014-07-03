@@ -1054,8 +1054,13 @@
         [LSUserManager setLastqid:currQuestion.qid.intValue];
         [SVProgressHUD dismiss];
         [LSSheetNotify dismiss];
-        [self.navigationController popViewControllerAnimated:YES];
-       
+        if (alertView.tag == 99) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -1065,6 +1070,7 @@
     [SVProgressHUD dismiss];
     if (historyQst.count < questionList.count && questionList.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.tag = 99;
         [alert show];
     }else {
         [SVProgressHUD dismiss];
