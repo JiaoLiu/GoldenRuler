@@ -86,8 +86,12 @@
             for (int i = 0; i < num; i++)
             {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
+                
                 if (![qTypeArray containsObject:dic]) {
-                    [qTypeArray addObject:dic];
+                    if ([[dic objectForKey:@"count"] intValue]>0) {
+                         [qTypeArray addObject:dic];
+                    }
+                   
                 }
                 
             }
@@ -120,8 +124,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-
     return qTypeArray.count;
 }
 
@@ -137,9 +139,6 @@
     NSString *mycount = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"mycount"];
     NSString *percent = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"percent"];
     
-    if (count.intValue == 0) {
-        [cell setHidden:YES];
-    }
     
     cell.tag = [[[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"id"] intValue];
     cell.textLabel.text = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"name"];

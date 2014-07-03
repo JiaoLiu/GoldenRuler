@@ -566,6 +566,7 @@
             if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
             {
                 [SVProgressHUD showErrorWithStatus:@"请先答题！"];
+                tabBar.selectedItem = nil;
                 return;
             }
             
@@ -630,8 +631,18 @@
 //            if ([currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
 //                [cell setSelected:YES];
 //            }
+            if (![_qTypeString isEqualToString:@"简答"] && ![_qTypeString isEqualToString:@"论述"] && ![_qTypeString isEqualToString:@"填空"])
+            {
+                
+                if (currQuestion.myAser != nil && [currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound )
+                {
+                NSLog(@"%@",currQuestion.myAser);
+                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                tableView.userInteractionEnabled = NO;
+                }
+            }
             
-            if (currQuestion.myAser != nil && [currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound) {
+            if (currQuestion.myAser != nil && [currQuestion.myAser isEqualToString:[answers objectAtIndex:indexPath.row]] ) {
                 NSLog(@"%@",currQuestion.myAser);
                 [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 tableView.userInteractionEnabled = NO;
@@ -748,6 +759,7 @@
          eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",cell.textLabel.text];
             myAnswer = cell.textLabel.text;
         }
+        [eview.yellowBtn setHidden:NO];
         
         if ([myAnswer isEqualToString:currQuestion.right]) {//答案正确
             currQuestion.myAser = currQuestion.right;
@@ -760,6 +772,12 @@
             [eview.rightImage setHidden:YES];
             currQuestion.rightOrWrong = NO;
         }
+        
+        if (![historyQst containsObject:currQuestion])
+        {
+            [historyQst addObject:currQuestion];
+        }
+        
 //        tableView.allowsMultipleSelectionDuringEditing = NO;
         [self addPractice];
         
@@ -862,13 +880,13 @@
     currIndex = currIndex > questionList.count ? questionList.count : currIndex;
     
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
-    if (currIndex >= questionList.count && historyQst.count == questionList.count) {
+    if ((currIndex >= questionList.count && historyQst.count == questionList.count) || currIndex == questionList.count) {
         
         if (![historyQst containsObject:currQuestion]) {
             [historyQst addObject:currQuestion];
         }
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是最后一题" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是最后一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         
         [SVProgressHUD dismiss];
@@ -957,6 +975,7 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
+        [eview.yellowBtn setHidden:NO];
         [eview.textLabel setHidden:NO];
         [self addPractice];
     }
