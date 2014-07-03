@@ -26,7 +26,7 @@
         _titleLabel.numberOfLines = 0;
         _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _titleLabel.text = title;
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+        _titleLabel.font = [UIFont systemFontOfSize:13];
         _titleLabel.textColor = RGB(4, 121, 202);
         [self addSubview:_titleLabel];
         
