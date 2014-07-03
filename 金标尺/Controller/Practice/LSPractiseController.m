@@ -422,15 +422,20 @@
             
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 int lastQid = [LSUserManager getLastqid];
-                for (int i = 0; i<questionList.count; i++) {
+                
+                for (int i = 0; i<questionList.count; i++)
+                {
                     LSQuestion *q = [questionList objectAtIndex:i];
+                    
                     if (q.qid.intValue == lastQid) {
                         currQuestion = q;
                         currIndex = i;
                     }
                     else
                     {
+                        
                         [historyQst addObject:q];
                     }
                 }
@@ -1078,7 +1083,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
+        
         [LSUserManager setLastqid:currQuestion.qid.intValue];
+        
         [SVProgressHUD dismiss];
         [LSSheetNotify dismiss];
         if (alertView.tag == 99) {
@@ -1095,7 +1102,7 @@
 - (void)homeBtnClicked
 {
     [SVProgressHUD dismiss];
-    if (historyQst.count < questionList.count && questionList.count != 1) {
+    if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         alert.tag = 99;
         [alert show];
@@ -1112,7 +1119,7 @@
 - (void)backBtnClicked
 {
     [SVProgressHUD dismiss];
-    if (historyQst.count < questionList.count && questionList.count != 1) {
+    if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
 
