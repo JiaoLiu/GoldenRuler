@@ -95,7 +95,8 @@
 - (void)autoScrollPage
 {
     int page = scrollPageControl.currentPage;
-    if (page == _items.count - 1) {
+    NSArray *tempArr = [_items objectForKey:@"list"];
+    if (page == tempArr.count - 1) {
         scrollPageControl.currentPage = 0;
     }
     else
