@@ -23,6 +23,7 @@
     LSTabBar *tabBar;
     
     BOOL isLoadingMore;
+    int currPage;
 }
 @end
 
@@ -33,6 +34,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        if (IOS_VERSION > 7.0) {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
     }
     return self;
 }
@@ -103,7 +107,7 @@
     [header addSubview:scoreLabel];
     
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y+tabBar.frame.size.height, SCREEN_WIDTH, self.view.bounds.size.height - tabBar.frame.size.height) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y + tabBar.frame.size.height, SCREEN_WIDTH, self.view.bounds.size.height - tabBar.frame.size.height-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView setHidden:YES];
@@ -310,13 +314,14 @@
 }
 
 //排行榜
-int currPage = 1;
+
 - (void)getAllTop
 {
     
     if (!isLoadingMore) {
          [SVProgressHUD showWithStatus:@"正在统计..."];
     }
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],currPage++,20]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];

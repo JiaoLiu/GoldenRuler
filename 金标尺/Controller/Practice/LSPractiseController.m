@@ -1120,12 +1120,13 @@
 - (void)homeBtnClicked
 {
     [SVProgressHUD dismiss];
-    if (_isContinue) {
+    if (_isContinue && questionList.count>0) {
         [LSUserManager setLastqid:currQuestion.qid.intValue];
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"是否要退出本次练习？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
     }
-    if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
+    else if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue)
+    {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         alert.tag = 99;
         [alert show];
@@ -1144,13 +1145,13 @@
     [SVProgressHUD dismiss];
     
     
-    if (_isContinue) {
+    if (_isContinue && questionList.count>0) {
         [LSUserManager setLastqid:currQuestion.qid.intValue];
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"是否要退出本次练习？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
     }
-    
-    if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue) {
+    else if (historyQst.count < questionList.count && questionList.count != 1 && !_isContinue)
+    {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"本次练习还有%d道题没做，是否要退出？",questionList.count-historyQst.count] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
 
