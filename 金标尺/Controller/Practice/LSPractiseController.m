@@ -288,7 +288,9 @@
     if (currComments == nil) {
         currComments = [NSMutableArray arrayWithCapacity:0];
     }
-    
+    if (!isLoadingMore) {
+        [SVProgressHUD showWithStatus:@"正在加载..."];
+    }
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/myComment?uid=%d&key=%d&page=%d&pagesize=%d&type=%d&qid=%@",[LSUserManager getUid],[LSUserManager getKey],pageNo==0?1:pageNo,5,2,currQuestion.qid]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
@@ -316,16 +318,26 @@
                  
                  
              }
-             if (currComments.count % 5 != 0) {
+             if (currComments.count % 5 != 0 && list.count !=0) {
                  
+                 isLoadingMore = YES;
+             }
+             else if(list.count == 0)
+             {
                  isLoadingMore = YES;
              }
              else
              {
                  isLoadingMore = NO;
              }
+             [cview.cTableView.tableFooterView setHidden:YES];
+             
+             for (UIView *view in cview.cTableView.tableFooterView.subviews) {
+                 [view removeFromSuperview];
+             }
              [SVProgressHUD dismiss];
-             [self initCommentsView];
+//             [self initCommentsView];
+             [cview.cTableView reloadData];
              
              
 
@@ -574,6 +586,7 @@
         {
             
             //现实评论view
+            [self initCommentsView];
             [self getComments];
             
         }
@@ -583,6 +596,7 @@
             if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
             {
                 [SVProgressHUD showErrorWithStatus:@"请先答题！"];
+                [self initExamView];
                 tabBar.selectedItem = nil;
                 return;
             }
@@ -813,7 +827,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
 
-    if(!isExamView && !isLoadingMore && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
+    if(!isExamView && !isLoadingMore && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)) && scrollView.contentOffset.y>10)
         
     {
         
@@ -845,6 +859,8 @@
         
         [cview.cTableView.tableFooterView addSubview:tableFooterActivityIndicator];
         [cview.cTableView.tableFooterView addSubview:loading];
+        [cview.cTableView.tableFooterView setHidden:NO];
+        
         [self loadDataing];
         
     }

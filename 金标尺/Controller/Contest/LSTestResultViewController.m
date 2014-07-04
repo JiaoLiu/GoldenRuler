@@ -10,6 +10,7 @@
 #import "LSTopTableViewCell.h"
 #import "LSWrapPracticeViewController.h"
 #import "LSAnalysisViewController.h"
+#import "LSShareSheet.h"
 
 @interface LSTestResultViewController ()
 {
@@ -253,6 +254,7 @@
     UIButton *share = [[UIButton alloc]initWithFrame:CGRectMake(30, 355, 260, 35)];
     share.backgroundColor = [UIColor lightGrayColor];
     [share setTitle:@"分享..." forState:UIControlStateNormal];
+    [share addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
     share.layer.cornerRadius = 5;
 
     [resultView addSubview:share];
@@ -456,7 +458,11 @@
 
 }
 
-
+- (void)shareAction
+{
+    LSShareSheet *shareSheet = [[LSShareSheet alloc]initWithDelegate:self];
+    [shareSheet showInView:self.view];
+}
 
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
