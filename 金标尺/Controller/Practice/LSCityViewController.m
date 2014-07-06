@@ -40,13 +40,13 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = backItem;
 
-    // filterBtn
-    UIButton *filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 24)];
-    [filterBtn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [filterBtn setTitle:@"筛选"forState:UIControlStateNormal];
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:filterBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    // filterBtn
+//    UIButton *filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 24)];
+//    [filterBtn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//    [filterBtn setTitle:@"筛选"forState:UIControlStateNormal];
+//    
+//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:filterBtn];
+//    self.navigationItem.rightBarButtonItem = rightItem;
 
     [self getCitys];
 

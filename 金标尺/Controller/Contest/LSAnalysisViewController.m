@@ -13,6 +13,8 @@
     int currIndex;
     LSContestView *eview;//考题view
     NSString *qTypeString;
+    
+    NSMutableArray *filterQuetions;
 }
 @end
 
@@ -40,10 +42,33 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = backItem;
     
-    _currQuestion = [_questionList objectAtIndex:0];
-    currIndex = 0;
-    [self initExamView];
+    [self filterQuetions];
+   
 }
+
+- (void)filterQuetions
+{
+    filterQuetions = [NSMutableArray arrayWithCapacity:0];
+    
+    
+    for (LSQuestion *q  in _questionList) {
+        if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
+            [filterQuetions addObject:q];
+        }
+    }
+    
+    if (filterQuetions.count == 0) {
+        [SVProgressHUD showErrorWithStatus:@"暂未答题"];
+    }
+    else
+    {
+        _currQuestion = [filterQuetions objectAtIndex:0];
+        currIndex = 0;
+        [self initExamView];
+    }
+
+}
+
 
 //考试界面
 - (void)initExamView
@@ -52,8 +77,8 @@
     [self clearAllView];
     
     eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
-    [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
-    [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
+    [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,filterQuetions.count] forState:UIControlStateNormal];
+    [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,filterQuetions.count] forState:UIControlStateNormal];
     
     if (_currQuestion.myAser != nil && ![_currQuestion.myAser isEqualToString:@""]) {
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",_currQuestion.myAser];
@@ -138,7 +163,7 @@
    
     if (currIndex > 0) {
         
-        _currQuestion = [_questionList objectAtIndex:--currIndex];
+        _currQuestion = [filterQuetions objectAtIndex:--currIndex];
         [self initExamView];
     }
     
@@ -151,10 +176,10 @@
     
 
     currIndex += 1;
-    currIndex = currIndex > _questionList.count ? _questionList.count : currIndex;
+    currIndex = currIndex > filterQuetions.count ? filterQuetions.count : currIndex;
     
     // 当前index大于题目总数 并且历史考题的数量等于题目总数
-    if (currIndex >= _questionList.count )
+    if (currIndex >= filterQuetions.count )
     {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"最后一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
@@ -164,9 +189,9 @@
     
     
         
-        if (currIndex < _questionList.count)
+        if (currIndex < filterQuetions.count)
         {
-            _currQuestion = [_questionList objectAtIndex:currIndex];
+            _currQuestion = [filterQuetions objectAtIndex:currIndex];
             [self initExamView];
         }
         else
@@ -183,7 +208,7 @@
 -(void)chooseQuestion
 {
     LSChooseQuestionViewController *vc = [[LSChooseQuestionViewController alloc]init];
-    vc.questions = _questionList;
+    vc.questions = filterQuetions;
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -217,21 +242,8 @@
             cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.textLabel.text = asContent;
-            
-            if ([_currQuestion.myAser isEqualToString:[asContent substringToIndex:1]]) {
-
-                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
-                cell.userInteractionEnabled = NO;
-                
-            }
-            else
-            {
-                cell.userInteractionEnabled = YES;
-            }
-//
+            cell.userInteractionEnabled = NO;
     
-            
-            
             return cell;
         
           
@@ -253,7 +265,7 @@
 #pragma mark - choosequestion delegate
 - (void)seletedQuestion:(int)index
 {
-    _currQuestion = [_questionList objectAtIndex:index];
+    _currQuestion = [filterQuetions objectAtIndex:index];
     currIndex = index;
     [self initExamView];
 }

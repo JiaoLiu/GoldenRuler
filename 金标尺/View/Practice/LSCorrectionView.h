@@ -18,6 +18,7 @@
 @interface LSCorrectionView : UIView
 @property (nonatomic,assign) id<LSCorrectionDelegate> delegate;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *anserLabel;
 @property (nonatomic,strong) UIButton *smtBtn;
 @property (nonatomic,strong) UITextViewWithPlaceholder *textView;
 - (id)initWithFrame:(CGRect)frame withTitle:(NSString*) title;

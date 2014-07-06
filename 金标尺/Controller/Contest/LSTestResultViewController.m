@@ -10,6 +10,7 @@
 #import "LSTopTableViewCell.h"
 #import "LSWrapPracticeViewController.h"
 #import "LSAnalysisViewController.h"
+#import "LSShareSheet.h"
 
 @interface LSTestResultViewController ()
 {
@@ -23,6 +24,7 @@
     LSTabBar *tabBar;
     
     BOOL isLoadingMore;
+    int currPage;
 }
 @end
 
@@ -33,6 +35,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        if (IOS_VERSION > 7.0) {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
     }
     return self;
 }
@@ -103,7 +108,7 @@
     [header addSubview:scoreLabel];
     
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y+tabBar.frame.size.height, SCREEN_WIDTH, self.view.bounds.size.height - tabBar.frame.size.height) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y + tabBar.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - tabBar.frame.size.height-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView setHidden:YES];
@@ -249,6 +254,7 @@
     UIButton *share = [[UIButton alloc]initWithFrame:CGRectMake(30, 355, 260, 35)];
     share.backgroundColor = [UIColor lightGrayColor];
     [share setTitle:@"分享..." forState:UIControlStateNormal];
+    [share addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
     share.layer.cornerRadius = 5;
 
     [resultView addSubview:share];
@@ -310,13 +316,14 @@
 }
 
 //排行榜
-int currPage = 1;
+
 - (void)getAllTop
 {
     
     if (!isLoadingMore) {
          [SVProgressHUD showWithStatus:@"正在统计..."];
     }
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/Top?uid=%d&key=%d&page=%d&pagesize=%d",[LSUserManager getUid],[LSUserManager getKey],currPage++,20]]]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
@@ -332,11 +339,12 @@ int currPage = 1;
             [topList addObjectsFromArray:temp];
             
             [_tableView reloadData];
+            
             if (topList.count % 20 != 0) {
                 isLoadingMore = YES;
             }else
             {
-            isLoadingMore = NO;
+                isLoadingMore = NO;
             }
             [_tableView.tableFooterView setHidden:YES];
             for (UIView *view in _tableView.tableFooterView.subviews) {
@@ -388,7 +396,7 @@ int currPage = 1;
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (scrollView.contentOffset.y > 20) {
+    if (scrollView.contentSize.height - scrollView.frame.size.height < scrollView.contentOffset.y) {
         [self loadDataBegin];
 
     }
@@ -450,7 +458,11 @@ int currPage = 1;
 
 }
 
-
+- (void)shareAction
+{
+    LSShareSheet *shareSheet = [[LSShareSheet alloc]initWithDelegate:self];
+    [shareSheet showInView:self.view];
+}
 
 #pragma mark -| nav btn click
 - (void)homeBtnClicked
