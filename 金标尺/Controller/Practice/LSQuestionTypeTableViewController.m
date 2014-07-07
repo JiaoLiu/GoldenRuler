@@ -66,7 +66,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [qTypeArray removeAllObjects];
+//    [qTypeArray removeAllObjects];
     [self getQuestionType];
 }
 
@@ -83,12 +83,17 @@
         if (ret == 1) {
             NSArray *tempArray = [dic objectForKey:@"data"];
             NSInteger num = tempArray.count;
+            
+            if (num > 0) {
+                [qTypeArray removeAllObjects];
+            }
+            
             for (int i = 0; i < num; i++)
             {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
                 
                 if (![qTypeArray containsObject:dic]) {
-                    if ([[dic objectForKey:@"count"] intValue]>0) {
+                    if ([[dic objectForKey:@"count"] intValue]>0 && ![qTypeArray containsObject:dic]) {
                          [qTypeArray addObject:dic];
                     }
                    
@@ -130,11 +135,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
+    if (qTypeArray.count > 0) {
+    
+    
     NSString *count = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"count"];
     NSString *mycount = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"mycount"];
     NSString *percent = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"percent"];
@@ -144,7 +155,8 @@
     cell.textLabel.text = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"题目数%@ 我的答题数%@ 正确率%@%%",count,mycount,percent];
     cell.detailTextLabel.textColor = [UIColor grayColor];
-
+        
+    }
     
     return cell;
 }

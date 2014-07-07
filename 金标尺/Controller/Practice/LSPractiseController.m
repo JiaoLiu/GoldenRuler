@@ -788,7 +788,7 @@
         {
             eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
             myAnswer = [cell.textLabel.text substringToIndex:1];
-            tableView.userInteractionEnabled = NO;
+           
         }
         else
         {
@@ -810,7 +810,7 @@
             [eview.rightImage setHidden:YES];
             currQuestion.rightOrWrong = NO;
         }
-        
+         tableView.userInteractionEnabled = NO;
         if (![historyQst containsObject:currQuestion])
         {
             [historyQst addObject:currQuestion];
@@ -1019,6 +1019,8 @@
         [eview.textLabel setHidden:NO];
         [self addPractice];
     }
+    
+    eview.questionView.userInteractionEnabled = NO;
 
 }
 
