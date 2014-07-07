@@ -52,7 +52,7 @@
     }
     
     // init pageControl
-    scrollPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(frame.size.width - 100, frame.size.height - 40, 100, 30)];
+    scrollPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(frame.size.width - 100, frame.size.height - 30, 100, 30)];
     scrollPageControl.numberOfPages = tempArr.count;
     scrollPageControl.pageIndicatorTintColor = [UIColor whiteColor];
     scrollPageControl.currentPageIndicatorTintColor = [UIColor redColor];
@@ -60,7 +60,7 @@
     [self addSubview:scrollPageControl];
     
     self.contentSize = CGSizeMake(frame.size.width * tempArr.count, frame.size.height);
-    self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self.showsHorizontalScrollIndicator = NO;
     self.pagingEnabled = YES;
     self.clipsToBounds = YES;
     self.bounces = NO;
