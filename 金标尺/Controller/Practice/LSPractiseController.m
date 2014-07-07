@@ -670,9 +670,9 @@
                 
                 if (currQuestion.myAser != nil && [currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound )
                 {
-                NSLog(@"%@",currQuestion.myAser);
-                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
-                tableView.userInteractionEnabled = NO;
+                    NSLog(@"%@",currQuestion.myAser);
+                    [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    tableView.userInteractionEnabled = NO;
                 }
             }
             
@@ -788,6 +788,7 @@
         {
             eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
             myAnswer = [cell.textLabel.text substringToIndex:1];
+            tableView.userInteractionEnabled = NO;
         }
         else
         {
