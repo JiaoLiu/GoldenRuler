@@ -123,28 +123,28 @@
     [self clearAllView];
     
     switch (currQuestion.tid.intValue) {
-        case 1:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
+        case kSingleChoice:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选题"];
             _qTypeString =@"单选";
             break;
-        case 2:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
+        case kMultipleChoice:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选题"];
             _qTypeString =@"多选";
             break;
-        case 3:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
+        case kJudge:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断题"];
             _qTypeString =@"判断";
             break;
-        case 4:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
+        case kBlank:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空题"];
             _qTypeString =@"填空";
             break;
-        case 5:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
+        case kSimpleAnswer:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答题"];
             _qTypeString =@"简答";
             break;
-        case 6:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
+        case kDiscuss:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述题"];
             _qTypeString =@"论述";
             break;
         default:
@@ -153,7 +153,7 @@
     
     
     eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion];
-    eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
+//    eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     
     if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] ||  [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"])
@@ -910,6 +910,13 @@
 
 - (void)nextQuestion
 {
+    
+    if (currQuestion.myAser == nil) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请先答题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    
     selectedRow = -1;
     NSLog(@"下一题");
     currIndex += 1;
