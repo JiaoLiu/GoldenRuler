@@ -914,6 +914,7 @@
     if (currQuestion.myAser == nil) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请先答题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
+        return;
     }
     
     

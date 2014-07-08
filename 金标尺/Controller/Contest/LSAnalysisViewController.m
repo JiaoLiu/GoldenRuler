@@ -80,6 +80,7 @@
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,filterQuetions.count] forState:UIControlStateNormal];
     [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,filterQuetions.count] forState:UIControlStateNormal];
     
+    
     if (_currQuestion.myAser != nil && ![_currQuestion.myAser isEqualToString:@""]) {
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",_currQuestion.myAser];
         if (_currQuestion.rightOrWrong) {

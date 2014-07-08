@@ -127,13 +127,13 @@
         _smtBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 48, 76, 27)];
         [_smtBtn setBackgroundImage:[UIImage imageNamed:@"module_topic_midlebx.9.png"] forState:UIControlStateNormal];
         
-        if ([_testType.text isEqualToString:@"[多选]"])
+        if ([_testType.text isEqualToString:@"[多选题]"])
         {
             [_smtBtn setTitle:@"提交" forState:UIControlStateNormal];
             [_smtBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
         }
         
-        else if ([_testType.text isEqualToString:@"[填空]"])
+        else if ([_testType.text isEqualToString:@"[填空题]"])
         {
             if (question.myAser != nil) {
 

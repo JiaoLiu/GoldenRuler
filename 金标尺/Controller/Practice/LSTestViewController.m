@@ -134,28 +134,28 @@
     }
     
     switch (_currQuestion.tid.intValue) {
-        case 1:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
+        case kSingleChoice:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选题"];
             qTypeString =@"单选";
             break;
-        case 2:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
+        case kMultipleChoice:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选题"];
             qTypeString =@"多选";
             break;
-        case 3:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
+        case kJudge:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断题"];
             qTypeString =@"判断";
             break;
-        case 4:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
+        case kBlank:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空题"];
             qTypeString =@"填空";
             break;
-        case 5:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
+        case kSimpleAnswer:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答题"];
             qTypeString =@"简答";
             break;
-        case 6:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
+        case kDiscuss:
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述题"];
             qTypeString =@"论述";
             break;
         default:
@@ -167,6 +167,7 @@
         
         [eview addGestureRecognizer:gesture];
     }
+    [eview.selectBtn setBackgroundImage:[UIImage imageNamed:@"exercise_top_right_bg2.9.png"] forState:UIControlStateNormal];
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     eview.delegate = self;
@@ -403,6 +404,11 @@
 
 - (void)nextQuestion
 {
+    if (_currQuestion.myAser == nil) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请先答题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     NSLog(@"下一题");
 
     if (!isSmt) {
