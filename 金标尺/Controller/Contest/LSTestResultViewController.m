@@ -461,6 +461,7 @@
 - (void)shareAction
 {
     LSShareSheet *shareSheet = [[LSShareSheet alloc]initWithDelegate:self];
+    shareSheet.items = @{@"title":[NSString stringWithFormat:@"#事考中国#我正在使用事考中国APP,本次套卷测试我得了%d分，大家快来使用哦",_myscore],@"url":APIURL};
     [shareSheet showInView:self.view];
 }
 
