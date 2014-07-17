@@ -15,15 +15,15 @@
 #define MQPDemo_PartnerConfig_h
 
 //合作身份者id，以2088开头的16位纯数字
-#define PartnerID @""
+#define PartnerID @"2088301025848650"
 //收款支付宝账号
-#define SellerID  @""
+#define SellerID  @"cqdingwei@163.com"
 
 //安全校验码（MD5）密钥，以数字和字母组成的32位字符
-#define MD5_KEY @""
+#define MD5_KEY @"f962dlhxu9pk4vysjw7ydnlxx2dpadia"
 
 //商户私钥，自助生成
-#define PartnerPrivKey @""
+#define PartnerPrivKey @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMJ5PRHuHo1XNElNOUQoP+RViWp5jWeF8HppsNEcp2mlpZPnA8szHJiIgTeaux3NjveraLa/19rbxiCgxQYb50cstkQscJwMv6YGzdzjCmBQIi1NsLVu4coWbYD//L2T8fYXs7GymeATaIfwiqztiItvAGj+n0h89N3ZqtVh4xhdAgMBAAECgYBRX+fU+92e6PGBBqZCxdDOW5hvjENGIT6aCmWpaqMGywB43f6xZUa+8MeZG87WTrBXJEthxO6urq2982feAYkJfSm1mwlHk+dg8XIh6fhrneW530+eV21gAluFAYMamrTmLUN2Xmb3DWF1QT05jzfD1wwOLC9yZvwskmIeefC7YQJBAO3Agt3vuZ1IMarv2SXeLLyvNn6FkP32MHi3HuDewu9RbGqaPlRswZbNkDO/+tyw67QhlSiT19ymaGQfKJFiCEkCQQDRZl4+WsW6Vee3RvBxK+NPBym7ipH/uVXJ7bDt5DPGxUqr0uhi4Mo+DfZlYa0WAs7krxNjWwk03Kg80+ACINd1AkAJWyELQMrKILQrqOKftd2G01JOqkzpYY3IwlQJv1pmdorQqx82zUzU9WPuVWi21JOB9Cxde2vsN/Q1tHAxQG1ZAkEAn//0Kvj49HQHZcdSmWbLfOsgPCiZfiiDIJP6CQvBdDPz5m51GnhgkCHjD3we4R6sL5iG2/gHhNjFxBSwqW+msQJBAIMN5D/c195bETlnGocHQ4K5YVL8GwfeGQmQQ4L55V5JcdCp9f6zyPW3rZZnyEjtraAUcTy7dW3COIlVXLxkC5U="
 
 
 //支付宝公钥
