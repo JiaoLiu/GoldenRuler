@@ -216,7 +216,22 @@
 
 -(void)showAnalysis
 {
+    if (![LSUserManager getIsVip]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能查看解析，充值称为VIP会员即可查看解析" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"马上充值", nil];
+        alert.tag = 99;
+        [alert show];
+        return;
+    }
     [eview.textLabel setHidden:NO];
+}
+
+#pragma mark - alert view delegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1 && alertView.tag == 99) {
+        //TODO 充值
+    }
 }
 
 

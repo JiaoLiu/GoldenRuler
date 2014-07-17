@@ -150,10 +150,10 @@
     NSString *mycount = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"mycount"];
     NSString *percent = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"percent"];
     
-    
+
     cell.tag = [[[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"id"] intValue];
     cell.textLabel.text = [[qTypeArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"题目数%@ 我的答题数%@ 正确率%@%%",count,mycount,percent];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"题目数%@ 我的答题数%@ 正确率%.02f%%",count,mycount,percent.floatValue];
     cell.detailTextLabel.textColor = [UIColor grayColor];
         
     }

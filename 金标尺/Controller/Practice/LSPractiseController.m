@@ -13,7 +13,8 @@
 
 
 #define QTABLE_TAG 0
-#define CTABLE_TAG 1
+#define  CTABLE_TAG 1
+#define ALERT_VIP_TAG 9
 
 @interface LSPractiseController ()
 {
@@ -1072,6 +1073,16 @@
 
 - (void)showAnalysis
 {
+    
+    if (![LSUserManager getIsVip]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能查看解析，充值称为VIP会员即可查看解析" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"马上充值", nil];
+        alert.tag = ALERT_VIP_TAG;
+        [alert show];
+        return;
+    }
+    
+    
+    
     [eview.textLabel setHidden:NO];
 }
 
@@ -1171,7 +1182,11 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        
+        if (alertView.tag == ALERT_VIP_TAG) {
+            //TODO 充值
+        }
+        else
+        {
         [LSUserManager setLastqid:currQuestion.qid.intValue];
         
         [SVProgressHUD dismiss];
@@ -1182,6 +1197,7 @@
         else
         {
             [self.navigationController popViewControllerAnimated:YES];
+        }
         }
     }
 }

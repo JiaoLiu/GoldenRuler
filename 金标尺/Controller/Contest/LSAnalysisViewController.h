@@ -16,7 +16,7 @@
 #import "LSChooseQuestionViewController.h"
 #import "LSTestResultViewController.h"
 
-@interface LSAnalysisViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,LSExamDelegate,LSChooseQuestionDelegate>
+@interface LSAnalysisViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,LSExamDelegate,LSChooseQuestionDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) NSMutableArray *questionList;
 @property (nonatomic,strong) LSQuestion *currQuestion;
 @end
