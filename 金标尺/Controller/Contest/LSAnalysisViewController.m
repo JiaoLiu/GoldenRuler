@@ -76,7 +76,7 @@
 
     [self clearAllView];
     
-    eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
+    eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion withIndex:currIndex+1];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,filterQuetions.count] forState:UIControlStateNormal];
     [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,filterQuetions.count] forState:UIControlStateNormal];
     

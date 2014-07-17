@@ -47,5 +47,5 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) UITextField *textFiled;
 @property (strong, nonatomic) UITextView *answerView;
 
-- (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question;
+- (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question withIndex:(int)index;
 @end

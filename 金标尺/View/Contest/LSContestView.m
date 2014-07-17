@@ -10,7 +10,7 @@
 
 @implementation LSContestView
 
-- (id)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question
+- (id)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question withIndex:(int)index
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -49,7 +49,7 @@
         CGSize size = [question.title sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(SCREEN_WIDTH-20, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         frame.size = size;
         UILabel *label = [[UILabel alloc]initWithFrame:frame];//题目描述label
-        label.text = question.title;
+        label.text = [NSString stringWithFormat:@"%d.%@",index,question.title];
         label.numberOfLines = 0;
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.font = [UIFont systemFontOfSize:14];

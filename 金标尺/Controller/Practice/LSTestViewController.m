@@ -16,6 +16,7 @@
 
 #define ALERT_BACK_TAG 10
 #define ALERT_SMT_TAG 11
+#define ALERT_TIME_TAG 12
 
 //@interface QuestionSimple : NSObject<NSCoding>
 //@property (nonatomic) int qid;
@@ -52,6 +53,7 @@
     
     BOOL isSmt;
     BOOL isCheckingAns;
+    BOOL timeUp;
 }
 @end
 
@@ -118,7 +120,7 @@
     isSmt = NO;
     [self clearAllView];
 
-    eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion];
+    eview = [[LSContestView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:_currQuestion withIndex:currIndex+1];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
     [eview.smtBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,_questionList.count] forState:UIControlStateNormal];
         
@@ -201,8 +203,16 @@
 
     int min = (int)t / 60;
     int sec = (int)t % 60;
-    
     eview.usedTime.text = [NSString stringWithFormat:@"已用时 %02d:%02d",min,sec];
+    
+    if (min == _exam.time) {
+        timeUp = YES;
+        [timer invalidate];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"模拟考时间到请交卷" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alert.tag = ALERT_TIME_TAG;
+        [alert show];
+        return;
+    }
     
 }
 -(void)hideKeyBoard
@@ -385,6 +395,14 @@
 #pragma mark -exam delegate
 - (void)prevQuestion
 {
+    if (timeUp) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"模拟考时间到请交卷" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alert.tag = ALERT_TIME_TAG;
+        [alert show];
+        return;
+    }
+
+    
     NSLog(@"上一题");
     selectedRow = -1;
     if (currIndex==0) {
@@ -404,6 +422,16 @@
 
 - (void)nextQuestion
 {
+    
+    if (timeUp) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"模拟考时间到请交卷" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alert.tag = ALERT_TIME_TAG;
+        [alert show];
+        return;
+    }
+    
+    
+    
     if (_currQuestion.myAser == nil) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请先答题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
@@ -606,7 +634,7 @@
     switch (buttonIndex) {
         case 0:
         {
-//            NSLog(@"取消交卷");
+
         }
             break;
         case 1:

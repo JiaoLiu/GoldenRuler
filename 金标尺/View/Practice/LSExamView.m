@@ -12,7 +12,7 @@
 
 @implementation LSExamView
 
-- (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question
+- (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question withIndex:(int)index
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -72,7 +72,8 @@
         CGSize size = [question.title sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(SCREEN_WIDTH-20, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         frame.size = size;
         UILabel *label = [[UILabel alloc]initWithFrame:frame];//题目描述label
-        label.text = question.title;
+        label.text = [NSString stringWithFormat:@"%d.%@",index,question.title];
+        
         label.numberOfLines = 0;
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.font = [UIFont systemFontOfSize:14];
@@ -94,7 +95,7 @@
         
         
         _operView = [[UIView alloc]initWithFrame:CGRectMake(0, _questionView.frame.size.height + _questionView.frame.origin.y, SCREEN_WIDTH, 100)];
-        _operView.backgroundColor = RGB(220, 220, 220);
+        _operView.backgroundColor = RGB(240, 240, 240);
         
         _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
 //        operTop.backgroundColor = RGB(210, 210, 210);

@@ -36,5 +36,5 @@
 @property (strong, nonatomic) UILabel* textLabel;
 @property (strong, nonatomic) UIView *operTop;
 
-- (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question;
+- (instancetype)initWithFrame:(CGRect)frame withQuestion:(LSQuestion *)question withIndex:(int)index;
 @end
