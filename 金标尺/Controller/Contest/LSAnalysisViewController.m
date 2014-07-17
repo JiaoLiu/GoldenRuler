@@ -127,7 +127,7 @@
 
     eview.delegate = self;
     [eview.operTop setHidden:NO];
-    [eview.textLabel setHidden:NO];
+   
     [eview.yellowBtn setHidden:NO];
     [eview.smtBtn setEnabled:NO];
     [self.view addSubview:eview];
@@ -212,6 +212,11 @@
     vc.questions = filterQuetions;
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)showAnalysis
+{
+    [eview.textLabel setHidden:NO];
 }
 
 
