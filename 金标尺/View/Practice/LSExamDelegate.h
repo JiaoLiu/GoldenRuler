@@ -17,6 +17,9 @@
 - (void)smtAnswer;
 @optional
 - (void)chooseQuestion;
+@optional
+- (void)showAnalysis;
+
 
 @end
 

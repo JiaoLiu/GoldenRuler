@@ -177,17 +177,17 @@
     frame.size.height -= 50;
     eview.operView.frame = frame;
     
-    CGRect frame1 = eview.preQuestion.frame;
-    frame1.origin.y -= 35;
-    eview.preQuestion.frame = frame1;
-    
-    CGRect frame2 = eview.nextQuestion.frame;
-    frame2.origin.y -= 35;
-    eview.nextQuestion.frame = frame2;
-  
-    CGRect frame3 = eview.smtBtn.frame;
-    frame3.origin.y -= 35;
-    eview.smtBtn.frame = frame3;
+//    CGRect frame1 = eview.preQuestion.frame;
+////    frame1.origin.y -= 35;
+//    eview.preQuestion.frame = frame1;
+//    
+//    CGRect frame2 = eview.nextQuestion.frame;
+////    frame2.origin.y -= 35;
+//    eview.nextQuestion.frame = frame2;
+//  
+//    CGRect frame3 = eview.smtBtn.frame;
+//    frame3.origin.y -= 35;
+//    eview.smtBtn.frame = frame3;
     
     [self.view addSubview:eview];
 //    [self.view bringSubviewToFront:tabBar];

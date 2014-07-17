@@ -70,27 +70,27 @@
         _operView = [[UIView alloc]initWithFrame:CGRectMake(0, _questionView.frame.size.height + _questionView.frame.origin.y, SCREEN_WIDTH, 100)];
 
         
-        _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
+        _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 50, SCREEN_WIDTH, 51)];
         _operTop.backgroundColor = RGB(210, 210, 210);
         
         [_operView addSubview:_operTop];
         _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
-        _rightImage.frame = CGRectMake(30, 6, 19, 18);
+        _rightImage.frame = CGRectMake(20, 2, 19, 18);
         _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
-        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
+        _wrongImage.frame = CGRectMake(20, 2, 19, 18);
         [_rightImage setHidden:YES];
         [_wrongImage setHidden:YES];
         
         [_operTop addSubview:_rightImage];
         [_operTop addSubview:_wrongImage];
-        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 97, 21)];
+        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 0, 210, 21)];
         _myAnswer.textColor = [UIColor darkGrayColor];
         _myAnswer.font = [UIFont systemFontOfSize:14];
         _myAnswer.backgroundColor = [UIColor clearColor];
 
         [_operTop addSubview:_myAnswer];
         
-        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(198, 4, 110, 21)];
+        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 24, 210, 21)];
         rtAnswer.textColor = [UIColor darkGrayColor];
         rtAnswer.font = [UIFont systemFontOfSize:14];
         rtAnswer.text = [NSString stringWithFormat:@"正确答案:%@",question.right];
@@ -110,21 +110,21 @@
         
         //操作按钮
         
-        _preQuestion = [[UIButton alloc]initWithFrame:CGRectMake(13, 48, 76, 27)];
+        _preQuestion = [[UIButton alloc]initWithFrame:CGRectMake(13, 18, 76, 27)];
         [_preQuestion setBackgroundImage:[UIImage imageNamed:@"module_topic_nextbx.9.png"] forState:UIControlStateNormal];
         [_preQuestion setTitle:@"上一题" forState:UIControlStateNormal];
         [_preQuestion setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _preQuestion.titleLabel.font = [UIFont systemFontOfSize:14];
         [_preQuestion addTarget:self action:@selector(prev) forControlEvents:UIControlEventTouchUpInside];
         
-        _nextQuestion = [[UIButton alloc]initWithFrame:CGRectMake(224, 48, 76, 27)];
+        _nextQuestion = [[UIButton alloc]initWithFrame:CGRectMake(224, 18, 76, 27)];
         [_nextQuestion setBackgroundImage:[UIImage imageNamed:@"module_topic_nextbx.9.png"] forState:UIControlStateNormal];
         [_nextQuestion setTitle:@"下一题" forState:UIControlStateNormal];
         [_nextQuestion setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextQuestion.titleLabel.font = [UIFont systemFontOfSize:14];
         [_nextQuestion addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
         
-        _smtBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 48, 76, 27)];
+        _smtBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 18, 76, 27)];
         [_smtBtn setBackgroundImage:[UIImage imageNamed:@"module_topic_midlebx.9.png"] forState:UIControlStateNormal];
         
         if ([_testType.text isEqualToString:@"[多选题]"])
@@ -157,7 +157,7 @@
         _smtBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_operView addSubview:_preQuestion];
         [_operView addSubview:_nextQuestion];
-        [_operView addSubview:_smtBtn];
+//        [_operView addSubview:_smtBtn];
         
         _operView.backgroundColor = RGB(210, 210, 210);
         [_scrollView addSubview:_operView];

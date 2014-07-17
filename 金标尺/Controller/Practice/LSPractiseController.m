@@ -156,10 +156,10 @@
 //    eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     
-    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] ||  [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"])
-    {
-        [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
-    }
+//    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] ||  [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"])
+//    {
+//        [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
+//    }
     
     if ([_qTypeString isEqualToString:@"填空"]) {
         eview.textFiled.delegate = self;
@@ -181,7 +181,7 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
-        [eview.textLabel setHidden:NO];
+//        [eview.textLabel setHidden:NO];
         
     }
     
@@ -780,8 +780,8 @@
         [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
         selectedRow = indexPath.row;
         
-        [eview.operTop setHidden:NO];
-        [eview.textLabel setHidden:NO];
+//        [eview.operTop setHidden:NO];
+//        [eview.textLabel setHidden:NO];
         NSString *myAnswer = nil;
         
         if([_qTypeString isEqualToString:@"单选"])
@@ -801,23 +801,23 @@
         
         if ([myAnswer isEqualToString:currQuestion.right]) {//答案正确
             currQuestion.myAser = currQuestion.right;
-            [eview.rightImage setHidden:NO];
-            [eview.wrongImage setHidden:YES];
+//            [eview.rightImage setHidden:NO];
+//            [eview.wrongImage setHidden:YES];
             currQuestion.rightOrWrong = YES;
         }else {//答案错误
             currQuestion.myAser = myAnswer;
-            [eview.wrongImage setHidden:NO];
-            [eview.rightImage setHidden:YES];
+//            [eview.wrongImage setHidden:NO];
+//            [eview.rightImage setHidden:YES];
             currQuestion.rightOrWrong = NO;
         }
-         tableView.userInteractionEnabled = NO;
-        if (![historyQst containsObject:currQuestion])
-        {
-            [historyQst addObject:currQuestion];
-        }
+//         tableView.userInteractionEnabled = NO;
+//        if (![historyQst containsObject:currQuestion])
+//        {
+//            [historyQst addObject:currQuestion];
+//        }
         
 //        tableView.allowsMultipleSelectionDuringEditing = NO;
-        [self addPractice];
+//        [self addPractice];
         
     } else {//多选
         
@@ -967,6 +967,13 @@
 
 - (void)smtAnswer
 {
+    
+    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"请先答题"];
+        return;
+    }
+    
+    
     NSString *myAnswer = @"";
     if ([_qTypeString isEqualToString:@"多选"])
     {
@@ -998,7 +1005,7 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
-        [eview.textLabel setHidden:NO];
+        
         [self addPractice];
     }
     
@@ -1024,12 +1031,43 @@
             [eview.wrongImage setHidden:NO];
         }
         [eview.yellowBtn setHidden:NO];
-        [eview.textLabel setHidden:NO];
+        
         [self addPractice];
+    }
+    else
+    {
+        [eview.yellowBtn setHidden:NO];
+        [eview.operTop setHidden:NO];
+        
+        
+        if (currQuestion.rightOrWrong) {//答案正确
+
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+
+        }else {//答案错误
+
+            [eview.wrongImage setHidden:NO];
+            [eview.rightImage setHidden:YES];
+
+        }
+
+        if (![historyQst containsObject:currQuestion])
+        {
+            [historyQst addObject:currQuestion];
+        }
+        [self addPractice];
+    
     }
     
     eview.questionView.userInteractionEnabled = NO;
 
+}
+
+
+- (void)showAnalysis
+{
+    [eview.textLabel setHidden:NO];
 }
 
 -(void)chooseQuestion

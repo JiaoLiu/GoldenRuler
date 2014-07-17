@@ -101,13 +101,13 @@
         
         [_operView addSubview:_operTop];
         _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
-        _rightImage.frame = CGRectMake(30, 6, 19, 18);
+        _rightImage.frame = CGRectMake(20, 56, 19, 18);
         _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
-        _wrongImage.frame = CGRectMake(30, 6, 19, 18);
+        _wrongImage.frame = CGRectMake(20, 56, 19, 18);
         
         [_operTop addSubview:_rightImage];
         [_operTop addSubview:_wrongImage];
-        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(62, 4, 110, 21)];
+        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 54, 210, 21)];
         _myAnswer.textColor = [UIColor darkGrayColor];
         _myAnswer.font = [UIFont systemFontOfSize:14];
         _myAnswer.text = @"你的答案:A";
@@ -115,7 +115,7 @@
         [_operTop addSubview:_myAnswer];
         [_operTop setHidden:YES];
         
-        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(198, 4, 110, 21)];
+        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 74, 210, 21)];
         rtAnswer.textColor = [UIColor darkGrayColor];
         rtAnswer.font = [UIFont systemFontOfSize:14];
         rtAnswer.text = [NSString stringWithFormat:@"正确答案:%@",question.right];
@@ -125,7 +125,7 @@
         
         //操作按钮
         
-        _preQuestion = [[UIButton alloc]initWithFrame:CGRectMake(13, 48, 76, 27)];
+        _preQuestion = [[UIButton alloc]initWithFrame:CGRectMake(13, 18, 76, 27)];
         [_preQuestion setBackgroundImage:[UIImage imageNamed:@"nx_btna.9.png"] forState:UIControlStateNormal];
         [_preQuestion setTitle:@"上一题" forState:UIControlStateNormal];
         [_preQuestion setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -135,38 +135,42 @@
 //        _preQuestion.layer.cornerRadius = 4;
         [_preQuestion addTarget:self action:@selector(prev) forControlEvents:UIControlEventTouchUpInside];
         
-        _nextQuestion = [[UIButton alloc]initWithFrame:CGRectMake(224, 48, 76, 27)];
+        _nextQuestion = [[UIButton alloc]initWithFrame:CGRectMake(224, 18, 76, 27)];
         [_nextQuestion setBackgroundImage:[UIImage imageNamed:@"nx_btna.9.png"] forState:UIControlStateNormal];
         [_nextQuestion setTitle:@"下一题" forState:UIControlStateNormal];
         [_nextQuestion setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _nextQuestion.titleLabel.font = [UIFont systemFontOfSize:14];
         [_nextQuestion addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
         
-        _currBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 48, 76, 27)];
+        _currBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 18, 76, 27)];
         [_currBtn setBackgroundImage:[UIImage imageNamed:@"nx_btnb.9.png"] forState:UIControlStateNormal];
         
-        if ([_testType.text isEqualToString:@"[单选题]"] || [_testType.text isEqualToString:@"[判断题]"] || [_testType.text isEqualToString:@"[简答题]"] || [_testType.text isEqualToString:@"[论述题]"])
-        {
-            [_currBtn setTitle:@"0/0" forState:UIControlStateNormal];
-        }
-        else if ([_testType.text isEqualToString:@"[多选题]"])
-        {
-            if (question.myAser != nil) {
+//        if ([_testType.text isEqualToString:@"[单选题]"] || [_testType.text isEqualToString:@"[判断题]"] || [_testType.text isEqualToString:@"[简答题]"] || [_testType.text isEqualToString:@"[论述题]"])
+//        {
+//            [_currBtn setTitle:@"0/0" forState:UIControlStateNormal];
+//        }
+//        else if ([_testType.text isEqualToString:@"[多选题]"])
+//        {
+            if (question.myAser != nil && ![question.myAser isEqualToString:@""]) {
 //                [_currBtn setHidden:YES];
                 [_currBtn setEnabled:NO];
+            }else
+            {
+                [_currBtn setEnabled:YES];
             }
-            [_currBtn setTitle:@"提交" forState:UIControlStateNormal];
-            [_currBtn setTitle:@"已提交" forState:UIControlStateDisabled];
+            _currBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+            [_currBtn setTitle:@"答案及解析" forState:UIControlStateNormal];
+            [_currBtn setTitle:@"答案及解析" forState:UIControlStateDisabled];
             [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else if ([_testType.text isEqualToString:@"[填空题]"])
+//        }
+        if ([_testType.text isEqualToString:@"[填空题]"])
         {
             if (question.myAser != nil) {
                 //                [_currBtn setHidden:YES];
                 [_currBtn setEnabled:NO];
             }
-            [_currBtn setTitle:@"提交" forState:UIControlStateNormal];
-            [_currBtn setTitle:@"已提交" forState:UIControlStateDisabled];
+            [_currBtn setTitle:@"答案及解析" forState:UIControlStateNormal];
+            [_currBtn setTitle:@"答案及解析" forState:UIControlStateDisabled];
             [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
             
             //输入框
@@ -210,6 +214,7 @@
         [_yellowBtn setTitle:@"习题解析" forState:UIControlStateNormal];
         [_yellowBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _yellowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_yellowBtn addTarget:self action:@selector(showAnalysis) forControlEvents:UIControlEventTouchUpInside];
         [_yellowBtn setHidden:YES];
         [_scrollView addSubview:_yellowBtn];
         
@@ -245,11 +250,18 @@
 {
     if ([_delegate respondsToSelector:@selector(smtAnswer)]) {
         [_delegate smtAnswer];
-        [_currBtn setEnabled:NO];
+//        [_currBtn setEnabled:NO];
     }
 
 }
 
+- (void)showAnalysis
+{
+    if ([_delegate respondsToSelector:@selector(showAnalysis)]) {
+        [_delegate showAnalysis];
+    }
+    
+}
 
 - (void)prev
 {
