@@ -60,7 +60,7 @@
     
     // copyrightLabel
     UILabel *copyRightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, table.frame.origin.y + table.frame.size.height + 20, SCREEN_WIDTH, 40)];
-    copyRightLabel.text = [NSString stringWithFormat:@"©2014 金标尺版本所有\n当前版本V%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+    copyRightLabel.text = [NSString stringWithFormat:@"©2014 金标尺版权所有\n当前版本V%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
     copyRightLabel.textColor = [UIColor lightGrayColor];
     copyRightLabel.font = [UIFont systemFontOfSize:13.0];
     copyRightLabel.numberOfLines = 0;
