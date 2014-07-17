@@ -32,4 +32,6 @@ typedef enum {
 @property (nonatomic, assign)BOOL isVip;
 @property (nonatomic, assign)SEL result;//这里声明为属性方便在于外部传入。
 
+-(void)paymentResultDelegate:(NSString *)result;
+
 @end

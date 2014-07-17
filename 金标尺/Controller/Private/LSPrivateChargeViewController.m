@@ -58,7 +58,7 @@
                       @"十个月",
                       @"十一个月",
                       @"十二个月"];
-        paymentArray = @[@"支付宝"/*,@"微信支付"*/];
+        paymentArray = @[@"快捷支付"/*,@"微信支付"*/];
         kDateSelected = 2;
         kPaymentSelected = 0;
 //        price = 10;
@@ -226,6 +226,8 @@
     
     [SVProgressHUD showWithStatus:@"加载中..."];
     [self loadDataWith:kDateSelected + 1 endTime:[NSString stringFromDate:expireDate Formatter:@"yyy-MM-dd"]];
+    
+    _result = @selector(paymentResult:);
 }
 
 - (void)didReceiveMemoryWarning
@@ -261,7 +263,7 @@
     
     NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                              orderInfo, signedStr, @"RSA"];
-	
+
     [AlixLibService payOrder:orderString AndScheme:appScheme seletor:_result target:self];
 }
 
@@ -498,9 +500,9 @@
     
     order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
 	order.productName = @"Hello"; //商品标题
-	order.productDescription = @"From Jiao"; //商品描述
+	order.productDescription = @"From_Jiao"; //商品描述
 	order.amount = [NSString stringWithFormat:@"%d",totalNum]; //商品价格
-	order.notifyURL =  @"goldenRuler://"; //回调URL
+	order.notifyURL =  @"http://demo.deepinfo.cn/jbc2/index.php/Index/notifyul"; //回调URL
 	
 	return [order description];
 }
