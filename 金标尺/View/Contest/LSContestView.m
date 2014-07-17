@@ -105,26 +105,28 @@
         [_yellowBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _yellowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_yellowBtn setHidden:YES];
+        [_yellowBtn addTarget:self action:@selector(showAnalysis) forControlEvents:UIControlEventTouchUpInside];
+
         [_scrollView addSubview:_yellowBtn];
         
         
         //操作按钮
         
-        _preQuestion = [[UIButton alloc]initWithFrame:CGRectMake(13, 18, 76, 27)];
+        _preQuestion = [[UIButton alloc]initWithFrame:CGRectMake(13, 10, 76, 27)];
         [_preQuestion setBackgroundImage:[UIImage imageNamed:@"module_topic_nextbx.9.png"] forState:UIControlStateNormal];
         [_preQuestion setTitle:@"上一题" forState:UIControlStateNormal];
         [_preQuestion setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _preQuestion.titleLabel.font = [UIFont systemFontOfSize:14];
         [_preQuestion addTarget:self action:@selector(prev) forControlEvents:UIControlEventTouchUpInside];
         
-        _nextQuestion = [[UIButton alloc]initWithFrame:CGRectMake(224, 18, 76, 27)];
+        _nextQuestion = [[UIButton alloc]initWithFrame:CGRectMake(224, 10, 76, 27)];
         [_nextQuestion setBackgroundImage:[UIImage imageNamed:@"module_topic_nextbx.9.png"] forState:UIControlStateNormal];
         [_nextQuestion setTitle:@"下一题" forState:UIControlStateNormal];
         [_nextQuestion setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextQuestion.titleLabel.font = [UIFont systemFontOfSize:14];
         [_nextQuestion addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
         
-        _smtBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 18, 76, 27)];
+        _smtBtn = [[UIButton alloc]initWithFrame:CGRectMake(122, 10, 76, 27)];
         [_smtBtn setBackgroundImage:[UIImage imageNamed:@"module_topic_midlebx.9.png"] forState:UIControlStateNormal];
         
         if ([_testType.text isEqualToString:@"[多选题]"])
@@ -217,6 +219,13 @@
     
 }
 
+- (void)showAnalysis
+{
+    if ([_delegate respondsToSelector:@selector(showAnalysis)]) {
+        [_delegate showAnalysis];
+    }
+    
+}
 - (void)chooseQuestion
 {
     if ([_delegate respondsToSelector:@selector(chooseQuestion)]) {

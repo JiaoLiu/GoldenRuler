@@ -250,8 +250,10 @@
 {
     if (isExamView) {//触发加入收藏功能
         [self addFavToServer];
+        
     }
-    
+    ((UITabBarItem* )[tabBar.items objectAtIndex:0]).title = @"加入收藏";
+    ((UITabBarItem* )[tabBar.items objectAtIndex:0]).image = [UIImage imageNamed:@"f_1.png"];
     [self clearAllView];
     [self initExamView];
 
@@ -580,7 +582,7 @@
     switch (item.tag) {
         case 0:
             [self addToFav];
-            NSLog(@"click item1");
+            
             break;
         case 1:
         {
@@ -588,9 +590,10 @@
             //现实评论view
             [self initCommentsView];
             [self getComments];
-            
+           ((UITabBarItem* )[tabBar.items objectAtIndex:0]).title = @"继续练习";
+            ((UITabBarItem* )[tabBar.items objectAtIndex:0]).image = [UIImage imageNamed:@"go_on_image.png"];
         }
-            NSLog(@"click item2");
+
             break;
         case 2:
             if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
@@ -598,11 +601,13 @@
                 [SVProgressHUD showErrorWithStatus:@"请先答题！"];
                 [self initExamView];
                 tabBar.selectedItem = nil;
+               
                 return;
             }
-            
+            ((UITabBarItem* )[tabBar.items objectAtIndex:0]).title = @"继续练习";
+            ((UITabBarItem* )[tabBar.items objectAtIndex:0]).image = [UIImage imageNamed:@"go_on_image.png"];
             [self initCorrectionView];
-            NSLog(@"click item3");
+
             break;
 
             
