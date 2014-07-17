@@ -119,6 +119,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark -alert delegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -171,6 +180,16 @@
     vc.tid = [NSString stringWithFormat:@"%d",cell.tag];
     vc.testType = _testType;
     vc.qTypeString = cell.textLabel.text;
+    
+    
+    if (![LSUserManager getIsVip]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值称为VIP会员才可以" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"马上充值", nil];
+        alert.tag = 99;
+        [alert show];
+        return;
+    }
+    
+    
     
     [self.navigationController pushViewController:vc animated:YES];
 

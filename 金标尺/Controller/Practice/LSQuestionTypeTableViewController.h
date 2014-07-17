@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSQuestionTypeTableViewController : UITableViewController
+@interface LSQuestionTypeTableViewController : UITableViewController<UIAlertViewDelegate>
 @property (nonatomic,strong) NSString *cid;
 @property (nonatomic,assign) LSWrapType testType;
 @end
