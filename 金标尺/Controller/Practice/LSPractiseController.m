@@ -1077,7 +1077,7 @@
 {
     
     if (![LSUserManager getIsVip]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能查看解析，充值称为VIP会员即可查看解析" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"马上充值", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能查看解析，充值称为VIP会员即可查看解析" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
         alert.tag = ALERT_VIP_TAG;
         [alert show];
         return;
@@ -1130,17 +1130,26 @@
         i++;
         
     }
-    _qListScrow.contentSize = CGSizeMake(280, (i/5 +1 )*31);
+    _qListScrow.contentSize = CGSizeMake(280, (i/5 + 2 )*31);
     _qListScrow.userInteractionEnabled = YES;
     
     
     [_sheet addSubview:_qListScrow];
     _sheet.actionSheetStyle = UIActionSheetStyleDefault;
+    
+    UITapGestureRecognizer *tagGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideSheet:)];
+    [tagGest setNumberOfTouchesRequired:1];
+    [_sheet addGestureRecognizer:tagGest];
+    
+    
     [_sheet showInView:self.view];
 }
 
 
-
+- (void)hideSheet:(UITapGestureRecognizer *)guest
+{
+    [_sheet dismissWithClickedButtonIndex:0 animated:YES];
+}
 
 
 #pragma mark - choosequestion delegate

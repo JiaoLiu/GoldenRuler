@@ -74,7 +74,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.examType == LSWrapTypeReal ? @"模拟考试" : @"真题考试";
+    self.title = self.examType == LSWrapTypeReal ? @"真题考试" : @"模拟考试";
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
@@ -628,14 +628,25 @@
         i++;
         
     }
-    _qListScrow.contentSize = CGSizeMake(280, (i/5 +1 )*31);
+    _qListScrow.contentSize = CGSizeMake(280, (i/5 +2 )*31);
     _qListScrow.userInteractionEnabled = YES;
     
     
     [_sheet addSubview:_qListScrow];
     _sheet.actionSheetStyle = UIActionSheetStyleDefault;
     [_sheet showInView:self.view];
+    
+    UITapGestureRecognizer *tagGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideSheet:)];
+    [tagGest setNumberOfTouchesRequired:1];
+    [_sheet addGestureRecognizer:tagGest];
+
 }
+
+- (void)hideSheet:(UITapGestureRecognizer *)guest
+{
+    [_sheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
 
 - (void)selectQuestion:(UIButton *)button
 {
