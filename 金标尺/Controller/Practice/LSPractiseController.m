@@ -975,8 +975,10 @@
 {
     
     if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""]) {
-        [SVProgressHUD showErrorWithStatus:@"请先答题"];
-        return;
+        if ( [eview.questionView indexPathsForSelectedRows].count ==0 && ![_qTypeString isEqualToString:@"填空"]) {
+            [SVProgressHUD showErrorWithStatus:@"请先答题"];
+            return;
+        }
     }
     
     
@@ -999,7 +1001,7 @@
         }
         NSLog(@"我的答案：%@",myAnswer);
         [eview.operTop setHidden:NO];
-        eview.myAnswer.text = myAnswer;
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",myAnswer];
         currQuestion.myAser = myAnswer;
         if ([myAnswer isEqualToString:currQuestion.right]) {
             currQuestion.rightOrWrong = YES;
@@ -1021,7 +1023,7 @@
         
         NSLog(@"我的答案：%@",myAnswer);
         [eview.operTop setHidden:NO];
-        eview.myAnswer.text = myAnswer;
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",myAnswer];
         currQuestion.myAser = myAnswer;
         [eview.textFiled resignFirstResponder];
         [eview.textFiled setEnabled:NO];
