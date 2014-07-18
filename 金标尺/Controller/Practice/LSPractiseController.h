@@ -14,6 +14,7 @@
 #import "LSExamView.h"
 #import "LSCorrectionView.h"
 #import "LSChooseQuestionViewController.h"
+#import "LSPrivateChargeViewController.h"
 
 @interface LSPractiseController : UIViewController<UITabBarDelegate,UITableViewDataSource,UITableViewDelegate,LSExamDelegate,LSCommentsDelegate,LSCorrectionDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,UITextFieldDelegate>
 @property (nonatomic,strong) NSString *cid;

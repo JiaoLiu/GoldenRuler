@@ -1181,23 +1181,27 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
-        if (alertView.tag == ALERT_VIP_TAG) {
-            //TODO 充值
+    if (buttonIndex == 1)
+    {
+        if (alertView.tag == ALERT_VIP_TAG)
+        {
+            //充值
+            LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else
         {
-        [LSUserManager setLastqid:currQuestion.qid.intValue];
+            [LSUserManager setLastqid:currQuestion.qid.intValue];
         
-        [SVProgressHUD dismiss];
-        [LSSheetNotify dismiss];
-        if (alertView.tag == 99) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-        else
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+            [SVProgressHUD dismiss];
+            [LSSheetNotify dismiss];
+            if (alertView.tag == 99) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
 }
