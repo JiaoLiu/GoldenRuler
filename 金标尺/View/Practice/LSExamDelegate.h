@@ -9,15 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @protocol LSExamDelegate <NSObject>
-
+@optional
 - (void)nextQuestion;
 - (void)prevQuestion;
 - (void)smtExam;
-@optional
 - (void)smtAnswer;
-@optional
 - (void)chooseQuestion;
-@optional
 - (void)showAnalysis;
 
 

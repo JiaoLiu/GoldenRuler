@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "LSExamView.h"
 #import "LSQuestion.h"
+#import "LSPrivateChargeViewController.h"
 
-@interface LSPrivateErrorDetailViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface LSPrivateErrorDetailViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,LSExamDelegate>
 
 @property (nonatomic, assign)NSInteger qid;
 @property (nonatomic, strong)LSQuestion *question;

@@ -89,7 +89,8 @@
     eview.textFiled.hidden = YES;
     eview.yellowBtn.hidden = NO;
     eview.operTop.hidden = NO;
-    eview.textLabel.hidden = NO;
+    eview.delegate = self;
+    eview.textLabel.hidden = [LSUserManager getIsVip] ? NO : YES;
     [self.view addSubview:eview];
 }
 
@@ -121,6 +122,23 @@
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
     [SVProgressHUD dismiss];
+}
+
+- (void)showAnalysis
+{
+    if (![LSUserManager getIsVip]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能查看解析，充值称为VIP会员即可查看解析" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
+        [alert show];
+        return;
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - tableview delegate
