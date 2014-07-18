@@ -10,6 +10,7 @@
 #import "LSPractiseController.h"
 #import "LSTestViewController.h"
 #import "LSExam.h"
+#import "LSPrivateChargeViewController.h"
 
 
 @interface LSWrapInfoViewController ()
@@ -88,11 +89,30 @@
     vc.exam = exam;
     vc.questionList = questionList;
 
+    if ([LSUserManager getIsVip] || self.wrapType == LSWrapTypeSimulation) {
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题套卷测试，充值成为VIP会员才可以" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
+        alert.tag = 99;
+        [alert show];
+        return;
+
+    }
     
-    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1 && alertView.tag == 99) {
+        //充值
+        LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 
 - (void)getPaper
 {
@@ -126,7 +146,7 @@
             
             if (![dt isKindOfClass:[NSDictionary class]]) {
                 [SVProgressHUD showErrorWithStatus:@"暂无考题"];
-                [self.navigationController popViewControllerAnimated:YES];
+//                [self.navigationController popViewControllerAnimated:YES];
                 return ;
             }
             

@@ -208,6 +208,7 @@
     if (min == _exam.time) {
         timeUp = YES;
         [timer invalidate];
+        eview.questionView.userInteractionEnabled = NO;
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"模拟考时间到请交卷" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         alert.tag = ALERT_TIME_TAG;
         [alert show];
@@ -701,7 +702,7 @@
         case 1:
         {
             NSLog(@"确定交卷");
-            if (alertView.tag == ALERT_SMT_TAG) {
+            if (alertView.tag == ALERT_SMT_TAG || alertView.tag == ALERT_TIME_TAG) {
                 [timer invalidate];
                 [self computeScore];
             }
