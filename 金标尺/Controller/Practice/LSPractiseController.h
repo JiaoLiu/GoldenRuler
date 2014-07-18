@@ -16,11 +16,13 @@
 #import "LSChooseQuestionViewController.h"
 #import "LSPrivateChargeViewController.h"
 
-@interface LSPractiseController : UIViewController<UITabBarDelegate,UITableViewDataSource,UITableViewDelegate,LSExamDelegate,LSCommentsDelegate,LSCorrectionDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,UITextFieldDelegate>
+@interface LSPractiseController : UIViewController<UITabBarDelegate,UITableViewDataSource,UITableViewDelegate,LSExamDelegate,LSCommentsDelegate,LSCorrectionDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 @property (nonatomic,strong) NSString *cid;
 @property (nonatomic,strong) NSString *tid;
 @property (nonatomic,assign) LSWrapType testType;
 @property (nonatomic,strong) NSString *qTypeString;
+@property (nonatomic,strong) UIActionSheet *sheet;
+@property (nonatomic,strong) UIScrollView *qListScrow;
 
 @property (nonatomic) BOOL isContinue;
 
