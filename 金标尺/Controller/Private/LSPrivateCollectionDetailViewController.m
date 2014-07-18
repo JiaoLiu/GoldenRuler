@@ -84,7 +84,7 @@
     eview.delegate = self;
     [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
     if ([question.tid intValue] == kJudge || [question.tid intValue] == kSingleChoice || [question.tid intValue] == kSimpleAnswer || [question.tid intValue] == kDiscuss) {
-        [eview.currBtn setTitle:@"1/1" forState:UIControlStateNormal];
+        [eview.currBtn setTitle:@"答案及解析" forState:UIControlStateNormal];
     }
     if ([question.tid intValue] == kBlank) {
         [eview.questionView setEditing:NO];
@@ -183,35 +183,43 @@
         
         [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:0] animated:NO];
         selectedRow = indexPath.row;
+        NSString *myAnswer = nil;
+        if([question.tid integerValue] == kSingleChoice)
+        {
+            eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
+            myAnswer = [cell.textLabel.text substringToIndex:1];
+            
+        }
+        else
+        {
+            eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",cell.textLabel.text];
+            myAnswer = cell.textLabel.text;
+        }
         
-        [eview.operTop setHidden:NO];
-        [eview.textLabel setHidden:NO];
-        eview.yellowBtn.hidden = NO;
-        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",[cell.textLabel.text substringToIndex:1]];
-        
-        if ([cell.textLabel.text hasPrefix:question.right]) {//答案正确
-            [eview.rightImage setHidden:NO];
-            [eview.wrongImage setHidden:YES];
+        if ([myAnswer isEqualToString:question.right]) {//答案正确
             question.rightOrWrong = YES;
         }else {//答案错误
-            [eview.wrongImage setHidden:NO];
-            [eview.rightImage setHidden:YES];
             question.rightOrWrong = NO;
         }
-        eview.questionView.userInteractionEnabled = NO;
-        eview.currBtn.enabled = NO;
     }
 }
 
 #pragma mark - exam delegate
-- (void)prevQuestion
+- (void)showAnalysis
 {
-
+    if (![LSUserManager getIsVip]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能查看解析，充值称为VIP会员即可查看解析" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
+        [alert show];
+        return;
+    }
 }
 
-- (void)nextQuestion
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-
+    if (buttonIndex == 1) {
+        LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)smtAnswer
@@ -233,7 +241,7 @@
         }
         [eview.operTop setHidden:NO];
         eview.yellowBtn.hidden = NO;
-        eview.myAnswer.text = myAnswer;
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",myAnswer];
         if ([myAnswer isEqualToString:question.right]) {
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
@@ -242,10 +250,7 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
-        [eview.textLabel setHidden:NO];
     }
-    eview.questionView.userInteractionEnabled = NO;
-    
     if ([question.tid integerValue] == kBlank)
     {
         NSString *myAnswer = [eview.textFiled.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -265,13 +270,25 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
-        [eview.textLabel setHidden:NO];
+        eview.yellowBtn.hidden = NO;
     }
-}
-
-- (void)smtExam
-{
+    else
+    {
+        [eview.yellowBtn setHidden:NO];
+        [eview.operTop setHidden:NO];
+        if (question.rightOrWrong) {//答案正确
+            [eview.rightImage setHidden:NO];
+            [eview.wrongImage setHidden:YES];
+            
+        }else {//答案错误
+            
+            [eview.wrongImage setHidden:NO];
+            [eview.rightImage setHidden:YES];
+        }
+    }
     
+    eview.textLabel.hidden = [LSUserManager getIsVip] ? NO : YES;
+    eview.questionView.userInteractionEnabled = NO;
 }
 
 @end
