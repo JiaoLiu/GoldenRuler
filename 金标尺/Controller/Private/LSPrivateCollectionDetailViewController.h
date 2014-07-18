@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LSExamView.h"
 #import "LSQuestion.h"
+#import "LSPrivateChargeViewController.h"
 
 @interface LSPrivateCollectionDetailViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,LSExamDelegate>
 
