@@ -975,8 +975,10 @@
 {
     
     if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""]) {
-        [SVProgressHUD showErrorWithStatus:@"请先答题"];
-        return;
+        if ( [eview.questionView indexPathsForSelectedRows].count ==0 && ![_qTypeString isEqualToString:@"填空"]) {
+            [SVProgressHUD showErrorWithStatus:@"请先答题"];
+            return;
+        }
     }
     
     
@@ -999,7 +1001,7 @@
         }
         NSLog(@"我的答案：%@",myAnswer);
         [eview.operTop setHidden:NO];
-        eview.myAnswer.text = myAnswer;
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",myAnswer];
         currQuestion.myAser = myAnswer;
         if ([myAnswer isEqualToString:currQuestion.right]) {
             currQuestion.rightOrWrong = YES;
@@ -1021,7 +1023,7 @@
         
         NSLog(@"我的答案：%@",myAnswer);
         [eview.operTop setHidden:NO];
-        eview.myAnswer.text = myAnswer;
+        eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",myAnswer];
         currQuestion.myAser = myAnswer;
         [eview.textFiled resignFirstResponder];
         [eview.textFiled setEnabled:NO];
@@ -1088,11 +1090,58 @@
 
 -(void)chooseQuestion
 {
-    LSChooseQuestionViewController *vc = [[LSChooseQuestionViewController alloc]init];
-    vc.questions = questionList;
-    vc.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
+
+    
+    [self buildQuestionListScrowView];
+    
 }
+
+
+- (void)buildQuestionListScrowView
+{
+    _sheet = [[UIActionSheet alloc]initWithTitle:@"请选择作答\n\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    _sheet.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/2);
+    
+    _qListScrow = [[UIScrollView alloc]initWithFrame:CGRectMake(20, 40, 290, 200)];
+    _qListScrow.pagingEnabled = NO;
+    int i = 0;
+    for (LSQuestion * q in questionList) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(55*(i%5), 30*(i/5), 50, 25)];
+        if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
+            
+            [btn setBackgroundImage:[UIImage imageNamed:@"specification_size1_bg.9.png"] forState:UIControlStateNormal];
+        }
+        else
+        {
+            
+        [btn setBackgroundImage:[UIImage imageNamed:@"specification_bg1.png"] forState:UIControlStateNormal];
+        }
+        
+        [btn setTitle:[NSString stringWithFormat:@"%d",i+1] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        btn.tag = i;
+        [btn addTarget:self action:@selector(selectQuestion:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_qListScrow addSubview:btn];
+        
+        i++;
+        
+    }
+    _qListScrow.contentSize = CGSizeMake(280, (i/5 +1 )*31);
+    _qListScrow.userInteractionEnabled = YES;
+    
+    
+    [_sheet addSubview:_qListScrow];
+    _sheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [_sheet showInView:self.view];
+}
+
+
+
+
 
 #pragma mark - choosequestion delegate
 
@@ -1100,6 +1149,14 @@
 {
     currQuestion = [questionList objectAtIndex:index];    
     currIndex = index;
+    [self initExamView];
+}
+
+- (void)selectQuestion:(UIButton *)button
+{
+    [_sheet dismissWithClickedButtonIndex:0 animated:YES];
+    currQuestion = [questionList objectAtIndex:button.tag];
+    currIndex = button.tag;
     [self initExamView];
 }
 
@@ -1181,23 +1238,27 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
-        if (alertView.tag == ALERT_VIP_TAG) {
-            //TODO 充值
+    if (buttonIndex == 1)
+    {
+        if (alertView.tag == ALERT_VIP_TAG)
+        {
+            //充值
+            LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else
         {
-        [LSUserManager setLastqid:currQuestion.qid.intValue];
+            [LSUserManager setLastqid:currQuestion.qid.intValue];
         
-        [SVProgressHUD dismiss];
-        [LSSheetNotify dismiss];
-        if (alertView.tag == 99) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-        else
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+            [SVProgressHUD dismiss];
+            [LSSheetNotify dismiss];
+            if (alertView.tag == 99) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
 }

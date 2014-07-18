@@ -73,6 +73,8 @@
 		C69C46AA195139250066431D /* f_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69C46A5195139250066431D /* f_bg@2x.png */; };
 		C6A84FC21963B37400E4F8C2 /* LSAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A84FC11963B37400E4F8C2 /* LSAnalysisViewController.m */; };
 		C6D22FE61977C83B002CA264 /* go_on_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D22FE51977C83B002CA264 /* go_on_image@2x.png */; };
+		C6D22FE91978C1AA002CA264 /* specification_bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D22FE71978C1AA002CA264 /* specification_bg1.png */; };
+		C6D22FEA1978C1AA002CA264 /* specification_size1_bg.9.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D22FE81978C1AA002CA264 /* specification_size1_bg.9.png */; };
 		C6E0EBD21942DB76001A49B5 /* LSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD11942DB76001A49B5 /* LSQuestion.m */; };
 		C6E0EBD51942DC49001A49B5 /* LSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD41942DC49001A49B5 /* LSQuestionView.m */; };
 		C6E0EBD81942E1EF001A49B5 /* LSExam.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0EBD71942E1EF001A49B5 /* LSExam.m */; };
@@ -262,6 +264,8 @@
 		C6A84FC01963B37400E4F8C2 /* LSAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAnalysisViewController.h; sourceTree = "<group>"; };
 		C6A84FC11963B37400E4F8C2 /* LSAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAnalysisViewController.m; sourceTree = "<group>"; };
 		C6D22FE51977C83B002CA264 /* go_on_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "go_on_image@2x.png"; sourceTree = "<group>"; };
+		C6D22FE71978C1AA002CA264 /* specification_bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = specification_bg1.png; sourceTree = "<group>"; };
+		C6D22FE81978C1AA002CA264 /* specification_size1_bg.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = specification_size1_bg.9.png; sourceTree = "<group>"; };
 		C6E0EBD01942DB76001A49B5 /* LSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSQuestion.h; sourceTree = "<group>"; };
 		C6E0EBD11942DB76001A49B5 /* LSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSQuestion.m; sourceTree = "<group>"; };
 		C6E0EBD31942DC49001A49B5 /* LSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSQuestionView.h; path = "金标尺/View/Contest/LSQuestionView.h"; sourceTree = SOURCE_ROOT; };
@@ -806,6 +810,8 @@
 		CCCE5A42190D35A00057FBFC /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				C6D22FE71978C1AA002CA264 /* specification_bg1.png */,
+				C6D22FE81978C1AA002CA264 /* specification_size1_bg.9.png */,
 				C6D22FE51977C83B002CA264 /* go_on_image@2x.png */,
 				C65576BC196BFD3C00B5D37C /* exercise_top_right_bg2.9@2x.png */,
 				C69C46A1195139250066431D /* f_1@2x.png */,
@@ -930,6 +936,7 @@
 				271D204E191B843800B51CF2 /* m_add@2x.png in Resources */,
 				C6E0EBDC1942E66C001A49B5 /* nx.9@2x.png in Resources */,
 				CC49FFEA18F93AA8007E83F4 /* Images.xcassets in Resources */,
+				C6D22FE91978C1AA002CA264 /* specification_bg1.png in Resources */,
 				2749DFF31934811300FE7A59 /* message_new@2x.png in Resources */,
 				C6E0EBE41942EC4D001A49B5 /* nx_a.png in Resources */,
 				CC9A633E1901529A00103000 /* back_button@2x.png in Resources */,
@@ -948,6 +955,7 @@
 				CCB3BA6D190222F400CC1849 /* default_header@2x.jpg in Resources */,
 				271D2050191B843800B51CF2 /* m_ping@2x.png in Resources */,
 				CC9A63471901529A00103000 /* index_f@2x.png in Resources */,
+				C6D22FEA1978C1AA002CA264 /* specification_size1_bg.9.png in Resources */,
 				271D2051191B843800B51CF2 /* m_s@2x.png in Resources */,
 				CC9A63401901529A00103000 /* index_a@2x.png in Resources */,
 				C6E0EBE81942EC4D001A49B5 /* nx_btnb.9.png in Resources */,

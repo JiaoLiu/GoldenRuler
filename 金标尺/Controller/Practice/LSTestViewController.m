@@ -586,13 +586,63 @@
    
 }
 
-
 -(void)chooseQuestion
 {
-    LSChooseQuestionViewController *vc = [[LSChooseQuestionViewController alloc]init];
-    vc.questions = _questionList;
-    vc.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    [self buildQuestionListScrowView];
+    
+}
+
+
+- (void)buildQuestionListScrowView
+{
+    _sheet = [[UIActionSheet alloc]initWithTitle:@"请选择作答\n\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    _sheet.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/2);
+    
+    _qListScrow = [[UIScrollView alloc]initWithFrame:CGRectMake(20, 40, 290, 200)];
+    _qListScrow.pagingEnabled = NO;
+    int i = 0;
+    for (LSQuestion * q in _questionList) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(55*(i%5), 30*(i/5), 50, 25)];
+        if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
+            
+            [btn setBackgroundImage:[UIImage imageNamed:@"specification_size1_bg.9.png"] forState:UIControlStateNormal];
+        }
+        else
+        {
+            
+            [btn setBackgroundImage:[UIImage imageNamed:@"specification_bg1.png"] forState:UIControlStateNormal];
+        }
+        
+        [btn setTitle:[NSString stringWithFormat:@"%d",i+1] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        btn.tag = i;
+        [btn addTarget:self action:@selector(selectQuestion:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_qListScrow addSubview:btn];
+        
+        i++;
+        
+    }
+    _qListScrow.contentSize = CGSizeMake(280, (i/5 +1 )*31);
+    _qListScrow.userInteractionEnabled = YES;
+    
+    
+    [_sheet addSubview:_qListScrow];
+    _sheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [_sheet showInView:self.view];
+}
+
+- (void)selectQuestion:(UIButton *)button
+{
+    [_sheet dismissWithClickedButtonIndex:0 animated:YES];
+    _currQuestion = [_questionList objectAtIndex:button.tag];
+    currIndex = button.tag;
+    [self initExamView];
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "LSAnalysisViewController.h"
+#import "LSPrivateChargeViewController.h"
 
 @interface LSAnalysisViewController ()
 {
@@ -230,7 +231,9 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1 && alertView.tag == 99) {
-        //TODO 充值
+        //充值
+        LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

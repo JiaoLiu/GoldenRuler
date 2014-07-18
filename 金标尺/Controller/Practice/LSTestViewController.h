@@ -19,10 +19,12 @@
 #import "LSChooseQuestionViewController.h"
 #import "LSTestResultViewController.h"
 
-@interface LSTestViewController : UIViewController<UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, LSCorrectionDelegate, LSCommentsDelegate, LSExamDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,LSTestResultViewDelegate,UITextFieldDelegate>
+@interface LSTestViewController : UIViewController<UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, LSCorrectionDelegate, LSCommentsDelegate, LSExamDelegate,UIAlertViewDelegate,LSChooseQuestionDelegate,LSTestResultViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
 @property (nonatomic,strong) LSExam *exam;
 @property (nonatomic,strong) NSMutableArray *questionList;
 @property (nonatomic,strong) LSQuestion *currQuestion;
 @property (nonatomic) LSWrapType examType;
+@property (nonatomic,strong) UIActionSheet *sheet;
+@property (nonatomic,strong) UIScrollView *qListScrow;
 @end

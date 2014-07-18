@@ -124,7 +124,10 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-
+    if (alertView.tag == 99 && buttonIndex == 1) {
+        LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 
@@ -182,12 +185,12 @@
     vc.qTypeString = cell.textLabel.text;
     
     
-    if (![LSUserManager getIsVip]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值称为VIP会员才可以" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"马上充值", nil];
-        alert.tag = 99;
-        [alert show];
-        return;
-    }
+//    if (![LSUserManager getIsVip] && _testType == LSWrapTypeReal) {
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值称为VIP会员才可以" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"马上充值", nil];
+//        alert.tag = 99;
+//        [alert show];
+//        return;
+//    }
     
     
     
