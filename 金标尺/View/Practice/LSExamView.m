@@ -97,31 +97,35 @@
         _operView = [[UIView alloc]initWithFrame:CGRectMake(0, _questionView.frame.size.height + _questionView.frame.origin.y, SCREEN_WIDTH, 100)];
         _operView.backgroundColor = RGB(240, 240, 240);
         
-        _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 31)];
-//        operTop.backgroundColor = RGB(210, 210, 210);
-        
+        _operTop = [[UIView alloc]initWithFrame:CGRectMake(0, 55, SCREEN_WIDTH, 46)];
+        _operTop.backgroundColor = [UIColor whiteColor];
+
         [_operView addSubview:_operTop];
         _rightImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_go.png"]];
-        _rightImage.frame = CGRectMake(20, 56, 19, 18);
+        _rightImage.frame = CGRectMake(20, 6, 19, 18);
         _wrongImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nx_c.png"]];
-        _wrongImage.frame = CGRectMake(20, 56, 19, 18);
+        _wrongImage.frame = CGRectMake(20, 6, 19, 18);
+        [_wrongImage setHidden:YES];
+        [_rightImage setHidden:YES];
         
         [_operTop addSubview:_rightImage];
         [_operTop addSubview:_wrongImage];
-        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 54, 210, 21)];
+        _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 4, 210, 21)];
         _myAnswer.textColor = [UIColor darkGrayColor];
         _myAnswer.font = [UIFont systemFontOfSize:14];
         _myAnswer.text = @"你的答案:A";
         _myAnswer.backgroundColor = [UIColor clearColor];
+        [_myAnswer setHidden:YES];
         [_operTop addSubview:_myAnswer];
-        [_operTop setHidden:YES];
+//        [_operTop setHidden:YES];
         
-        UILabel *rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 74, 210, 21)];
-        rtAnswer.textColor = [UIColor darkGrayColor];
-        rtAnswer.font = [UIFont systemFontOfSize:14];
-        rtAnswer.text = [NSString stringWithFormat:@"正确答案:%@",question.right];
-        rtAnswer.backgroundColor = [UIColor clearColor];
-        [_operTop addSubview:rtAnswer];
+        _rtAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 24, 210, 21)];
+        _rtAnswer.textColor = [UIColor darkGrayColor];
+        _rtAnswer.font = [UIFont systemFontOfSize:14];
+        _rtAnswer.text = [NSString stringWithFormat:@"正确答案:%@",question.right];
+        _rtAnswer.backgroundColor = [UIColor clearColor];
+        [_rtAnswer setHidden:YES];
+        [_operTop addSubview:_rtAnswer];
         
         
         //操作按钮
