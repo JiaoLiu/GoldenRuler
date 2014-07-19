@@ -132,7 +132,12 @@
     [eview.yellowBtn setHidden:NO];
     [eview.smtBtn setEnabled:NO];
     [self.view addSubview:eview];
+    
+    if ([LSUserManager getIsVip])
+    {
 
+        [self showAnalysis];
+    }
     
 }
 

@@ -803,7 +803,7 @@
         }
         
         
-        [eview.yellowBtn setHidden:NO];
+//        [eview.yellowBtn setHidden:NO];
         
         if ([myAnswer isEqualToString:currQuestion.right]) {//答案正确
             currQuestion.myAser = currQuestion.right;
@@ -1013,11 +1013,12 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
-        
+        eview.operTop.backgroundColor = RGB(240, 240, 240);
+        [eview.rtAnswer setHidden:NO];
+        [eview.myAnswer setHidden:NO];
         [self addPractice];
     }
-    
-    if ([_qTypeString isEqualToString:@"填空"])
+    else if ([_qTypeString isEqualToString:@"填空"])
     {
         NSString *myAnswer = [eview.textFiled.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
@@ -1028,6 +1029,7 @@
         [eview.textFiled resignFirstResponder];
         [eview.textFiled setEnabled:NO];
         [eview.currBtn setEnabled:NO];
+        
         if ([myAnswer isEqualToString:currQuestion.right]) {
             currQuestion.rightOrWrong = YES;
             [eview.rightImage setHidden:NO];
@@ -1038,6 +1040,9 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
+        eview.operTop.backgroundColor = RGB(240, 240, 240);
+        [eview.rtAnswer setHidden:NO];
+        [eview.myAnswer setHidden:NO];
         [eview.yellowBtn setHidden:NO];
         
         [self addPractice];
@@ -1045,20 +1050,30 @@
     else
     {
         [eview.yellowBtn setHidden:NO];
-        [eview.operTop setHidden:NO];
         
-        
-        if (currQuestion.rightOrWrong) {//答案正确
-
-            [eview.rightImage setHidden:NO];
-            [eview.wrongImage setHidden:YES];
-
-        }else {//答案错误
-
-            [eview.wrongImage setHidden:NO];
-            [eview.rightImage setHidden:YES];
-
+        if ([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"])
+        {
+            [eview.operTop setHidden:NO];
+            eview.operTop.backgroundColor = RGB(240, 240, 240);
+            [eview.rtAnswer setHidden:NO];
+            [eview.myAnswer setHidden:NO];
+            
+            if (currQuestion.rightOrWrong)
+            {//答案正确
+                
+                [eview.rightImage setHidden:NO];
+                [eview.wrongImage setHidden:YES];
+                
+            }else {//答案错误
+                
+                [eview.wrongImage setHidden:NO];
+                [eview.rightImage setHidden:YES];
+                
+            }
         }
+        
+        
+        
 
         if (![historyQst containsObject:currQuestion])
         {
@@ -1066,6 +1081,12 @@
         }
         [self addPractice];
     
+    }
+    
+    if ([LSUserManager getIsVip])
+    {
+        [eview.yellowBtn setHidden:YES];
+        [eview.textLabel setHidden:NO];
     }
     
     eview.questionView.userInteractionEnabled = NO;
