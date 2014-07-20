@@ -8,6 +8,7 @@
 
 #import "LSMsgPushViewController.h"
 #import "LSMsgDetailViewController.h"
+#import "LSChoiceDetailViewController.h"
 
 @interface LSMsgPushViewController ()
 {
@@ -172,8 +173,13 @@
 {
     [LSSheetNotify dismiss];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    LSMsgDetailViewController *detailVC = [[LSMsgDetailViewController alloc] init];
-    detailVC.msgUrl = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
+//    LSMsgDetailViewController *detailVC = [[LSMsgDetailViewController alloc] init];
+//    detailVC.msgUrl = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
+//    [self.navigationController pushViewController:detailVC animated:YES];
+    LSChoiceDetailViewController *detailVC = [[LSChoiceDetailViewController alloc] init];
+    detailVC.urlStr = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"url"];
+    detailVC.detailType = kPushDetail;
+    detailVC.urlTitle = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

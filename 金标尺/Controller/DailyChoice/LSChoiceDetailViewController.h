@@ -21,7 +21,8 @@ typedef enum : NSUInteger {
 
 typedef enum : NSUInteger {
     kDailyChoice,
-    kCourseRecommend
+    kCourseRecommend,
+    kPushDetail
 } kDetailType;
 
 @interface LSChoiceDetailViewController : UIViewController<UIWebViewDelegate,WXApiDelegate>

@@ -287,6 +287,17 @@
         }
     }
     
+    if ([question.tid integerValue] != kDiscuss && [question.tid integerValue] != kSimpleAnswer) {
+        eview.operTop.backgroundColor = RGB(240, 240, 240);
+        eview.myAnswer.hidden = NO;
+        eview.rtAnswer.hidden = NO;
+    }
+    else
+    {
+        [eview.rightImage setHidden:YES];
+        [eview.wrongImage setHidden:YES];
+    }
+    
     eview.textLabel.hidden = [LSUserManager getIsVip] ? NO : YES;
     eview.questionView.userInteractionEnabled = NO;
 }

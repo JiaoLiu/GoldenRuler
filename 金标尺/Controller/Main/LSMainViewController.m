@@ -169,6 +169,7 @@
             }
             else
             {
+                [self loadADdata];
                 [self queryUserCenterInfo];
                 [self queryUserInfo];
             }

@@ -43,6 +43,9 @@
         case kDailyChoice:
             self.title = @"每日精选";
             break;
+        case kPushDetail:
+            self.title = @"消息详情";
+            break;
             
         default:
             break;

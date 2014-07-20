@@ -79,6 +79,7 @@
     [eview.questionView setEditing:NO];
     [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
     eview.rightImage.hidden = YES;
+    [eview.wrongImage setHidden:NO];
     eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",question.myAser];
     eview.textFiled.hidden = YES;
     eview.yellowBtn.hidden = NO;
@@ -86,6 +87,16 @@
     eview.delegate = self;
     eview.textLabel.hidden = [LSUserManager getIsVip] ? NO : YES;
     [self.view addSubview:eview];
+    
+    if ([question.tid integerValue] != kDiscuss && [question.tid integerValue] != kSimpleAnswer) {
+        eview.operTop.backgroundColor = RGB(240, 240, 240);
+        eview.myAnswer.hidden = NO;
+        eview.rtAnswer.hidden = NO;
+    }
+    else
+    {
+        [eview.wrongImage setHidden:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
