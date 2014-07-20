@@ -171,10 +171,11 @@
     
     if (currQuestion.myAser != nil && ![currQuestion.myAser isEqualToString:@""]) {
         [eview.operTop setHidden:NO];
+        eview.operTop.backgroundColor = RGB(240, 240, 240);
         [eview.yellowBtn setHidden:NO];
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",currQuestion.myAser];
         if (currQuestion.rightOrWrong) {
-           
+            
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
         } else {
@@ -182,6 +183,8 @@
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
+        [eview.myAnswer setHidden:NO];
+        [eview.rtAnswer setHidden:NO];
 //        [eview.textLabel setHidden:NO];
         
     }
@@ -919,12 +922,7 @@
 - (void)nextQuestion
 {
     
-    if (currQuestion.myAser == nil) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请先答题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        return;
-    }
-    
+    [self smtAnswer];
     
     selectedRow = -1;
     NSLog(@"下一题");
