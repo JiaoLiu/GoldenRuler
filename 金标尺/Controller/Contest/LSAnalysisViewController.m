@@ -95,27 +95,27 @@
     
     switch (_currQuestion.tid.intValue) {
         case 1:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
             qTypeString =@"单选";
             break;
         case 2:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
             qTypeString =@"多选";
             break;
         case 3:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
             qTypeString =@"判断";
             break;
         case 4:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
             qTypeString =@"填空";
             break;
         case 5:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
             qTypeString =@"简答";
             break;
         case 6:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
             qTypeString =@"论述";
             break;
         default:
@@ -214,11 +214,68 @@
 
 -(void)chooseQuestion
 {
-    LSChooseQuestionViewController *vc = [[LSChooseQuestionViewController alloc]init];
-    vc.questions = filterQuetions;
-    vc.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
+//    LSChooseQuestionViewController *vc = [[LSChooseQuestionViewController alloc]init];
+//    vc.questions = filterQuetions;
+//    vc.delegate = self;
+//    [self.navigationController pushViewController:vc animated:YES];
+    [self buildQuestionListScrowView];
 }
+
+
+- (void)buildQuestionListScrowView
+{
+    _sheet = [[UIActionSheet alloc]initWithTitle:@"请选择作答\n\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    _sheet.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/2);
+    
+    _qListScrow = [[UIScrollView alloc]initWithFrame:CGRectMake(20, 40, 290, 200)];
+    _qListScrow.pagingEnabled = NO;
+    int i = 0;
+    for (LSQuestion * q in filterQuetions) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(55*(i%5), 30*(i/5), 50, 25)];
+        if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
+            
+            [btn setBackgroundImage:[UIImage imageNamed:@"specification_size1_bg.9.png"] forState:UIControlStateNormal];
+        }
+        else
+        {
+            
+            [btn setBackgroundImage:[UIImage imageNamed:@"specification_bg1.png"] forState:UIControlStateNormal];
+        }
+        
+        [btn setTitle:[NSString stringWithFormat:@"%d",i+1] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        btn.tag = i;
+        [btn addTarget:self action:@selector(selectQuestion:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_qListScrow addSubview:btn];
+        
+        i++;
+        
+    }
+    _qListScrow.contentSize = CGSizeMake(280, (i/5 + 2 )*31);
+    _qListScrow.userInteractionEnabled = YES;
+    
+    
+    [_sheet addSubview:_qListScrow];
+    _sheet.actionSheetStyle = UIActionSheetStyleDefault;
+    
+    UITapGestureRecognizer *tagGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideSheet:)];
+    [tagGest setNumberOfTouchesRequired:1];
+    [_sheet addGestureRecognizer:tagGest];
+    
+    
+    [_sheet showInView:self.view];
+}
+
+
+- (void)hideSheet:(UITapGestureRecognizer *)guest
+{
+    [_sheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
 
 -(void)showAnalysis
 {

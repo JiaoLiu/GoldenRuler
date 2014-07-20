@@ -33,7 +33,7 @@
         _usedTime.backgroundColor = [UIColor clearColor];
         
         _selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(241, 0, 79, 31)];
-        [_selectBtn setBackgroundImage:[UIImage imageNamed:@"nx.9.png"] forState:UIControlStateNormal];
+        [_selectBtn setBackgroundImage:[UIImage imageNamed:@"exercise_top_right_bg2.9.png"] forState:UIControlStateNormal];
         [_selectBtn setTitle:@"2/100" forState:UIControlStateNormal];
         [_selectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_selectBtn addTarget:self action:@selector(chooseQuestion) forControlEvents:UIControlEventTouchUpInside];

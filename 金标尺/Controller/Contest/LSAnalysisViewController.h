@@ -19,4 +19,7 @@
 @interface LSAnalysisViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,LSExamDelegate,LSChooseQuestionDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) NSMutableArray *questionList;
 @property (nonatomic,strong) LSQuestion *currQuestion;
+@property (nonatomic,strong) UIActionSheet *sheet;
+@property (nonatomic,strong) UIScrollView *qListScrow;
+
 @end

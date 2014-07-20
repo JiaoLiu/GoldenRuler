@@ -14,6 +14,7 @@
 {
     NSMutableArray *courseArray;
     LSWrapType testType;
+    LSTabBar *tabBar;
 }
 @end
 
@@ -48,7 +49,7 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     //tabBar
-    LSTabBar *tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
+    tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
     tabBar.items = @[@"模拟试题",@"历年真题"];
     tabBar.selectedItem = 0;
     testType = LSWrapTypeSimulation;
@@ -115,13 +116,22 @@
             testType = LSWrapTypeSimulation;
             break;
         case 1:
-            testType = LSWrapTypeReal;
+            
             if (![LSUserManager getIsVip]) {
+                
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值成为VIP会员才可以" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
                 alert.tag = 99;
                 [alert show];
+                
                 return;
             }
+            else
+            {
+                
+                testType = LSWrapTypeReal;
+                
+            }
+            
             break;
         default:
             break;
