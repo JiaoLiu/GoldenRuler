@@ -128,8 +128,6 @@
     }
 }
 
-
-
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == 99 && buttonIndex ==1)
