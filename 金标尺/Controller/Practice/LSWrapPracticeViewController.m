@@ -25,7 +25,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        if (IOS_VERSION >= 7.0) {
+        if (IOS_VERSION >= 7.0)
+        {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         courseArray = [NSMutableArray arrayWithCapacity:0];
