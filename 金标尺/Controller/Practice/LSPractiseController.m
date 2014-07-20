@@ -542,7 +542,9 @@
 
     int uid = [LSUserManager getUid];
     int key = [LSUserManager getKey];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/addPractice?uid=%d&key=%d&qid=%@&answer=%@&right=%d&tk=%d",uid,key,currQuestion.qid,currQuestion.myAser,currQuestion.rightOrWrong,_testType==LSWrapTypeSimulation ? 1:2]]]];
+    NSString *url = [APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/addPractice?uid=%d&key=%d&qid=%@&answer=%@&right=%d&tk=%d",uid,key,currQuestion.qid,currQuestion.myAser,currQuestion.rightOrWrong,_testType==LSWrapTypeSimulation ? 1:2]];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {

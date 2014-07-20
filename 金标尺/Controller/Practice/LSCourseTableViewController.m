@@ -8,7 +8,7 @@
 
 #import "LSCourseTableViewController.h"
 #import "LSQuestionTypeTableViewController.h"
-
+#import "LSPrivateChargeViewController.h"
 
 @interface LSCourseTableViewController ()
 {
@@ -116,12 +116,30 @@
             break;
         case 1:
             testType = LSWrapTypeReal;
+            if (![LSUserManager getIsVip]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值成为VIP会员才可以" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
+                alert.tag = 99;
+                [alert show];
+                return;
+            }
             break;
         default:
             break;
     }
 }
 
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 99 && buttonIndex ==1)
+    {
+        //充值
+        LSPrivateChargeViewController *vc = [[LSPrivateChargeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+}
 
 
 - (void)didReceiveMemoryWarning
