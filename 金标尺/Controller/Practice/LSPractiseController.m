@@ -70,7 +70,7 @@
     [homeBtn addTarget:self action:@selector(homeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [homeBtn setBackgroundImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    self.navigationItem.rightBarButtonItem = rightItem;
     
     historyQst = [NSMutableArray arrayWithCapacity:0];
     questionList = [NSMutableArray arrayWithCapacity:0];
@@ -118,6 +118,7 @@
 //考试界面
 - (void)initExamView
 {
+    self.title = @"练习板块";
     [currComments removeAllObjects];
     isExamView = YES;
     isSmt = NO;
@@ -921,8 +922,19 @@
 
 - (void)nextQuestion
 {
+    if ( [eview.questionView indexPathsForSelectedRows].count !=0 && ![_qTypeString isEqualToString:@"多选"])
+    {
+        [self smtAnswer];
+    }
     
-    [self smtAnswer];
+    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
+    {
+        if ( [eview.questionView indexPathsForSelectedRows].count ==0 && ![_qTypeString isEqualToString:@"填空"]) {
+            [SVProgressHUD showErrorWithStatus:@"请先答题"];
+            return;
+        }
+    }
+
     
     selectedRow = -1;
     NSLog(@"下一题");
@@ -1070,6 +1082,12 @@
                 [eview.rightImage setHidden:YES];
                 
             }
+        }
+        else
+        {
+            CGRect frame = eview.yellowBtn.frame;
+            frame.origin.y -= 40;
+            eview.yellowBtn.frame = frame;
         }
         
         

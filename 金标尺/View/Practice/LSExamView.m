@@ -84,7 +84,7 @@
         _questionView  = [[UITableView alloc]initWithFrame:CGRectMake(0, ttView.frame.origin.y + ttView.frame.size.height, SCREEN_WIDTH, 100) style:UITableViewStylePlain];
 //        _questionView.delegate = self;
 //        _questionView.dataSource = self;
-        _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _questionView.editing = YES;
 
         _questionView.tableHeaderView = hv;
