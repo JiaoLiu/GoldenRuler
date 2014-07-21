@@ -1101,10 +1101,14 @@
     
     }
     
-    if ([LSUserManager getIsVip])
+    if ([LSUserManager getIsVip] && ([_qTypeString isEqualToString:@"简答"] || [_qTypeString isEqualToString:@"论述"]))
     {
         [eview.yellowBtn setHidden:YES];
         [eview.textLabel setHidden:NO];
+    }
+    else
+    {
+        [eview.yellowBtn setHidden:NO];
     }
     
     eview.questionView.userInteractionEnabled = NO;

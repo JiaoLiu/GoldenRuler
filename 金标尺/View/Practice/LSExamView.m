@@ -88,6 +88,7 @@
         _questionView.editing = YES;
 
         _questionView.tableHeaderView = hv;
+        _questionView.tableFooterView = [UIView new];
         _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
         [_scrollView addSubview:_questionView];
         

@@ -63,6 +63,7 @@
 //        _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _questionView.editing = YES;
         _questionView.tableHeaderView = hv;
+        _questionView.tableFooterView = [UIView new];
         _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 230 ? 140+hv.frame.size.height : 230);
         [_scrollView addSubview:_questionView];
         
