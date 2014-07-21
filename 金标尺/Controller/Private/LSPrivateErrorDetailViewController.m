@@ -77,7 +77,8 @@
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     [eview.questionView setEditing:NO];
-    [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
+//    [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
+    eview.selectBtn.hidden = YES;
     eview.rightImage.hidden = YES;
     [eview.wrongImage setHidden:NO];
     eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",question.myAser];
