@@ -75,6 +75,8 @@
 
 - (void)setSelectedItem:(NSInteger)selectedItem
 {
+    _selectedItem = selectedItem;
+    
     for (UIImageView *item in [self subviews]) {
         if (item.tag == selectedItem) {
             item.image = [[UIImage imageNamed:@"tabbg_on"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
