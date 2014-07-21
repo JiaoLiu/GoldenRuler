@@ -82,7 +82,8 @@
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
     eview.delegate = self;
-    [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
+//    [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
+    eview.selectBtn.hidden = YES;
     if ([question.tid intValue] == kJudge || [question.tid intValue] == kSingleChoice || [question.tid intValue] == kSimpleAnswer || [question.tid intValue] == kDiscuss) {
         [eview.currBtn setTitle:@"答案及解析" forState:UIControlStateNormal];
     }
