@@ -51,10 +51,10 @@
     //tabBar
     tabBar = [[LSTabBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
     tabBar.items = @[@"模拟试题",@"历年真题"];
-    tabBar.selectedItem = 0;
     testType = LSWrapTypeSimulation;
     tabBar.delegate = self;
     [self.view addSubview:tabBar];
+     [tabBar setSelectedItem:0];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, tabBar.frame.origin.y + tabBar.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     self.tableView.delegate = self;
