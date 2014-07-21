@@ -84,9 +84,13 @@
         _questionView  = [[UITableView alloc]initWithFrame:CGRectMake(0, ttView.frame.origin.y + ttView.frame.size.height, SCREEN_WIDTH, 100) style:UITableViewStylePlain];
 //        _questionView.delegate = self;
 //        _questionView.dataSource = self;
-//        _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        if ([question.tid integerValue] == kBlank) {
+            _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        }
         _questionView.editing = YES;
-
+        if (IOS_VERSION > 7.0) {
+            _questionView.separatorInset = UIEdgeInsetsZero;
+        }
         _questionView.tableHeaderView = hv;
         _questionView.tableFooterView = [UIView new];
         _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
