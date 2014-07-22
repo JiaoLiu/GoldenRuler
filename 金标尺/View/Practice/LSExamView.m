@@ -80,12 +80,21 @@
         UIView *hv = [[UIView alloc]initWithFrame:frame];
         [hv addSubview:label];
         
+        NSArray *answers = [question.answer componentsSeparatedByString:@"|"];
+        CGFloat height = 0;
+        for (int i = 0 ; i < answers.count; i++) {
+            NSString *asContent = [answers objectAtIndex:i];
+            CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            height += rect.height + 20;
+        }
+        
         //考题view
-        _questionView  = [[UITableView alloc]initWithFrame:CGRectMake(0, ttView.frame.origin.y + ttView.frame.size.height, SCREEN_WIDTH, 100) style:UITableViewStylePlain];
+        _questionView  = [[UITableView alloc]initWithFrame:CGRectMake(0, ttView.frame.origin.y + ttView.frame.size.height, SCREEN_WIDTH, height + hv.frame.size.height) style:UITableViewStylePlain];
 //        _questionView.delegate = self;
 //        _questionView.dataSource = self;
         if ([question.tid integerValue] == kBlank) {
             _questionView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
         }
         _questionView.editing = YES;
         if (IOS_VERSION > 7.0) {
@@ -93,7 +102,7 @@
         }
         _questionView.tableHeaderView = hv;
         _questionView.tableFooterView = [UIView new];
-        _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
+//        _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
         [_scrollView addSubview:_questionView];
         
         
