@@ -35,7 +35,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        selectedDate = [NSDate date];
+        selectedDate = nil;
         dataArray = [[NSMutableArray alloc] init];
         cateArray = [[NSMutableArray alloc] init];
         msgPage = 1;
@@ -68,7 +68,7 @@
                 }
             }
             selectedCate = 2;
-            [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+            [self loadDataWithPage:msgPage size:0 time:@""];
 //            [SVProgressHUD dismiss];
         }
         else
@@ -226,7 +226,10 @@
     
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 100)];
     datePicker.datePickerMode = UIDatePickerModeDate;
-    datePicker.date = selectedDate;
+    if (selectedDate == nil) {
+        datePicker.date = [NSDate date];
+    }
+    else datePicker.date = selectedDate;
     [pickerSheet addSubview:datePicker];
     
     
@@ -280,10 +283,13 @@
         }
         if ([view isKindOfClass:[UIPickerView class]] && [view tag] == kCatePicker_TAG) {
             [catSelectBtn setTitle:[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"name"] forState:UIControlStateNormal];
-            [dateSelectBtn setTitle:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
+//            [dateSelectBtn setTitle:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"] forState:UIControlStateNormal];
             selectedCate = [[[cateArray objectAtIndex:[view selectedRowInComponent:0]] objectForKey:@"cid"] integerValue];
             [dataArray removeAllObjects];
-            [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
+            if (selectedDate == nil) {
+                [self loadDataWithPage:msgPage size:0 time:@""];
+            }
+            else [self loadDataWithPage:msgPage size:0 time:[NSString stringFromDate:selectedDate Formatter:@"yyyy-MM-dd"]];
             [SVProgressHUD showWithStatus:@"加载中..."];
         }
         [view removeFromSuperview];
