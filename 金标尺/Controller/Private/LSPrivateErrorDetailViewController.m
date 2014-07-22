@@ -76,7 +76,6 @@
     LSExamView *eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question withIndex:1];
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
-    [eview.questionView setEditing:NO];
 //    [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
     eview.selectBtn.hidden = YES;
     eview.rightImage.hidden = YES;
@@ -165,8 +164,27 @@
         CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
         cell.textLabel.font = [UIFont systemFontOfSize:14];
+        
+        if ([question.tid intValue] != kSimpleAnswer && [question.tid intValue] != kDiscuss)
+        {
+            
+            if (question.myAser != nil && [question.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound )
+            {
+                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                tableView.userInteractionEnabled = NO;
+            }
+        }
+        
+        if (question.myAser != nil && [question.myAser isEqualToString:[answers objectAtIndex:indexPath.row]] ) {
+            [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+            tableView.userInteractionEnabled = NO;
+        }
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    else
+    {
+        tableView.editing = NO;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
     return cell;
 }
 
