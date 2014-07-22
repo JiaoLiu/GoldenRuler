@@ -137,27 +137,27 @@
     
     switch (_currQuestion.tid.intValue) {
         case kSingleChoice:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选题"];
+            eview.testType.text = @"[单选题]";
             qTypeString =@"单选";
             break;
         case kMultipleChoice:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选题"];
+            eview.testType.text = @"[多选题]";
             qTypeString =@"多选";
             break;
         case kJudge:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断题"];
+            eview.testType.text = @"[判断题]";
             qTypeString =@"判断";
             break;
         case kBlank:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空题"];
+            eview.testType.text = @"[填空题]";
             qTypeString =@"填空";
             break;
         case kSimpleAnswer:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答题"];
+            eview.testType.text = @"[简答题]";
             qTypeString =@"简答";
             break;
         case kDiscuss:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述题"];
+            eview.testType.text = @"[论述题]";
             qTypeString =@"论述";
             break;
         default:

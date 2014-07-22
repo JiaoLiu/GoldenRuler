@@ -95,27 +95,27 @@
     
     switch (_currQuestion.tid.intValue) {
         case 1:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
+            eview.testType.text = @"[单选题]";
             qTypeString =@"单选";
             break;
         case 2:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
+            eview.testType.text = @"[多选题]";
             qTypeString =@"多选";
             break;
         case 3:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
+            eview.testType.text = @"[判断题]";
             qTypeString =@"判断";
             break;
         case 4:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
+            eview.testType.text = @"[填空题]";
             qTypeString =@"填空";
             break;
         case 5:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
+            eview.testType.text = @"[简答题]";
             qTypeString =@"简答";
             break;
         case 6:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
+            eview.testType.text = @"[论述题]";
             qTypeString =@"论述";
             break;
         default:
