@@ -178,21 +178,8 @@
     CGRect frame = eview.operView.frame;
     frame.size.height -= 50;
     eview.operView.frame = frame;
-    
-//    CGRect frame1 = eview.preQuestion.frame;
-////    frame1.origin.y -= 35;
-//    eview.preQuestion.frame = frame1;
-//    
-//    CGRect frame2 = eview.nextQuestion.frame;
-////    frame2.origin.y -= 35;
-//    eview.nextQuestion.frame = frame2;
-//  
-//    CGRect frame3 = eview.smtBtn.frame;
-//    frame3.origin.y -= 35;
-//    eview.smtBtn.frame = frame3;
-    
     [self.view addSubview:eview];
-//    [self.view bringSubviewToFront:tabBar];
+
     
 }
 
@@ -402,6 +389,12 @@
         [alert show];
         return;
     }
+    
+    if (_currQuestion.tid.intValue == kMultipleChoice)
+    {
+        [self smtAnswer];
+    }
+
 
     
     NSLog(@"上一题");
@@ -432,8 +425,13 @@
     }
     
     
+    if (_currQuestion.tid.intValue == kMultipleChoice)
+    {
+        [self smtAnswer];
+    }
     
-    if (_currQuestion.myAser == nil) {
+    
+    if (_currQuestion.myAser == nil || (_currQuestion.tid.intValue == kMultipleChoice && [_currQuestion.myAser isEqualToString:@""])) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请先答题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return;
@@ -495,7 +493,7 @@
 - (void)smtAnswer
 {
     NSString *myAnswer = @"";
-    if ([qTypeString isEqualToString:@"多选"])
+    if (_currQuestion.tid.intValue == kMultipleChoice)
     {
         NSArray *array = [eview.questionView indexPathsForSelectedRows];
         array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -929,11 +927,29 @@
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.textLabel.text = asContent;
             
-            if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
-
-                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+//            if ([_currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
+//
+//                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+//                
+//                selectedRow = indexPath.row;
+//            }
+            
+            
+            if (_currQuestion.tid.intValue != kSimpleAnswer && _currQuestion.tid.intValue != kDiscuss && _currQuestion.tid.intValue != kBlank)
+            {
                 
-                selectedRow = indexPath.row;
+                if (_currQuestion.myAser != nil && [_currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound )
+                {
+                    NSLog(@"%@",_currQuestion.myAser);
+                    [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    tableView.userInteractionEnabled = NO;
+                }
+            }
+            
+            if (_currQuestion.myAser != nil && [_currQuestion.myAser isEqualToString:[answers objectAtIndex:indexPath.row]] ) {
+                NSLog(@"%@",_currQuestion.myAser);
+                [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                tableView.userInteractionEnabled = NO;
             }
             
         

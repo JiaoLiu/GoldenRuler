@@ -123,7 +123,7 @@
     exam = [[LSExam alloc]init];
     questionList = [NSMutableArray arrayWithCapacity:0];
     
-    [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
+    [SVProgressHUD showWithStatus:@"正在加载题库，请稍后..."];
     
     NSString *url = @"";
     if (_wrapType == LSWrapTypeReal) {

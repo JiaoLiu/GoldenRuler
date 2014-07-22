@@ -95,27 +95,27 @@
     
     switch (_currQuestion.tid.intValue) {
         case 1:
-//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选"];
             qTypeString =@"单选";
             break;
         case 2:
-//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选"];
             qTypeString =@"多选";
             break;
         case 3:
-//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断"];
             qTypeString =@"判断";
             break;
         case 4:
-//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空"];
             qTypeString =@"填空";
             break;
         case 5:
-//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答"];
             qTypeString =@"简答";
             break;
         case 6:
-//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
+            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述"];
             qTypeString =@"论述";
             break;
         default:
@@ -124,7 +124,7 @@
 
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
-    [eview.questionView setEditing:NO];
+    [eview.questionView setEditing:YES];
 
     eview.delegate = self;
     [eview.operTop setHidden:NO];
@@ -328,11 +328,30 @@
             cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             cell.textLabel.text = asContent;
-            cell.userInteractionEnabled = NO;
+//            cell.userInteractionEnabled = NO;
     
-            return cell;
+    //单选
+    if (_currQuestion.tid.intValue != kSimpleAnswer && _currQuestion.tid.intValue != kDiscuss && !_currQuestion.tid.intValue != kBlank)
+    {
         
-          
+        if (_currQuestion.myAser != nil && [_currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound )
+        {
+            NSLog(@"%@",_currQuestion.myAser);
+            [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+            tableView.userInteractionEnabled = NO;
+        }
+    }
+    
+    if (_currQuestion.myAser != nil && [_currQuestion.myAser isEqualToString:[answers objectAtIndex:indexPath.row]] ) {
+        NSLog(@"%@",_currQuestion.myAser);
+        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+        tableView.userInteractionEnabled = NO;
+    }
+
+    
+   return cell;
+    
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -341,12 +360,14 @@
 //    cell.userInteractionEnabled = NO;
 }
 
-//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//   
-//    return UITableViewCellEditingStyleNone;
-// 
-//}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
+ 
+}
+
+
 
 #pragma mark - choosequestion delegate
 - (void)seletedQuestion:(int)index

@@ -227,7 +227,7 @@
     exam = [[LSExam alloc]init];
     questionList = [NSMutableArray arrayWithCapacity:0];
     
-    [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
+    [SVProgressHUD showWithStatus:@"正在加载题库，请稍后..."];
     int uid = [LSUserManager getUid];
     int key = [LSUserManager getKey];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIGETEXAM stringByAppendingString:[NSString stringWithFormat:@"?uid=%d&key=%d&tk=1&cid=1",uid,key]]]];

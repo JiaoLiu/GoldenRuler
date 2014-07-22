@@ -377,7 +377,7 @@
     
     exam = [[LSExam alloc]init];
    
-    [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
+    [SVProgressHUD showWithStatus:@"正在加载题库，请稍后..."];
     int uid = [LSUserManager getUid];
     int key = [LSUserManager getKey];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/testQuestionList?uid=%d&key=%d&tk=%@&cid=%@&tid=%@",uid,key,_testType==LSWrapTypeSimulation ? @"1":@"2",_cid,_tid]]]];
@@ -433,7 +433,7 @@
 {
     exam = [[LSExam alloc]init];
     
-    [SVProgressHUD showWithStatus:@"正在获取考题，请稍候..."];
+    [SVProgressHUD showWithStatus:@"正在加载题库，请稍后..."];
     int uid = [LSUserManager getUid];
     int key = [LSUserManager getKey];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/testQuestionList?uid=%d&key=%d&tk=%d&cid=%d&tid=%d",uid,key,[LSUserManager getTk],[LSUserManager getCid],[LSUserManager getTid]]]]];
@@ -684,11 +684,8 @@
             cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.x, rect.width, rect.height);
             cell.textLabel.font = [UIFont systemFontOfSize:14];
             
-//            if ([currQuestion.myAser isEqualToString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]]) {
-//                [cell setSelected:YES];
-//            }
             //单选
-            if (![_qTypeString isEqualToString:@"简答"] && ![_qTypeString isEqualToString:@"论述"] && ![_qTypeString isEqualToString:@"填空"])
+            if (currQuestion.tid.intValue != kSimpleAnswer && currQuestion.tid.intValue != kDiscuss && currQuestion.tid.intValue != kBlank)
             {
                 
                 if (currQuestion.myAser != nil && [currQuestion.myAser rangeOfString:[[answers objectAtIndex:indexPath.row] substringToIndex:1]].location != NSNotFound )
@@ -915,7 +912,10 @@
         [alert show];
     }
     
-    
+    if (currQuestion.tid.intValue == kMultipleChoice)
+    {
+        [self smtAnswer];
+    }
     
     currIndex = currIndex < 0 ? 0:currIndex;
     
