@@ -111,6 +111,8 @@
         
         [_operTop addSubview:_rightImage];
         [_operTop addSubview:_wrongImage];
+        _operTop.clipsToBounds = YES;
+        
         _myAnswer = [[UILabel alloc]initWithFrame:CGRectMake(42, 4, 210, 21)];
         _myAnswer.textColor = [UIColor darkGrayColor];
         _myAnswer.font = [UIFont systemFontOfSize:14];
@@ -225,6 +227,15 @@
         [_yellowBtn setHidden:YES];
         _yellowBtn.enabled = [LSUserManager getIsVip] ? NO : YES;
         [_scrollView addSubview:_yellowBtn];
+        
+        
+        if ([question.tid integerValue] == kSimpleAnswer || [question.tid integerValue]==kDiscuss)
+        {
+            CGRect frame = _yellowBtn.frame;
+            frame.origin.y -= 40;
+            _yellowBtn.frame = frame;
+        }
+        
         
         
 //        _textView = [[UITextView alloc]initWithFrame:CGRectMake(13, _yellowBtn.frame.origin.y + _yellowBtn.frame.size.height + 10, 280, 100)];

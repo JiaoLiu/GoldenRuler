@@ -117,20 +117,20 @@
             break;
         case 1:
             
-            if (![LSUserManager getIsVip]) {
-                
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值成为VIP会员才可以" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
-                alert.tag = 99;
-                [alert show];
-                [tabBar setSelectedItem:0];
-                return;
-            }
-            else
-            {
-                
+//            if (![LSUserManager getIsVip]) {
+//                
+//                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值成为VIP会员才可以" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
+//                alert.tag = 99;
+//                [alert show];
+//                [tabBar setSelectedItem:0];
+//                return;
+//            }
+//            else
+//            {
+            
                 testType = LSWrapTypeReal;
                 
-            }
+//            }
             
             break;
         default:

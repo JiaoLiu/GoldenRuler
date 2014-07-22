@@ -126,27 +126,27 @@
     
     switch (currQuestion.tid.intValue) {
         case kSingleChoice:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选题"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"单选题"];
             _qTypeString =@"单选";
             break;
         case kMultipleChoice:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选题"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"多选题"];
             _qTypeString =@"多选";
             break;
         case kJudge:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断题"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"判断题"];
             _qTypeString =@"判断";
             break;
         case kBlank:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空题"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"填空题"];
             _qTypeString =@"填空";
             break;
         case kSimpleAnswer:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答题"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"简答题"];
             _qTypeString =@"简答";
             break;
         case kDiscuss:
-            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述题"];
+//            eview.testType.text = [NSString stringWithFormat:@"[%@]",@"论述题"];
             _qTypeString =@"论述";
             break;
         default:
@@ -155,15 +155,12 @@
     
     
     eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height) withQuestion:currQuestion withIndex:currIndex+1];
-//    eview.testType.text =[NSString stringWithFormat:@"[%@]",_qTypeString];
     [eview.selectBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
     
-//    if([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"] ||  [_qTypeString isEqualToString:@"简答"] ||  [_qTypeString isEqualToString:@"论述"])
-//    {
-//        [eview.currBtn setTitle:[NSString stringWithFormat:@"%d/%d",currIndex+1,questionList.count] forState:UIControlStateNormal];
-//    }
+
     
-    if ([_qTypeString isEqualToString:@"填空"]) {
+    if ([_qTypeString isEqualToString:@"填空"])
+    {
         eview.textFiled.delegate = self;
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
         
@@ -171,22 +168,36 @@
     }
     
     if (currQuestion.myAser != nil && ![currQuestion.myAser isEqualToString:@""]) {
-        [eview.operTop setHidden:NO];
-        eview.operTop.backgroundColor = RGB(240, 240, 240);
+       
+        
         [eview.yellowBtn setHidden:NO];
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",currQuestion.myAser];
+        eview.operTop.backgroundColor = RGB(240, 240, 240);
+        [eview.operTop setHidden:NO];
+        
         if (currQuestion.rightOrWrong) {
-            
+            [eview.myAnswer setHidden:NO];
+            [eview.rtAnswer setHidden:NO];
             [eview.rightImage setHidden:NO];
             [eview.wrongImage setHidden:YES];
         } else {
-            
+            [eview.myAnswer setHidden:NO];
+            [eview.rtAnswer setHidden:NO];
             [eview.rightImage setHidden:YES];
             [eview.wrongImage setHidden:NO];
         }
-        [eview.myAnswer setHidden:NO];
-        [eview.rtAnswer setHidden:NO];
-//        [eview.textLabel setHidden:NO];
+        
+        if ([_qTypeString isEqualToString:@"论述"] || [_qTypeString isEqualToString:@"简答"])
+        {
+            eview.operTop.backgroundColor = [UIColor whiteColor];
+            [eview.rightImage setHidden:YES];
+            [eview.wrongImage setHidden:YES];
+            [eview.myAnswer setHidden:YES];
+            [eview.rtAnswer setHidden:YES];
+            
+        }
+        
+
         
     }
     
@@ -986,8 +997,10 @@
 - (void)smtAnswer
 {
     
-    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""]) {
-        if ( [eview.questionView indexPathsForSelectedRows].count ==0 && ![_qTypeString isEqualToString:@"填空"]) {
+    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
+    {
+        if ( [eview.questionView indexPathsForSelectedRows].count ==0 && currQuestion.tid.intValue != kBlank)
+        {
             [SVProgressHUD showErrorWithStatus:@"请先答题"];
             return;
         }
@@ -995,7 +1008,7 @@
     
     
     NSString *myAnswer = @"";
-    if ([_qTypeString isEqualToString:@"多选"])
+    if (currQuestion.tid.intValue == kMultipleChoice)
     {
         NSArray *array = [eview.questionView indexPathsForSelectedRows];
         array = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -1030,7 +1043,7 @@
         [eview.myAnswer setHidden:NO];
         [self addPractice];
     }
-    else if ([_qTypeString isEqualToString:@"填空"])
+    else if (currQuestion.tid.intValue == kBlank)
     {
         NSString *myAnswer = [eview.textFiled.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
@@ -1063,7 +1076,7 @@
     {
         [eview.yellowBtn setHidden:NO];
         
-        if ([_qTypeString isEqualToString:@"单选"] || [_qTypeString isEqualToString:@"判断"])
+        if (currQuestion.tid.intValue == kSingleChoice || currQuestion.tid.intValue == kJudge)
         {
             [eview.operTop setHidden:NO];
             eview.operTop.backgroundColor = RGB(240, 240, 240);
@@ -1083,12 +1096,7 @@
                 
             }
         }
-        else
-        {
-            CGRect frame = eview.yellowBtn.frame;
-            frame.origin.y -= 40;
-            eview.yellowBtn.frame = frame;
-        }
+       
         
         
         
@@ -1152,7 +1160,7 @@
     for (LSQuestion * q in questionList) {
         
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(55*(i%5), 30*(i/5), 50, 25)];
-        if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
+        if (q.myAser != nil) {
             
             [btn setBackgroundImage:[UIImage imageNamed:@"specification_size1_bg.9.png"] forState:UIControlStateNormal];
         }
