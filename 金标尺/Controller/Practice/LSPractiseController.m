@@ -159,7 +159,7 @@
     
 
     
-    if ([_qTypeString isEqualToString:@"填空"])
+    if (currQuestion.tid.intValue == kBlank)
     {
         eview.textFiled.delegate = self;
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
@@ -187,7 +187,7 @@
             [eview.wrongImage setHidden:NO];
         }
         
-        if ([_qTypeString isEqualToString:@"论述"] || [_qTypeString isEqualToString:@"简答"])
+        if (currQuestion.tid.intValue == kDiscuss || currQuestion.tid.intValue == kSimpleAnswer)
         {
             eview.operTop.backgroundColor = [UIColor whiteColor];
             [eview.rightImage setHidden:YES];
@@ -1109,7 +1109,7 @@
     
     }
     
-    if ([LSUserManager getIsVip] && ([_qTypeString isEqualToString:@"简答"] || [_qTypeString isEqualToString:@"论述"]))
+    if ([LSUserManager getIsVip] && (currQuestion.tid.intValue == kSimpleAnswer || currQuestion.tid.intValue == kDiscuss ))
     {
         [eview.yellowBtn setHidden:YES];
         [eview.textLabel setHidden:NO];

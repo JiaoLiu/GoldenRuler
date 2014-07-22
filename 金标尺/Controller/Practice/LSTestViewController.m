@@ -163,7 +163,7 @@
         default:
             break;
     }
-    if ([qTypeString isEqualToString:@"填空"]) {
+    if (_currQuestion.tid.intValue == kBlank) {
         eview.textFiled.delegate = self;
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard)];
         
@@ -608,7 +608,7 @@
     for (LSQuestion * q in _questionList) {
         
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(55*(i%5), 30*(i/5), 50, 25)];
-        if (q.myAser != nil && ![q.myAser isEqualToString:@""]) {
+        if (q.myAser != nil) {
             
             [btn setBackgroundImage:[UIImage imageNamed:@"specification_size1_bg.9.png"] forState:UIControlStateNormal];
         }
