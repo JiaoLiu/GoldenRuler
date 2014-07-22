@@ -185,13 +185,13 @@
     vc.qTypeString = cell.textLabel.text;
     
     
-//    if (![LSUserManager getIsVip] && _testType == LSWrapTypeReal) {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值成为VIP会员才可以" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
-//        alert.tag = 99;
-//        [alert show];
-//        return;
-//    }
-//    
+    if (![LSUserManager getIsVip] && _testType == LSWrapTypeReal) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您现在是普通会员不能做真题库联系，充值成为VIP会员才可以" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上充值", nil];
+        alert.tag = 99;
+        [alert show];
+        return;
+    }
+    
     
     
     [self.navigationController pushViewController:vc animated:YES];
