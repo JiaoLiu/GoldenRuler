@@ -276,6 +276,13 @@
     [_sheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
+- (void)selectQuestion:(UIButton *)button
+{
+    [_sheet dismissWithClickedButtonIndex:0 animated:YES];
+    _currQuestion = [_questionList objectAtIndex:button.tag];
+    currIndex = button.tag;
+    [self initExamView];
+}
 
 -(void)showAnalysis
 {
@@ -367,6 +374,15 @@
  
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *answers = [_currQuestion.answer componentsSeparatedByString:@"|"];
+    NSString *asContent = [answers objectAtIndex:indexPath.row];
+    CGSize rect = [asContent sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(280, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return rect.height+20;
+}
 
 
 #pragma mark - choosequestion delegate
