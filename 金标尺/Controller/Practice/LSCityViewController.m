@@ -95,7 +95,9 @@
 - (void)buildView
 {
     NSArray *data = [cityInfo objectForKey:@"data"];
-    NSLog(@"%@",data);
+
+    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    scroll.userInteractionEnabled = YES;
     int i = 0;
     for (NSDictionary *dic in data) {
         NSString *cid = [dic objectForKey:@"id"];
@@ -111,9 +113,12 @@
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         CGRect frame = CGRectMake(70*(i%4) + 10*(i%4) +10, 44*(i/4) + 10*(i/4) +10, 65, 40);
         btn.frame = frame;
-        [self.view addSubview:btn];
+        [scroll addSubview:btn];
         i++;
     }
+    
+    scroll.contentSize = CGSizeMake(SCREEN_WIDTH, (i/4 + 1)*60);
+    [self.view addSubview:scroll];
 
 }
 
