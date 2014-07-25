@@ -97,9 +97,6 @@
             _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
         }
         _questionView.editing = YES;
-        if (IOS_VERSION > 7.0) {
-            _questionView.separatorInset = UIEdgeInsetsZero;
-        }
         _questionView.tableHeaderView = hv;
         _questionView.tableFooterView = [UIView new];
 //        _questionView.frame = CGRectMake(0, 31, SCREEN_WIDTH, 35*4 + hv.frame.size.height > 210 ? 140+hv.frame.size.height : 210);
