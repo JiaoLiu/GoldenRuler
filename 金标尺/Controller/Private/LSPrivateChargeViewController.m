@@ -499,7 +499,7 @@
     order.seller = SellerID;
     
     order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
-	order.productName = @"Hello"; //商品标题
+	order.productName = @"会员充值"; //商品标题
 	order.productDescription = @"From_Jiao"; //商品描述
 	order.amount = [NSString stringWithFormat:@"%d",totalNum]; //商品价格
 	order.notifyURL =  @"http://demo.deepinfo.cn/jbc2/index.php/Index/notifyul"; //回调URL
