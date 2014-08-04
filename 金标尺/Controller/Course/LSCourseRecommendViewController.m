@@ -19,6 +19,7 @@
     NSInteger msgPage;
     NSInteger selectedCate;
     BOOL hasMore;
+    UILabel *emptyLabel;
 }
 
 @end
@@ -98,7 +99,7 @@
             else
             {
                 hasMore = NO;
-                [LSSheetNotify showOnce:@"暂无更多精选"];
+                [LSSheetNotify showOnce:@"暂无更多课程"];
             }
             for (int i = 0; i < num; i++) {
                 NSDictionary *dic = [tempArray objectAtIndex:i];
@@ -181,6 +182,16 @@
         courseTable.separatorInset = UIEdgeInsetsZero;
     }
     [self.view addSubview:courseTable];
+    
+    // emptyLabel
+    int y = (courseTable.frame.size.height - 20) / 2;
+    emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 20)];
+    emptyLabel.font = [UIFont systemFontOfSize:16];
+    emptyLabel.textAlignment = NSTextAlignmentCenter;
+    emptyLabel.text = @"暂无课程";
+    emptyLabel.backgroundColor = [UIColor clearColor];
+    emptyLabel.textColor = [UIColor colorWithRed:154/255.0 green:154/255.0 blue:154/255.0 alpha:1.0];
+    [courseTable addSubview:emptyLabel];
     
     // actionSheet
     pickerSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
@@ -329,6 +340,7 @@
 #pragma mark - tableView Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    emptyLabel.hidden = dataArray.count > 0 ? YES : NO;
     return dataArray.count;
 }
 

@@ -19,6 +19,7 @@
     NSInteger msgPage;
     NSInteger selectedCate;
     BOOL hasMore;
+    UILabel *emptyLabel;
 }
 
 @end
@@ -183,6 +184,16 @@
     }
     [self.view addSubview:choiceTable];
     
+    // emptyLabel
+    int y = (choiceTable.frame.size.height - 20) / 2;
+    emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 20)];
+    emptyLabel.font = [UIFont systemFontOfSize:16];
+    emptyLabel.textAlignment = NSTextAlignmentCenter;
+    emptyLabel.text = @"暂无精选";
+    emptyLabel.backgroundColor = [UIColor clearColor];
+    emptyLabel.textColor = [UIColor colorWithRed:154/255.0 green:154/255.0 blue:154/255.0 alpha:1.0];
+    [choiceTable addSubview:emptyLabel];
+    
     // actionSheet
     pickerSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     [pickerSheet setBounds:CGRectMake(0, 0, 150, 100)];
@@ -324,6 +335,7 @@
 #pragma mark - tableView delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    emptyLabel.hidden = dataArray.count > 0 ? YES : NO;
     return dataArray.count;
 }
 
