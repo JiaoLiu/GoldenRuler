@@ -157,6 +157,11 @@
         timeLabel.hidden = NO;
         addBtn.frame = CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width, vipLabel.frame.origin.y + 1, 50, 15);
         [addBtn setTitle:@"【续期】" forState:UIControlStateNormal];
+        if ([LSUserManager getEndTime].length == 0) {
+            expireDate = [NSDate date];
+        }
+        else expireDate = [NSString dateFromString:[LSUserManager getEndTime] Formatter:@"yyy-MM-dd"];
+        timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",[LSUserManager getEndTime]];
     }
     else
     {

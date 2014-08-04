@@ -67,9 +67,9 @@
     [discription appendFormat:@"&payment_type=\"%@\"", self.paymentType ? self.paymentType : @"1"];
 
     //下面的这些参数，如果没有必要（value为空），则无需添加
-//	[discription appendFormat:@"&return_url=\"%@\"", self.returnUrl ? self.returnUrl : @"www.xxx.com"];
-//	[discription appendFormat:@"&it_b_pay=\"%@\"", self.itBPay ? self.itBPay : @"1d"];
-//	[discription appendFormat:@"&show_url=\"%@\"", self.showUrl ? self.showUrl : @"www.xxx.com"];
+	[discription appendFormat:@"&return_url=\"%@\"", self.returnUrl ? self.returnUrl : @"www.xxx.com"];
+	[discription appendFormat:@"&it_b_pay=\"%@\"", self.itBPay ? self.itBPay : @"1d"];
+	[discription appendFormat:@"&show_url=\"%@\"", self.showUrl ? self.showUrl : @"www.xxx.com"];
 
     
 	for (NSString * key in [self.extraParams allKeys]) {
