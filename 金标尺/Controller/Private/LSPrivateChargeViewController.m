@@ -503,7 +503,7 @@
     
     order.tradeNO = [self getTradeNO]; //订单ID（由商家自行制定）
 	order.productName = @"会员充值"; //商品标题
-	order.productDescription = @"From_Jiao"; //商品描述
+	order.productDescription = @"事考重庆"; //商品描述
 	order.amount = [NSString stringWithFormat:@"%d",totalNum]; //商品价格
     order.returnUrl = @"goldenRuler://";
 	order.notifyURL =  @"http://demo.deepinfo.cn/jbc2/index.php/Index/notifyul"; //回调URL
@@ -553,6 +553,9 @@
 
 -(void)paymentResultDelegate:(NSString *)result
 {
+    [LSUserManager setIsVip:1];
+    [LSUserManager setEndTime:lastDate];
+    [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"%@",result);
 }
 
