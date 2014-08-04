@@ -171,6 +171,11 @@
        
         
         [eview.yellowBtn setHidden:NO];
+        if ([LSUserManager getIsVip]) {
+            [eview.textLabel setHidden:NO];
+        }
+        
+        
         eview.myAnswer.text = [NSString stringWithFormat:@"你的答案:%@",currQuestion.myAser];
         eview.operTop.backgroundColor = RGB(240, 240, 240);
         [eview.operTop setHidden:NO];
@@ -933,26 +938,26 @@
 
 - (void)nextQuestion
 {
-    if ( [eview.questionView indexPathsForSelectedRows].count !=0 && ![_qTypeString isEqualToString:@"多选"])
+    if ( [eview.questionView indexPathsForSelectedRows].count !=0 || (eview.textFiled.text != nil && [eview.textFiled.text isEqualToString:@""]))
     {
         [self smtAnswer];
     }
     
-    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
-    {
-        if ( [eview.questionView indexPathsForSelectedRows].count ==0 && ![_qTypeString isEqualToString:@"填空"]) {
-            [SVProgressHUD showErrorWithStatus:@"请先答题"];
-            return;
-        }
-    }
+//    if (currQuestion.myAser == nil || [currQuestion.myAser isEqualToString:@""])
+//    {
+//        if ( [eview.questionView indexPathsForSelectedRows].count ==0 && ![_qTypeString isEqualToString:@"填空"]) {
+//            [SVProgressHUD showErrorWithStatus:@"请先答题"];
+//            return;
+//        }
+//    }
 
     
     selectedRow = -1;
     NSLog(@"下一题");
     currIndex += 1;
-    if (!isSmt) {
-        [self smtAnswer];
-    }
+//    if (!isSmt) {
+//        [self smtAnswer];
+//    }
     
     currIndex = currIndex > questionList.count ? questionList.count : currIndex;
     
@@ -965,6 +970,7 @@
         
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是最后一题" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
+        currIndex = questionList.count-1;
         
         [SVProgressHUD dismiss];
         return;
@@ -1001,7 +1007,9 @@
     {
         if ( [eview.questionView indexPathsForSelectedRows].count ==0 && currQuestion.tid.intValue != kBlank)
         {
-            [SVProgressHUD showErrorWithStatus:@"请先答题"];
+            return;
+        }
+        if (currQuestion.tid.intValue == kBlank && (eview.textFiled.text == nil || [eview.textFiled.text isEqualToString:@""])) {
             return;
         }
     }
@@ -1119,8 +1127,13 @@
         [eview.yellowBtn setHidden:NO];
     }
     
+    [eview.currBtn setEnabled:NO];
     eview.questionView.userInteractionEnabled = NO;
-
+    if ([LSUserManager getIsVip]) {
+        [eview.textLabel setHidden:NO];
+    }
+    
+    isSmt = YES;
 }
 
 

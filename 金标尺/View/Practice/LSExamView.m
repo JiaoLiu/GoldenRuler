@@ -89,7 +89,7 @@
         }
         
         //考题view
-        _questionView  = [[UITableView alloc]initWithFrame:CGRectMake(0, ttView.frame.origin.y + ttView.frame.size.height, SCREEN_WIDTH, height + hv.frame.size.height) style:UITableViewStylePlain];
+        _questionView  = [[UITableView alloc]initWithFrame:CGRectMake(0, ttView.frame.origin.y + ttView.frame.size.height, SCREEN_WIDTH, height + hv.frame.size.height+20) style:UITableViewStylePlain];
 //        _questionView.delegate = self;
 //        _questionView.dataSource = self;
         if ([question.tid integerValue] == kBlank) {
@@ -179,6 +179,8 @@
             _currBtn.titleLabel.font = [UIFont systemFontOfSize:10];
             [_currBtn setTitle:@"答案及解析" forState:UIControlStateNormal];
             [_currBtn setTitle:@"答案及解析" forState:UIControlStateDisabled];
+            [_currBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
+            [_currBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
             [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
 //        }
         if ([_testType.text isEqualToString:@"[填空题]"])
@@ -189,6 +191,9 @@
             }
             [_currBtn setTitle:@"答案及解析" forState:UIControlStateNormal];
             [_currBtn setTitle:@"答案及解析" forState:UIControlStateDisabled];
+            [_currBtn setTitleColor:RGB(4, 121, 202) forState:UIControlStateNormal];
+            [_currBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+            
             [_currBtn addTarget:self action:@selector(smtAnswer) forControlEvents:UIControlEventTouchUpInside];
             
             //输入框
@@ -218,7 +223,7 @@
 //        }
         
         
-        [_currBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//        [_currBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _currBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [_operView addSubview:_preQuestion];
@@ -235,6 +240,7 @@
         _yellowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_yellowBtn addTarget:self action:@selector(showAnalysis) forControlEvents:UIControlEventTouchUpInside];
         [_yellowBtn setHidden:YES];
+        
         _yellowBtn.enabled = [LSUserManager getIsVip] ? NO : YES;
         [_scrollView addSubview:_yellowBtn];
         
