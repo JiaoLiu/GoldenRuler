@@ -15,6 +15,7 @@
     NSInteger msgPage;
     NSInteger deleteRow;
     BOOL hasMore;
+    UILabel *emptyLabel;
 }
 
 @end
@@ -115,6 +116,16 @@
     if (IOS_VERSION >= 7.0) {
         collectionTable.separatorInset = UIEdgeInsetsZero;
     }
+    
+    // emptyLabel
+    int y = (collectionTable.frame.size.height - 20) / 2;
+    emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 20)];
+    emptyLabel.font = [UIFont systemFontOfSize:16];
+    emptyLabel.textAlignment = NSTextAlignmentCenter;
+    emptyLabel.text = @"暂无收藏";
+    emptyLabel.backgroundColor = [UIColor clearColor];
+    emptyLabel.textColor = [UIColor colorWithRed:154/255.0 green:154/255.0 blue:154/255.0 alpha:1.0];
+    [collectionTable addSubview:emptyLabel];
 
 }
 
@@ -199,6 +210,7 @@
 #pragma mark - tableView delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    emptyLabel.hidden = dataArray.count > 0 ? YES : NO;
     return dataArray.count;
 }
 
