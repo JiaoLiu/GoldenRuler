@@ -255,7 +255,7 @@
 	 *由于demo的局限性，采用了将私钥放在本地签名的方法，商户可以根据自身情况选择签名方法(为安全起见，在条件允许的前提下，我们推荐从商户服务器获取完整的订单信息)
 	 */
     
-    NSString *appScheme = @"AlipaySdkDemo";
+    NSString *appScheme = @"goldenRuler";
     NSString* orderInfo = [self getOrderInfo];
     NSString* signedStr = [self doRsa:orderInfo];
     
@@ -505,7 +505,6 @@
 	order.productName = @"会员充值"; //商品标题
 	order.productDescription = @"事考重庆"; //商品描述
 	order.amount = [NSString stringWithFormat:@"%d",totalNum]; //商品价格
-    order.returnUrl = @"goldenRuler://";
 	order.notifyURL =  @"http://demo.deepinfo.cn/jbc2/index.php/Index/notifyul"; //回调URL
 	
 	return [order description];
