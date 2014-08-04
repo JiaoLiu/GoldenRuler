@@ -47,7 +47,7 @@
     }
     
     // register WeiXin
-    [WXApi registerApp:@"wx791a769bf20e2231"];
+    [WXApi registerApp:@"wx21c9ce84f71491f0"];
     
     return YES;
 }
@@ -81,7 +81,7 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    if ([url.scheme isEqualToString:@"wx791a769bf20e2231"]) {
+    if ([url.scheme isEqualToString:@"wx21c9ce84f71491f0"]) {
         return [WXApi handleOpenURL:url delegate:self];
     }
     else return YES;
@@ -89,7 +89,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    if ([url.scheme isEqualToString:@"wx791a769bf20e2231"]) {
+    if ([url.scheme isEqualToString:@"wx21c9ce84f71491f0"]) {
         return [WXApi handleOpenURL:url delegate:self];
     }
     if ([url.scheme isEqualToString:@"goldenRuler"]) {

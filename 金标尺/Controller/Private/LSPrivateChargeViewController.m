@@ -475,6 +475,9 @@
 			if ([verifier verifyString:result.resultString withSign:result.signString])
             {
                 //验证签名成功，交易结果无篡改
+                [LSUserManager setIsVip:1];
+                [LSUserManager setEndTime:lastDate];
+                [self.navigationController popViewControllerAnimated:YES];
 			}
         }
         else
@@ -498,10 +501,11 @@
     order.partner = PartnerID;
     order.seller = SellerID;
     
-    order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
-	order.productName = @"Hello"; //商品标题
-	order.productDescription = @"From_Jiao"; //商品描述
+    order.tradeNO = [self getTradeNO]; //订单ID（由商家自行制定）
+	order.productName = @"会员充值"; //商品标题
+	order.productDescription = @"事考重庆"; //商品描述
 	order.amount = [NSString stringWithFormat:@"%d",totalNum]; //商品价格
+    order.returnUrl = @"goldenRuler://";
 	order.notifyURL =  @"http://demo.deepinfo.cn/jbc2/index.php/Index/notifyul"; //回调URL
 	
 	return [order description];
@@ -523,6 +527,22 @@
 	return result;
 }
 
+- (NSString *)getTradeNO
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/payment?key=%d&uid=%d&month=%d&etime=%@&price=%d&t=2",[LSUserManager getKey],[LSUserManager getUid],kDateSelected + 1,lastDate,totalNum]]]];
+    NSURLResponse *response = [[NSURLResponse alloc] init];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    NSDictionary *dic = [data mutableObjectFromJSONData];
+    if ([[dic objectForKey:@"status"] integerValue] == 1) {
+        return [dic objectForKey:@"data"];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+        return nil;
+    }
+}
+
 -(NSString*)doRsa:(NSString*)orderInfo
 {
     id<DataSigner> signer;
@@ -533,6 +553,9 @@
 
 -(void)paymentResultDelegate:(NSString *)result
 {
+    [LSUserManager setIsVip:1];
+    [LSUserManager setEndTime:lastDate];
+    [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"%@",result);
 }
 

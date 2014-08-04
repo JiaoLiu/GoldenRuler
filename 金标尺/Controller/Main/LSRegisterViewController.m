@@ -134,7 +134,9 @@
         return;
     }
     [SVProgressHUD showWithStatus:@"注册中..." maskType:SVProgressHUDMaskTypeBlack];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]]]];
+    NSString *urlStr = [APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]];
+    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
@@ -148,6 +150,7 @@
             [LSUserManager setLastqid:[[data objectForKey:@"lastqid"] integerValue]];
             [self dismissViewControllerAnimated:YES completion:^{
                 [SVProgressHUD dismiss];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckLogin" object:nil];
             }];
         }
         else
