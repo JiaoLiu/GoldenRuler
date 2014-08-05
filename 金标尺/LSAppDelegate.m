@@ -136,7 +136,10 @@
         else
         {
             //交易失败
-            [SVProgressHUD showErrorWithStatus:@"交易失败"];
+            if (result.statusCode == 6001) {
+                [SVProgressHUD showErrorWithStatus:@"交易取消"];
+            }
+            else [SVProgressHUD showErrorWithStatus:@"交易失败"];
         }
     }
     else
