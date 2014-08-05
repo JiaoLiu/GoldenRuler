@@ -73,15 +73,19 @@
 
 + (void)setUserImg:(NSString *)url
 {
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%d",[LSUserManager getUid]]];
-    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-//    NSLog(@"%@",path);
-    NSString *filePath = [path stringByAppendingPathComponent:@"header.jpg"];
-    [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
-    
-    [USER_DEFAULT setObject:filePath forKey:@"_USER_IMG_"];
-    [USER_DEFAULT synchronize];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%d",[LSUserManager getUid]]];
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+        //    NSLog(@"%@",path);
+        NSString *filePath = [path stringByAppendingPathComponent:@"header.jpg"];
+        [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [USER_DEFAULT setObject:filePath forKey:@"_USER_IMG_"];
+            [USER_DEFAULT synchronize];
+        });
+    });
 }
 
 + (void)setUserTel:(NSString *)tel
