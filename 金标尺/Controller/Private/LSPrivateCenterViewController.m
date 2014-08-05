@@ -202,7 +202,6 @@
 - (void)addBtnClicked
 {
     LSPrivateChargeViewController *ChargeVC = [[LSPrivateChargeViewController alloc] init];
-    ChargeVC.expireDate = expireDate;
     [self.navigationController pushViewController:ChargeVC animated:YES];
 }
 

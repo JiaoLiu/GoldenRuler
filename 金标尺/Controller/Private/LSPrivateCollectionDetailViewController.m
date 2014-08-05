@@ -213,6 +213,7 @@
         [alert show];
         return;
     }
+    [eview.textLabel setHidden:NO];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -301,6 +302,7 @@
     
     eview.textLabel.hidden = [LSUserManager getIsVip] ? NO : YES;
     eview.questionView.userInteractionEnabled = NO;
+    eview.currBtn.enabled = NO;
 }
 
 @end
