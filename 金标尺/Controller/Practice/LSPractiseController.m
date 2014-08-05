@@ -1125,12 +1125,14 @@
     else
     {
         [eview.yellowBtn setHidden:NO];
+        
     }
     
     [eview.currBtn setEnabled:NO];
     eview.questionView.userInteractionEnabled = NO;
     if ([LSUserManager getIsVip]) {
         [eview.textLabel setHidden:NO];
+        [eview.yellowBtn setEnabled:NO];
     }
     
     isSmt = YES;
