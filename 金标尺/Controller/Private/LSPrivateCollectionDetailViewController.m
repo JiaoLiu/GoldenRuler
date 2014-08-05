@@ -301,6 +301,7 @@
     
     eview.textLabel.hidden = [LSUserManager getIsVip] ? NO : YES;
     eview.questionView.userInteractionEnabled = NO;
+    eview.currBtn.enabled = NO;
 }
 
 @end
