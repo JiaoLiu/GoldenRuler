@@ -9,6 +9,9 @@
 #import "LSPrivateErrorDetailViewController.h"
 
 @interface LSPrivateErrorDetailViewController ()
+{
+    LSExamView *eview;
+}
 
 @end
 
@@ -73,7 +76,7 @@
 
 - (void)initErrorView
 {
-    LSExamView *eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question withIndex:1];
+    eview = [[LSExamView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) withQuestion:question withIndex:1];
     eview.questionView.delegate = self;
     eview.questionView.dataSource = self;
 //    [eview.selectBtn setTitle:@"1/1" forState:UIControlStateNormal];
@@ -136,6 +139,7 @@
         [alert show];
         return;
     }
+    [eview.textLabel setHidden:NO];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

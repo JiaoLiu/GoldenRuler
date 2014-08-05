@@ -64,6 +64,10 @@
 //        price = 10;
 //        totalNum = price * (kDateSelected + 1);
         isVip = [LSUserManager getIsVip];
+        if ([LSUserManager getEndTime].length == 0) {
+            expireDate = [NSDate date];
+        }
+        else expireDate = [NSString dateFromString:[LSUserManager getEndTime] Formatter:@"yyy-MM-dd"];
     }
     return self;
 }
@@ -477,19 +481,23 @@
                 //验证签名成功，交易结果无篡改
                 [LSUserManager setIsVip:1];
                 [LSUserManager setEndTime:lastDate];
-                [self.navigationController popViewControllerAnimated:YES];
+                vipLabel.textColor = [UIColor redColor];
+                vipLabel.text = @"VIP贵宾会员";
+                timeLabel.hidden = NO;
+                timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",[LSUserManager getEndTime]];
 			}
         }
         else
         {
             //交易失败
+            [SVProgressHUD showErrorWithStatus:@"交易失败"];
         }
     }
     else
     {
         //失败
+        [SVProgressHUD showErrorWithStatus:@"交易失败"];
     }
-    
 }
 
 -(NSString*)getOrderInfo
@@ -552,9 +560,14 @@
 
 -(void)paymentResultDelegate:(NSString *)result
 {
-    [LSUserManager setIsVip:1];
-    [LSUserManager setEndTime:lastDate];
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([result isEqualToString:@"success"]) {
+        [LSUserManager setIsVip:1];
+        [LSUserManager setEndTime:lastDate];
+        vipLabel.textColor = [UIColor redColor];
+        vipLabel.text = @"VIP贵宾会员";
+        timeLabel.hidden = NO;
+        timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",[LSUserManager getEndTime]];
+    }
     NSLog(@"%@",result);
 }
 

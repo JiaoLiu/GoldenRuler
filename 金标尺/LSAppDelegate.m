@@ -10,6 +10,7 @@
 #import "LSMainViewController.h"
 #import "UIImage+Utility.h"
 #import "LSLoginViewController.h"
+#import "LSPrivateChargeViewController.h"
 #import "AlixPayResult.h"
 
 @implementation LSAppDelegate
@@ -123,18 +124,26 @@
             //            {
             //                //验证签名成功，交易结果无篡改
             //			}
-            
+            UINavigationController *nav = (UINavigationController *)self.window.rootViewController;
+            NSArray *array = nav.viewControllers;
+            for (UIViewController *controller in array) {
+                if ([controller isKindOfClass:[LSPrivateChargeViewController class]]) {
+                    LSPrivateChargeViewController *chargeVC = (LSPrivateChargeViewController *)controller;
+                    [chargeVC paymentResultDelegate:@"success"];
+                }
+            }
         }
         else
         {
             //交易失败
+            [SVProgressHUD showErrorWithStatus:@"交易失败"];
         }
     }
     else
     {
         //失败
+        [SVProgressHUD showErrorWithStatus:@"交易失败"];
     }
-    
 }
 
 - (AlixPayResult *)resultFromURL:(NSURL *)url {

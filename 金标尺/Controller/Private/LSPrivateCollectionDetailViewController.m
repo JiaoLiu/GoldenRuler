@@ -213,6 +213,7 @@
         [alert show];
         return;
     }
+    [eview.textLabel setHidden:NO];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
