@@ -130,6 +130,11 @@
     [eview.operTop setHidden:NO];
    
     [eview.yellowBtn setHidden:NO];
+    
+    if ([LSUserManager getIsVip]) {
+        [eview.yellowBtn setEnabled:NO];
+    }
+    
     [eview.smtBtn setEnabled:NO];
     [self.view addSubview:eview];
     

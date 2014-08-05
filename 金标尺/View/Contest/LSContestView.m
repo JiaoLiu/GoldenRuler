@@ -126,7 +126,10 @@ typedef enum : NSUInteger {
     
         _yellowBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, _operView.frame.origin.y + _operView.frame.size.height + 10, 76, 27)];
         [_yellowBtn setBackgroundImage:[UIImage imageNamed:@"nx_bg.9.png"] forState:UIControlStateNormal];
-        [_yellowBtn setTitle:@"习题解析" forState:UIControlStateNormal];
+        [_yellowBtn setBackgroundImage:[UIImage imageNamed:@"nx_bg.9.png"] forState:UIControlStateDisabled];
+        [_yellowBtn setTitle:@"查看解析" forState:UIControlStateNormal];
+        [_yellowBtn setTitle:@"习题解析" forState:UIControlStateDisabled];
+        
         [_yellowBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _yellowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_yellowBtn setHidden:YES];
