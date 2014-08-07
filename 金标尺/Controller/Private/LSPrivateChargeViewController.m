@@ -435,7 +435,7 @@
             break;
         case 3:
         {
-            Cell.detailTextLabel.text = [NSString stringWithFormat:@"%d元",totalNum];
+            Cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f元",totalNum];
         }
             break;
         case 4:
@@ -515,7 +515,7 @@
     order.tradeNO = [self getTradeNO]; //订单ID（由商家自行制定）
 	order.productName = @"会员充值"; //商品标题
 	order.productDescription = @"事考重庆"; //商品描述
-	order.amount = [NSString stringWithFormat:@"%d",totalNum]; //商品价格
+	order.amount = [NSString stringWithFormat:@"%.2f",totalNum]; //商品价格
 	order.notifyURL =  @"http://demo.deepinfo.cn/jbc2/index.php/Index/notifyul"; //回调URL
 	
 	return [order description];
@@ -539,7 +539,7 @@
 
 - (NSString *)getTradeNO
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/payment?key=%d&uid=%d&month=%d&etime=%@&price=%d&t=2",[LSUserManager getKey],[LSUserManager getUid],kDateSelected + 1,lastDate,totalNum]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"Demand/payment?key=%d&uid=%d&month=%d&etime=%@&price=%.2f&t=2",[LSUserManager getKey],[LSUserManager getUid],kDateSelected + 1,lastDate,totalNum]]]];
     NSURLResponse *response = [[NSURLResponse alloc] init];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
     NSDictionary *dic = [data mutableObjectFromJSONData];
