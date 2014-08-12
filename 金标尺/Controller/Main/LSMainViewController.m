@@ -15,6 +15,7 @@
 @interface LSMainViewController ()
 {
     UIImageView *newMsg;
+    Reachability *reach;
 }
 
 @end
@@ -39,6 +40,7 @@
                        @{@"title": @"课程推荐" ,@"img": @"index_f" ,@"color": RGB(104, 191, 76)}];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CheckLogin) name:@"CheckLogin" object:nil];
+        reach = [Reachability reachabilityForInternetConnection];
     }
     return self;
 }
@@ -113,7 +115,13 @@
     itemsView.delegate = self;
     [self.view addSubview:itemsView];
     
-    [self CheckLogin];
+    if (reach.isReachable) {
+        [self CheckLogin];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,7 +161,13 @@
         }
         else
         {
-            [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+            if (reach.isReachable) {
+                [SVProgressHUD showErrorWithStatus:[dic objectForKey:@"msg"]];
+            }
+            else
+            {
+                [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+            }
         }
     }];
 }
@@ -230,6 +244,10 @@
 
 - (void)clickedOnItem:(UIButton *)sender
 {
+    if (!reach.isReachable) {
+        [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+        return;
+    }
     if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
@@ -286,6 +304,10 @@
 
 - (void)selectBtnClicked
 {
+    if (!reach.isReachable) {
+        [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+        return;
+    }
     if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
@@ -296,6 +318,10 @@
 
 - (void)infoBtnClicked
 {
+    if (!reach.isReachable) {
+        [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+        return;
+    }
     if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
@@ -306,6 +332,10 @@
 
 - (void)incorrectBtnClicked
 {
+    if (!reach.isReachable) {
+        [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+        return;
+    }
     if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
@@ -316,6 +346,10 @@
 
 - (void)privateBtnClicked
 {
+    if (!reach.isReachable) {
+        [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+        return;
+    }
     if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
@@ -326,6 +360,10 @@
 
 - (void)msgBtnClicked
 {
+    if (!reach.isReachable) {
+        [SVProgressHUD showErrorWithStatus:@"网络服务不稳定，请稍后再试"];
+        return;
+    }
     if (![LSUserManager getIsLogin]) {
         [LSAppDelegate showLoginView:self];
         return;
