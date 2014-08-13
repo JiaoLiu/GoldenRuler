@@ -69,14 +69,14 @@
         
         
         CGRect frame = CGRectMake(10, 0, 0, 0);
-        CGSize size = [question.title sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(SCREEN_WIDTH-20, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize size = [question.title sizeWithFont:[UIFont systemFontOfSize:18] constrainedToSize:CGSizeMake(SCREEN_WIDTH-20, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         frame.size = size;
         UILabel *label = [[UILabel alloc]initWithFrame:frame];//题目描述label
         label.text = [NSString stringWithFormat:@"%d.%@",index,question.title];
         
         label.numberOfLines = 0;
         label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.font = [UIFont systemFontOfSize:14];
+        label.font = [UIFont systemFontOfSize:16];
         UIView *hv = [[UIView alloc]initWithFrame:frame];
         [hv addSubview:label];
         
