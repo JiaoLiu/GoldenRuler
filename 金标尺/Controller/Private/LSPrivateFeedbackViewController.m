@@ -119,7 +119,9 @@
 
 - (void)sendFeedBack
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:[NSString stringWithFormat:@"/Index/message?client=apple&tel=%@&content=%@",phoneTextField.text,feedBackTextView.text]]]];
+    NSString *urlStr = [NSString stringWithFormat:@"/Index/message?client=apple&tel=%@&content=%@",phoneTextField.text,feedBackTextView.text];
+    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString:urlStr]]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [data mutableObjectFromJSONData];
