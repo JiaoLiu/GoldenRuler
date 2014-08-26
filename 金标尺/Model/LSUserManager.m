@@ -143,6 +143,15 @@
     [USER_DEFAULT synchronize];
 }
 
++ (void)setHidePay:(int)iospb
+{
+    if (iospb == 1) {
+        [USER_DEFAULT setObject:@"Y" forKey:@"_HIDE_PAY_"];
+    }
+    else [USER_DEFAULT setObject:@"N" forKey:@"_HIDE_PAY_"];
+    [USER_DEFAULT synchronize];
+}
+
 #pragma mark - get User Info
 + (BOOL)getIsLogin
 {
@@ -244,6 +253,14 @@
 {
     NSString *key = [NSString stringWithFormat:@"_USER_PUSH_REV_%d",[LSUserManager getUid]];
     if ([[USER_DEFAULT objectForKey:key] isEqualToString:@"Y"]) {
+        return TRUE;
+    }
+    else return FALSE;
+}
+
++ (BOOL)getHidePay
+{
+    if ([[USER_DEFAULT objectForKey:@"_HIDE_PAY_"] isEqualToString:@"Y"]) {
         return TRUE;
     }
     else return FALSE;

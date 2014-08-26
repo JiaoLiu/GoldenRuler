@@ -48,6 +48,9 @@
         }
         else expireDate = [NSString dateFromString:[LSUserManager getEndTime] Formatter:@"yyy-MM-dd"];
         titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"排行榜",@"我的评论",@"我要充值",@"设置",@"退出登陆"];
+        if ([LSUserManager getHidePay]) {
+            titleArray = @[@"我的资料管理",@"消息推送",@"我的收藏",@"我的错题库",@"排行榜",@"我的评论",@"设置",@"退出登陆"];
+        }
         hasNotice = [LSUserManager getPush];
     }
     return self;
@@ -122,6 +125,9 @@
     [addBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     addBtn.titleLabel.font = [UIFont systemFontOfSize:11];
+    if ([LSUserManager getHidePay]) {
+        addBtn.hidden = YES;
+    }
     [headerBackView addSubview:addBtn];
     
     if (!isVip) {
@@ -298,11 +304,22 @@
             break;
         case 6:
         {
+            if ([LSUserManager getHidePay]) {
+                LSPrivateSettingViewController *settingVC = [[LSPrivateSettingViewController alloc] init];
+                [self.navigationController pushViewController:settingVC animated:YES];
+                break;
+            }
             [self addBtnClicked];
         }
             break;
         case 7:
         {
+            if ([LSUserManager getHidePay]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"退出登录" message:@"确定退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alert.tag = LOGOUT_TAG;
+                [alert show];
+                break;
+            }
             LSPrivateSettingViewController *settingVC = [[LSPrivateSettingViewController alloc] init];
             [self.navigationController pushViewController:settingVC animated:YES];
         }

@@ -31,6 +31,7 @@
 + (void)setUserCity:(NSString *)city;
 + (void)setPush:(int)push;
 + (void)setRevPush:(BOOL)status;
++ (void)setHidePay:(int)iospb;
 
 // get user data
 + (BOOL)getIsLogin;
@@ -51,5 +52,6 @@
 + (NSString *)getUserCity;
 + (BOOL)getPush;
 + (BOOL)RevPush;
++ (BOOL)getHidePay;
 
 @end

@@ -205,6 +205,7 @@
             [LSUserManager setUserEmail:[data objectForKey:@"email"]];
             [LSUserManager setPush:[[data objectForKey:@"push"] integerValue]];
             [LSUserManager setEndTime:[data objectForKey:@"endtime"]];
+            [LSUserManager setHidePay:[[data objectForKey:@"iospb"] integerValue]];
             if ([LSUserManager RevPush]) {
                 newMsg.hidden = [LSUserManager getPush] == 0 ? YES : NO;
             }
