@@ -208,7 +208,7 @@
 {
     NSString *filePath = [USER_DEFAULT objectForKey:@"_USER_IMG_"];
     UIImage *image = [UIImage imageWithContentsOfFile:filePath];
-    return image;
+    return image == nil ? [UIImage imageNamed:@"default_header@2x.jpg"] : image;
 }
 
 + (NSString *)getUserEmail
