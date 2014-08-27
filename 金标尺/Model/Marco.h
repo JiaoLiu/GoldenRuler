@@ -228,7 +228,7 @@ do {                                                                      \
 
 
 //定义一个API
-#define APIURL                @"http://demo.deepinfo.cn/jbc2/index.php/"
+#define APIURL                @"http://shikaochongqing.gotoip3.com/app.php/"
 //登陆API
 #define APILogin              [APIURL stringByAppendingString:@"Index/login"]
 //注册API
