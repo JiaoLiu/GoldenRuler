@@ -110,6 +110,7 @@
     errorTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - 20)];
     errorTable.delegate = self;
     errorTable.dataSource = self;
+    errorTable.rowHeight = 60;
     errorTable.tableFooterView = [UIView new];
     [self.view addSubview:errorTable];
     
@@ -220,13 +221,20 @@
     UITableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (Cell == nil) {
         Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 120, 44)];
-        titleLabel.textColor = [UIColor grayColor];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, SCREEN_WIDTH - 120, 30)];
+        titleLabel.textColor = [UIColor blackColor];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.tag = 100;
         [Cell.contentView addSubview:titleLabel];
         
-        UIButton *checkBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 100, 11, 37.5, 22)];
+        UILabel *subLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, SCREEN_WIDTH - 120, 20)];
+        subLabel.tag = 101;
+        subLabel.textColor = [UIColor grayColor];
+        subLabel.font = [UIFont systemFontOfSize:14.0];
+        subLabel.backgroundColor = [UIColor clearColor];
+        [Cell.contentView addSubview:subLabel];
+        
+        UIButton *checkBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 100, 19, 37.5, 22)];
         [checkBtn setBackgroundImage:[UIImage imageNamed:@"btn_red"] forState:UIControlStateNormal];
         [checkBtn setTitle:@"查看" forState:UIControlStateNormal];
         [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -235,7 +243,7 @@
         [Cell.contentView addSubview:checkBtn];
         
         
-        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 50, 11, 37.5, 22)];
+        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(Cell.frame.size.width - 50, 19, 37.5, 22)];
         [deleteBtn setBackgroundImage:[UIImage imageNamed:@"btn_red"] forState:UIControlStateNormal];
         [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
         [deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -244,10 +252,16 @@
         [Cell.contentView addSubview:deleteBtn];
     }
     
+    NSArray *strArray = [[[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"] componentsSeparatedByString:@"Q."];
+    
     for (UIView *view in [Cell.contentView subviews]) {
         if (view.tag == 100 && [view isKindOfClass:[UILabel class]]) {
             UILabel *title = (UILabel *)view;
-            title.text = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+            title.text = [strArray objectAtIndex:0];
+        }
+        if (view.tag == 101 && [view isKindOfClass:[UILabel class]] && strArray.count > 1) {
+            UILabel *title = (UILabel *)view;
+            title.text = [strArray objectAtIndex:1];
         }
         if ([view isKindOfClass:[UIButton class]]) {
             UIButton *btn = (UIButton *)view;
