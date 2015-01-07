@@ -134,7 +134,7 @@
         return;
     }
     [SVProgressHUD showWithStatus:@"注册中..." maskType:SVProgressHUDMaskTypeBlack];
-    NSString *urlStr = [APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@",usernameField.text,pwdField.text]];
+    NSString *urlStr = [APIRegister stringByAppendingString:[NSString stringWithFormat:@"?name=%@&pwd=%@&client=1",usernameField.text,pwdField.text]];
     urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
     NSOperationQueue *queue = [NSOperationQueue currentQueue];
