@@ -13,20 +13,30 @@ Now this app can :<br>
 -Liu jiao <br>
 -2015/1/7 <br>
 
-Register
+Main
 
-![image](https://github.com/JiaoLiu/WeChat/blob/master/ScreenShots/Register.png)
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/main.png)
 
-Login
+Contest
 
-![image](https://github.com/JiaoLiu/WeChat/blob/master/ScreenShots/Login.png)
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/chooseType.png)
 
-List
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/chooseCourse.png)
 
-![image](https://github.com/JiaoLiu/WeChat/blob/master/ScreenShots/List.png)
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/practice.png)
 
-Chat
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/contest.png)
 
-![image](https://github.com/JiaoLiu/WeChat/blob/master/ScreenShots/Chat1.png)
+Scores
 
-![image](https://github.com/JiaoLiu/WeChat/blob/master/ScreenShots/Chat2.png)
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/rank.png)
+
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/myExam.png)
+
+Daily News
+
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/dailyChoice.png)
+
+Profile
+
+![image](https://github.com/JiaoLiu/GoldenRuler/blob/master/Screenshots/myProfile.png)
